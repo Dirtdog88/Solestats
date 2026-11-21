@@ -2,7 +2,7 @@
 // Resumable: runs already in the file are skipped, so a crash or a cap just means running it again.
 //
 //   node scripts/2026-11-21-run.js --round 2026-12 --engines anthropic,openai,gemini --repeats 3
-//   options: --set shoe|h2h|scan|retailer (repeatable, default all)  --limit N  --dry-run  --cap-usd 60  --concurrency 3
+//   options: --set shoe|h2h|scan|retailer (repeatable, default all)  --ids S001,S005  --limit N  --dry-run  --cap-usd 60  --concurrency 3
 //
 // Keys: SOLESTATS_ANTHROPIC_KEY (or ANTHROPIC_API_KEY on a PC), OPENAI_API_KEY, GEMINI_API_KEY, PERPLEXITY_API_KEY.
 // Set spend caps at each provider too.
@@ -16,12 +16,14 @@ const round = args.round || new Date().toISOString().slice(0, 7);
 const engines = (args.engines || 'anthropic,openai,gemini').split(',').map(s => s.trim()).filter(Boolean);
 const repeats = Number(args.repeats || 3);
 const sets = [].concat(args.set || []).filter(Boolean);
+const ids = String(args.ids || '').split(',').map(s => s.trim()).filter(Boolean);
 const capUsd = Number(args['cap-usd'] || 150);
 const concurrency = Number(args.concurrency || 3);
 for (const e of engines) if (!ENGINES[e]) { console.error(`unknown engine ${e}; known: ${Object.keys(ENGINES).join(', ')}`); process.exit(1); }
 
 const prompts = parseCsv(readFileSync(new URL('../data/2026-11-21-prompts.csv', import.meta.url), 'utf8'))
   .filter(p => !sets.length || sets.includes(p.set))
+  .filter(p => !ids.length || ids.includes(p.id))
   .slice(0, args.limit ? Number(args.limit) : undefined);
 
 const dir = new URL(`../data/rounds/${round}/`, import.meta.url);

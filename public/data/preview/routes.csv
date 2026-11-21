@@ -1,0 +1,13 @@
+run_id,prompt_id,engine,repeat,retailer,url
+preview/S001/openai/1,S001,openai,1,brand-site,https://www.asics.com/us/en-us/gel-excite/c/aa50131000/?src=productPreviewModal%252F%252F%252F%252F%252F&srule=price-low-to-high&utm_source=openai
+preview/S001/openai/1,S001,openai,1,rei,https://www.opt-outside.rei.com/learn/expert-advice/how-should-running-shoes-fit.html?utm_source=openai
+preview/S001/anthropic/1,S001,anthropic,1,fleet-feet,
+preview/S005/openai/1,S005,openai,1,brand-site,https://www.asics.com/us/en-us/novablast/c/aa50123800/men/?utm_source=openai
+preview/S016/openai/1,S016,openai,1,brand-site,https://www.nike.com/t/vomero-premium-sp-mens-road-running-shoes-l11miwwa/HQ2050-702?utm_source=openai
+preview/S024/openai/1,S024,openai,1,brand-site,https://www.asics.com/us/en-us/blog/gt-2000-everything-you-need-to-know/?msockid=20619a87b05469a900eb8cc5b14e687f&utm_source=openai
+preview/S028/openai/1,S028,openai,1,brand-site,https://stores.brooksrunning.com/product/2461546/brooks-running-mens-ghost-18?location=Falls+Church+VA&sort=price-high-to-low&store=14488&utm_source=openai
+preview/S036/openai/1,S036,openai,1,brand-site,https://www.newbalance.com/pd/fresh-foam-x-880v15/W880W15-D-05.html?utm_source=openai
+preview/S044/openai/1,S044,openai,1,brand-site,https://about.nike.com/en/newsroom/releases/nike-alphafly-4-helps-more-runners-go-the-distance-with-speed-and-confidence?utm_source=openai
+preview/S071/openai/1,S071,openai,1,brand-site,https://www.topoathletic.com/mens-magnifly?utm_source=openai
+preview/S085/anthropic/1,S085,anthropic,1,fleet-feet,
+preview/S085/openai/1,S085,openai,1,brand-site,https://www.brooksrunning.com/en_us/womens/shoes/?tid=sem%3AGOOGLE%3AFR%7CSearch%7CBrand%7CConvert%7CText+ad%7CAll+Products%3ABrooks%7CDrop%3A%2Bbrooks+%2Bdrop&utm_source=openai

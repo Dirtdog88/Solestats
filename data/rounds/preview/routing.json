@@ -1,0 +1,11 @@
+{
+  "shoes": {
+    "answers": 20,
+    "with_route": 11,
+    "by_retailer": {
+      "brand-site": 9,
+      "rei": 1,
+      "fleet-feet": 2
+    }
+  }
+}
