@@ -35,6 +35,35 @@ export function findMentions(answer, matchers) {
   return found.map((f, i) => ({ brand_slug: f.slug, category: f.category, position: i + 1, top_pick: i === 0 ? 1 : 0 }));
 }
 
+// Phrases that introduce an explicit recommendation. The brand named right after one of these is the top pick.
+const VERDICT = /(?:i(?:'d| would) (?:go with|pick|choose|recommend|start with|buy)|my (?:top )?(?:pick|recommendation|choice)(?: would be| is|:)|(?:the )?(?:best|safest) (?:overall|choice|bet|pick|option)(?: is| would be|:)|if you (?:can )?only (?:buy|get|own|pick) one(?: pair| shoe)?(?:[,:]| is| would be| go with| get)|(?:^|\n)\**(?:top pick|best overall|our pick|my pick|verdict)\**:?\s*|start with(?: the)?|go with(?: the)?)\s*(?:the\s+)?([^\n.;]{1,80})/gi;
+
+/**
+ * Which mentioned brand the answer actually recommends: the first brand named after an explicit verdict phrase,
+ * otherwise the first brand mentioned. Returns a new mentions array with top_pick set on exactly one entry.
+ * (First mention alone is skewed by quoted snippets that name several brands before the model's own pick.)
+ */
+export function markTopPick(answer, mentions, matchers) {
+  if (!mentions.length) return mentions;
+  let pick = null;
+  VERDICT.lastIndex = 0;
+  let m;
+  while (!pick && (m = VERDICT.exec(answer))) {
+    const tail = m[1];
+    let best = null;
+    for (const mm of matchers) {
+      if (!mentions.some(x => x.brand_slug === mm.slug)) continue;
+      for (const re of mm.patterns) {
+        const hit = new RegExp(re.source, re.flags.replace('g', '')).exec(tail);
+        if (hit && (!best || hit.index < best.at)) best = { slug: mm.slug, at: hit.index };
+      }
+    }
+    if (best) pick = best.slug;
+  }
+  const slug = pick || mentions[0].brand_slug;
+  return mentions.map(x => ({ ...x, top_pick: x.brand_slug === slug ? 1 : 0 }));
+}
+
 /** Head-to-head: which of the two named brands the answer recommends. Returns a slug, 'tie' or 'unclear'. */
 export function pickWinner(answer, a, b, matchers) {
   const text = answer.toLowerCase();
@@ -82,7 +111,8 @@ export function classifyCitation(url, brands, retailers) {
   return { domain, kind: 'other' };
 }
 
-/** Where the answer sends the shopper: retailers named in the text, plus retailer and brand-site citations. */
+/** Where the answer sends the shopper: retailers named in the text, plus retailer and brand-site citations the answer
+ *  attributed. Pages a search merely returned are not routes. */
 export function findRoutes(answer, citations, brands, retailers) {
   const routes = new Map();
   const put = (slug, url) => { if (!routes.has(slug)) routes.set(slug, { retailer_slug: slug, url: url || null }); };

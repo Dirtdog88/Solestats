@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parseCsv } from '../src/2026-11-21-csv.js';
-import { brandMatchers, findMentions, pickWinner, classifyCitation, findRoutes } from '../src/2026-11-21-detect.js';
+import { brandMatchers, findMentions, markTopPick, pickWinner, classifyCitation, findRoutes } from '../src/2026-11-21-detect.js';
 
 const brands = parseCsv(readFileSync(new URL('../data/2026-11-21-brands.csv', import.meta.url), 'utf8'));
 const retailers = parseCsv(readFileSync(new URL('../data/2026-11-21-retailers.csv', import.meta.url), 'utf8'));
@@ -46,4 +46,21 @@ test('classifyCitation knows brand sites, retailers, review sites, forums', () =
 test('findRoutes picks up named retailers, run specialty and brand-site language, and retailer citations', () => {
   const routes = findRoutes("You can find them on Amazon or at Running Warehouse; your local running store will fit you. Or buy direct from the brand's site.", [{ url: 'https://www.rei.com/product/1' }], brands, retailers);
   assert.deepEqual(routes.map(r => r.retailer_slug).sort(), ['amazon', 'brand-site', 'local', 'rei', 'running-warehouse']);
+});
+
+test('markTopPick follows an explicit verdict over first mention, and falls back to first mention', () => {
+  const spliced = 'Popular models like the Saucony Ride, Brooks Ghost and HOKA Clifton make excellent shoes for beginners.\n\nIf you only buy one pair: the Brooks Ghost 17. Get fitted at a local running store.';
+  const m = markTopPick(spliced, findMentions(spliced, matchers), matchers);
+  assert.deepEqual(m.filter(x => x.top_pick).map(x => x.brand_slug), ['brooks']);
+  assert.equal(m[0].brand_slug, 'saucony'); // order of mention is unchanged
+  const plain = 'The Hoka Clifton is soft; the Brooks Ghost is firmer.';
+  assert.deepEqual(markTopPick(plain, findMentions(plain, matchers), matchers).filter(x => x.top_pick).map(x => x.brand_slug), ['hoka']);
+  const verdict = "Both work. I'd go with Asics here, the Novablast is lighter than the Nike Pegasus.";
+  assert.deepEqual(markTopPick(verdict, findMentions(verdict, matchers), matchers).filter(x => x.top_pick).map(x => x.brand_slug), ['asics']);
+  assert.deepEqual(markTopPick('nothing here', [], matchers), []);
+});
+
+test('findRoutes ignores pages a search merely returned', () => {
+  const routes = findRoutes('Buy a neutral trainer and get fitted.', [], brands, retailers);
+  assert.deepEqual(routes, []);
 });

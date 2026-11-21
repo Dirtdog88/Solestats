@@ -62,6 +62,12 @@ test('scoreSourced and scoreRouting look only at answers that name the brand', (
   ];
   const retailers = [{ slug: 'amazon', kind: 'marketplace' }, { slug: 'fleet-feet', kind: 'run-specialty' }];
   assert.equal(scoreSourced(brooks, runs).score, 50);
+  assert.equal(scoreSourced(brooks, runs).detail.basis, 'cited');
+  // Only searched pages: they become the basis, and the detail says so.
+  const searchedOnly = [run('S1', 1, ['brooks'], { citations: [{ kind: 'review', source: 'searched' }, { kind: 'other', source: 'searched' }], routes: [] }), run('S1', 2, ['brooks'], { citations: [], routes: [] })];
+  assert.equal(scoreSourced(brooks, searchedOnly).score, 50);
+  assert.equal(scoreSourced(brooks, searchedOnly).detail.basis, 'searched');
+  assert.equal(scoreSourced(brooks, searchedOnly).detail.unsourced, 1);
   assert.equal(scoreRouting(brooks, runs, retailers).score, 50);
   assert.equal(scoreRouting(hoka, runs, retailers).score, 0);
 });

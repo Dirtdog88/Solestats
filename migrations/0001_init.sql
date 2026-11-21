@@ -47,7 +47,9 @@ CREATE TABLE IF NOT EXISTS runs (
   prompt_text TEXT NOT NULL,         -- as sent (head-to-head order alternates by repeat)
   status TEXT NOT NULL,              -- ok | error
   answer TEXT,
-  citations_json TEXT,               -- [{url, title}] as the engine returned them
+  citations_json TEXT,               -- [{url, title}] the answer attributed
+  searched_json TEXT,                -- [{url, title}] a web search returned but the answer did not attribute
+  searches INTEGER,                  -- how many web searches ran (0 = answered from memory)
   raw_json TEXT,                     -- the whole response, for audit
   input_tokens INTEGER,
   output_tokens INTEGER,
@@ -74,6 +76,7 @@ CREATE TABLE IF NOT EXISTS citations (
   url TEXT NOT NULL,
   domain TEXT NOT NULL,
   kind TEXT NOT NULL,                -- brand | review | forum | retailer | news | other
+  source TEXT NOT NULL DEFAULT 'cited', -- cited (attributed by the answer) | searched (returned by a search only)
   brand_slug TEXT,
   retailer_slug TEXT,
   PRIMARY KEY (run_id, url)

@@ -66,15 +66,22 @@ export function scoreAccurate(checks) {
   return { score: round1(pct(right, checks.length)), margin: round1(sd(perRepeat)), n: checks.length, detail: { not_sure_rate: round1(pct(notSure, checks.length)), by_fact: Object.fromEntries(Object.entries(byFact).map(([k, v]) => [k, round1(pct(v.right, v.n))])) } };
 }
 
-/** Sourced = share of citations in answers that name the brand which are brand-owned or established review sites. */
+/**
+ * Sourced = share of sources, in answers that name the brand, that are brand-owned or established review sites.
+ * Attributed citations (source 'cited') are the basis when an engine returns any; otherwise the pages its searches
+ * returned ('searched'), and detail.basis says which. Answers with no sources at all are counted in detail.unsourced.
+ */
 export function scoreSourced(brand, runs) {
   const rel = runs.filter(r => r.status === 'ok' && r.mentions.some(m => m.brand_slug === brand.slug));
-  const cites = rel.flatMap(r => r.citations || []);
-  if (!cites.length) return { score: null, margin: null, n: 0, detail: {} };
+  const all = rel.flatMap(r => r.citations || []);
+  const cited = all.filter(c => c.source !== 'searched');
+  const cites = cited.length ? cited : all;
+  const unsourced = rel.filter(r => !(r.citations || []).length).length;
+  if (!cites.length) return { score: null, margin: null, n: 0, detail: { unsourced, answers: rel.length } };
   const kinds = {};
   for (const c of cites) kinds[c.kind] = (kinds[c.kind] || 0) + 1;
   const good = (kinds.brand || 0) + (kinds.review || 0);
-  return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)) } };
+  return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { basis: cited.length ? 'cited' : 'searched', kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)), unsourced, answers: rel.length } };
 }
 
 /** Where the sale goes = share of routes, in answers that name the brand, going to the brand's own site or run specialty. */

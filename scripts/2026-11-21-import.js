@@ -3,7 +3,7 @@
 //   node scripts/2026-11-21-import.js --round 2026-12 > data/rounds/2026-12/import.sql
 import { readFileSync, writeFileSync } from 'node:fs';
 import { parseCsv, sql } from '../src/2026-11-21-csv.js';
-import { brandMatchers, findMentions, pickWinner, classifyCitation, findRoutes } from '../src/2026-11-21-detect.js';
+import { brandMatchers, findMentions, markTopPick, pickWinner, classifyCitation, findRoutes } from '../src/2026-11-21-detect.js';
 
 const round = (process.argv.indexOf('--round') > -1 && process.argv[process.argv.indexOf('--round') + 1]) || null;
 if (!round) { console.error('usage: --round <id>'); process.exit(1); }
@@ -17,11 +17,15 @@ const runs = readFileSync(new URL('runs.jsonl', dir), 'utf8').split('\n').filter
 const out = [`INSERT OR REPLACE INTO rounds (id,started_at,engines,repeats,notes) VALUES (${[round, runs[0]?.created_at || new Date().toISOString(), [...new Set(runs.map(r => r.engine))].join(';'), Math.max(...runs.map(r => r.repeat_no))].map(sql).join(',')}, NULL);`];
 const scored = [];
 for (const r of runs) {
-  out.push(`INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at) VALUES (${[r.id, r.round_id, r.prompt_id, r.engine, r.model, r.repeat_no, r.prompt_text, r.status, r.answer, r.citations ? JSON.stringify(r.citations) : null, r.input_tokens, r.output_tokens, r.cost_usd, r.latency_ms, r.error, r.created_at].map(sql).join(',')});`);
+  out.push(`INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at) VALUES (${[r.id, r.round_id, r.prompt_id, r.engine, r.model, r.repeat_no, r.prompt_text, r.status, r.answer, r.citations ? JSON.stringify(r.citations) : null, r.searched ? JSON.stringify(r.searched) : null, r.searches ?? null, r.input_tokens, r.output_tokens, r.cost_usd, r.latency_ms, r.error, r.created_at].map(sql).join(',')});`);
   if (r.status !== 'ok') { scored.push(r); continue; }
   const p = byPrompt[r.prompt_id] || {};
-  const mentions = findMentions(r.answer || '', matchers);
-  const citations = (r.citations || []).map(c => ({ ...c, ...classifyCitation(c.url, brands, retailers) }));
+  const mentions = markTopPick(r.answer || '', findMentions(r.answer || '', matchers), matchers);
+  // Attributed citations and merely-searched pages are both kept, told apart by source.
+  const citations = [
+    ...(r.citations || []).map(c => ({ ...c, source: 'cited', ...classifyCitation(c.url, brands, retailers) })),
+    ...(r.searched || []).filter(c => !(r.citations || []).some(x => x.url === c.url)).map(c => ({ ...c, source: 'searched', ...classifyCitation(c.url, brands, retailers) })),
+  ];
   const routes = findRoutes(r.answer || '', r.citations || [], brands, retailers);
   let winner = null;
   if (p.set === 'h2h') {
@@ -29,7 +33,7 @@ for (const r of runs) {
     winner = pickWinner(r.answer || '', a, b, matchers);
   }
   for (const m of mentions) out.push(`INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES (${[r.id, m.brand_slug, m.position, m.top_pick].map(sql).join(',')});`);
-  for (const c of citations) if (c.url) out.push(`INSERT OR REPLACE INTO citations (run_id,url,domain,kind,brand_slug,retailer_slug) VALUES (${[r.id, c.url, c.domain, c.kind, c.brand_slug, c.retailer_slug].map(sql).join(',')});`);
+  for (const c of citations) if (c.url) out.push(`INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES (${[r.id, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug].map(sql).join(',')});`);
   for (const rt of routes) out.push(`INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES (${[r.id, rt.retailer_slug, '', rt.url].map(sql).join(',')});`);
   scored.push({ ...r, mentions, citations, routes, winner });
 }

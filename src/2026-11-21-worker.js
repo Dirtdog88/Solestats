@@ -73,11 +73,11 @@ async function api(url, env) {
 async function download(url, env) {
   const [, round, file] = url.pathname.split('/').filter(Boolean);
   const q = {
-    'answers.csv': 'SELECT id AS run_id, prompt_id, engine, model, repeat_no, prompt_text, status, answer, citations_json, created_at FROM runs WHERE round_id = ? ORDER BY id',
+    'answers.csv': 'SELECT id AS run_id, prompt_id, engine, model, repeat_no, prompt_text, status, answer, citations_json, searched_json, searches, created_at FROM runs WHERE round_id = ? ORDER BY id',
     'mentions.csv': 'SELECT m.run_id, r.prompt_id, r.engine, r.repeat_no, m.brand_slug, m.position, m.top_pick FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? ORDER BY m.run_id',
     'routes.csv': 'SELECT rt.run_id, r.prompt_id, r.engine, r.repeat_no, rt.retailer_slug, rt.url FROM routes rt JOIN runs r ON r.id = rt.run_id WHERE r.round_id = ? ORDER BY rt.run_id',
     'scores.csv': 'SELECT brand_slug, subject, score, margin, n, detail_json FROM scores WHERE round_id = ? ORDER BY brand_slug, subject',
-    'citations.csv': 'SELECT c.run_id, r.prompt_id, r.engine, c.url, c.domain, c.kind, c.brand_slug, c.retailer_slug FROM citations c JOIN runs r ON r.id = c.run_id WHERE r.round_id = ? ORDER BY c.run_id',
+    'citations.csv': 'SELECT c.run_id, r.prompt_id, r.engine, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug FROM citations c JOIN runs r ON r.id = c.run_id WHERE r.round_id = ? ORDER BY c.run_id',
     'prompts.csv': 'SELECT id, set_name, category, text, tags, pair_a, pair_b FROM prompts WHERE ? IS NOT NULL ORDER BY id',
   }[file];
   if (!round || !q) return json({ error: 'not found' }, 404);
