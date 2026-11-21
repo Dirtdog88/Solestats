@@ -97,7 +97,7 @@ async function download(url, env) {
 }
 
 async function latestRound(env) {
-  const r = await env.DB.prepare('SELECT id FROM rounds ORDER BY id DESC LIMIT 1').first();
+  const r = await env.DB.prepare('SELECT id FROM rounds ORDER BY started_at DESC, id DESC LIMIT 1').first();
   return r ? r.id : null;
 }
 

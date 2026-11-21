@@ -40,8 +40,10 @@ export function defined(tag, key, attrs = {}) {
 export function installTips() {
   const tip = document.getElementById('tip');
   if (!tip) return;
-  const show = node => { const [label, text] = DEFINITIONS[node.dataset.def] || []; if (!text) return; tip.replaceChildren(el('b', {}, label), text); tip.hidden = false; };
-  document.addEventListener('click', e => { const n = e.target.closest('[data-def]'); if (n) { e.preventDefault(); show(n); } else tip.hidden = true; });
+  let shownAt = 0;
+  const show = node => { const [label, text] = DEFINITIONS[node.dataset.def] || []; if (!text) return; tip.replaceChildren(el('b', {}, label), text); tip.hidden = false; shownAt = Date.now(); };
+  // A tap focuses first (which shows the tip) and then clicks; the click must not hide what the focus just showed.
+  document.addEventListener('click', e => { const n = e.target.closest('[data-def]'); if (n) { e.preventDefault(); show(n); } else if (!e.target.closest('#tip') && Date.now() - shownAt > 400) tip.hidden = true; });
   document.addEventListener('focusin', e => { const n = e.target.closest('[data-def]'); if (n) show(n); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') tip.hidden = true; });
 }
