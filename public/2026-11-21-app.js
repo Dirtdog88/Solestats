@@ -24,7 +24,8 @@ function brandTable(brands, subjects) {
   const [first, ...rest] = subjects;
   const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', first), ...rest.map(s => defined('th', s, { class: 'num sec' })));
   const sorted = [...brands].sort((a, b) => (b.scores[subjects[0]]?.score ?? -1) - (a.scores[subjects[0]]?.score ?? -1) || a.name.localeCompare(b.name));
-  const rows = sorted.map(b => el('tr', {}, el('td', {}, el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)), barCell(b.scores[first]), ...rest.map(s => scoreCell(b.scores[s], 'sec'))));
+  // Lane numbers: the rank by the first subject, only for brands that have it.
+  const rows = sorted.map((b, i) => el('tr', {}, el('td', {}, b.scores[first]?.score != null ? el('span', { class: 'lane' }, String(i + 1)) : '', el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)), barCell(b.scores[first]), ...rest.map(s => scoreCell(b.scores[s], 'sec'))));
   return el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows));
 }
 
