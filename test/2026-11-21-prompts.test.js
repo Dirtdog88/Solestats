@@ -27,6 +27,22 @@ test('outside the head-to-head set, no prompt names a brand', () => {
   assert.deepEqual(offenders, []);
 });
 
+test('the monthly pulse is about 30 prompts, none head-to-head, spread across the need groups', () => {
+  const pulse = prompts.filter(p => p.pulse === '1');
+  assert.ok(pulse.length >= 28 && pulse.length <= 32, String(pulse.length));
+  assert.equal(pulse.filter(p => p.set === 'h2h').length, 0);
+  assert.equal(pulse.filter(p => p.set === 'retailer').length, 2);
+  const tags = new Set(pulse.flatMap(p => (p.tags || '').split(';')));
+  for (const t of ['beginner', 'budget', 'max-cushion', 'stability', 'wide', 'racing', 'trail', 'zero-drop', 'treadmill', 'women']) assert.ok(tags.has(t), t);
+});
+
+test('the Shoppable checklist has twelve items with a question and a way to check each', () => {
+  const items = parseCsv(readFileSync(new URL('../data/2026-11-21-shoppable-checklist.csv', import.meta.url), 'utf8'));
+  assert.equal(items.length, 12);
+  assert.equal(new Set(items.map(i => i.item)).size, 12);
+  for (const i of items) assert.ok(i.question.length > 20 && i.how_to_check.length > 20, i.item);
+});
+
 test('every shoe prompt carries at least one need tag, and head-to-head rows name both brands', () => {
   for (const p of prompts.filter(p => p.set === 'shoe')) assert.ok(p.tags, `${p.id} has no tags`);
   for (const p of prompts.filter(p => p.set === 'h2h')) {

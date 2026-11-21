@@ -11,7 +11,7 @@ for (const b of read('2026-11-21-brands.csv'))
 for (const r of read('2026-11-21-retailers.csv'))
   out.push(`INSERT OR REPLACE INTO retailers (slug,name,kind,domains) VALUES (${[r.slug, r.name, r.kind, r.domains].map(sql).join(',')});`);
 for (const p of read('2026-11-21-prompts.csv'))
-  out.push(`INSERT OR REPLACE INTO prompts (id,set_name,category,text,tags,pair_a,pair_b) VALUES (${[p.id, p.set, p.category, p.text, p.tags, p.pair_a, p.pair_b].map(sql).join(',')});`);
+  out.push(`INSERT OR REPLACE INTO prompts (id,set_name,category,text,tags,pulse,pair_a,pair_b) VALUES (${[p.id, p.set, p.category, p.text, p.tags, Number(p.pulse || 0), p.pair_a, p.pair_b].map(sql).join(',')});`);
 try {
   for (const m of read('2026-11-21-spec-sheet.csv')) {
     if (!m.verified_on) continue; // only verified rows go to the database

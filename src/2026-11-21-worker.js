@@ -89,7 +89,7 @@ async function download(url, env) {
     'routes.csv': 'SELECT rt.run_id, r.prompt_id, r.engine, r.repeat_no, rt.retailer_slug, rt.url FROM routes rt JOIN runs r ON r.id = rt.run_id WHERE r.round_id = ? ORDER BY rt.run_id',
     'scores.csv': 'SELECT brand_slug, subject, score, margin, n, detail_json FROM scores WHERE round_id = ? ORDER BY brand_slug, subject',
     'citations.csv': 'SELECT c.run_id, r.prompt_id, r.engine, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug FROM citations c JOIN runs r ON r.id = c.run_id WHERE r.round_id = ? ORDER BY c.run_id',
-    'prompts.csv': 'SELECT id, set_name, category, text, tags, pair_a, pair_b FROM prompts WHERE ? IS NOT NULL ORDER BY id',
+    'prompts.csv': 'SELECT id, set_name, category, text, tags, pulse, pair_a, pair_b FROM prompts WHERE ? IS NOT NULL ORDER BY id',
   }[file];
   if (!round || !q) return json({ error: 'not found' }, 404);
   const { results } = await env.DB.prepare(q).bind(round).all();

@@ -2,7 +2,7 @@
 // Resumable: runs already in the file are skipped, so a crash or a cap just means running it again.
 //
 //   node scripts/2026-11-21-run.js --round 2026-12 --engines anthropic,openai,gemini --repeats 3
-//   options: --set shoe|h2h|scan|retailer (repeatable, default all)  --ids S001,S005  --limit N  --dry-run  --cap-usd 60  --concurrency 3
+//   options: --set shoe|h2h|retailer|pulse (repeatable, default all; pulse = the ~30 monthly prompts)  --ids S001,S005  --limit N  --dry-run  --cap-usd 60  --concurrency 3
 //
 // Keys: SOLESTATS_ANTHROPIC_KEY (or ANTHROPIC_API_KEY on a PC), OPENAI_API_KEY, GEMINI_API_KEY, PERPLEXITY_API_KEY.
 // Set spend caps at each provider too.
@@ -22,7 +22,7 @@ const concurrency = Number(args.concurrency || 3);
 for (const e of engines) if (!ENGINES[e]) { console.error(`unknown engine ${e}; known: ${Object.keys(ENGINES).join(', ')}`); process.exit(1); }
 
 const prompts = parseCsv(readFileSync(new URL('../data/2026-11-21-prompts.csv', import.meta.url), 'utf8'))
-  .filter(p => !sets.length || sets.includes(p.set))
+  .filter(p => !sets.length || sets.includes(p.set) || (sets.includes('pulse') && p.pulse === '1'))
   .filter(p => !ids.length || ids.includes(p.id))
   .slice(0, args.limit ? Number(args.limit) : undefined);
 

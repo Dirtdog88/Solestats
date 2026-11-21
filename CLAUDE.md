@@ -50,8 +50,12 @@ Add nothing else without a strong reason.
   pending. Clear the entry once their runs are imported.
 - New files use dated names `YYYY-MM-DD-name.ext` except the ones tools require (`wrangler.toml`, `package.json`,
   `migrations/NNNN_*.sql`, `README.md`, `CLAUDE.md`, `.gitignore`, workflow files).
-- Publishing waits for the gate in Alex's consulting plan (employment attorney, then Gannon). Until then
-  `PREVIEW_NOTICE` in `wrangler.toml` stays set and the site is not announced.
+- The publishing gate (employment attorney, then Gannon) was cleared on 2026-11-21. `PREVIEW_NOTICE` in
+  `wrangler.toml` stays set until the first full edition (all three engines, three repeats) is imported, then it
+  is set to "" and the site can be announced.
+- Cadence: a full round every quarter; a monthly pulse of the prompts with `pulse = 1` (`npm run run -- --set pulse`).
+- Shoppable by AI is the checklist in `data/2026-11-21-shoppable-checklist.csv`, scored by hand per brand per round
+  into `data/rounds/<round>/site-checks.jsonl` ({brand_slug, item, result 1|0, notes}).
 
 ## Checks before pushing
 

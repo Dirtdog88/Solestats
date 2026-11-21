@@ -15,4 +15,5 @@ writeFileSync(new URL('mentions.csv', out), toCsv(runs.flatMap(r => (r.mentions 
 writeFileSync(new URL('routes.csv', out), toCsv(runs.flatMap(r => (r.routes || []).map(x => ({ run_id: r.id, prompt_id: r.prompt_id, engine: r.engine, repeat: r.repeat_no, retailer: x.retailer_slug, url: x.url || '' }))), ['run_id', 'prompt_id', 'engine', 'repeat', 'retailer', 'url']));
 for (const f of ['scores.csv']) { try { copyFileSync(new URL(f, dir), new URL(f, out)); } catch { /* not scored yet */ } }
 copyFileSync(new URL('../data/2026-11-21-prompts.csv', import.meta.url), new URL('prompts.csv', out));
+copyFileSync(new URL('../data/2026-11-21-shoppable-checklist.csv', import.meta.url), new URL('shoppable-checklist.csv', out));
 console.log(`exported to public/data/${round}/`);
