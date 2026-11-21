@@ -112,16 +112,32 @@ export function scoreSourced(brand, runs) {
   return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { ...counts, kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)), intl_own_site: intl } };
 }
 
-/** Where the sale goes = share of routes, in answers that name the brand, going to the brand's own site or run specialty. */
+/**
+ * The places one answer sends a shopper for this brand (Alex, 2026-11-21): retailers as they are, and the brand's own
+ * site ('brand-site') when the answer links it or says "the brand's site" in general. Another brand's site is not a
+ * place to buy this brand's shoes, so it is left out (it is a matter for Recommended, not for the channel). Each
+ * place counts once per answer.
+ */
+export function placesFor(brand, run) {
+  const places = new Set();
+  for (const rt of run.routes || []) {
+    if (rt.retailer_slug !== 'brand-site') places.add(rt.retailer_slug);
+    else if (!rt.brand_slug || rt.brand_slug === brand.slug) places.add('brand-site');
+  }
+  return [...places];
+}
+
+/** Where the sale goes = share of the places to buy, in answers that name the brand, that are the brand's own site or
+ *  run specialty. Only the brand's own site counts as its site. */
 export function scoreRouting(brand, runs, retailers) {
   const rel = runs.filter(r => r.status === 'ok' && r.mentions.some(m => m.brand_slug === brand.slug));
-  const routes = rel.flatMap(r => r.routes || []);
-  if (!routes.length) return { score: null, margin: null, n: 0, detail: {} };
+  const places = rel.flatMap(r => placesFor(brand, r));
+  if (!places.length) return { score: null, margin: null, n: 0, detail: {} };
   const kindOf = slug => slug === 'brand-site' ? 'brand' : (retailers.find(x => x.slug === slug) || {}).kind || 'other';
   const tally = {};
-  for (const rt of routes) tally[rt.retailer_slug] = (tally[rt.retailer_slug] || 0) + 1;
-  const good = routes.filter(rt => ['brand', 'run-specialty', 'run-specialty-online'].includes(kindOf(rt.retailer_slug))).length;
-  return { score: round1(pct(good, routes.length)), margin: null, n: routes.length, detail: { by_retailer: tally } };
+  for (const p of places) tally[p] = (tally[p] || 0) + 1;
+  const good = places.filter(p => ['brand', 'run-specialty', 'run-specialty-online'].includes(kindOf(p))).length;
+  return { score: round1(pct(good, places.length)), margin: null, n: places.length, detail: { by_retailer: tally } };
 }
 
 /** Shoppable by AI = share of checklist items passed (the checklist itself is still to be defined). */
@@ -150,7 +166,8 @@ export function routingTable(runs, prompts) {
     out[c] = out[c] || { answers: 0, with_route: 0, by_retailer: {} };
     out[c].answers++;
     if (r.routes && r.routes.length) out[c].with_route++;
-    for (const rt of r.routes || []) out[c].by_retailer[rt.retailer_slug] = (out[c].by_retailer[rt.retailer_slug] || 0) + 1;
+    // Answers per place: several brands' sites in one answer count once as "brand-site".
+    for (const slug of new Set((r.routes || []).map(rt => rt.retailer_slug))) out[c].by_retailer[slug] = (out[c].by_retailer[slug] || 0) + 1;
   }
   return out;
 }

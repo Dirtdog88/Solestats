@@ -42,7 +42,7 @@ for (const r of runs) {
   }
   for (const m of mentions) out.push(`INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES (${[r.id, m.brand_slug, m.position, m.top_pick].map(sql).join(',')});`);
   for (const c of citations) if (c.url) out.push(`INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES (${[r.id, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug].map(sql).join(',')});`);
-  for (const rt of routes) out.push(`INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES (${[r.id, rt.retailer_slug, '', rt.url].map(sql).join(',')});`);
+  for (const rt of routes) out.push(`INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES (${[r.id, rt.retailer_slug, rt.brand_slug || '', rt.url].map(sql).join(',')});`);
   scored.push({ ...r, mentions, citations, routes, winner });
 }
 writeFileSync(new URL('runs.scored.jsonl', dir), scored.map(s => JSON.stringify(s)).join('\n') + '\n');

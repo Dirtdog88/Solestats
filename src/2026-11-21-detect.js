@@ -171,10 +171,12 @@ export function classifyCitation(url, brands, retailers, title = '') {
 }
 
 /** Where the answer sends the shopper: retailers named in the text, plus retailer and brand-site citations the answer
- *  attributed. Pages a search merely returned are not routes. */
+ *  attributed. Pages a search merely returned are not routes. A brand-site route from a citation carries the brand
+ *  whose site it is (brand_slug); one found only in the prose ("the brand's own website") carries none and stands
+ *  for every brand the answer names. */
 export function findRoutes(answer, citations, brands, retailers) {
   const routes = new Map();
-  const put = (slug, url) => { if (!routes.has(slug)) routes.set(slug, { retailer_slug: slug, url: url || null }); };
+  const put = (slug, url, brandSlug = null) => { const key = slug + '|' + (brandSlug || ''); if (!routes.has(key)) routes.set(key, { retailer_slug: slug, brand_slug: brandSlug, url: url || null }); };
   for (const r of retailers) {
     if (r.slug === 'local' || r.slug === 'brand-site') continue;
     const re = new RegExp('\\b' + escapeRe(r.name.replace(/'s Sporting Goods$/, "'s")) + '\\b', 'i');
@@ -185,7 +187,7 @@ export function findRoutes(answer, citations, brands, retailers) {
   for (const c of citations || []) {
     const k = classifyCitation(c.url, brands, retailers, c.title);
     if (k.kind === 'retailer') put(k.retailer_slug, c.url);
-    if (k.kind === 'brand') put('brand-site', c.url);
+    if (k.kind === 'brand') put('brand-site', c.url, k.brand_slug);
   }
   return [...routes.values()];
 }

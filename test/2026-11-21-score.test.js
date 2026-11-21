@@ -110,6 +110,23 @@ test('scoreSourced counts only the brand\'s own sites, not another brand\'s', ()
   assert.deepEqual([r.detail.kinds.brand, r.detail.kinds.other_brand, r.detail.own_site_share], [5, 5, 50]);
 });
 
+test('scoreRouting counts only the brand\'s own site; a competitor\'s site is not a place to buy this brand', () => {
+  const retailers = [{ slug: 'amazon', kind: 'marketplace' }];
+  const runs = [
+    run('S1', 1, ['hoka', 'brooks'], { routes: [{ retailer_slug: 'brand-site', brand_slug: 'brooks' }] }),
+    run('S1', 2, ['hoka', 'brooks'], { routes: [{ retailer_slug: 'brand-site', brand_slug: 'hoka' }, { retailer_slug: 'brand-site', brand_slug: 'brooks' }] }),
+    run('S1', 3, ['hoka'], { routes: [{ retailer_slug: 'brand-site', brand_slug: null }, { retailer_slug: 'amazon' }] }),
+  ];
+  const r = scoreRouting(hoka, runs, retailers);
+  assert.equal(r.n, 3);            // nothing (only Brooks' site), brand-site, brand-site + amazon
+  assert.equal(r.score, 66.7);
+  assert.deepEqual(r.detail.by_retailer, { 'brand-site': 2, amazon: 1 });
+  assert.equal(scoreRouting(brooks, runs, retailers).score, 100); // its own site in both answers that name it
+  // The routing table counts answers: two brands' sites in one answer are one "brand-site".
+  const t = routingTable(runs, [{ id: 'S1', category: 'shoes' }]);
+  assert.deepEqual(t.shoes.by_retailer, { 'brand-site': 3, amazon: 1 });
+});
+
 test('scoreRouting is unchanged by the Sourced rules', () => {
   const runs = [
     run('S1', 1, ['brooks'], { citations: [], routes: [{ retailer_slug: 'amazon' }, { retailer_slug: 'brand-site' }] }),
