@@ -37,12 +37,17 @@ Add nothing else without a strong reason.
 - The scoring rules live only in `src/2026-11-21-score.js`; the rubric text on the method page must match them.
 - The site is public and read-only: no sign-in, no cookies, no writes from the Worker. CSP is strict
   (`script-src 'self'`, no inline scripts or styles). The page is built with `textContent`, never `innerHTML` with data.
-- Start the runner with `npm run run`, never `node scripts/...` directly: the script passes `--use-env-proxy` so `fetch`
-  goes through a cloud session's proxy (Node ignores it otherwise; the Anthropic SDK is unaffected). Harmless on a PC.
-  A cloud session also needs each engine's host on the environment's allowed list (api.openai.com and
-  generativelanguage.googleapis.com were added 2026-11-21).
 - Keys live in the environment, never in the repo. Spend caps are set at each provider as well as `--cap-usd`.
   The Anthropic key is read from `SOLESTATS_ANTHROPIC_KEY` first (cloud sessions drop `ANTHROPIC_API_KEY`), then `ANTHROPIC_API_KEY`.
+- **Cloud sessions** (Claude Code on the web, environment "Dirtdog Collective apps"): Node's `fetch` ignores the session
+  proxy, so start the runner with `npm run run` (it passes `--use-env-proxy`; harmless on a PC) and prefix any other
+  script or wrangler command that calls out with `NODE_USE_ENV_PROXY=1`. Each API host must be on the environment's
+  allowed list (api.openai.com and generativelanguage.googleapis.com were added 2026-11-21). The Cloudflare token is a
+  network secret the proxy injects: D1 commands run as `CLOUDFLARE_API_TOKEN=proxy-injected NODE_USE_ENV_PROXY=1 npx
+  wrangler@4 d1 ...`. `wrangler deploy` does not work from a cloud session (the static-asset upload gets 401), so
+  deploys happen through the Cloudflare GitHub connection on every push to main, or `npm run deploy` on a PC.
+- Engines not yet in the current edition are listed in `PENDING_ENGINES` in `wrangler.toml`; the site shows them as
+  pending. Clear the entry once their runs are imported.
 - New files use dated names `YYYY-MM-DD-name.ext` except the ones tools require (`wrangler.toml`, `package.json`,
   `migrations/NNNN_*.sql`, `README.md`, `CLAUDE.md`, `.gitignore`, workflow files).
 - Publishing waits for the gate in Alex's consulting plan (employment attorney, then Gannon). Until then

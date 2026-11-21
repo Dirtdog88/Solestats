@@ -3,13 +3,7 @@ const SUBJECTS = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 
 const LABELS = { overall: 'Overall', recommended: 'Recommended', accurate: 'Accurate', shoppable: 'Shoppable', sourced: 'Sourced', routing: 'Sale goes home' };
 const CATS = { shoes: 'Shoes', retail: 'Where to buy' };
 
-const el = (tag, attrs = {}, ...kids) => {
-  const n = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) k === 'class' ? n.className = v : k === 'hidden' ? n.hidden = v : n.setAttribute(k, v);
-  for (const k of kids) n.append(k == null ? '' : k);
-  return n;
-};
-const api = p => fetch(p).then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)));
+import { el, api, showEdition } from './2026-11-21-common.js';
 
 function scoreCell(s) {
   if (!s || s.score == null) return el('td', { class: 'num' }, el('span', { class: 'score none' }, '—'));
@@ -42,6 +36,7 @@ async function main() {
   const health = await api('/api/health').catch(() => ({}));
   const notice = document.getElementById('notice');
   if (health.notice) { notice.textContent = health.notice; notice.hidden = false; }
+  showEdition();
   const { brands, round } = await api('/api/brands').catch(() => ({ brands: [], round: null }));
   const list = document.getElementById('brand-list');
   for (const b of brands) list.append(el('option', { value: b.name }));

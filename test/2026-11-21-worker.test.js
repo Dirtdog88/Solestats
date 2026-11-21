@@ -45,3 +45,14 @@ test('csv quotes fields with commas, quotes and newlines', () => {
   assert.equal(csv([{ a: 'x,y', b: 'say "hi"', c: 'l1\nl2' }]), 'a,b,c\n"x,y","say ""hi""","l1\nl2"\n');
   assert.equal(csv([]), '');
 });
+
+test('GET /api/edition lists the engines in the round and the pending ones from PENDING_ENGINES', async () => {
+  const envEd = { ...env, PENDING_ENGINES: 'gemini, openai', DB: fakeDb({ rounds: [{ id: '2026-11', started_at: '2026-11-21T14:00:00Z', repeats: 3 }], runs: [{ engine: 'anthropic', model: 'claude-opus-5-5', runs: 414 }, { engine: 'openai', model: 'gpt-6.2-astra', runs: 414 }] }) };
+  const body = await (await worker.fetch(new Request('https://solestats.com/api/edition'), envEd)).json();
+  assert.equal(body.round, '2026-11');
+  assert.equal(body.repeats, 3);
+  assert.deepEqual(body.engines.map(e => e.engine), ['anthropic', 'openai']);
+  assert.deepEqual(body.pending, ['gemini']);
+  const empty = await (await worker.fetch(new Request('https://solestats.com/api/edition'), { ...env, PENDING_ENGINES: 'gemini', DB: fakeDb({ rounds: [] }) })).json();
+  assert.deepEqual(empty, { round: null, engines: [], pending: ['gemini'] });
+});

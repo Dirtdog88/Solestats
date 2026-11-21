@@ -5,13 +5,15 @@ const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /**
  * The answer without link markup: OpenAI writes citations into the text as "([rei.com](https://...))", which would
- * otherwise read as the answer naming REI. Citation parentheticals go entirely; other links keep their text.
+ * otherwise read as the answer naming REI. Citation parentheticals go entirely, as do links whose text is only a domain
+ * and bare URLs; other links keep their text.
  */
 export function stripLinks(text) {
   return (text || '')
     .replace(/\s*\(\s*\[[^\]]*\]\([^)]*\)(?:\s*,\s*\[[^\]]*\]\([^)]*\))*\s*\)/g, '')
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    .replace(/<https?:[^>]+>/g, '');
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, (m, t) => /^[\w.-]+\.[a-z]{2,}$/i.test(t.trim()) ? '' : t) // "[rei.com](...)" is a citation, not prose
+    .replace(/<https?:[^>]+>/g, '')
+    .replace(/https?:\/\/[^\s)\]]+/g, '');
 }
 
 /** One url per page: no tracking parameters (utm_*, openai's source tag), no fragment, no trailing slash. */

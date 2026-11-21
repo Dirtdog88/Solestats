@@ -70,6 +70,8 @@ test('stripLinks drops inline citation parentheticals and keeps other link text'
   const prose = stripLinks(openai);
   assert.equal(prose, "I'd try the ASICS GEL-EXCITE 11 first. Get fitted at REI.");
   assert.equal(stripLinks('See [the Ghost 17](https://brooksrunning.com/ghost) here.'), 'See the Ghost 17 here.');
+  assert.equal(stripLinks('Source: [rei.com](https://www.rei.com/a) and https://www.fleetfeet.com/b today.'), 'Source:  and  today.');
+  assert.deepEqual(findRoutes(stripLinks('Any trainer works. [brooksrunning.com](https://www.brooksrunning.com/)'), [], brands, retailers), []);
   // Routes from prose: REI is named in the text, Fleet Feet only inside a citation link.
   assert.deepEqual(findRoutes(prose, [], brands, retailers).map(r => r.retailer_slug), ['rei']);
 });

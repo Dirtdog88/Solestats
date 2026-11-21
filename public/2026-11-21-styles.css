@@ -42,3 +42,5 @@ tr:last-child td { border-bottom: 0; }
 footer { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 @media (max-width: 600px) { .hero { padding-top: 32px; } .lookup { flex-direction: column; } }
+.edition { font-size: 14px; margin: 16px 0 0; }
+.edition .pending { color: var(--accent); font-weight: 600; }

@@ -1,7 +1,7 @@
 // One brand's report card.
 const LABELS = { overall: 'Overall', recommended: 'Recommended', accurate: 'Accurate', shoppable: 'Shoppable by AI', sourced: 'Sourced', routing: 'Where the sale goes' };
 const ORDER = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
-const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) k === 'class' ? n.className = v : n.setAttribute(k, v); for (const k of kids) n.append(k == null ? '' : k); return n; };
+import { el, engineName, showEdition } from './2026-11-21-common.js';
 
 async function main() {
   const slug = new URLSearchParams(location.search).get('b');
@@ -13,6 +13,7 @@ async function main() {
   document.title = `SoleStats · ${d.brand.name}`;
   document.getElementById('name').textContent = d.brand.name;
   document.getElementById('sub').textContent = d.round ? `Edition ${d.round}` : 'No edition published yet';
+  showEdition();
   const grid = el('div', { class: 'subjects' });
   for (const s of ORDER) {
     const v = d.scores[s];
@@ -21,7 +22,7 @@ async function main() {
   }
   card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));
   if (d.fixes.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'Top fixes'), el('ol', {}, ...d.fixes.map(f => el('li', {}, el('strong', {}, LABELS[f.subject] + ': '), f.text)))));
-  if (d.examples && d.examples.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'What AI said'), ...d.examples.map(x => el('div', { class: 'example' }, el('div', { class: 'q' }, `${x.engine}: ${x.prompt_text}`), el('div', { class: 'a' }, x.answer || '')))));
+  if (d.examples && d.examples.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'What AI said'), ...d.examples.map(x => el('div', { class: 'example' }, el('div', { class: 'q' }, `${engineName(x.engine)}: ${x.prompt_text}`), el('div', { class: 'a' }, x.answer || '')))));
   if (d.context.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'Context (not scored)'), el('ul', {}, ...d.context.map(c => el('li', {}, `${c.metric}: ${c.value}`, c.source ? el('span', { class: 'muted' }, ` (${c.source})`) : '')))));
 }
 main();

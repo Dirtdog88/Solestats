@@ -31,6 +31,14 @@ async function api(url, env) {
   const parts = url.pathname.split('/').filter(Boolean); // ['api', ...]
   const round = url.searchParams.get('round') || await latestRound(env);
   if (parts[1] === 'health') return json({ ok: true, round, notice: env.PREVIEW_NOTICE || '' });
+  if (parts[1] === 'edition') {
+    // Which engines (and model ids) are in this edition, and which are still pending (PENDING_ENGINES in wrangler.toml).
+    const pending = (env.PENDING_ENGINES || '').split(/[;,]/).map(s => s.trim()).filter(Boolean);
+    if (!round) return json({ round: null, engines: [], pending });
+    const row = await env.DB.prepare('SELECT started_at, finished_at, repeats FROM rounds WHERE id = ?').bind(round).first();
+    const engines = (await env.DB.prepare("SELECT engine, model, COUNT(*) AS runs FROM runs WHERE round_id = ? AND status = 'ok' GROUP BY engine, model ORDER BY engine, model").bind(round).all()).results;
+    return json({ round, started_at: row?.started_at || null, finished_at: row?.finished_at || null, repeats: row?.repeats || null, engines, pending: pending.filter(p => !engines.some(e => e.engine === p)) });
+  }
   if (parts[1] === 'rounds') return json({ rounds: (await env.DB.prepare('SELECT id, started_at, finished_at, engines, repeats FROM rounds ORDER BY id DESC').all()).results });
   if (parts[1] === 'brands' && !parts[2]) {
     const brands = (await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands ORDER BY category, name').all()).results;
