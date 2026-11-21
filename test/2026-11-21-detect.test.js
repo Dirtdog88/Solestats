@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parseCsv } from '../src/2026-11-21-csv.js';
-import { brandMatchers, findMentions, markTopPick, pickWinner, classifyCitation, findRoutes } from '../src/2026-11-21-detect.js';
+import { brandMatchers, findMentions, markTopPick, pickWinner, classifyCitation, findRoutes, stripLinks, canonicalUrl } from '../src/2026-11-21-detect.js';
 
 const brands = parseCsv(readFileSync(new URL('../data/2026-11-21-brands.csv', import.meta.url), 'utf8'));
 const retailers = parseCsv(readFileSync(new URL('../data/2026-11-21-retailers.csv', import.meta.url), 'utf8'));
@@ -63,4 +63,19 @@ test('markTopPick follows an explicit verdict over first mention, and falls back
 test('findRoutes ignores pages a search merely returned', () => {
   const routes = findRoutes('Buy a neutral trainer and get fitted.', [], brands, retailers);
   assert.deepEqual(routes, []);
+});
+
+test('stripLinks drops inline citation parentheticals and keeps other link text', () => {
+  const openai = "I'd try the ASICS GEL-EXCITE 11 first. ([asics.com](https://www.asics.com/x?utm_source=openai)) Get fitted at REI. ([rei.com](https://www.rei.com/a), [fleetfeet.com](https://www.fleetfeet.com/b))";
+  const prose = stripLinks(openai);
+  assert.equal(prose, "I'd try the ASICS GEL-EXCITE 11 first. Get fitted at REI.");
+  assert.equal(stripLinks('See [the Ghost 17](https://brooksrunning.com/ghost) here.'), 'See the Ghost 17 here.');
+  // Routes from prose: REI is named in the text, Fleet Feet only inside a citation link.
+  assert.deepEqual(findRoutes(prose, [], brands, retailers).map(r => r.retailer_slug), ['rei']);
+});
+
+test('canonicalUrl removes tracking parameters, fragments and trailing slashes', () => {
+  assert.equal(canonicalUrl('https://www.rei.com/learn/a.html?related-style-id=1&utm_source=openai#top'), 'https://www.rei.com/learn/a.html?related-style-id=1');
+  assert.equal(canonicalUrl('https://www.brooksrunning.com/en_us/shoes/?utm_source=openai'), 'https://www.brooksrunning.com/en_us/shoes');
+  assert.equal(canonicalUrl('not a url'), 'not a url');
 });

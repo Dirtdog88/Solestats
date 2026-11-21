@@ -49,9 +49,9 @@ async function worker() {
     let row;
     try {
       const r = await ENGINES[job.engine](job.prompt_text);
-      const cost = estimateCost(job.engine, r.input_tokens, r.output_tokens, r.searches);
+      const cost = estimateCost(job.engine, r.input_tokens, r.output_tokens, r.searches, r.cached_tokens);
       spent += cost; ok++;
-      row = { ...job, model: r.model, status: 'ok', answer: r.answer, citations: r.citations, searched: r.searched || [], searches: r.searches || 0, input_tokens: r.input_tokens ?? null, output_tokens: r.output_tokens ?? null, cost_usd: round4(cost), latency_ms: Date.now() - started, stop_reason: r.stop_reason || null, created_at: new Date().toISOString() };
+      row = { ...job, model: r.model, status: 'ok', answer: r.answer, citations: r.citations, searched: r.searched || [], searches: r.searches || 0, cached_tokens: r.cached_tokens || 0, input_tokens: r.input_tokens ?? null, output_tokens: r.output_tokens ?? null, cost_usd: round4(cost), latency_ms: Date.now() - started, stop_reason: r.stop_reason || null, created_at: new Date().toISOString() };
       appendFileSync(new URL(`raw/${job.id.replace(/\//g, '_')}.json`, mkraw()), JSON.stringify(r.raw));
     } catch (e) {
       failed++;

@@ -3,6 +3,29 @@
 
 const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+/**
+ * The answer without link markup: OpenAI writes citations into the text as "([rei.com](https://...))", which would
+ * otherwise read as the answer naming REI. Citation parentheticals go entirely; other links keep their text.
+ */
+export function stripLinks(text) {
+  return (text || '')
+    .replace(/\s*\(\s*\[[^\]]*\]\([^)]*\)(?:\s*,\s*\[[^\]]*\]\([^)]*\))*\s*\)/g, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<https?:[^>]+>/g, '');
+}
+
+/** One url per page: no tracking parameters (utm_*, openai's source tag), no fragment, no trailing slash. */
+export function canonicalUrl(url) {
+  try {
+    const u = new URL(url);
+    for (const k of [...u.searchParams.keys()]) if (/^utm_/i.test(k) || k === 'ref' || k === 'source') u.searchParams.delete(k);
+    u.hash = '';
+    let s = u.toString();
+    if (u.pathname.length > 1 && s.endsWith('/')) s = s.slice(0, -1);
+    return s.replace(/\?$/, '');
+  } catch { return url; }
+}
+
 // Brands whose name is an ordinary English word need a word boundary and the right case.
 const CASE_SENSITIVE = new Set(['on', 'sole-fitness', 'naked', 'polar', 'spring-energy']);
 

@@ -37,6 +37,10 @@ Add nothing else without a strong reason.
 - The scoring rules live only in `src/2026-11-21-score.js`; the rubric text on the method page must match them.
 - The site is public and read-only: no sign-in, no cookies, no writes from the Worker. CSP is strict
   (`script-src 'self'`, no inline scripts or styles). The page is built with `textContent`, never `innerHTML` with data.
+- Start the runner with `npm run run`, never `node scripts/...` directly: the script passes `--use-env-proxy` so `fetch`
+  goes through a cloud session's proxy (Node ignores it otherwise; the Anthropic SDK is unaffected). Harmless on a PC.
+  A cloud session also needs each engine's host on the environment's allowed list (api.openai.com and
+  generativelanguage.googleapis.com were added 2026-11-21).
 - Keys live in the environment, never in the repo. Spend caps are set at each provider as well as `--cap-usd`.
   The Anthropic key is read from `SOLESTATS_ANTHROPIC_KEY` first (cloud sessions drop `ANTHROPIC_API_KEY`), then `ANTHROPIC_API_KEY`.
 - New files use dated names `YYYY-MM-DD-name.ext` except the ones tools require (`wrangler.toml`, `package.json`,

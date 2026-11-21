@@ -24,13 +24,14 @@ export async function askAnthropic(prompt) {
   const model = process.env.SOLESTATS_ANTHROPIC_MODEL || 'claude-opus-5-5';
   const tools = [{ type: 'web_search_20260209', name: 'web_search', max_uses: 5 }];
   const messages = [{ role: 'user', content: prompt }];
-  let response, usage = { input: 0, output: 0 }, hops = 0, searches = 0;
+  let response, usage = { input: 0, output: 0, cached: 0 }, hops = 0, searches = 0;
   const responses = [], blocks = [];
   // A long server-tool turn can pause; resend the same messages plus the assistant content to resume (at most 3 times).
   for (;;) {
     response = await anthropic.messages.create({ model, max_tokens: 4000, system: SYSTEM, tools, messages });
     responses.push(response); blocks.push(...response.content);
-    usage.input += response.usage.input_tokens; usage.output += response.usage.output_tokens;
+    usage.input += response.usage.input_tokens + (response.usage.cache_read_input_tokens || 0) + (response.usage.cache_creation_input_tokens || 0);
+    usage.output += response.usage.output_tokens; usage.cached += response.usage.cache_read_input_tokens || 0;
     searches += response.usage.server_tool_use?.web_search_requests ?? response.content.filter(b => b.type === 'server_tool_use' && b.name === 'web_search').length;
     if (response.stop_reason !== 'pause_turn' || ++hops > 3) break;
     messages.push({ role: 'assistant', content: response.content });
@@ -45,7 +46,7 @@ export async function askAnthropic(prompt) {
     }
   }
   // Text blocks are segments of one answer: join with nothing, or line breaks appear mid-sentence.
-  return { model: response.model, answer: texts.join(''), citations: dedupe(citations), searched: dedupe(searched), searches, raw: responses.length === 1 ? response : responses, input_tokens: usage.input, output_tokens: usage.output, stop_reason: response.stop_reason };
+  return { model: response.model, answer: texts.join(''), citations: dedupe(citations), searched: dedupe(searched), searches, raw: responses.length === 1 ? response : responses, input_tokens: usage.input, output_tokens: usage.output, cached_tokens: usage.cached, stop_reason: response.stop_reason };
 }
 
 // ---------- OpenAI Responses API with the web_search tool ----------
@@ -66,7 +67,7 @@ export async function askOpenAI(prompt) {
       for (const a of part.annotations || []) if (a.type === 'url_citation' && a.url) citations.push({ url: a.url, title: a.title || '' });
     }
   }
-  return { model: res.model || model, answer: texts.join(''), citations: dedupe(citations), searched: dedupe(searched), searches, raw: res, input_tokens: res.usage?.input_tokens, output_tokens: res.usage?.output_tokens, stop_reason: res.status };
+  return { model: res.model || model, answer: texts.join(''), citations: dedupe(citations), searched: dedupe(searched), searches, raw: res, input_tokens: res.usage?.input_tokens, output_tokens: res.usage?.output_tokens, cached_tokens: res.usage?.input_tokens_details?.cached_tokens || 0, stop_reason: res.status };
 }
 
 // ---------- Google Gemini with Google Search grounding ----------
@@ -105,9 +106,10 @@ export const ENGINES = { anthropic: askAnthropic, openai: askOpenAI, gemini: ask
 export const PRICES = {
   anthropic: { input: 4, output: 20, search: 0.01 }, openai: { input: 2, output: 8, search: 0.01 }, gemini: { input: 0.3, output: 2.5, search: 0.035 }, perplexity: { input: 1, output: 1, search: 0.005 },
 };
-export function estimateCost(engine, inTok = 0, outTok = 0, searches = 0) {
+export function estimateCost(engine, inTok = 0, outTok = 0, searches = 0, cachedTok = 0) {
   const p = PRICES[engine] || { input: 0, output: 0, search: 0 };
-  return (inTok * p.input + outTok * p.output) / 1e6 + searches * (p.search || 0);
+  const cached = Math.min(cachedTok || 0, inTok || 0); // cached input is billed at about a tenth
+  return ((inTok - cached) * p.input + cached * p.input * 0.1 + outTok * p.output) / 1e6 + searches * (p.search || 0);
 }
 
 function need(name) { const v = process.env[name]; if (!v) throw new Error(`${name} is not set`); return v; }

@@ -12,7 +12,7 @@
     "dev": "npx wrangler@4 dev",
     "deploy": "npx wrangler@4 d1 migrations apply solestats --remote && npx wrangler@4 deploy",
     "seed": "node scripts/2026-11-21-seed.js",
-    "run": "node scripts/2026-11-21-run.js",
+    "run": "node --use-env-proxy --disable-warning=UNDICI-EHPA scripts/2026-11-21-run.js",
     "import": "node scripts/2026-11-21-import.js",
     "score": "node scripts/2026-11-21-score.js",
     "export": "node scripts/2026-11-21-export.js"
