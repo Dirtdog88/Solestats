@@ -73,6 +73,13 @@ async function api(url, env) {
     const answers = (await env.DB.prepare('SELECT p.category, COUNT(*) AS n FROM runs r JOIN prompts p ON p.id = r.prompt_id WHERE r.round_id = ? AND r.status = ? GROUP BY p.category').bind(round, 'ok').all()).results;
     return json({ round, rows, answers });
   }
+  if (parts[1] === 'engines') {
+    // What each engine contributed to the round: answers, the model id that ran, how many answers searched.
+    const rows = round ? (await env.DB.prepare(`SELECT engine, model, COUNT(*) AS answers, SUM(CASE WHEN status = 'ok' THEN 1 ELSE 0 END) AS ok,
+      SUM(CASE WHEN searches > 0 THEN 1 ELSE 0 END) AS searched, SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited
+      FROM runs WHERE round_id = ? GROUP BY engine, model ORDER BY engine`).bind(round).all()).results : [];
+    return json({ round, engines: rows });
+  }
   if (parts[1] === 'prompts') return json({ prompts: (await env.DB.prepare('SELECT id, set_name, category, text, tags FROM prompts ORDER BY id').all()).results });
   return json({ error: 'not found' }, 404);
 }

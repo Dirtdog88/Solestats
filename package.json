@@ -10,6 +10,7 @@
   "scripts": {
     "test": "node --disable-warning=ExperimentalWarning --test test/*.test.js",
     "dev": "npx wrangler@4 dev",
+    "preview": "node --disable-warning=ExperimentalWarning test/2026-11-21-local-server.js",
     "deploy": "npx wrangler@4 d1 migrations apply solestats --remote && npx wrangler@4 deploy",
     "seed": "node scripts/2026-11-21-seed.js",
     "run": "node --use-env-proxy --disable-warning=UNDICI-EHPA scripts/2026-11-21-run.js",

@@ -12,7 +12,7 @@ function fakeDb(tables) {
   const pick = s => { const m = /FROM\s+(\w+)/i.exec(s); return (m && tables[m[1]]) || []; };
   return { prepare: stmt };
 }
-const env = { DB: fakeDb({ rounds: [{ id: '2026-12' }], brands: [{ slug: 'brooks', name: 'Brooks', category: 'shoes', treatment: 'full' }], scores: [{ brand_slug: 'brooks', subject: 'overall', score: 71.5, margin: 3, n: 100, detail_json: '{}' }], fixes: [], context_metrics: [], mentions: [], routes: [], runs: [], prompts: [] }), ASSETS: { fetch: async () => new Response('<!doctype html>', { headers: { 'content-type': 'text/html' } }) }, PREVIEW_NOTICE: 'Private preview.' };
+const env = { DB: fakeDb({ rounds: [{ id: '2026-12' }], brands: [{ slug: 'brooks', name: 'Brooks', category: 'shoes', treatment: 'full' }], scores: [{ brand_slug: 'brooks', subject: 'overall', score: 71.5, margin: 3, n: 100, detail_json: '{}' }], fixes: [], context_metrics: [], mentions: [], routes: [], runs: [{ engine: 'anthropic', model: 'claude-opus-5-5', answers: 2, ok: 2, searched: 1, cited: 0 }], prompts: [] }), ASSETS: { fetch: async () => new Response('<!doctype html>', { headers: { 'content-type': 'text/html' } }) }, PREVIEW_NOTICE: 'Private preview.' };
 
 test('GET /api/brands joins the latest round scores and sets security headers', async () => {
   const res = await worker.fetch(new Request('https://solestats.com/api/brands'), env);
@@ -55,4 +55,12 @@ test('GET /api/edition lists the engines in the round and the pending ones from 
   assert.deepEqual(body.pending, ['gemini']);
   const empty = await (await worker.fetch(new Request('https://solestats.com/api/edition'), { ...env, PENDING_ENGINES: 'gemini', DB: fakeDb({ rounds: [] }) })).json();
   assert.deepEqual(empty, { round: null, engines: [], pending: ['gemini'] });
+});
+
+test('GET /api/engines groups the round by engine and model', async () => {
+  const res = await worker.fetch(new Request('https://solestats.com/api/engines'), env);
+  const body = await res.json();
+  assert.equal(body.round, '2026-12');
+  assert.equal(body.engines[0].engine, 'anthropic');
+  assert.equal(body.engines[0].ok, 2);
 });

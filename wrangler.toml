@@ -23,6 +23,6 @@ enabled = true
 [vars]
 PUBLIC_URL = "https://solestats.com"
 # Shown on every page until the publishing gate is cleared; set to "" to take the banner down.
-PREVIEW_NOTICE = "Private preview. Not published yet."
+PREVIEW_NOTICE = "Private preview built on a small sample of test answers. Not an edition: nothing here is a finding yet."
 # Engines shown as "pending" on the site until their runs are in the current edition; set to "" when none are.
 PENDING_ENGINES = "gemini"
