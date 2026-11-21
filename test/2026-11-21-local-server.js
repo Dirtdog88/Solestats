@@ -14,6 +14,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const db = new DatabaseSync(':memory:');
 for (const f of readdirSync(join(root, 'migrations')).sort()) db.exec(readFileSync(join(root, 'migrations', f), 'utf8'));
 db.exec(execFileSync(process.execPath, [join(root, 'scripts/2026-11-21-seed.js')], { encoding: 'utf8' }));
+db.exec(execFileSync(process.execPath, [join(root, 'scripts/2026-11-21-financials.js')], { encoding: 'utf8' }));
 const roundsDir = join(root, 'data/rounds');
 let rounds = 0;
 if (existsSync(roundsDir)) for (const r of readdirSync(roundsDir).sort()) {

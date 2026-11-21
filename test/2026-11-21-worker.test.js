@@ -33,6 +33,15 @@ test('GET /api/brands/:slug 404s for an unknown brand; writes are refused; stati
   assert.match(page.headers.get('content-security-policy'), /default-src 'self'/);
 });
 
+test('the brand page API carries reported revenue, and financials.csv downloads', async () => {
+  const fin = [{ fiscal_year: 'FY2026', period_end: '2026-03-31', level: 'brand', measure: 'HOKA brand net sales', owner: 'Deckers Brands', value: 2000, unit: 'millions', currency: 'USD', yoy_pct: 10, source_type: '10-K', source_url: 'https://www.sec.gov/x' }];
+  const e = { ...env, DB: fakeDb({ rounds: [{ id: '2026-12' }], brands: [{ slug: 'hoka', name: 'Hoka', category: 'shoes', treatment: 'full' }], scores: [], fixes: [], context_metrics: [], mentions: [], financials: fin }) };
+  const body = await (await worker.fetch(new Request('https://solestats.com/api/brands/hoka'), e)).json();
+  assert.equal(body.financials[0].measure, 'HOKA brand net sales');
+  const csv = await (await worker.fetch(new Request('https://solestats.com/download/2026-12/financials.csv'), e)).text();
+  assert.match(csv, /HOKA brand net sales/);
+});
+
 test('downloads come back as CSV attachments and unknown files 404', async () => {
   const res = await worker.fetch(new Request('https://solestats.com/download/2026-12/scores.csv'), env);
   assert.equal(res.status, 200);

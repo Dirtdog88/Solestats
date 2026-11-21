@@ -83,3 +83,10 @@ main.prose p, main.prose li { line-height: 1.55; }
 .defs dt { font-weight: 800; margin-top: 14px; }
 .defs dd { margin: 2px 0 0; color: #333; }
 @media (max-width: 640px) { .sec { display: none; } .barcell { width: 62%; min-width: 0; } .margin { display: none; } .hero { padding-top: 20px; } .lookup { flex-direction: column; } .lookup button { width: 100%; } }
+
+/* Revenue card: reported figures, context only */
+.revenue { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.revenue .label { font-size: 13px; color: var(--muted); }
+.revenue .big { font-size: 28px; font-weight: 800; }
+.revenue .muted { font-size: 13px; }
+.revenue .muted a { color: inherit; }

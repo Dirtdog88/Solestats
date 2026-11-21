@@ -57,7 +57,7 @@ async function api(url, env) {
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
-    const [scores, fixes, context, examples, sourcing] = await Promise.all([
+    const [scores, fixes, context, examples, sourcing, financials] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
@@ -65,11 +65,13 @@ async function api(url, env) {
       env.DB.prepare(`SELECT r.id, r.engine, r.model, r.prompt_text, r.answer, m.position, m.top_pick, CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? ORDER BY m.top_pick DESC, r.created_at DESC LIMIT 6`).bind(round, slug).all(),
       // How the answers naming the brand stand on sources, so the page can explain a Sourced held back for too few.
       env.DB.prepare(`SELECT CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing, COUNT(DISTINCT r.id) AS n FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? AND r.status = 'ok' GROUP BY sourcing`).bind(round, slug).all(),
+      // Publicly reported revenue (context, never scored): newest fiscal year first. Fails soft until migration 0003 is applied.
+      env.DB.prepare('SELECT fiscal_year, period_end, level, measure, owner, ticker, value, unit, currency, prior_value, yoy_pct, source_type, source_url, published_on, notes FROM financials WHERE brand_slug = ? ORDER BY period_end DESC, level').bind(slug).all().catch(() => ({ results: [] })),
     ]);
     return json({
       round, brand,
       scores: Object.fromEntries(scores.results.map(s => [s.subject, { score: s.score, margin: s.margin, n: s.n, detail: safeJson(s.detail_json) }])),
-      fixes: fixes.results, context: context.results, examples: examples.results,
+      fixes: fixes.results, context: context.results, examples: examples.results, financials: financials.results,
       sourcing: { ...Object.fromEntries(sourcing.results.map(x => [x.sourcing, x.n])), min: MIN_SOURCED_ANSWERS },
     });
   }
@@ -95,6 +97,8 @@ async function download(url, env) {
     'scores.csv': 'SELECT brand_slug, subject, score, margin, n, detail_json FROM scores WHERE round_id = ? ORDER BY brand_slug, subject',
     'citations.csv': 'SELECT c.run_id, r.prompt_id, r.engine, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug FROM citations c JOIN runs r ON r.id = c.run_id WHERE r.round_id = ? ORDER BY c.run_id',
     'prompts.csv': 'SELECT id, set_name, category, text, tags, pulse, pair_a, pair_b FROM prompts WHERE ? IS NOT NULL ORDER BY id',
+    // Not tied to a round: the latest reported figures, the same in every round's download.
+    'financials.csv': 'SELECT brand_slug, owner, ticker, fiscal_year, period_end, level, measure, value, unit, currency, prior_value, yoy_pct, source_type, source_url, published_on, quote, notes, checked_on FROM financials WHERE ? IS NOT NULL ORDER BY brand_slug, period_end DESC',
   }[file];
   if (!round || !q) return json({ error: 'not found' }, 404);
   const { results } = await env.DB.prepare(q).bind(round).all();

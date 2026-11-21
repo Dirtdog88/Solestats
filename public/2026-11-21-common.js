@@ -26,6 +26,7 @@ export const DEFINITIONS = {
   too_few: ['Too few', 'Fewer than 5 answers about the brand named a source, so Sourced is not scored and Overall is weighted over the other subjects.'],
   intl: ['Non-US site', "Sources on the brand's own sites outside the US, such as au.hoka.com or adidas.co.uk. They count as the brand's own site."],
   checked: ['Checked', 'Accurate and Shoppable come from checks run once a quarter; this is the round they were last checked in.'],
+  revenue: ['Revenue', "What the brand, or the company that owns it, reported for its latest fiscal year, in the currency it reports in, with the change from the year before. Context only: not scored, and no link to the AI scores is claimed."],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],
@@ -34,6 +35,13 @@ export const DEFINITIONS = {
   engine: ['Engine', 'Answers from this engine in the edition: how many ran a web search, named their sources, searched without naming any, or answered without searching.'],
   preview: ['Preview', 'Numbers on a preview come from a partial or sample round and are not findings.'],
 };
+
+/** A reported amount in its own currency, short: $2.2B, €24.8B, ¥680B. `unit` is millions or billions. */
+export function money(value, unit, currency) {
+  const n = Number(value) * (unit === 'billions' ? 1e9 : 1e6);
+  try { return new Intl.NumberFormat('en-US', { style: 'currency', currency, notation: 'compact', maximumFractionDigits: 1 }).format(n); }
+  catch { return `${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(n)} ${currency || ''}`.trim(); }
+}
 
 /** A header or label that explains itself on hover (title) and on tap (the shared tip box). */
 export function defined(tag, key, attrs = {}) {
