@@ -31,7 +31,7 @@ for (const r of runs) {
       const key = canonicalUrl(c.url);
       if (!c.url || seen.has(key)) continue;
       seen.add(key);
-      citations.push({ ...c, source, ...classifyCitation(c.url, brands, retailers) });
+      citations.push({ ...c, source, ...classifyCitation(c.url, brands, retailers, c.title) });
     }
   }
   const routes = findRoutes(prose, r.citations || [], brands, retailers);

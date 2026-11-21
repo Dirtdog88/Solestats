@@ -119,11 +119,25 @@ export function domainOf(url) {
   try { return new URL(url).hostname.replace(/^www\./, '').toLowerCase(); } catch { return ''; }
 }
 
-/** Classify a cited URL: brand | retailer | review | forum | other. Brand and retailer lookups come from the CSVs. */
-export function classifyCitation(url, brands, retailers) {
+// Gemini's grounding links are Google redirects that hide the site; the grounding chunk's title carries the site's
+// domain (e.g. "runrepeat.com"), so that is read instead (found in round 2026-11: 251 of 1,336 named sources).
+const REDIRECT_HOSTS = ['vertexaisearch.cloud.google.com'];
+const HOST_LIKE = /^(?:[a-z0-9-]+\.)+[a-z]{2,}$/;
+
+/** The site a cited link points to: its hostname, or for a known redirect the domain given in its title. */
+export function citedDomain(url, title = '') {
   const domain = domainOf(url);
+  const t = String(title).trim().toLowerCase().replace(/^www\./, '');
+  if (REDIRECT_HOSTS.includes(domain) && HOST_LIKE.test(t)) return t;
+  return domain;
+}
+
+/** Classify a cited URL: brand | retailer | review | forum | other. Brand and retailer lookups come from the CSVs.
+ *  Pass the citation's title so a redirect link is classified by the site it stands for. */
+export function classifyCitation(url, brands, retailers, title = '') {
+  const domain = citedDomain(url, title);
   if (!domain) return { domain: '', kind: 'other' };
-  const full = url.toLowerCase();
+  const full = domain === domainOf(url) ? url.toLowerCase() : domain;
   const brand = brands.find(b => b.domain && (domain === b.domain || domain.endsWith('.' + b.domain)));
   if (brand) return { domain, kind: 'brand', brand_slug: brand.slug };
   for (const r of retailers) {
@@ -149,7 +163,7 @@ export function findRoutes(answer, citations, brands, retailers) {
   if (/\b(local|specialty|independent|your nearest|brick[- ]and[- ]mortar) (running|run) (store|shop|retailer)\b/i.test(answer) || /\brun(?:ning)? specialty\b/i.test(answer)) put('local');
   if (/\b(brand'?s? (?:own )?(?:web)?site|direct from (?:the brand|[A-Z][a-z]+)|\.com directly|manufacturer'?s site)\b/i.test(answer)) put('brand-site');
   for (const c of citations || []) {
-    const k = classifyCitation(c.url, brands, retailers);
+    const k = classifyCitation(c.url, brands, retailers, c.title);
     if (k.kind === 'retailer') put(k.retailer_slug, c.url);
     if (k.kind === 'brand') put('brand-site', c.url);
   }

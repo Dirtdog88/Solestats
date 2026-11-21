@@ -33,6 +33,17 @@ test('pickWinner reads an explicit verdict, falls back to a tie or the count', (
   assert.equal(pickWinner('Brooks makes the Ghost. Hoka makes the Clifton.', 'brooks', 'hoka', matchers), 'unclear');
 });
 
+test('classifyCitation reads a Google grounding redirect by the domain in its title', () => {
+  const g = 'https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQabc';
+  assert.equal(classifyCitation(g, brands, retailers, 'runrepeat.com').kind, 'review');
+  assert.equal(classifyCitation(g, brands, retailers, 'www.brooksrunning.com').kind, 'brand');
+  assert.equal(classifyCitation(g, brands, retailers, 'runrepeat.com').domain, 'runrepeat.com');
+  // A title that is not a domain leaves the redirect as it is.
+  assert.equal(classifyCitation(g, brands, retailers, 'Best running shoes 2026').kind, 'other');
+  // Titles never override an ordinary link.
+  assert.equal(classifyCitation('https://www.reddit.com/r/running', brands, retailers, 'brooksrunning.com').kind, 'forum');
+});
+
 test('classifyCitation knows brand sites, retailers, review sites, forums', () => {
   assert.equal(classifyCitation('https://www.brooksrunning.com/en_us/ghost-17', brands, retailers).kind, 'brand');
   assert.equal(classifyCitation('https://www.brooksrunning.com/en_us/ghost-17', brands, retailers).brand_slug, 'brooks');
