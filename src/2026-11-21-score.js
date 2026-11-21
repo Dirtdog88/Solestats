@@ -19,7 +19,10 @@ export function eligible(brand, prompt, models) {
   if (brand.category !== 'shoes') return true;
   const tags = new Set((prompt.tags || '').split(';').filter(Boolean));
   if (tags.has('h2h')) return prompt.pair_a === brand.name || prompt.pair_b === brand.name;
-  return models.some(m => m.brand_slug === brand.slug && (m.needs || '').split(';').some(t => tags.has(t)));
+  const own = models.filter(m => m.brand_slug === brand.slug);
+  // No verified models yet for this brand: every shoe prompt counts, and scoreRecommended says so in its detail.
+  if (!own.length) return true;
+  return own.some(m => (m.needs || '').split(';').some(t => tags.has(t)));
 }
 
 /**
@@ -52,7 +55,8 @@ export function scoreRecommended(brand, prompts, runs, models) {
   const score = parts.reduce((a, [v, w]) => a + v * w, 0) / wsum;
   // Margin: presence recomputed per repeat number, then its spread.
   const perRepeat = [...new Set(main.map(r => r.repeat_no))].map(n => { const rs = main.filter(r => r.repeat_no === n); return pct(rs.filter(r => r.mentions.some(m => m.brand_slug === brand.slug)).length, rs.length); });
-  return { score: round1(score), margin: round1(sd(perRepeat)), n: main.length, detail: { presence: round1(presence), head_to_head: round1(headToHead), position: round1(position), consistency: round1(consistency), eligible_prompts: elig.length, h2h_answers: h2h.length } };
+  const eligibility = models.some(m => m.brand_slug === brand.slug) ? 'verified models' : 'all shoe prompts (no verified models yet)';
+  return { score: round1(score), margin: round1(sd(perRepeat)), n: main.length, detail: { presence: round1(presence), head_to_head: round1(headToHead), position: round1(position), consistency: round1(consistency), eligible_prompts: elig.length, h2h_answers: h2h.length, eligibility } };
 }
 
 /** Accurate = share of fact checks right. not_sure counts as wrong (Alex, 2026-11-09). */

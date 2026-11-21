@@ -18,6 +18,9 @@ const prompts = [
 test('eligibility follows the spec sheet for shoes and the category for scans', () => {
   assert.equal(eligible(brooks, prompts[0], models), true);
   assert.equal(eligible(brooks, prompts[2], models), false);
+  // A shoe brand with no verified models yet is eligible on every shoe prompt (and the detail says so).
+  assert.equal(eligible({ slug: 'topo', name: 'Topo', category: 'shoes' }, prompts[2], models), true);
+  assert.equal(eligible({ slug: 'topo', name: 'Topo', category: 'shoes' }, prompts[3], models), false);
   assert.equal(eligible(hoka, prompts[2], models), true);
   assert.equal(eligible(gu, prompts[4], models), true);
   assert.equal(eligible(gu, prompts[0], models), false);
@@ -41,6 +44,7 @@ test('scoreRecommended: presence on eligible prompts only, position, consistency
   assert.equal(r.detail.consistency, 83.3);              // S1: 3/3 agree, S2: 2/3 agree
   assert.equal(r.score, Math.round((83.333 * 50 + 50 * 20 + 66.667 * 15 + 83.333 * 15) / 100 * 10) / 10);
   assert.ok(r.margin >= 0);
+  assert.equal(r.detail.eligibility, 'verified models');
   assert.equal(scoreRecommended(gu, prompts, runs, models).score, null);
 });
 
