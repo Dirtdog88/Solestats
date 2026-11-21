@@ -1,0 +1,13 @@
+item,question,how_to_check
+crawlers_allowed,"Does the site's robots.txt let the major AI crawlers (GPTBot, ClaudeBot, Google-Extended, PerplexityBot) read product pages?","Open /robots.txt on the brand's US site; pass if product paths are not disallowed for those agents."
+product_structured_data,"Do product pages carry schema.org Product data with offers (name, price, availability) that a crawler can read without running scripts?","View source of one current model's page; look for JSON-LD with @type Product and an offers block."
+price_readable,"Is the US price present in the page's static HTML or structured data, not only drawn by script?","Fetch the product page without JavaScript (curl or reader view) and find the price."
+widths_listed,"Are the widths offered (B, D, 2E, 4E) listed in text or structured data on the product page?","Same fetch; look for width options in text, not only in a picker that needs a click."
+stock_exposed,"Is availability per size exposed (in stock / out of stock) in structured data or static HTML?","Look for availability in the offers block or a size list with stock states."
+specs_in_text,"Are weight, heel-to-toe drop and stack height written as text on the product page?","Search the fetched page for the three figures; images of spec tables do not count."
+version_clear,"Does the page name the current version (for example Ghost 17) and mark older versions as previous?","Compare the product name with the brand's current lineup; check older versions are labelled or moved to sale."
+returns_findable,"Can an assistant find the returns policy (window, condition, cost) within two links of a product page?","Ask an assistant with browsing to find it from the product page; pass if the policy page is reached and readable."
+shipping_findable,"Can an assistant find shipping cost and delivery time within two links of a product page?","Same as above for shipping."
+need_pages,"Does the site have crawlable category pages for the needs runners ask about (stability, neutral, trail, racing, wide)?","Look for distinct URLs for those categories, reachable from the navigation without filters that need scripts."
+path_to_cart,"Can an assistant with browsing pick a size and reach the cart and the start of checkout without a login wall or a bot block?","Ask an assistant with browsing to add one shoe in one size to the cart and open the checkout; pass if it reaches the checkout page."
+store_locator,"Is there a store or dealer locator that lists run specialty stores by zip code?","Find the locator from the footer or navigation and search a zip code."

@@ -1,38 +1,40 @@
 {
   "shoes": {
-    "answers": 483,
-    "with_route": 156,
+    "answers": 1170,
+    "with_route": 475,
     "by_retailer": {
-      "fleet-feet": 27,
-      "local": 10,
-      "brand-site": 89,
-      "rei": 13,
-      "running-warehouse": 24,
+      "fleet-feet": 32,
+      "local": 31,
+      "brand-site": 366,
+      "rei": 33,
+      "running-warehouse": 35,
       "best-buy": 3,
-      "zappos": 2,
-      "target": 3,
-      "amazon": 7,
-      "dicks": 3,
-      "road-runner-sports": 4
+      "zappos": 3,
+      "target": 12,
+      "amazon": 12,
+      "dicks": 5,
+      "road-runner-sports": 7,
+      "backcountry": 1
     }
   },
   "retail": {
-    "answers": 24,
-    "with_route": 23,
+    "answers": 72,
+    "with_route": 70,
     "by_retailer": {
-      "amazon": 17,
-      "running-warehouse": 19,
-      "fleet-feet": 18,
-      "rei": 18,
-      "road-runner-sports": 16,
-      "zappos": 17,
+      "amazon": 23,
+      "running-warehouse": 55,
+      "fleet-feet": 49,
+      "rei": 51,
+      "road-runner-sports": 36,
+      "zappos": 27,
       "holabird": 13,
-      "local": 15,
-      "brand-site": 6,
-      "dicks": 9,
+      "local": 31,
+      "brand-site": 19,
+      "dicks": 10,
       "jackrabbit": 1,
       "best-buy": 1,
-      "backcountry": 1
+      "backcountry": 2,
+      "walmart": 3
     }
   }
 }
