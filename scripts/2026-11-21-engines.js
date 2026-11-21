@@ -117,6 +117,7 @@ function dedupe(cs) { const seen = new Set(); return cs.filter(c => c.url && !se
 async function post(url, headers, body) {
   const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) });
   const text = await r.text();
-  if (!r.ok) throw new Error(`${url} -> ${r.status}: ${text.slice(0, 500)}`);
+  // Keep enough of an error body to see Google's quota details (they sit past the first 500 characters).
+  if (!r.ok) throw new Error(`${url} -> ${r.status}: ${text.slice(0, 2500)}`);
   return JSON.parse(text);
 }

@@ -57,7 +57,7 @@ async function worker() {
       appendFileSync(new URL(`raw/${job.id.replace(/\//g, '_')}.json`, mkraw()), JSON.stringify(r.raw));
     } catch (e) {
       failed++;
-      row = { ...job, status: 'error', error: String(e.message || e).slice(0, 1000), latency_ms: Date.now() - started, created_at: new Date().toISOString() };
+      row = { ...job, status: 'error', error: String(e.message || e).slice(0, 3000), latency_ms: Date.now() - started, created_at: new Date().toISOString() };
       await sleep(2000);
     }
     appendFileSync(file, JSON.stringify(row) + '\n');
