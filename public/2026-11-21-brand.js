@@ -17,16 +17,19 @@ function sourcedPills(detail) {
 
 const LEVEL = { brand: 'brand', category: 'category', footwear: 'footwear', segment: 'segment', company: 'whole company' };
 
-// Publicly reported revenue, newest fiscal year only: one line per measure, with its growth and a link to the filing.
+// Publicly reported revenue, newest fiscal year only: one line per measure. Year-over-year growth is the headline
+// (Alex, 2026-11-21); the amount, in the currency reported, sits under it with a link to the filing.
 function revenueCard(rows) {
   if (!rows.length) return null;
   const latest = rows[0].fiscal_year;
   const items = rows.filter(r => r.fiscal_year === latest).map(r => {
-    const growth = r.yoy_pct != null ? el('span', { class: r.yoy_pct >= 0 ? 'pill' : 'pill grey' }, `${r.yoy_pct >= 0 ? '+' : ''}${Math.round(r.yoy_pct)}%`) : '';
+    const growth = r.yoy_pct != null ? `${r.yoy_pct >= 0 ? '+' : '−'}${Math.abs(r.yoy_pct).toFixed(1)}%` : null;
+    const amount = r.value == null ? 'Not disclosed' : money(r.value, r.unit, r.currency);
     const src = /^https:\/\//.test(r.source_url || '') ? el('a', { href: r.source_url, rel: 'noopener noreferrer' }, r.source_type || 'source') : (r.source_type || '');
     return el('li', { class: 'rev' },
       el('div', { class: 'label' }, `${r.measure} (${LEVEL[r.level] || r.level})`),
-      el('div', { class: 'rev-line' }, el('span', { class: 'big' }, r.value == null ? 'Not disclosed' : money(r.value, r.unit, r.currency)), ' ', growth),
+      el('div', { class: 'big' + (growth && r.yoy_pct < 0 ? ' down' : '') }, growth ?? amount),
+      el('div', {}, growth ? `${amount} year over year` : 'no prior year to compare'),
       el('div', { class: 'muted' }, `${r.fiscal_year}${r.period_end ? ' to ' + r.period_end : ''} · ${r.owner || ''} `, src));
   });
   return el('section', { class: 'card' }, defined('h3', 'revenue'), el('ul', { class: 'revenue' }, ...items));

@@ -90,3 +90,4 @@ main.prose p, main.prose li { line-height: 1.55; }
 .revenue .big { font-size: 28px; font-weight: 800; }
 .revenue .muted { font-size: 13px; }
 .revenue .muted a { color: inherit; }
+.revenue .big.down { color: var(--muted); }

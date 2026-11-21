@@ -26,7 +26,7 @@ export const DEFINITIONS = {
   too_few: ['Too few', 'Fewer than 5 answers about the brand named a source, so Sourced is not scored and Overall is weighted over the other subjects.'],
   intl: ['Non-US site', "Sources on the brand's own sites outside the US, such as au.hoka.com or adidas.co.uk. They count as the brand's own site."],
   checked: ['Checked', 'Accurate and Shoppable come from checks run once a quarter; this is the round they were last checked in.'],
-  revenue: ['Revenue', "What the brand, or the company that owns it, reported for its latest fiscal year, in the currency it reports in, with the change from the year before. Context only: not scored, and no link to the AI scores is claimed."],
+  revenue: ['Revenue', "Year-over-year change in what the brand, or the company that owns it, reported for its latest fiscal year, in the currency it reports in, with the amount below. Context only: not scored, and no link to the AI scores is claimed."],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],
