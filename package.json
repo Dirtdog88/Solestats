@@ -16,7 +16,8 @@
     "run": "node --use-env-proxy --disable-warning=UNDICI-EHPA scripts/2026-11-21-run.js",
     "import": "node scripts/2026-11-21-import.js",
     "score": "node scripts/2026-11-21-score.js",
-    "export": "node scripts/2026-11-21-export.js"
+    "export": "node scripts/2026-11-21-export.js",
+    "site-checks": "node scripts/2026-11-21-site-checks.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.12.0"
