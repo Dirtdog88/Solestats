@@ -13,6 +13,16 @@ export const api = p => fetch(p).then(r => r.ok ? r.json() : Promise.reject(new 
 
 export const engineName = e => ENGINE_NAMES[e] || e;
 
+/** An answer as readable text for display: citation parentheticals and link targets out, bold markers off. The raw
+ *  answer with its markup stays in the data and the downloads. */
+export function plainAnswer(text) {
+  return (text || '')
+    .replace(/\s*\(\s*\[[^\]]*\]\([^)]*\)(?:\s*[,;]?\s*\[[^\]]*\]\([^)]*\))*\s*\)/g, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/^#+\s*/gm, '');
+}
+
 /** Fills the #edition element: "Edition 2026-11: ChatGPT (gpt-6.2-astra) and Claude (claude-opus-5-5), 3 repeats each. Gemini: pending." */
 export async function showEdition() {
   const node = document.getElementById('edition');
@@ -22,7 +32,7 @@ export async function showEdition() {
   const parts = d.engines.map(e => `${engineName(e.engine)} (${e.model})`);
   const list = parts.length <= 1 ? parts.join('') : parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];
   node.replaceChildren(
-    el('span', {}, `Edition ${d.round}: ${list || 'no engines yet'}${d.repeats ? `, ${d.repeats} repeats each.` : '.'}`),
+    el('span', {}, `Edition ${d.round}: ${list || 'no engines yet'}${d.repeats ? `, ${d.repeats} ${d.repeats === 1 ? 'repeat' : 'repeats'} each.` : '.'}`),
     ...(d.pending || []).map(p => el('span', { class: 'pending' }, ` ${engineName(p)}: pending.`)),
   );
 }

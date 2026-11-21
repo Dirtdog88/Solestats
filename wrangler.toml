@@ -7,8 +7,9 @@ workers_dev = true
 [assets]
 directory = "./public"
 binding = "ASSETS"
-# The Worker answers /api/* and downloads; everything else is a static file.
-run_worker_first = ["/api/*", "/download/*"]
+# Every request goes through the Worker so static pages get the security headers too (CSP, frame options);
+# the Worker answers /api/* and downloads itself and hands everything else to the assets binding.
+run_worker_first = true
 
 # Create the database first (setup guide step 1), then paste its id here.
 [[d1_databases]]
