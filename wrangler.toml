@@ -1,5 +1,7 @@
 # Cloudflare Worker config for SoleStats (solestats.com). Free plan: Worker + D1 + static assets.
-name = "solestats"
+# The Worker is called solestats2 in Cloudflare (the dashboard would not take "solestats" when the repo was connected
+# on 2026-11-21); the name is internal, the public address is solestats.com.
+name = "solestats2"
 main = "src/2026-11-21-worker.js"
 compatibility_date = "2026-09-01"
 workers_dev = true
