@@ -358,10 +358,17 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/S012/gemini/1,S012,gemini,1,rei,
 2026-11/S012/gemini/1,S012,gemini,1,road-runner-sports,
 2026-11/S012/gemini/3,S012,gemini,3,running-warehouse,
+2026-11/S013/gemini/1,S013,gemini,1,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFq_1jFqkoqeGHgOnJtX0wvRltXMjsk2HyxeFvUMXXkJnJK82t3pdenB1FFCGmLG9TAXrCz2g4n8JP2hBZPwiyjxAi9MJsBwED1VbB7kZMmEvBjeUX3F0hymqSp2AjxZCHIAIRyOM9wiPIvRLeI
+2026-11/S013/gemini/1,S013,gemini,1,running-warehouse,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHbjqxWBQOQD_nILCy53wZYnL4w8wqgWuXKpHX3ROxysjzTJ6BKUhjJ0iq5sXwzXxSKTRZXcXUUURC0yXDHNfAt9K6f1jMedo9p5tCsqRVxU5w_Wax50mAK_vDycWgs6YEuMNJ8N0NXFnbzd2WpuND4Gwn2LPw7LmJHZ-HAxyjPz0GR5UcecUJvhj4=
+2026-11/S013/gemini/1,S013,gemini,1,dicks,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEAQ4MVy5OXw5q5hDEPksHZaPie2WXHehQ8nJSgOmKeEvCu_7rHxsFVFY97AZGwvSqd1pPIJMz1lIrouynDymZZAdYR1zZ5HQcr1a2E7wSdRGuZyQ1MerKN_YjCoqp_c_XwQIIMXXsXB6g5U2-AGHSu3dPUYCJ2A0TmKxkyCMd18lDzFlas__JU6RVbwuVqaI14ObOJ-kEUVrjBUs0MsZgz6zS4EzflXkBUW0Vfp-U3rACFCAQ=
+2026-11/S013/gemini/2,S013,gemini,2,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEd4VPLmPH3MVOfvJt561tYaqGCvfJB_siuL9UU9QbWVDxhSvU3A-huAWXAGmTO1J8g4k5gyj7lJLdOwAkXr-HSXqLtxqC_gyjcAXPyaEzdtnCzAs9ti2G-nbI1Ls2OBEjho-xeKe1L2IEGBl_VhHoMXy2otv49llIlMxBvJHrVfRiu
+2026-11/S013/gemini/2,S013,gemini,2,walmart,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkF9IG9lQnU3cv5MBCFcV0lbK-UmwisNhuMgw7x2ymH-maUqPkbKtdmYNVh3odRwji9pw7j_hmIm1CWrTCRpt6K-_qJPlWW-7b_cZOGsZcPvEUmdkwiwAD36KvdmZ7_y8qm0wmaVcfV9c6w1AHeiKd-J5Ofjo8CYeAEr32T-4LtO__cvJfrHmUDkU=
+2026-11/S013/gemini/2,S013,gemini,2,holabird,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFm2YoOa5QRxmIGMU2ANOolN4DalVqmKYX3CmSi5KAsALZDYLNDN5WQfZHHGvG5OMLh0_dRDvKY_2DNh2IKAxDWeNoH1rEmNBHY9Ufb5TTcOb6iDz-gO4o7PTJu6DbGGQr-yWngT2NAukyHQIjnatKMAgnyPc58dOWef5UGtVlzsrT0BoQ=
 2026-11/S015/gemini/1,S015,gemini,1,running-warehouse,
 2026-11/S015/gemini/1,S015,gemini,1,fleet-feet,
 2026-11/S015/gemini/1,S015,gemini,1,rei,
 2026-11/S015/gemini/1,S015,gemini,1,dicks,
+2026-11/S015/gemini/1,S015,gemini,1,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEy0U2ofvpIxPYMZ87CX4aheZUEYbA05f-56S3lFO1wDFJ8n_86Agikap52OPXpWQt7cM33-rcly9uzjBPFsKquRc1f73jNqJcIWLeAqqUsYO0aEHGL9uAL7nJKNJ6k0KFACGSvYeeVRUD-vdHOmOnA
 2026-11/S015/gemini/3,S015,gemini,3,running-warehouse,
 2026-11/S015/gemini/3,S015,gemini,3,fleet-feet,
 2026-11/S015/gemini/3,S015,gemini,3,road-runner-sports,
@@ -375,6 +382,7 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/S032/gemini/2,S032,gemini,2,local,
 2026-11/S032/gemini/1,S032,gemini,1,local,
 2026-11/S034/gemini/1,S034,gemini,1,local,
+2026-11/S037/gemini/1,S037,gemini,1,holabird,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGW2px0UIOH7NSH3m1a7AMq4oF1qMxd1mQDtOohpg8UfjO_IXUQSaDVM7CtLJ4L_qpohiMdm9U4rP_gcJMT8SuQ6WgEMixirqo5esbBeCvwhOoWN53gGsT25WBP-ptJlcG17E5sCd-dgmQ52-jc_7AIw-upXz8R4dQ7cJj7tqgk7b5Tpdte
 2026-11/S040/gemini/2,S040,gemini,2,local,
 2026-11/S041/gemini/1,S041,gemini,1,running-warehouse,
 2026-11/S041/gemini/1,S041,gemini,1,road-runner-sports,
@@ -399,9 +407,9 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/S058/openai/1,S058,openai,1,brand-site,https://www.salomon.com/en-us/product/speedcross-6-lg9212/L49145100?utm_source=openai
 2026-11/S058/openai/2,S058,openai,2,brand-site,https://www.salomon.com/en-us/product/speedcross-6-wide-lg9372/L41744100?sizeId=L41744100026&utm_source=openai
 2026-11/S058/openai/3,S058,openai,3,brand-site,https://www.salomon.com/en-us/product/speedcross-6-lg9212?utm_source=openai
-2026-11/S059/openai/1,S059,openai,1,brand-site,https://www.topoathletic.com/mens-terraventure-4?utm_source=openai
-2026-11/S059/openai/2,S059,openai,2,brand-site,https://stores.hoka.com/product/2398506/hoka-mens-speedgoat-7?store=381992&utm_source=openai
-2026-11/S059/openai/3,S059,openai,3,brand-site,https://stores.hoka.com/product/2398506/hoka-mens-speedgoat-7?store=381992
+2026-11/S059/openai/1,S059,openai,1,brand-site,https://www.lasportivausa.com/products/bushido-iii?_pos=1&_sid=3eda9e509&_ss=r&bvstate=pg:2/ct:r
+2026-11/S059/openai/2,S059,openai,2,brand-site,https://www.lasportivausa.com/products/bushido-iii?_pos=1&_sid=34b57e15a&_ss=r&bvstate=pg%3A2%2Fct%3Ar&utm_source=openai
+2026-11/S059/openai/3,S059,openai,3,brand-site,https://www.lasportivausa.com/products/bushido-iii?_pos=1&_sid=8ead56ca5&_ss=r&bvstate=pg:3/ct:r
 2026-11/S060/openai/1,S060,openai,1,brand-site,https://www.brooksrunning.com/en_us/mens/shoes/trail-shoes/cascadia-20-gtx/110488.html?dwvar_110488_color=030&utm_source=openai
 2026-11/S060/openai/2,S060,openai,2,brand-site,https://stores.brooksrunning.com/product/2535467/brooks-running-mens-cascadia-20-gtx?store=21974&utm_source=openai
 2026-11/S060/openai/2,S060,openai,2,rei,https://www.rei.com/learn/expert-advice/should-you-get-waterproof-trail-running-shoes.html?utm_source=openai
@@ -454,6 +462,7 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/S075/openai/1,S075,openai,1,brand-site,https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/110493.html?utm_source=openai
 2026-11/S075/openai/2,S075,openai,2,brand-site,https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/110493.html?dwvar_110493_color=069&utm_source=openai
 2026-11/S075/openai/3,S075,openai,3,brand-site,https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/1104932E172.150.html
+2026-11/S075/gemini/3,S075,gemini,3,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEOa5Q0GHg_sGXzX9MU6o-n_ysvStigKccnDPaFNGLxpZu4enltia_VVAE678xsDHrRzpxG2OP-lEr7MWXPucUPLwh2sz0aXE8-OC5pVR6mb95UYdj5lZY-_5lw9z2kCgDPqyC--v4MFHiabEwYEinVS4N8-7gKcGGTcVR8JyeyzMM=
 2026-11/S076/openai/1,S076,openai,1,brand-site,https://www.topoathletic.com/mens-phantom-4
 2026-11/S076/openai/2,S076,openai,2,brand-site,https://www.asics.com/us/en-us/novablast-6/p/ANA_1012C008-002.html?size=8&width=Standard&utm_source=openai
 2026-11/S076/openai/3,S076,openai,3,brand-site,https://www.topoathletic.com/mens-phantom-4
@@ -468,6 +477,7 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/S079/openai/2,S079,openai,2,brand-site,https://www.nike.com/t/vomero-18-gore-tex-mens-waterproof-road-running-shoes-vEWMytZi?cp=32039173040_brom_bdisp_CROMM5SMFK2C&utm_source=openai
 2026-11/S080/openai/1,S080,openai,1,brand-site,https://www.adidas.com/us/adizero_evo_sl?utm_source=openai
 2026-11/S081/openai/1,S081,openai,1,brand-site,https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/110493.html?utm_source=openai
+2026-11/S080/gemini/3,S080,gemini,3,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWnb0LK_2FijcGZJlnUogYezc9GfEQA9L6eLH-XP0RWSbpLUsJZ0Tca6XJ24gL7oDLZum8XNbsamoCERRvLHta1KcbS6eKZu8T7cJS3vE58Sg9cid_-wsouXXtcdhmi6XvHto1
 2026-11/S081/openai/3,S081,openai,3,brand-site,https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/1104931D281.090.html?utm_source=openai
 2026-11/S081/openai/2,S081,openai,2,brand-site,https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/1104934E090.130.html?utm_source=openai
 2026-11/S082/openai/1,S082,openai,1,brand-site,https://stores.hoka.com/product/2300474/hoka-mens-challenger-8?location=Boston+MA&utm_source=openai
@@ -477,6 +487,7 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/S083/openai/1,S083,openai,1,brand-site,https://www.adidas.com/us/adizero-evo-sl-running-shoes/KI1491.html?utm_source=openai
 2026-11/S083/openai/2,S083,openai,2,brand-site,https://www.adidas.com/us/adizero_evo_sl-running-shoes?utm_source=openai
 2026-11/S083/openai/3,S083,openai,3,brand-site,https://www.adidas.com/us/adizero-adios-9-running-shoes/KH8894.html?utm_source=openai
+2026-11/S085/gemini/1,S085,gemini,1,fleet-feet,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEIXueVIvUtNNUJ4J5TE132DfE1TKLsTmAJHWGFk6AQZd0pHSWX9-eXGj7_tmzv-mY-bBqbG697vu5WwHfv29h6PqpCuLsLd1BJwwAWY0XEbHg1uEElHGc_uz6WicvTaciQWDJnRlvXl3U=
 2026-11/S087/gemini/2,S087,gemini,2,local,
 2026-11/S093/gemini/2,S093,gemini,2,target,
 2026-11/S095/gemini/1,S095,gemini,1,local,
@@ -693,6 +704,7 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/R006/gemini/2,R006,gemini,2,rei,
 2026-11/R006/gemini/2,R006,gemini,2,road-runner-sports,
 2026-11/R006/gemini/2,R006,gemini,2,zappos,
+2026-11/R006/gemini/2,R006,gemini,2,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHzqZArR6ljH1uaBRxaeTcLMZC5WkTqjoclhZrcy880AEOgUngoknzG5D8oZeJnytGhL4Tx2QIRrVI_Q4lYZ2mH5KGuryqUN1uyxGaZ6FF5syn9iEDaZNDfZBwqc-rF-T7MQw==
 2026-11/R007/openai/2,R007,openai,2,fleet-feet,
 2026-11/R007/openai/2,R007,openai,2,road-runner-sports,
 2026-11/R007/openai/3,R007,openai,3,fleet-feet,
@@ -704,9 +716,11 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/R006/gemini/3,R006,gemini,3,rei,
 2026-11/R006/gemini/3,R006,gemini,3,road-runner-sports,
 2026-11/R006/gemini/3,R006,gemini,3,zappos,
+2026-11/R006/gemini/3,R006,gemini,3,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGJxuec6QVbpojb5y6rPvC8bWA20VwCl1FIHUtFrlcQwejssY-yTwBM2EL1Sv1NsLraUDOD_b6F0GTBmi7EG105nytZnHnk3RMr_vpwrgX2FN39FGUi7zEvcOe70xGDvNygngLVwU1h-aHWydpTkYSstHCxBdd3bm6-d3cpEH-xNiluAKmbp9DYPNn1ZPYMfA0u4HWvv4CkemRS
 2026-11/R007/gemini/1,R007,gemini,1,fleet-feet,
 2026-11/R007/gemini/1,R007,gemini,1,rei,
 2026-11/R007/gemini/1,R007,gemini,1,road-runner-sports,
+2026-11/R007/gemini/1,R007,gemini,1,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF0CB6aly0ePMOtqyW2G88j3RC5m0S8BPIJ3lhF-XegYyZwwoe8eBs-rzDWAi9pyk1DtzIbD0xlPFCJBledmX9C9OQoS_Xj6-k_Cs4Lzq7AH0of5ROJl9KeE1G4_YsA1fD6diKf06TB6MYFm0KZUU_KBxBfxGBNk2ufxMWbXQY4pUU=
 2026-11/R008/openai/1,R008,openai,1,running-warehouse,
 2026-11/R008/openai/1,R008,openai,1,fleet-feet,
 2026-11/R008/openai/1,R008,openai,1,rei,
@@ -718,6 +732,7 @@ run_id,prompt_id,engine,repeat,retailer,url
 2026-11/R007/gemini/3,R007,gemini,3,fleet-feet,
 2026-11/R007/gemini/3,R007,gemini,3,rei,
 2026-11/R007/gemini/3,R007,gemini,3,road-runner-sports,
+2026-11/R007/gemini/3,R007,gemini,3,brand-site,https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEJW2MsTGn96kO3S1iWR-uhmtJzQ2OTO-nvsKpejUiQjh8YyPquR0q-gejeC2LOLzN6BoM2366chSlxK-715JfrdrOLEflgP7Lt6CGAE8HbbQPhsUqOAt7njpXRsbmypbkAYi1PAMTrI2UH_RJ6kRxmXYke2HNqxD-Xm5-6-0H8E30BJg==
 2026-11/R008/openai/2,R008,openai,2,running-warehouse,
 2026-11/R008/openai/2,R008,openai,2,fleet-feet,
 2026-11/R008/openai/2,R008,openai,2,rei,

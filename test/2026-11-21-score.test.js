@@ -65,8 +65,7 @@ test('scoreSourced and scoreRouting look only at answers that name the brand', (
     run('S1', 2, ['hoka'], { citations: [{ kind: 'other' }], routes: [{ retailer_slug: 'amazon' }] }),
   ];
   const retailers = [{ slug: 'amazon', kind: 'marketplace' }, { slug: 'fleet-feet', kind: 'run-specialty' }];
-  assert.equal(scoreSourced(brooks, runs).score, 50);
-  assert.equal(scoreSourced(brooks, runs).detail.sourced, 1);
+  assert.equal(scoreSourced(brooks, runs).detail.answers, 1);
   assert.equal(scoreRouting(brooks, runs, retailers).score, 50);
   assert.equal(scoreRouting(hoka, runs, retailers).score, 0);
 });
@@ -77,10 +76,17 @@ test('scoreSourced grades only named sources and counts not-provided and no-sear
     run('S1', 2, ['brooks'], { citations: [{ kind: 'brand', source: 'searched' }, { kind: 'review', source: 'searched' }], searches: 2 }),
     run('S1', 3, ['brooks'], { citations: [], searches: 0 }),
   ];
-  const r = scoreSourced(brooks, runs);
-  assert.equal(r.score, 50);           // one review out of review + forum; the searched pages are ignored
-  assert.equal(r.n, 2);
-  assert.deepEqual([r.detail.answers, r.detail.sourced, r.detail.not_provided, r.detail.no_search], [3, 1, 1, 1]);
+  // Five answers that each name a review and a forum page, plus the two unsourced ones above.
+  const five = [1, 2, 3, 4, 5].map(i => run('S2', i, ['brooks'], { citations: [{ kind: 'review' }, { kind: 'forum' }, { kind: 'brand', source: 'searched' }], searches: 1 }));
+  const r = scoreSourced(brooks, [...five, ...runs.slice(1)]);
+  assert.equal(r.score, 50);           // one review out of review + forum each time; the searched pages are ignored
+  assert.equal(r.n, 10);
+  assert.deepEqual([r.detail.answers, r.detail.sourced, r.detail.not_provided, r.detail.no_search], [7, 5, 1, 1]);
+  // Fewer than five answers that name a source: no score, and the detail says why.
+  const few = scoreSourced(brooks, runs);
+  assert.equal(few.score, null);
+  assert.equal(few.detail.too_few, true);
+  assert.deepEqual([few.detail.sourced, few.detail.min], [1, 5]);
   // An engine that searches but never names a source gives no score, only the counts.
   const none = scoreSourced(brooks, runs.slice(1));
   assert.equal(none.score, null);
@@ -88,6 +94,13 @@ test('scoreSourced grades only named sources and counts not-provided and no-sear
   assert.equal(sourcing({ citations: [], searches: 0 }), 'no_search');
   assert.equal(sourcing({ citations: [{ source: 'searched' }] }), 'not_provided');
   assert.equal(sourcing({ citations: [{ source: 'cited' }] }), 'sourced');
+});
+
+test('scoreSourced counts non-US brand sites as brand sites and says how many', () => {
+  const runs = [1, 2, 3, 4, 5].map(i => run('S1', i, ['hoka'], { citations: [{ kind: 'brand', intl: i <= 2 }, { kind: 'other' }], searches: 1 }));
+  const r = scoreSourced(hoka, runs);
+  assert.equal(r.score, 50);
+  assert.equal(r.detail.intl_own_site, 2);
 });
 
 test('scoreRouting is unchanged by the Sourced rules', () => {

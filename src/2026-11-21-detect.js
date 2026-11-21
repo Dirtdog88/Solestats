@@ -132,14 +132,34 @@ export function citedDomain(url, title = '') {
   return domain;
 }
 
+const onDomain = (domain, d) => domain === d || domain.endsWith('.' + d);
+const list = s => (s || '').split(';').map(x => x.trim().toLowerCase()).filter(Boolean);
+// A country or region subdomain of a brand's site (au.hoka.com, eu.altrarunning.com, emea-support.brooksrunning.com).
+// "us" is the US site.
+const REGION_LABEL = /^(?!us(?:-|$))(?:[a-z]{2}|eu|emea|apac|latam)(?:-|$)/;
+
+/** Whether a domain is one of the brand's own sites, and whether it is a non-US one (Alex, 2026-11-21: non-US sites
+ *  count as the brand's own, and are called out). Own sites: `domain` and `own_domains`; non-US: `intl_domains`
+ *  and country subdomains of the others. */
+export function brandSite(domain, brand) {
+  for (const d of [brand.domain, ...list(brand.own_domains)].filter(Boolean)) {
+    if (onDomain(domain, d)) return { intl: domain !== d && REGION_LABEL.test(domain.slice(0, -d.length - 1).split('.').pop()) };
+  }
+  for (const d of list(brand.intl_domains)) if (onDomain(domain, d)) return { intl: true };
+  return null;
+}
+
 /** Classify a cited URL: brand | retailer | review | forum | other. Brand and retailer lookups come from the CSVs.
- *  Pass the citation's title so a redirect link is classified by the site it stands for. */
+ *  Pass the citation's title so a redirect link is classified by the site it stands for. A brand site carries
+ *  `intl: true` when it is a non-US one. */
 export function classifyCitation(url, brands, retailers, title = '') {
   const domain = citedDomain(url, title);
   if (!domain) return { domain: '', kind: 'other' };
   const full = domain === domainOf(url) ? url.toLowerCase() : domain;
-  const brand = brands.find(b => b.domain && (domain === b.domain || domain.endsWith('.' + b.domain)));
-  if (brand) return { domain, kind: 'brand', brand_slug: brand.slug };
+  for (const b of brands) {
+    const own = brandSite(domain, b);
+    if (own) return own.intl ? { domain, kind: 'brand', brand_slug: b.slug, intl: true } : { domain, kind: 'brand', brand_slug: b.slug };
+  }
   for (const r of retailers) {
     for (const d of (r.domains || '').split(';').map(s => s.trim()).filter(Boolean)) {
       if (domain === d || domain.endsWith('.' + d)) return { domain, kind: 'retailer', retailer_slug: r.slug };

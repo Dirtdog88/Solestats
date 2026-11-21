@@ -1,19 +1,19 @@
-slug,name,category,treatment,domain,aliases
-brooks,Brooks,shoes,full,brooksrunning.com,Brooks Running
-hoka,Hoka,shoes,full,hoka.com,HOKA;Hoka One One
-on,On,shoes,full,on.com,On Running;On Cloud;Cloudmonster;Cloudsurfer
-saucony,Saucony,shoes,full,saucony.com,
-asics,Asics,shoes,full,asics.com,ASICS
-nike,Nike,shoes,full,nike.com,
-adidas,adidas,shoes,full,adidas.com,Adidas
-new-balance,New Balance,shoes,full,newbalance.com,NB
-altra,Altra,shoes,eligible,altrarunning.com,
-topo,Topo,shoes,eligible,topoathletic.com,Topo Athletic
-salomon,Salomon,shoes,eligible,salomon.com,
-merrell,Merrell,shoes,eligible,merrell.com,
-la-sportiva,La Sportiva,shoes,eligible,lasportiva.com,
-mizuno,Mizuno,shoes,eligible,mizunousa.com,
-puma,Puma,shoes,eligible,puma.com,PUMA
-under-armour,Under Armour,shoes,eligible,underarmour.com,UA
-skechers,Skechers,shoes,eligible,skechers.com,
-inov8,Inov8,shoes,eligible,inov8.com,inov-8;Inov-8
+slug,name,category,treatment,domain,aliases,own_domains,intl_domains
+brooks,Brooks,shoes,full,brooksrunning.com,Brooks Running,,
+hoka,Hoka,shoes,full,hoka.com,HOKA;Hoka One One,,
+on,On,shoes,full,on.com,On Running;On Cloud;Cloudmonster;Cloudsurfer,on-running.com,
+saucony,Saucony,shoes,full,saucony.com,,,
+asics,Asics,shoes,full,asics.com,ASICS,,
+nike,Nike,shoes,full,nike.com,,,
+adidas,adidas,shoes,full,adidas.com,Adidas,adidas-group.com,adidas.co.uk;adidas.com.sg
+new-balance,New Balance,shoes,full,newbalance.com,NB,,newbalance.com.my
+altra,Altra,shoes,eligible,altrarunning.com,,,
+topo,Topo,shoes,eligible,topoathletic.com,Topo Athletic,,topoathletic.com.au
+salomon,Salomon,shoes,eligible,salomon.com,,,
+merrell,Merrell,shoes,eligible,merrell.com,,,
+la-sportiva,La Sportiva,shoes,eligible,lasportiva.com,,lasportivausa.com,
+mizuno,Mizuno,shoes,eligible,mizunousa.com,,usa.mizuno.com,mizuno.com;mizuno.com.au
+puma,Puma,shoes,eligible,puma.com,PUMA,,
+under-armour,Under Armour,shoes,eligible,underarmour.com,UA,,
+skechers,Skechers,shoes,eligible,skechers.com,,,
+inov8,Inov8,shoes,eligible,inov8.com,inov-8;Inov-8,,

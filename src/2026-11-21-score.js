@@ -85,8 +85,12 @@ export function sourcing(run) {
 /**
  * Sourced = share of the sources named in answers about the brand that are brand-owned or established review sites.
  * Only attributed citations count. Answers that searched but named no source (not_provided) and answers that did not
- * search (no_search) stay in the counts beside the score, so the page can say so, but are not scored.
+ * search (no_search) stay in the counts beside the score, so the page can say so, but are not scored. With fewer than
+ * MIN_SOURCED_ANSWERS answers that name a source there is no score (detail.too_few). Non-US brand sites count as
+ * brand sites; detail.intl_own_site says how many.
  */
+export const MIN_SOURCED_ANSWERS = 5; // Alex, 2026-11-21: fewer answers that name a source and Sourced is not scored
+
 export function scoreSourced(brand, runs) {
   const rel = runs.filter(r => r.status === 'ok' && r.mentions.some(m => m.brand_slug === brand.slug));
   const groups = { sourced: 0, not_provided: 0, no_search: 0 };
@@ -97,11 +101,12 @@ export function scoreSourced(brand, runs) {
     if (g === 'sourced') cites.push(...r.citations.filter(c => c.source !== 'searched'));
   }
   const counts = { answers: rel.length, ...groups };
-  if (!cites.length) return { score: null, margin: null, n: 0, detail: counts };
+  if (groups.sourced < MIN_SOURCED_ANSWERS) return { score: null, margin: null, n: cites.length, detail: { ...counts, too_few: true, min: MIN_SOURCED_ANSWERS } };
   const kinds = {};
   for (const c of cites) kinds[c.kind] = (kinds[c.kind] || 0) + 1;
   const good = (kinds.brand || 0) + (kinds.review || 0);
-  return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { ...counts, kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)) } };
+  const intl = cites.filter(c => c.kind === 'brand' && c.intl).length;
+  return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { ...counts, kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)), intl_own_site: intl } };
 }
 
 /** Where the sale goes = share of routes, in answers that name the brand, going to the brand's own site or run specialty. */

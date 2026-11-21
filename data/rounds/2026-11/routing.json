@@ -1,19 +1,21 @@
 {
   "shoes": {
     "answers": 1170,
-    "with_route": 475,
+    "with_route": 481,
     "by_retailer": {
-      "fleet-feet": 32,
+      "fleet-feet": 33,
       "local": 31,
-      "brand-site": 366,
+      "brand-site": 371,
       "rei": 33,
-      "running-warehouse": 35,
+      "running-warehouse": 36,
       "best-buy": 3,
       "zappos": 3,
       "target": 12,
       "amazon": 12,
-      "dicks": 5,
+      "dicks": 6,
       "road-runner-sports": 7,
+      "walmart": 1,
+      "holabird": 2,
       "backcountry": 1
     }
   },
@@ -29,7 +31,7 @@
       "zappos": 27,
       "holabird": 13,
       "local": 31,
-      "brand-site": 19,
+      "brand-site": 23,
       "dicks": 10,
       "jackrabbit": 1,
       "best-buy": 1,

@@ -11,6 +11,7 @@ function sourcedPills(detail) {
   const out = [];
   if (detail.not_provided) out.push(defined('span', 'not_provided', { class: 'pill grey', text: `not provided ${detail.not_provided}` }));
   if (detail.no_search) out.push(defined('span', 'no_search', { class: 'pill grey', text: `no search ${detail.no_search}` }));
+  if (detail.intl_own_site) out.push(defined('span', 'intl', { class: 'pill grey', text: `non-US site ${detail.intl_own_site}` }));
   return out;
 }
 
@@ -27,8 +28,16 @@ async function main() {
   document.getElementById('sub').textContent = [d.brand.category === 'shoes' ? 'Running shoes' : d.brand.category, TREATMENT[d.brand.treatment] || d.brand.treatment].join(' · ');
   showEdition();
   const grid = el('div', { class: 'subjects' });
+  // Sourced held back for too few answers that name a source: there is no score row, so the counts come from the API.
+  const src = d.sourcing || {};
+  const heldSourced = !d.scores.sourced && (src.sourced || 0) < src.min ? { sourced: src.sourced || 0, not_provided: src.not_provided || 0, no_search: src.no_search || 0, min: src.min } : null;
   for (const s of ORDER) {
     const v = d.scores[s];
+    if (!v && s === 'sourced' && heldSourced) {
+      grid.append(el('div', { class: 'subject' }, defined('div', s, { class: 'label' }), el('div', { class: 'big' }, '—'),
+        el('div', { class: 'pills' }, defined('span', 'too_few', { class: 'pill grey', text: `too few: ${heldSourced.sourced} of ${heldSourced.min}` }), ...sourcedPills({ ...heldSourced, intl_own_site: 0 }))));
+      continue;
+    }
     if (!v) continue;
     grid.append(el('div', { class: 'subject' }, defined('div', s, { class: 'label' }), el('div', { class: 'big' }, v.score == null ? '—' : String(Math.round(v.score))),
       el('div', { class: 'pills' }, v.margin != null ? defined('span', 'margin', { class: 'pill', text: `±${Math.round(v.margin)}` }) : '', defined('span', 'n', { class: 'pill grey', text: `n ${v.n}` }), ...(s === 'sourced' ? sourcedPills(v.detail) : []))));

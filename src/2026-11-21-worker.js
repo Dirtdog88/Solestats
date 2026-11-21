@@ -1,3 +1,4 @@
+import { MIN_SOURCED_ANSWERS } from './2026-11-21-score.js';
 // SoleStats Worker: a public, read-only JSON API over D1 plus CSV downloads; everything else is a static file.
 // Nothing here writes: data is loaded with the scripts (wrangler d1 execute). No sign-in, no cookies.
 
@@ -56,17 +57,20 @@ async function api(url, env) {
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
-    const [scores, fixes, context, examples] = await Promise.all([
+    const [scores, fixes, context, examples, sourcing] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       // A few answers that named the brand, newest first, so a visitor can see the evidence.
       env.DB.prepare(`SELECT r.id, r.engine, r.model, r.prompt_text, r.answer, m.position, m.top_pick, CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? ORDER BY m.top_pick DESC, r.created_at DESC LIMIT 6`).bind(round, slug).all(),
+      // How the answers naming the brand stand on sources, so the page can explain a Sourced held back for too few.
+      env.DB.prepare(`SELECT CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing, COUNT(DISTINCT r.id) AS n FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? AND r.status = 'ok' GROUP BY sourcing`).bind(round, slug).all(),
     ]);
     return json({
       round, brand,
       scores: Object.fromEntries(scores.results.map(s => [s.subject, { score: s.score, margin: s.margin, n: s.n, detail: safeJson(s.detail_json) }])),
       fixes: fixes.results, context: context.results, examples: examples.results,
+      sourcing: { ...Object.fromEntries(sourcing.results.map(x => [x.sourcing, x.n])), min: MIN_SOURCED_ANSWERS },
     });
   }
   if (parts[1] === 'retailers') {

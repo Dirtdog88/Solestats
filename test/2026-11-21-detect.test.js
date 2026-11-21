@@ -44,6 +44,20 @@ test('classifyCitation reads a Google grounding redirect by the domain in its ti
   assert.equal(classifyCitation('https://www.reddit.com/r/running', brands, retailers, 'brooksrunning.com').kind, 'forum');
 });
 
+test('classifyCitation counts other and non-US brand sites as the brand, and marks the non-US ones', () => {
+  const k = url => { const c = classifyCitation(url, brands, retailers); return [c.kind, c.brand_slug || '', !!c.intl].join(' '); };
+  assert.equal(k('https://www.on-running.com/en-us/products/cloudmonster'), 'brand on false');
+  assert.equal(k('https://www.lasportivausa.com/bushido'), 'brand la-sportiva false');
+  assert.equal(k('https://usa.mizuno.com/wave-rider'), 'brand mizuno false');
+  assert.equal(k('https://www.mizuno.com.au/wave-rider'), 'brand mizuno true');
+  assert.equal(k('https://www.adidas.co.uk/adizero'), 'brand adidas true');
+  assert.equal(k('https://au.hoka.com/clifton'), 'brand hoka true');
+  assert.equal(k('https://eu.altrarunning.com/lone-peak'), 'brand altra true');
+  assert.equal(k('https://us.puma.com/velocity'), 'brand puma false');
+  assert.equal(k('https://stores.hoka.com/seattle'), 'brand hoka false');
+  assert.equal(k('https://www.hoka.com/en/us/clifton'), 'brand hoka false');
+});
+
 test('classifyCitation knows brand sites, retailers, review sites, forums', () => {
   assert.equal(classifyCitation('https://www.brooksrunning.com/en_us/ghost-17', brands, retailers).kind, 'brand');
   assert.equal(classifyCitation('https://www.brooksrunning.com/en_us/ghost-17', brands, retailers).brand_slug, 'brooks');
