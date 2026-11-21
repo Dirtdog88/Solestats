@@ -86,6 +86,11 @@ test('markTopPick follows an explicit verdict over first mention, and falls back
   assert.deepEqual(markTopPick('nothing here', [], matchers), []);
 });
 
+test('findRoutes records whose site a brand-site route is, and leaves general brand-site language unassigned', () => {
+  const routes = findRoutes("Buy direct from the brand's site.", [{ url: 'https://www.brooksrunning.com/ghost' }, { url: 'https://www.hoka.com/clifton' }], brands, retailers);
+  assert.deepEqual(routes.map(r => `${r.retailer_slug}:${r.brand_slug || ''}`).sort(), ['brand-site:', 'brand-site:brooks', 'brand-site:hoka']);
+});
+
 test('findRoutes ignores pages a search merely returned', () => {
   const routes = findRoutes('Buy a neutral trainer and get fitted.', [], brands, retailers);
   assert.deepEqual(routes, []);

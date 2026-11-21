@@ -75,7 +75,7 @@ async function api(url, env) {
   }
   if (parts[1] === 'retailers') {
     if (!round) return json({ round: null, rows: [] });
-    const rows = (await env.DB.prepare(`SELECT p.category, rt.retailer_slug, re.name, re.kind, COUNT(*) AS n
+    const rows = (await env.DB.prepare(`SELECT p.category, rt.retailer_slug, re.name, re.kind, COUNT(DISTINCT rt.run_id) AS n
       FROM routes rt JOIN runs r ON r.id = rt.run_id JOIN prompts p ON p.id = r.prompt_id JOIN retailers re ON re.slug = rt.retailer_slug
       WHERE r.round_id = ? GROUP BY p.category, rt.retailer_slug ORDER BY p.category, n DESC`).bind(round).all()).results;
     const answers = (await env.DB.prepare('SELECT p.category, COUNT(*) AS n FROM runs r JOIN prompts p ON p.id = r.prompt_id WHERE r.round_id = ? AND r.status = ? GROUP BY p.category').bind(round, 'ok').all()).results;
@@ -91,7 +91,7 @@ async function download(url, env) {
   const q = {
     'answers.csv': 'SELECT id AS run_id, prompt_id, engine, model, repeat_no, prompt_text, status, answer, citations_json, searched_json, searches, created_at FROM runs WHERE round_id = ? ORDER BY id',
     'mentions.csv': 'SELECT m.run_id, r.prompt_id, r.engine, r.repeat_no, m.brand_slug, m.position, m.top_pick FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? ORDER BY m.run_id',
-    'routes.csv': 'SELECT rt.run_id, r.prompt_id, r.engine, r.repeat_no, rt.retailer_slug, rt.url FROM routes rt JOIN runs r ON r.id = rt.run_id WHERE r.round_id = ? ORDER BY rt.run_id',
+    'routes.csv': 'SELECT rt.run_id, r.prompt_id, r.engine, r.repeat_no, rt.retailer_slug, rt.brand_slug, rt.url FROM routes rt JOIN runs r ON r.id = rt.run_id WHERE r.round_id = ? ORDER BY rt.run_id',
     'scores.csv': 'SELECT brand_slug, subject, score, margin, n, detail_json FROM scores WHERE round_id = ? ORDER BY brand_slug, subject',
     'citations.csv': 'SELECT c.run_id, r.prompt_id, r.engine, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug FROM citations c JOIN runs r ON r.id = c.run_id WHERE r.round_id = ? ORDER BY c.run_id',
     'prompts.csv': 'SELECT id, set_name, category, text, tags, pulse, pair_a, pair_b FROM prompts WHERE ? IS NOT NULL ORDER BY id',
