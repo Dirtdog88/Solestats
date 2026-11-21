@@ -57,10 +57,3 @@ test('GET /api/edition lists the engines in the round and the pending ones from 
   assert.deepEqual(empty, { round: null, engines: [], pending: ['gemini'] });
 });
 
-test('GET /api/engines groups the round by engine and model', async () => {
-  const res = await worker.fetch(new Request('https://solestats.com/api/engines'), env);
-  const body = await res.json();
-  assert.equal(body.round, '2026-12');
-  assert.equal(body.engines[0].engine, 'anthropic');
-  assert.equal(body.engines[0].ok, 2);
-});

@@ -36,7 +36,10 @@ async function api(url, env) {
     const pending = (env.PENDING_ENGINES || '').split(/[;,]/).map(s => s.trim()).filter(Boolean);
     if (!round) return json({ round: null, engines: [], pending });
     const row = await env.DB.prepare('SELECT started_at, finished_at, repeats FROM rounds WHERE id = ?').bind(round).first();
-    const engines = (await env.DB.prepare("SELECT engine, model, COUNT(*) AS runs FROM runs WHERE round_id = ? AND status = 'ok' GROUP BY engine, model ORDER BY engine, model").bind(round).all()).results;
+    const engines = (await env.DB.prepare(`SELECT engine, model, COUNT(*) AS runs,
+      SUM(CASE WHEN searches > 0 THEN 1 ELSE 0 END) AS searched,
+      SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited
+      FROM runs WHERE round_id = ? AND status = 'ok' GROUP BY engine, model ORDER BY engine, model`).bind(round).all()).results;
     return json({ round, started_at: row?.started_at || null, finished_at: row?.finished_at || null, repeats: row?.repeats || null, engines, pending: pending.filter(p => !engines.some(e => e.engine === p)) });
   }
   if (parts[1] === 'rounds') return json({ rounds: (await env.DB.prepare('SELECT id, started_at, finished_at, engines, repeats FROM rounds ORDER BY id DESC').all()).results });
@@ -72,13 +75,6 @@ async function api(url, env) {
       WHERE r.round_id = ? GROUP BY p.category, rt.retailer_slug ORDER BY p.category, n DESC`).bind(round).all()).results;
     const answers = (await env.DB.prepare('SELECT p.category, COUNT(*) AS n FROM runs r JOIN prompts p ON p.id = r.prompt_id WHERE r.round_id = ? AND r.status = ? GROUP BY p.category').bind(round, 'ok').all()).results;
     return json({ round, rows, answers });
-  }
-  if (parts[1] === 'engines') {
-    // What each engine contributed to the round: answers, the model id that ran, how many answers searched.
-    const rows = round ? (await env.DB.prepare(`SELECT engine, model, COUNT(*) AS answers, SUM(CASE WHEN status = 'ok' THEN 1 ELSE 0 END) AS ok,
-      SUM(CASE WHEN searches > 0 THEN 1 ELSE 0 END) AS searched, SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited
-      FROM runs WHERE round_id = ? GROUP BY engine, model ORDER BY engine`).bind(round).all()).results : [];
-    return json({ round, engines: rows });
   }
   if (parts[1] === 'prompts') return json({ prompts: (await env.DB.prepare('SELECT id, set_name, category, text, tags FROM prompts ORDER BY id').all()).results });
   return json({ error: 'not found' }, 404);

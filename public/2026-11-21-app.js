@@ -2,10 +2,7 @@
 const SUBJECTS = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
 const LABELS = { overall: 'Overall', recommended: 'Recommended', accurate: 'Accurate', shoppable: 'Shoppable', sourced: 'Sourced', routing: 'Sale goes home' };
 const CATS = { shoes: 'Shoes', retail: 'Where to buy' };
-// The three engines every edition is meant to include, in display order. One that has no runs yet shows as pending.
-const ENGINES = [['anthropic', 'Claude'], ['openai', 'ChatGPT'], ['gemini', 'Gemini']];
-
-import { el, api, showEdition } from './2026-11-21-common.js';
+import { el, api, showEdition, engineName } from './2026-11-21-common.js';
 
 function scoreCell(s) {
   if (!s || s.score == null) return el('td', { class: 'num' }, el('span', { class: 'score none' }, '—'));
@@ -34,18 +31,13 @@ function retailTable(data) {
   return el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows));
 }
 
-function engineStrip(data) {
-  const by = {};
-  for (const e of data.engines || []) (by[e.engine] ||= []).push(e);
-  return ENGINES.map(([slug, label]) => {
-    const rows = by[slug];
-    if (!rows) return el('li', { class: 'engine pending' }, el('div', { class: 'name' }, label), el('div', { class: 'stat' }, 'Not yet run in this edition'));
-    const answers = rows.reduce((a, r) => a + Number(r.ok || 0), 0);
-    const searched = rows.reduce((a, r) => a + Number(r.searched || 0), 0);
-    const cited = rows.reduce((a, r) => a + Number(r.cited || 0), 0);
-    return el('li', { class: 'engine' }, el('div', { class: 'name' }, label), el('div', { class: 'model' }, rows.map(r => r.model).filter(Boolean).join(', ')),
-      el('div', { class: 'stat' }, `${answers} answers · ${searched} searched the web · ${cited} cited sources`));
-  });
+// One card per engine in the edition (answers, model id, how many searched the web and cited sources), then a dashed
+// card for each engine still pending (PENDING_ENGINES in wrangler.toml).
+function engineStrip(d) {
+  const cards = (d.engines || []).map(e => el('li', { class: 'engine' }, el('div', { class: 'name' }, engineName(e.engine)), el('div', { class: 'model' }, e.model || ''),
+    el('div', { class: 'stat' }, `${e.runs} answers · ${e.searched || 0} searched the web · ${e.cited || 0} cited sources`)));
+  for (const p of d.pending || []) cards.push(el('li', { class: 'engine pending' }, el('div', { class: 'name' }, engineName(p)), el('div', { class: 'stat' }, 'Not yet run in this edition')));
+  return cards;
 }
 
 async function main() {
@@ -54,7 +46,7 @@ async function main() {
   if (health.notice) { notice.textContent = health.notice; notice.hidden = false; }
   showEdition();
   const { brands, round } = await api('/api/brands').catch(() => ({ brands: [], round: null }));
-  document.getElementById('engines').replaceChildren(...engineStrip(await api('/api/engines').catch(() => ({ engines: [] }))));
+  document.getElementById('engines').replaceChildren(...engineStrip(await api('/api/edition').catch(() => ({ engines: [], pending: [] }))));
   const list = document.getElementById('brand-list');
   for (const b of brands) list.append(el('option', { value: b.name }));
   document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS));
