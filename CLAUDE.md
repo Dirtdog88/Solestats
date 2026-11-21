@@ -53,7 +53,10 @@ Add nothing else without a strong reason.
 - The publishing gate (employment attorney, then Gannon) was cleared on 2026-11-21. `PREVIEW_NOTICE` in
   `wrangler.toml` stays set until the first full edition (all three engines, three repeats) is imported, then it
   is set to "" and the site can be announced.
-- Cadence: a full round every quarter; a monthly pulse of the prompts with `pulse = 1` (`npm run run -- --set pulse`).
+- Cadence (Alex, 2026-11-21): a full round every month, run by a scheduled task. Accurate's spec questions and the hand
+  checks (spec sheet, Shoppable checklist) run once a quarter; a round without its own `fact-checks.jsonl` or
+  `site-checks.jsonl` is scored on the latest earlier round's (`checked_round` in the detail). The `pulse` column and
+  `--set pulse` stay as a cheaper fallback but are not used.
 - Shoppable by AI is the checklist in `data/2026-11-21-shoppable-checklist.csv`, scored by hand per brand per round
   into `data/rounds/<round>/site-checks.jsonl` ({brand_slug, item, result 1|0, notes}).
 
