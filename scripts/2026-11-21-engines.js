@@ -83,7 +83,9 @@ export async function askGemini(prompt) {
   const answer = (cand.content?.parts || []).map(p => p.text || '').join('');
   const citations = (cand.groundingMetadata?.groundingChunks || []).filter(c => c.web?.uri).map(c => ({ url: c.web.uri, title: c.web.title || '' }));
   const searches = cand.groundingMetadata?.webSearchQueries?.length || 0;
-  return { model: res.modelVersion || model, answer, citations: dedupe(citations), searched: [], searches, raw: res, input_tokens: res.usageMetadata?.promptTokenCount, output_tokens: res.usageMetadata?.candidatesTokenCount, stop_reason: cand.finishReason };
+  // Thinking tokens are billed at the output rate, so they count as output here.
+  const out = (res.usageMetadata?.candidatesTokenCount || 0) + (res.usageMetadata?.thoughtsTokenCount || 0);
+  return { model: res.modelVersion || model, answer, citations: dedupe(citations), searched: [], searches, raw: res, input_tokens: res.usageMetadata?.promptTokenCount, output_tokens: out, cached_tokens: res.usageMetadata?.cachedContentTokenCount || 0, stop_reason: cand.finishReason };
 }
 
 // ---------- Perplexity Sonar (search built in) ----------
@@ -114,10 +116,25 @@ export function estimateCost(engine, inTok = 0, outTok = 0, searches = 0, cached
 
 function need(name) { const v = process.env[name]; if (!v) throw new Error(`${name} is not set`); return v; }
 function dedupe(cs) { const seen = new Set(); return cs.filter(c => c.url && !seen.has(c.url) && seen.add(c.url)); }
+// POST JSON with a timeout and a few retries: engines return 503 under load and sometimes hang without answering.
+// Retried: 429, 500, 502, 503, 504 and network errors (timeouts, dropped connections). Not retried: 400s.
+const TIMEOUT_MS = Number(process.env.SOLESTATS_TIMEOUT_MS || 120000);
+const RETRIES = Number(process.env.SOLESTATS_RETRIES || 3);
 async function post(url, headers, body) {
-  const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) });
-  const text = await r.text();
-  // Keep enough of an error body to see Google's quota details (they sit past the first 500 characters).
-  if (!r.ok) throw new Error(`${url} -> ${r.status}: ${text.slice(0, 2500)}`);
-  return JSON.parse(text);
+  let lastErr;
+  for (let attempt = 0; attempt <= RETRIES; attempt++) {
+    if (attempt) await new Promise(res => setTimeout(res, 5000 * 2 ** (attempt - 1) + Math.random() * 1000));
+    try {
+      const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body), signal: AbortSignal.timeout(TIMEOUT_MS) });
+      const text = await r.text();
+      if (r.ok) return JSON.parse(text);
+      // Keep enough of an error body to see Google's quota details (they sit past the first 500 characters).
+      lastErr = new Error(`${url} -> ${r.status}: ${text.slice(0, 2500)}`);
+      if (![429, 500, 502, 503, 504].includes(r.status)) throw lastErr;
+    } catch (e) {
+      if (e === lastErr) throw e;
+      lastErr = new Error(`${url} -> ${e.name === 'TimeoutError' ? `no answer within ${TIMEOUT_MS / 1000}s` : e.cause?.message || e.message}`);
+    }
+  }
+  throw lastErr;
 }
