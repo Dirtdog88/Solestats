@@ -56,6 +56,7 @@ test('classifyCitation counts other and non-US brand sites as the brand, and mar
   assert.equal(k('https://us.puma.com/velocity'), 'brand puma false');
   assert.equal(k('https://stores.hoka.com/seattle'), 'brand hoka false');
   assert.equal(k('https://www.hoka.com/en/us/clifton'), 'brand hoka false');
+  assert.equal(k('https://www.joesnewbalanceoutlet.com/fresh-foam'), 'brand new-balance false');
 });
 
 test('classifyCitation knows brand sites, retailers, review sites, forums', () => {

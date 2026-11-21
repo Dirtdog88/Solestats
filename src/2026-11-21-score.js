@@ -83,7 +83,8 @@ export function sourcing(run) {
 }
 
 /**
- * Sourced = share of the sources named in answers about the brand that are brand-owned or established review sites.
+ * Sourced = share of the sources named in answers about the brand that are the brand's own sites or established review
+ * sites. Another brand's site does not count.
  * Only attributed citations count. Answers that searched but named no source (not_provided) and answers that did not
  * search (no_search) stay in the counts beside the score, so the page can say so, but are not scored. With fewer than
  * MIN_SOURCED_ANSWERS answers that name a source there is no score (detail.too_few). Non-US brand sites count as
@@ -102,10 +103,12 @@ export function scoreSourced(brand, runs) {
   }
   const counts = { answers: rel.length, ...groups };
   if (groups.sourced < MIN_SOURCED_ANSWERS) return { score: null, margin: null, n: cites.length, detail: { ...counts, too_few: true, min: MIN_SOURCED_ANSWERS } };
+  // Only this brand's own sites count as its own (Alex, 2026-11-21): another brand's site is tallied as other_brand.
+  const own = c => c.kind === 'brand' && c.brand_slug === brand.slug;
   const kinds = {};
-  for (const c of cites) kinds[c.kind] = (kinds[c.kind] || 0) + 1;
+  for (const c of cites) { const k = c.kind === 'brand' && !own(c) ? 'other_brand' : c.kind; kinds[k] = (kinds[k] || 0) + 1; }
   const good = (kinds.brand || 0) + (kinds.review || 0);
-  const intl = cites.filter(c => c.kind === 'brand' && c.intl).length;
+  const intl = cites.filter(c => own(c) && c.intl).length;
   return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { ...counts, kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)), intl_own_site: intl } };
 }
 

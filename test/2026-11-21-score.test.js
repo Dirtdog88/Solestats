@@ -97,10 +97,17 @@ test('scoreSourced grades only named sources and counts not-provided and no-sear
 });
 
 test('scoreSourced counts non-US brand sites as brand sites and says how many', () => {
-  const runs = [1, 2, 3, 4, 5].map(i => run('S1', i, ['hoka'], { citations: [{ kind: 'brand', intl: i <= 2 }, { kind: 'other' }], searches: 1 }));
+  const runs = [1, 2, 3, 4, 5].map(i => run('S1', i, ['hoka'], { citations: [{ kind: 'brand', brand_slug: 'hoka', intl: i <= 2 }, { kind: 'other' }], searches: 1 }));
   const r = scoreSourced(hoka, runs);
   assert.equal(r.score, 50);
   assert.equal(r.detail.intl_own_site, 2);
+});
+
+test('scoreSourced counts only the brand\'s own sites, not another brand\'s', () => {
+  const runs = [1, 2, 3, 4, 5].map(i => run('S1', i, ['hoka', 'brooks'], { citations: [{ kind: 'brand', brand_slug: 'hoka' }, { kind: 'brand', brand_slug: 'brooks' }], searches: 1 }));
+  const r = scoreSourced(hoka, runs);
+  assert.equal(r.score, 50);
+  assert.deepEqual([r.detail.kinds.brand, r.detail.kinds.other_brand, r.detail.own_site_share], [5, 5, 50]);
 });
 
 test('scoreRouting is unchanged by the Sourced rules', () => {
