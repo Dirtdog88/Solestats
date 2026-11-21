@@ -22,7 +22,8 @@ const LEVEL = { brand: 'brand', category: 'category', footwear: 'footwear', segm
 function revenueCard(rows) {
   if (!rows.length) return null;
   const latest = rows[0].fiscal_year;
-  const items = rows.filter(r => r.fiscal_year === latest).map(r => {
+  const order = Object.keys(LEVEL); // narrowest first: brand, category, footwear, segment, whole company
+  const items = rows.filter(r => r.fiscal_year === latest).sort((a, b) => order.indexOf(a.level) - order.indexOf(b.level)).map(r => {
     const growth = r.yoy_pct != null ? `${r.yoy_pct >= 0 ? '+' : '−'}${Math.abs(r.yoy_pct).toFixed(1)}%` : null;
     const amount = r.value == null ? (growth ? 'amount not disclosed' : 'Not disclosed') : money(r.value, r.unit, r.currency);
     const src = /^https:\/\//.test(r.source_url || '') ? el('a', { href: r.source_url, rel: 'noopener noreferrer' }, r.source_type || 'source') : (r.source_type || '');
