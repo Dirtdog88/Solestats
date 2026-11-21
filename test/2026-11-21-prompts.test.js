@@ -6,17 +6,11 @@ import { parseCsv } from '../src/2026-11-21-csv.js';
 const prompts = parseCsv(readFileSync(new URL('../data/2026-11-21-prompts.csv', import.meta.url), 'utf8'));
 const brands = parseCsv(readFileSync(new URL('../data/2026-11-21-brands.csv', import.meta.url), 'utf8'));
 
-test('the prompt set is the planned 260: 102 shoe, 28 head-to-head, 120 scan, 10 retailer', () => {
+test('the prompt set is the planned 138: 102 shoe, 28 head-to-head, 8 retailer (scan categories are parked)', () => {
   const by = {};
   for (const p of prompts) by[p.set] = (by[p.set] || 0) + 1;
-  assert.deepEqual(by, { shoe: 102, h2h: 28, scan: 120, retailer: 10 });
-  assert.equal(new Set(prompts.map(p => p.id)).size, 260);
-});
-
-test('every scan category has 20 prompts', () => {
-  const by = {};
-  for (const p of prompts.filter(p => p.set === 'scan')) by[p.category] = (by[p.category] || 0) + 1;
-  assert.deepEqual(by, { apparel: 20, watches: 20, fuel: 20, vests: 20, audio_lights_eyewear: 20, recovery: 20 });
+  assert.deepEqual(by, { shoe: 102, h2h: 28, retailer: 8 });
+  assert.equal(new Set(prompts.map(p => p.id)).size, 138);
 });
 
 test('outside the head-to-head set, no prompt names a brand', () => {
@@ -41,8 +35,8 @@ test('every shoe prompt carries at least one need tag, and head-to-head rows nam
   }
 });
 
-test('brand slugs are unique and every brand has a category the prompts use', () => {
+test('brand slugs are unique and, with the scan categories parked, every brand is a shoe brand', () => {
   assert.equal(new Set(brands.map(b => b.slug)).size, brands.length);
-  const cats = new Set(prompts.map(p => p.category));
-  for (const b of brands) assert.ok(cats.has(b.category), `${b.slug}: ${b.category}`);
+  for (const b of brands) assert.equal(b.category, 'shoes', b.slug);
+  assert.equal(brands.length, 18);
 });

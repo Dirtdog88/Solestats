@@ -1,6 +1,7 @@
 # SoleStats
 
-Public index of what AI shopping assistants tell runners to buy. Alex's personal project (personal time,
+Public index of what AI shopping assistants tell runners to buy, scoped to running shoes for now (2026-11-21;
+six more gear categories are parked in `data/later/`, read by nothing). Alex's personal project (personal time,
 keys and billing; nothing from Weleda repos). On screen and in the domain: **SoleStats**, tagline
 "What AI tells runners to buy". Decisions and history live in the DogHaus project "SoleStats: AI Running Index";
 update that project, not a notes file here, when a decision changes.
@@ -14,7 +15,8 @@ Add nothing else without a strong reason.
 
 | Path | What it is |
 |---|---|
-| `data/2026-11-21-prompts.csv` | the 260 prompts: source of truth (id, set, category, text, tags, pair_a, pair_b) |
+| `data/2026-11-21-prompts.csv` | the 138 prompts: source of truth (id, set, category, text, tags, pair_a, pair_b) |
+| `data/later/` | the parked scan categories: 122 prompts and 76 brands, kept for a later round |
 | `data/2026-11-21-brands.csv`, `data/2026-11-21-retailers.csv` | watch lists with aliases and domains |
 | `data/2026-11-21-spec-sheet.csv` | hand-verified shoe facts; only rows with `verified_on` are loaded |
 | `data/rounds/<round>/` | one round's `runs.jsonl` (raw answers), `runs.scored.jsonl`, `scores.csv`, `routing.json`; `raw/` is gitignored |

@@ -1,7 +1,7 @@
 // The SoleStats front page: builds every element with textContent (never innerHTML with data).
 const SUBJECTS = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
 const LABELS = { overall: 'Overall', recommended: 'Recommended', accurate: 'Accurate', shoppable: 'Shoppable', sourced: 'Sourced', routing: 'Sale goes home' };
-const CATS = { shoes: 'Shoes', apparel: 'Apparel and socks', watches: 'Watches', fuel: 'Fuel and hydration', vests: 'Vests, packs, bottles', audio_lights_eyewear: 'Headphones, lights, glasses', recovery: 'Recovery and treadmills' };
+const CATS = { shoes: 'Shoes', retail: 'Where to buy' };
 
 const el = (tag, attrs = {}, ...kids) => {
   const n = document.createElement(tag);
@@ -46,7 +46,6 @@ async function main() {
   const list = document.getElementById('brand-list');
   for (const b of brands) list.append(el('option', { value: b.name }));
   document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS));
-  document.getElementById('scan-table').replaceChildren(brandTable(brands.filter(b => b.category !== 'shoes' && Object.keys(b.scores).length), ['recommended', 'sourced', 'routing']));
   document.getElementById('retail-table').replaceChildren(retailTable(await api('/api/retailers').catch(() => ({ rows: [], answers: [] }))));
   const dl = document.getElementById('downloads');
   if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores']) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));

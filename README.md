@@ -1,8 +1,8 @@
 # SoleStats
 
 **What AI tells runners to buy.** A public index of how AI shopping assistants recommend, describe and route
-sales for running brands: shoes in depth, the rest of a runner's kit as a scan, and the retailers AI sends people
-to. Open method, open data, a new edition every month. Round 1 is being collected.
+sales for running shoe brands, and which retailers AI sends people to. Open method, open data, a new edition each
+round. Round 1 is being collected. (Six more categories of running gear are parked in `data/later/` for a later round.)
 
 - Live: https://solestats.com (not published yet; a preview banner shows until the first edition)
 - Plan and decisions: the DogHaus project "SoleStats: AI Running Index" (private)
@@ -10,8 +10,7 @@ to. Open method, open data, a new edition every month. Round 1 is being collecte
 
 ## How it works
 
-1. `data/2026-11-21-prompts.csv` holds 260 prompts (102 shoes, 28 head-to-head, 120 across six scan categories,
-   10 about where to buy). `data/2026-11-21-brands.csv` and `data/2026-11-21-retailers.csv` are the watch lists.
+1. `data/2026-11-21-prompts.csv` holds 138 prompts (102 shoes, 28 head-to-head, 8 about where to buy). `data/2026-11-21-brands.csv` and `data/2026-11-21-retailers.csv` are the watch lists.
    `data/2026-11-21-spec-sheet.csv` is the hand-verified truth for the Accurate subject (shoes).
 2. `npm run run -- --round 2026-12` asks every prompt on three engines, three times each, with web search on,
    and writes `data/rounds/2026-12/runs.jsonl` (resumable; a spend cap stops it).

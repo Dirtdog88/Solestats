@@ -21,9 +21,9 @@ test('"On" is only counted as the brand, not the preposition', () => {
   assert.deepEqual(findMentions('On Running makes the Cloudsurfer.', matchers).map(x => x.brand_slug), ['on']);
 });
 
-test('aliases count: HOKA, NB, Theragun, AfterShokz', () => {
-  const slugs = findMentions('HOKA and NB both work; for recovery a Theragun; AfterShokz for audio.', matchers).map(x => x.brand_slug);
-  assert.deepEqual(slugs, ['hoka', 'new-balance', 'therabody', 'shokz']);
+test('aliases count: HOKA, NB, Hoka One One, inov-8', () => {
+  const slugs = findMentions('HOKA and NB both work; some still say Hoka One One; inov-8 for fell running.', matchers).map(x => x.brand_slug);
+  assert.deepEqual(slugs, ['hoka', 'new-balance', 'inov8']);
 });
 
 test('pickWinner reads an explicit verdict, falls back to a tie or the count', () => {
