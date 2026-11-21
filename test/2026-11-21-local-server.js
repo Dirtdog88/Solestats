@@ -47,7 +47,7 @@ const ASSETS = {
     return new Response(readFileSync(file), { headers: { 'content-type': TYPES[extname(file)] || 'application/octet-stream' } });
   },
 };
-const env = { DB, ASSETS, PREVIEW_NOTICE: process.env.PREVIEW_NOTICE ?? 'Private preview built on a small sample of test answers. Not an edition: nothing here is a finding yet.' };
+const env = { DB, ASSETS, PREVIEW_NOTICE: process.env.PREVIEW_NOTICE ?? 'Preview · sample data · not published' };
 
 const port = Number(process.env.PORT || 8788);
 createServer(async (req, res) => {

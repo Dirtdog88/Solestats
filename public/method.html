@@ -12,6 +12,19 @@
   <h1>How the index works</h1>
 </header>
 <main class="prose">
+  <p class="lede">SoleStats asks AI assistants the questions runners ask before buying shoes, many times over, and scores what comes back: which brands get recommended, whether the facts are right, what gets cited, and where the sale goes. It is an independent project. Scores describe AI answers on the dates sampled, not the products and not the brand. Brands get their numbers a few days before each edition.</p>
+
+  <h2>Definitions</h2>
+  <p>The same text appears when you hover or tap a column or metric name on the data pages.</p>
+  <dl id="definitions" class="defs"></dl>
+
+  <h2>Reading the tables</h2>
+  <p>Every number is a rate across repeated answers, never a single answer. The ± beside a score is how much it moved between repeats of the same prompts; gaps under about five points are noise. The brand table sorts by Overall; a dash means the subject has no data for that brand in this edition. The "Where the sale goes" table is the share of answers in each category that point to each place to buy. The engine cards show how many answers each engine gave, how many of those ran a web search, and how many attributed sources in the answer.</p>
+  <p>A yellow banner marks a preview: a partial or sample round whose numbers are not findings.</p>
+
+  <h2>Downloads</h2>
+  <p>Every prompt, every answer with its citations, every detected mention and route, and the scored table are free to download as CSV from the front page. Raw API responses are kept but not published.</p>
+
   <h2>What we ask</h2>
   <p>138 prompts written the way runners type them: 102 about shoes (grouped by need: starting out, budget, cushion, stability and injuries, fit, racing, trail, drop, conditions, specific people), 28 head-to-head questions between the eight biggest shoe brands, and 8 about where to buy. Outside the head-to-head set, no prompt names a brand. The full list is in the downloads.</p>
   <h2>Who we ask</h2>
@@ -30,6 +43,7 @@
   <h2>Run it on your own category</h2>
   <p>The prompt templates, the rubric, the runner script and the scoring code are open. Swap the brand list and the prompts and the same pipeline scores any category.</p>
 </main>
-<footer><p><a href="/">Back to the index</a></p></footer>
+<footer><p><a href="/">Index</a></p></footer>
+<script src="/2026-11-21-method.js" type="module"></script>
 </body>
 </html>

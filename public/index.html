@@ -11,7 +11,6 @@
 <header class="hero">
   <p class="brand">SoleStats</p>
   <h1>What AI tells runners to buy</h1>
-  <p class="lede">Each edition asks three AI assistants the questions runners ask before buying shoes, hundreds of times over, and scores what comes back: which brands get recommended, whether the facts are right, what gets cited, and where the sale goes.</p>
   <form id="lookup" class="lookup" autocomplete="off">
     <label for="q" class="sr-only">Look up a brand</label>
     <input id="q" name="q" type="search" placeholder="Look up a brand, e.g. Brooks" list="brand-list">
@@ -28,27 +27,23 @@
 
 <main>
   <section id="shoes">
-    <h2>Running shoe brands <span class="muted">report card</span></h2>
-    <p class="muted">Overall 0 to 100 and five subjects. A margin shows how much a score moved between repeats; gaps under about five points are noise.</p>
+    <h2>Brands</h2>
     <div id="shoe-table" class="table-wrap"></div>
   </section>
 
   <section id="retailers">
-    <h2>Where AI sends the sale</h2>
-    <p class="muted">Share of answers that point to each place to buy, by category.</p>
+    <h2>Where the sale goes</h2>
     <div id="retail-table" class="table-wrap"></div>
   </section>
 
   <section id="data">
-    <h2>Open data and method</h2>
-    <p>Every prompt, every answer with its citations, every detected mention and route, and the scored table are free to download as CSV. <a href="/method.html">How it works and what it can't tell you</a>.</p>
+    <h2>Downloads</h2>
     <ul id="downloads" class="downloads"></ul>
   </section>
 </main>
 
-<footer>
-  <p>SoleStats is an independent project. Scores describe AI answers on the dates sampled, not the products. Brands get their numbers a few days before each edition.</p>
-</footer>
+<footer><p><a href="/method.html">Method and definitions</a></p></footer>
+<div id="tip" class="tip" role="status" hidden></div>
 <script src="/2026-11-21-app.js" type="module"></script>
 </body>
 </html>
