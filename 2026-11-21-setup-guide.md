@@ -6,6 +6,8 @@ One-time steps, in order. Everything is on Cloudflare's free plan plus pay-as-yo
 2. **Keys and caps.** Create personal API keys for the engines you run (Anthropic, OpenAI, Google AI Studio for
    Gemini, Perplexity if used). Set a monthly spend cap at each provider first. Put the keys in your shell for a
    run: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`, `PERPLEXITY_API_KEY`. Never commit them.
+   In a Claude Code cloud session, name the Anthropic one `SOLESTATS_ANTHROPIC_KEY` instead: the cloud refuses to
+   pass a variable called `ANTHROPIC_API_KEY` into sessions (it would collide with Claude Code's own sign-in).
 3. **Model ids.** Check the current ids and set `SOLESTATS_OPENAI_MODEL` and `SOLESTATS_GEMINI_MODEL` (the
    defaults in `scripts/2026-11-21-engines.js` are placeholders to confirm). A round records the id that ran.
 4. **Dry run.** `npm run run -- --round 2026-12 --dry-run` prints the first ten jobs. Then a tiny paid test:

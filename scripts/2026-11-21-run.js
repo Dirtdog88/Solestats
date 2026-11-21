@@ -4,7 +4,8 @@
 //   node scripts/2026-11-21-run.js --round 2026-12 --engines anthropic,openai,gemini --repeats 3
 //   options: --set shoe|h2h|scan|retailer (repeatable, default all)  --limit N  --dry-run  --cap-usd 60  --concurrency 3
 //
-// Keys: ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, PERPLEXITY_API_KEY. Set spend caps at each provider too.
+// Keys: SOLESTATS_ANTHROPIC_KEY (or ANTHROPIC_API_KEY on a PC), OPENAI_API_KEY, GEMINI_API_KEY, PERPLEXITY_API_KEY.
+// Set spend caps at each provider too.
 
 import { readFileSync, existsSync, mkdirSync, appendFileSync } from 'node:fs';
 import { parseCsv } from '../src/2026-11-21-csv.js';

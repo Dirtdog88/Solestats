@@ -36,6 +36,7 @@ Add nothing else without a strong reason.
 - The site is public and read-only: no sign-in, no cookies, no writes from the Worker. CSP is strict
   (`script-src 'self'`, no inline scripts or styles). The page is built with `textContent`, never `innerHTML` with data.
 - Keys live in the environment, never in the repo. Spend caps are set at each provider as well as `--cap-usd`.
+  The Anthropic key is read from `SOLESTATS_ANTHROPIC_KEY` first (cloud sessions drop `ANTHROPIC_API_KEY`), then `ANTHROPIC_API_KEY`.
 - New files use dated names `YYYY-MM-DD-name.ext` except the ones tools require (`wrangler.toml`, `package.json`,
   `migrations/NNNN_*.sql`, `README.md`, `CLAUDE.md`, `.gitignore`, workflow files).
 - Publishing waits for the gate in Alex's consulting plan (employment attorney, then Gannon). Until then

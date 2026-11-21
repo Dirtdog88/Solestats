@@ -1,7 +1,8 @@
 // One adapter per engine. Each returns the same shape:
 //   { model, answer, citations: [{url, title}], raw, input_tokens, output_tokens, stop_reason }
 // All engines run with web search on, so the answers look like what a shopper sees in the consumer apps
-// (and so there are citations to score). Keys come from the environment; spend caps live at each provider.
+// (and so there are citations to score). Keys come from the environment (SOLESTATS_ANTHROPIC_KEY or
+// ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, PERPLEXITY_API_KEY); spend caps live at each provider.
 //
 // Models are pinned by environment variable so a round records exactly what ran:
 //   SOLESTATS_ANTHROPIC_MODEL (default claude-opus-5-5), SOLESTATS_OPENAI_MODEL, SOLESTATS_GEMINI_MODEL,
@@ -14,7 +15,9 @@ const SYSTEM = 'You are answering a shopper who is deciding what to buy. Answer 
 // ---------- Anthropic (official SDK, server-side web search) ----------
 let anthropic;
 export async function askAnthropic(prompt) {
-  anthropic ||= new Anthropic(); // ANTHROPIC_API_KEY from the environment
+  // SOLESTATS_ANTHROPIC_KEY first: cloud sessions refuse to pass a variable named ANTHROPIC_API_KEY (it would
+  // collide with Claude Code's own sign-in). Without it the SDK falls back to ANTHROPIC_API_KEY, which works on a PC.
+  anthropic ||= new Anthropic({ apiKey: process.env.SOLESTATS_ANTHROPIC_KEY || undefined });
   const model = process.env.SOLESTATS_ANTHROPIC_MODEL || 'claude-opus-5-5';
   const tools = [{ type: 'web_search_20260209', name: 'web_search', max_uses: 5 }];
   const messages = [{ role: 'user', content: prompt }];
