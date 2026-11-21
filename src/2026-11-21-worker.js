@@ -38,7 +38,8 @@ async function api(url, env) {
     const row = await env.DB.prepare('SELECT started_at, finished_at, repeats FROM rounds WHERE id = ?').bind(round).first();
     const engines = (await env.DB.prepare(`SELECT engine, model, COUNT(*) AS runs,
       SUM(CASE WHEN searches > 0 THEN 1 ELSE 0 END) AS searched,
-      SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited
+      SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited,
+      SUM(CASE WHEN searches > 0 AND NOT (citations_json IS NOT NULL AND citations_json != '[]') THEN 1 ELSE 0 END) AS not_provided
       FROM runs WHERE round_id = ? AND status = 'ok' GROUP BY engine, model ORDER BY engine, model`).bind(round).all()).results;
     return json({ round, started_at: row?.started_at || null, finished_at: row?.finished_at || null, repeats: row?.repeats || null, engines, pending: pending.filter(p => !engines.some(e => e.engine === p)) });
   }
@@ -60,7 +61,7 @@ async function api(url, env) {
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       // A few answers that named the brand, newest first, so a visitor can see the evidence.
-      env.DB.prepare('SELECT r.id, r.engine, r.model, r.prompt_text, r.answer, m.position, m.top_pick FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? ORDER BY m.top_pick DESC, r.created_at DESC LIMIT 6').bind(round, slug).all(),
+      env.DB.prepare(`SELECT r.id, r.engine, r.model, r.prompt_text, r.answer, m.position, m.top_pick, CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? ORDER BY m.top_pick DESC, r.created_at DESC LIMIT 6`).bind(round, slug).all(),
     ]);
     return json({
       round, brand,

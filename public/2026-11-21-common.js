@@ -20,13 +20,15 @@ export const DEFINITIONS = {
   recommended: ['Recommended', 'How often the brand is named on prompts where it has a credible shoe, combined with its head-to-head record, how often it is the first pick, and how consistent that is across repeats.'],
   accurate: ['Accurate', 'Share of product facts AI got right against the hand-verified spec sheet (version, price, weight, drop, stack, widths, category). "Not sure" counts as wrong.'],
   shoppable: ['Shoppable', "Share of a manual checklist the brand's site passes: can an assistant find widths, stock, returns and a path to cart."],
-  sourced: ['Sourced', "Share of the sources behind answers that name the brand that are the brand's own site or an established review site. Attributed citations when the engine gives them, otherwise the pages its search returned."],
+  sourced: ['Sourced', "Share of the sources named in answers about the brand that are the brand's own site or an established review site. Only sources the answer names count."],
+  not_provided: ['Source not provided', 'The engine ran a web search but named none of its sources in the answer. Counted beside Sourced, not scored.'],
+  no_search: ['No search', 'The engine answered from what it already knew, without a web search. These answers still count for Recommended and Sale goes home; beside Sourced they are counted, not scored.'],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],
   place: ['Place to buy', "Share of answers in the column's category that point the shopper to this place."],
   edition: ['Edition', 'The engines, model ids and repeats behind every number on the page. A pending engine joins the same edition when its answers are in.'],
-  engine: ['Engine', 'Answers from this engine in the edition, how many ran a web search, and how many attributed sources in the answer.'],
+  engine: ['Engine', 'Answers from this engine in the edition: how many ran a web search, named their sources, searched without naming any, or answered without searching.'],
   preview: ['Preview', 'Numbers on a preview come from a partial or sample round and are not findings.'],
 };
 

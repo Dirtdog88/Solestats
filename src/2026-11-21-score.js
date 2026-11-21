@@ -71,21 +71,37 @@ export function scoreAccurate(checks) {
 }
 
 /**
- * Sourced = share of sources, in answers that name the brand, that are brand-owned or established review sites.
- * Attributed citations (source 'cited') are the basis when an engine returns any; otherwise the pages its searches
- * returned ('searched'), and detail.basis says which. Answers with no sources at all are counted in detail.unsourced.
+ * How an answer stands on sources (Alex, 2026-11-21): 'sourced' if it names at least one source (an attributed
+ * citation); 'not_provided' if the engine searched the web but named none; 'no_search' if it answered without searching.
+ * Pages a search merely returned (source 'searched') never count as the answer's sources.
+ */
+export function sourcing(run) {
+  const cites = run.citations || [];
+  if (cites.some(c => c.source !== 'searched')) return 'sourced';
+  if ((run.searches || 0) > 0 || cites.some(c => c.source === 'searched')) return 'not_provided';
+  return 'no_search';
+}
+
+/**
+ * Sourced = share of the sources named in answers about the brand that are brand-owned or established review sites.
+ * Only attributed citations count. Answers that searched but named no source (not_provided) and answers that did not
+ * search (no_search) stay in the counts beside the score, so the page can say so, but are not scored.
  */
 export function scoreSourced(brand, runs) {
   const rel = runs.filter(r => r.status === 'ok' && r.mentions.some(m => m.brand_slug === brand.slug));
-  const all = rel.flatMap(r => r.citations || []);
-  const cited = all.filter(c => c.source !== 'searched');
-  const cites = cited.length ? cited : all;
-  const unsourced = rel.filter(r => !(r.citations || []).length).length;
-  if (!cites.length) return { score: null, margin: null, n: 0, detail: { unsourced, answers: rel.length } };
+  const groups = { sourced: 0, not_provided: 0, no_search: 0 };
+  const cites = [];
+  for (const r of rel) {
+    const g = sourcing(r);
+    groups[g]++;
+    if (g === 'sourced') cites.push(...r.citations.filter(c => c.source !== 'searched'));
+  }
+  const counts = { answers: rel.length, ...groups };
+  if (!cites.length) return { score: null, margin: null, n: 0, detail: counts };
   const kinds = {};
   for (const c of cites) kinds[c.kind] = (kinds[c.kind] || 0) + 1;
   const good = (kinds.brand || 0) + (kinds.review || 0);
-  return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { basis: cited.length ? 'cited' : 'searched', kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)), unsourced, answers: rel.length } };
+  return { score: round1(pct(good, cites.length)), margin: null, n: cites.length, detail: { ...counts, kinds, own_site_share: round1(pct(kinds.brand || 0, cites.length)) } };
 }
 
 /** Where the sale goes = share of routes, in answers that name the brand, going to the brand's own site or run specialty. */

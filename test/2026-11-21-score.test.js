@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { eligible, scoreRecommended, scoreAccurate, scoreSourced, scoreRouting, scoreShoppable, overall, routingTable, WEIGHTS } from '../src/2026-11-21-score.js';
+import { eligible, scoreRecommended, scoreAccurate, scoreSourced, sourcing, scoreRouting, scoreShoppable, overall, routingTable, WEIGHTS } from '../src/2026-11-21-score.js';
 
 const brooks = { slug: 'brooks', name: 'Brooks', category: 'shoes' };
 const hoka = { slug: 'hoka', name: 'Hoka', category: 'shoes' };
@@ -66,12 +66,36 @@ test('scoreSourced and scoreRouting look only at answers that name the brand', (
   ];
   const retailers = [{ slug: 'amazon', kind: 'marketplace' }, { slug: 'fleet-feet', kind: 'run-specialty' }];
   assert.equal(scoreSourced(brooks, runs).score, 50);
-  assert.equal(scoreSourced(brooks, runs).detail.basis, 'cited');
-  // Only searched pages: they become the basis, and the detail says so.
-  const searchedOnly = [run('S1', 1, ['brooks'], { citations: [{ kind: 'review', source: 'searched' }, { kind: 'other', source: 'searched' }], routes: [] }), run('S1', 2, ['brooks'], { citations: [], routes: [] })];
-  assert.equal(scoreSourced(brooks, searchedOnly).score, 50);
-  assert.equal(scoreSourced(brooks, searchedOnly).detail.basis, 'searched');
-  assert.equal(scoreSourced(brooks, searchedOnly).detail.unsourced, 1);
+  assert.equal(scoreSourced(brooks, runs).detail.sourced, 1);
+  assert.equal(scoreRouting(brooks, runs, retailers).score, 50);
+  assert.equal(scoreRouting(hoka, runs, retailers).score, 0);
+});
+
+test('scoreSourced grades only named sources and counts not-provided and no-search answers beside it', () => {
+  const runs = [
+    run('S1', 1, ['brooks'], { citations: [{ kind: 'review' }, { kind: 'forum' }, { kind: 'brand', source: 'searched' }], searches: 1 }),
+    run('S1', 2, ['brooks'], { citations: [{ kind: 'brand', source: 'searched' }, { kind: 'review', source: 'searched' }], searches: 2 }),
+    run('S1', 3, ['brooks'], { citations: [], searches: 0 }),
+  ];
+  const r = scoreSourced(brooks, runs);
+  assert.equal(r.score, 50);           // one review out of review + forum; the searched pages are ignored
+  assert.equal(r.n, 2);
+  assert.deepEqual([r.detail.answers, r.detail.sourced, r.detail.not_provided, r.detail.no_search], [3, 1, 1, 1]);
+  // An engine that searches but never names a source gives no score, only the counts.
+  const none = scoreSourced(brooks, runs.slice(1));
+  assert.equal(none.score, null);
+  assert.deepEqual([none.detail.not_provided, none.detail.no_search], [1, 1]);
+  assert.equal(sourcing({ citations: [], searches: 0 }), 'no_search');
+  assert.equal(sourcing({ citations: [{ source: 'searched' }] }), 'not_provided');
+  assert.equal(sourcing({ citations: [{ source: 'cited' }] }), 'sourced');
+});
+
+test('scoreRouting is unchanged by the Sourced rules', () => {
+  const runs = [
+    run('S1', 1, ['brooks'], { citations: [], routes: [{ retailer_slug: 'amazon' }, { retailer_slug: 'brand-site' }] }),
+    run('S1', 2, ['hoka'], { citations: [], routes: [{ retailer_slug: 'amazon' }] }),
+  ];
+  const retailers = [{ slug: 'amazon', kind: 'marketplace' }, { slug: 'fleet-feet', kind: 'run-specialty' }];
   assert.equal(scoreRouting(brooks, runs, retailers).score, 50);
   assert.equal(scoreRouting(hoka, runs, retailers).score, 0);
 });

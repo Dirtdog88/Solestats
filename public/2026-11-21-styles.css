@@ -58,6 +58,8 @@ td .lane { display: inline-block; min-width: 1.6em; color: var(--cream); font-we
 .subject .margin { color: var(--muted); }
 .pill { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 13px; font-weight: 700; background: var(--good-bg); color: var(--good-ink); }
 .pill.grey { background: #eee; color: var(--muted); }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.example .q .pill { font-size: 11px; padding: 2px 6px; vertical-align: 1px; }
 .empty { padding: 20px 16px; color: var(--muted); }
 .downloads { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .downloads a { display: inline-block; padding: 9px 14px; border: 1.5px solid #ddd; border-radius: 999px; background: var(--card); text-decoration: none; font-weight: 600; font-size: 14px; }

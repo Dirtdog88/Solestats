@@ -46,13 +46,24 @@ function retailTable(data) {
   return el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows));
 }
 
-// One card per engine in the edition (answers, model id, how many searched the web and cited sources), then a dashed
+// One card per engine in the edition (answers, model id, how many searched the web, named sources, searched without
+// naming any, or answered without searching), then a dashed
 // card for each engine still pending (PENDING_ENGINES in wrangler.toml).
 function engineStrip(d) {
   const cards = (d.engines || []).map(e => el('li', { class: 'engine' }, defined('div', 'engine', { class: 'name', text: engineName(e.engine) }), el('div', { class: 'model' }, e.model || ''),
-    el('div', { class: 'big' }, String(e.runs)), el('div', { class: 'stat' }, `answers · ${e.searched || 0} searched · ${e.cited || 0} cited`)));
+    el('div', { class: 'big' }, String(e.runs)), el('div', { class: 'stat' }, ...engineStat(e))));
   for (const p of d.pending || []) cards.push(el('li', { class: 'engine pending' }, el('div', { class: 'name' }, engineName(p)), el('div', { class: 'stat' }, 'Pending')));
   return cards;
+}
+
+// "answers · 381 searched · 381 source not provided · 33 no search": a part is left out when it is zero.
+function engineStat(e) {
+  const parts = ['answers', `${e.searched || 0} searched`];
+  if (e.cited) parts.push(`${e.cited} cited`);
+  if (e.not_provided) parts.push(defined('span', 'not_provided', { text: `${e.not_provided} source not provided` }));
+  const noSearch = (e.runs || 0) - (e.searched || 0);
+  if (noSearch > 0) parts.push(defined('span', 'no_search', { text: `${noSearch} no search` }));
+  return parts.flatMap((p, i) => i ? [' · ', p] : [p]);
 }
 
 async function main() {
