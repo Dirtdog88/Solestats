@@ -24,13 +24,13 @@ function revenueCard(rows) {
   const latest = rows[0].fiscal_year;
   const items = rows.filter(r => r.fiscal_year === latest).map(r => {
     const growth = r.yoy_pct != null ? `${r.yoy_pct >= 0 ? '+' : '−'}${Math.abs(r.yoy_pct).toFixed(1)}%` : null;
-    const amount = r.value == null ? 'Not disclosed' : money(r.value, r.unit, r.currency);
+    const amount = r.value == null ? (growth ? 'amount not disclosed' : 'Not disclosed') : money(r.value, r.unit, r.currency);
     const src = /^https:\/\//.test(r.source_url || '') ? el('a', { href: r.source_url, rel: 'noopener noreferrer' }, r.source_type || 'source') : (r.source_type || '');
     return el('li', { class: 'rev' },
       el('div', { class: 'label' }, `${r.measure} (${LEVEL[r.level] || r.level})`),
       el('div', { class: 'big' + (growth && r.yoy_pct < 0 ? ' down' : '') }, growth ?? amount),
-      el('div', {}, growth ? `${amount} year over year` : 'no prior year to compare'),
-      el('div', { class: 'muted' }, `${r.fiscal_year}${r.period_end ? ' to ' + r.period_end : ''} · ${r.owner || ''} `, src));
+      el('div', {}, growth ? `${amount}, ${r.fiscal_year}` : r.value == null ? `${r.owner || 'The company'} does not report it separately` : `${r.fiscal_year}, no prior year to compare`),
+      el('div', { class: 'muted' }, `${r.period_end ? 'Year to ' + r.period_end + ' · ' : ''}${r.owner || ''} `, src));
   });
   return el('section', { class: 'card' }, defined('h3', 'revenue'), el('ul', { class: 'revenue' }, ...items));
 }

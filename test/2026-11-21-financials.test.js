@@ -15,7 +15,7 @@ test('every financials row names a watched brand, a primary source and a quote; 
     assert.ok(brands.has(r.brand), `${id}: unknown brand`);
     assert.match(r.level, /^(brand|category|footwear|segment|company)$/, id);
     assert.match(r.source_url, /^https:\/\//, id);
-    assert.ok(r.source_type && r.published_on, `${id}: source type and date`);
+    assert.ok(r.source_type, `${id}: source type`); // published_on may be blank where the source prints no date
     if (r.value === '') { assert.ok(r.notes, `${id}: not disclosed needs a note`); continue; }
     assert.ok(r.quote, `${id}: quote the source`);
     assert.match(r.currency, /^[A-Z]{3}$/, id);
