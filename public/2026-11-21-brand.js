@@ -20,7 +20,7 @@ async function main() {
     const v = d.scores[s];
     if (!v) continue;
     grid.append(el('div', { class: 'subject' }, defined('div', s, { class: 'label' }), el('div', { class: 'big' }, v.score == null ? '—' : String(Math.round(v.score))),
-      el('div', { class: 'muted' }, v.margin != null ? defined('span', 'margin', { text: `±${Math.round(v.margin)}` }) : '', v.margin != null ? ' · ' : '', defined('span', 'n', { text: `n ${v.n}` }))));
+      el('div', {}, v.margin != null ? defined('span', 'margin', { class: 'pill', text: `±${Math.round(v.margin)}` }) : '', v.margin != null ? ' ' : '', defined('span', 'n', { class: 'pill grey', text: `n ${v.n}` }))));
   }
   card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));
   if (d.fixes.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'Top fixes'), el('ol', {}, ...d.fixes.map(f => el('li', {}, el('strong', {}, (DEFINITIONS[f.subject] || [f.subject])[0] + ': '), f.text)))));
