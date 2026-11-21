@@ -1,0 +1,23 @@
+{
+  "name": "solestats",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SoleStats: what AI tells runners to buy. A public index of how AI shopping assistants recommend, describe and route sales for running brands. Cloudflare Worker + D1, no build step.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "test": "node --disable-warning=ExperimentalWarning --test test/*.test.js",
+    "dev": "npx wrangler@4 dev",
+    "deploy": "npx wrangler@4 d1 migrations apply solestats --remote && npx wrangler@4 deploy",
+    "seed": "node scripts/2026-11-21-seed.js",
+    "run": "node scripts/2026-11-21-run.js",
+    "import": "node scripts/2026-11-21-import.js",
+    "score": "node scripts/2026-11-21-score.js",
+    "export": "node scripts/2026-11-21-export.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.12.0"
+  }
+}

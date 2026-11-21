@@ -1,0 +1,26 @@
+# Cloudflare Worker config for SoleStats (solestats.com). Free plan: Worker + D1 + static assets.
+name = "solestats"
+main = "src/2026-11-21-worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+# The Worker answers /api/* and downloads; everything else is a static file.
+run_worker_first = ["/api/*", "/download/*"]
+
+# Create the database first (setup guide step 1), then paste its id here.
+[[d1_databases]]
+binding = "DB"
+database_name = "solestats"
+database_id = "PASTE-DATABASE-ID"
+migrations_dir = "migrations"
+
+[observability]
+enabled = true
+
+[vars]
+PUBLIC_URL = "https://solestats.com"
+# Shown on every page until the publishing gate is cleared; set to "" to take the banner down.
+PREVIEW_NOTICE = "Private preview. Not published yet."

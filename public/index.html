@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SoleStats · What AI tells runners to buy</title>
+<meta name="description" content="A public index of how AI shopping assistants recommend, describe and route sales for running brands. Open method, open data, monthly.">
+<link rel="stylesheet" href="/2026-11-21-styles.css">
+</head>
+<body>
+<header class="hero">
+  <p class="brand">SoleStats</p>
+  <h1>What AI tells runners to buy</h1>
+  <p class="lede">Every month we ask three AI assistants the questions runners ask before buying, hundreds of times over, and score what comes back: who gets recommended, whether the facts are right, what gets cited, and where the sale goes.</p>
+  <form id="lookup" class="lookup" autocomplete="off">
+    <label for="q" class="sr-only">Look up a brand</label>
+    <input id="q" name="q" type="search" placeholder="Look up a brand, e.g. Brooks" list="brand-list">
+    <datalist id="brand-list"></datalist>
+    <button type="submit">Look up</button>
+  </form>
+  <p id="notice" class="notice" hidden></p>
+</header>
+
+<main>
+  <section id="shoes">
+    <h2>Running shoes <span class="muted">full report card</span></h2>
+    <p class="muted">Overall 0 to 100 and five subjects. A margin shows how much a score moved between repeats; gaps under about five points are noise.</p>
+    <div id="shoe-table" class="table-wrap"></div>
+  </section>
+
+  <section id="scan">
+    <h2>The rest of the kit <span class="muted">scan</span></h2>
+    <p class="muted">Apparel, watches, fuel, vests, headphones and lights, recovery. Scored on what AI recommends, cites and routes; no spec checks yet.</p>
+    <div id="scan-table" class="table-wrap"></div>
+  </section>
+
+  <section id="retailers">
+    <h2>Where AI sends the sale</h2>
+    <p class="muted">Share of answers that point to each place to buy, by category.</p>
+    <div id="retail-table" class="table-wrap"></div>
+  </section>
+
+  <section id="data">
+    <h2>Open data and method</h2>
+    <p>Every prompt, every answer with its citations, every detected mention and route, and the scored table are free to download as CSV. <a href="/method.html">How it works and what it can't tell you</a>.</p>
+    <ul id="downloads" class="downloads"></ul>
+  </section>
+</main>
+
+<footer>
+  <p>SoleStats is an independent project. Scores describe AI answers on the dates sampled, not the products. Brands get their numbers a few days before each edition.</p>
+</footer>
+<script src="/2026-11-21-app.js" type="module"></script>
+</body>
+</html>

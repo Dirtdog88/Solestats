@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+# Raw API responses are large and may hold anything the engines returned; the scored data is what gets committed.
+data/rounds/*/raw/

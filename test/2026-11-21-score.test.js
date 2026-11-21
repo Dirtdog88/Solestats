@@ -1,0 +1,82 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { eligible, scoreRecommended, scoreAccurate, scoreSourced, scoreRouting, scoreShoppable, overall, routingTable, WEIGHTS } from '../src/2026-11-21-score.js';
+
+const brooks = { slug: 'brooks', name: 'Brooks', category: 'shoes' };
+const hoka = { slug: 'hoka', name: 'Hoka', category: 'shoes' };
+const gu = { slug: 'gu', name: 'GU', category: 'fuel' };
+const models = [{ brand_slug: 'brooks', needs: 'daily;stability' }, { brand_slug: 'hoka', needs: 'daily;max-cushion' }];
+const prompts = [
+  { id: 'S1', set_name: 'shoe', category: 'shoes', tags: 'daily' },
+  { id: 'S2', set_name: 'shoe', category: 'shoes', tags: 'stability' },
+  { id: 'S3', set_name: 'shoe', category: 'shoes', tags: 'max-cushion' },
+  { id: 'H1', set_name: 'h2h', category: 'shoes', tags: 'daily;h2h', pair_a: 'Brooks', pair_b: 'Hoka' },
+  { id: 'C1', set_name: 'scan', category: 'fuel', tags: '' },
+  { id: 'R1', set_name: 'retailer', category: 'retail', tags: 'routing' },
+];
+
+test('eligibility follows the spec sheet for shoes and the category for scans', () => {
+  assert.equal(eligible(brooks, prompts[0], models), true);
+  assert.equal(eligible(brooks, prompts[2], models), false);
+  assert.equal(eligible(hoka, prompts[2], models), true);
+  assert.equal(eligible(gu, prompts[4], models), true);
+  assert.equal(eligible(gu, prompts[0], models), false);
+  assert.equal(eligible(brooks, prompts[5], models), false);
+});
+
+const run = (prompt_id, repeat_no, slugs, extra = {}) => ({ prompt_id, engine: 'e', repeat_no, status: 'ok', mentions: slugs.map((s, i) => ({ brand_slug: s, position: i + 1, top_pick: i === 0 ? 1 : 0 })), ...extra });
+
+test('scoreRecommended: presence on eligible prompts only, position, consistency and head-to-head', () => {
+  const runs = [
+    run('S1', 1, ['brooks', 'hoka']), run('S1', 2, ['hoka', 'brooks']), run('S1', 3, ['brooks']),
+    run('S2', 1, ['brooks']), run('S2', 2, []), run('S2', 3, ['brooks']),
+    run('S3', 1, ['hoka']), run('S3', 2, ['hoka']), run('S3', 3, ['hoka']), // Brooks is not eligible here
+    run('H1', 1, ['brooks', 'hoka'], { winner: 'brooks' }), run('H1', 2, ['hoka'], { winner: 'hoka' }), run('H1', 3, [], { winner: 'tie' }),
+  ];
+  const r = scoreRecommended(brooks, prompts, runs, models);
+  assert.equal(r.n, 6);
+  assert.equal(r.detail.presence, 83.3);                 // 5 of 6
+  assert.equal(r.detail.position, 66.7);                 // first pick in 4 of 6
+  assert.equal(r.detail.head_to_head, 50);               // 1 win + half a tie of 3
+  assert.equal(r.detail.consistency, 83.3);              // S1: 3/3 agree, S2: 2/3 agree
+  assert.equal(r.score, Math.round((83.333 * 50 + 50 * 20 + 66.667 * 15 + 83.333 * 15) / 100 * 10) / 10);
+  assert.ok(r.margin >= 0);
+  assert.equal(scoreRecommended(gu, prompts, runs, models).score, null);
+});
+
+test('scoreAccurate counts not_sure as wrong and reports it separately', () => {
+  const checks = [
+    { fact: 'price', result: 'right', repeat_no: 1 }, { fact: 'price', result: 'wrong', repeat_no: 2 },
+    { fact: 'drop', result: 'not_sure', repeat_no: 1 }, { fact: 'drop', result: 'right', repeat_no: 2 },
+  ];
+  const r = scoreAccurate(checks);
+  assert.equal(r.score, 50);
+  assert.equal(r.detail.not_sure_rate, 25);
+  assert.deepEqual(r.detail.by_fact, { price: 50, drop: 50 });
+});
+
+test('scoreSourced and scoreRouting look only at answers that name the brand', () => {
+  const runs = [
+    run('S1', 1, ['brooks'], { citations: [{ kind: 'brand' }, { kind: 'forum' }], routes: [{ retailer_slug: 'amazon' }, { retailer_slug: 'brand-site' }] }),
+    run('S1', 2, ['hoka'], { citations: [{ kind: 'other' }], routes: [{ retailer_slug: 'amazon' }] }),
+  ];
+  const retailers = [{ slug: 'amazon', kind: 'marketplace' }, { slug: 'fleet-feet', kind: 'run-specialty' }];
+  assert.equal(scoreSourced(brooks, runs).score, 50);
+  assert.equal(scoreRouting(brooks, runs, retailers).score, 50);
+  assert.equal(scoreRouting(hoka, runs, retailers).score, 0);
+});
+
+test('overall renormalises weights over the subjects present and needs at least three', () => {
+  const two = overall({ recommended: { score: 80 }, sourced: { score: 40 } });
+  assert.equal(two.score, null);
+  const three = overall({ recommended: { score: 80, margin: 2 }, sourced: { score: 40 }, routing: { score: 60 } });
+  assert.equal(three.score, Math.round((80 * 35 + 40 * 10 + 60 * 10) / 55 * 10) / 10);
+  assert.equal(Object.values(WEIGHTS).reduce((a, b) => a + b, 0), 100);
+});
+
+test('scoreShoppable and routingTable', () => {
+  assert.equal(scoreShoppable([{ item: 'widths', result: 1 }, { item: 'cart', result: 0 }]).score, 50);
+  const t = routingTable([run('S1', 1, [], { routes: [{ retailer_slug: 'amazon' }] }), run('C1', 1, [], { routes: [] })], prompts);
+  assert.deepEqual(t.shoes, { answers: 1, with_route: 1, by_retailer: { amazon: 1 } });
+  assert.deepEqual(t.fuel, { answers: 1, with_route: 0, by_retailer: {} });
+});

@@ -1,0 +1,16 @@
+slug,name,kind,domains
+amazon,Amazon,marketplace,amazon.com;amzn.to;amzn.com
+running-warehouse,Running Warehouse,run-specialty-online,runningwarehouse.com
+fleet-feet,Fleet Feet,run-specialty,fleetfeet.com
+rei,REI,outdoor-retailer,rei.com
+road-runner-sports,Road Runner Sports,run-specialty-online,roadrunnersports.com
+zappos,Zappos,online-retailer,zappos.com
+dicks,Dick's Sporting Goods,big-box,dickssportinggoods.com
+backcountry,Backcountry,outdoor-retailer,backcountry.com
+holabird,Holabird Sports,run-specialty-online,holabirdsports.com
+jackrabbit,JackRabbit,run-specialty,jackrabbit.com
+walmart,Walmart,big-box,walmart.com
+target,Target,big-box,target.com
+best-buy,Best Buy,electronics,bestbuy.com
+local,Local run specialty store,run-specialty,
+brand-site,The brand's own site,brand,
