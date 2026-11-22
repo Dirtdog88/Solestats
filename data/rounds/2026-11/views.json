@@ -5158,7 +5158,2069 @@
      }
     ]
    }
+  },
+  "sources": {
+   "brooks": {
+    "sourced_answers": 222,
+    "answers": 750,
+    "by_engine": {
+     "openai": 194,
+     "gemini": 28
+    },
+    "top": [
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 175
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 61
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "answers": 22
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 22
+     },
+     {
+      "domain": "newbalance.com",
+      "kind": "brand",
+      "answers": 20
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 17
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 17
+     },
+     {
+      "domain": "stores.hoka.com",
+      "kind": "brand",
+      "answers": 15
+     },
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "answers": 14
+     },
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 13
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "group": "drop",
+      "label": "Drop and minimal",
+      "competitors": 2,
+      "answers": 2
+     }
+    ]
+   },
+   "hoka": {
+    "sourced_answers": 97,
+    "answers": 640,
+    "by_engine": {
+     "openai": 71,
+     "gemini": 26
+    },
+    "top": [
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 29
+     },
+     {
+      "domain": "stores.hoka.com",
+      "kind": "brand",
+      "answers": 26
+     },
+     {
+      "domain": "au.hoka.com",
+      "kind": "brand",
+      "answers": 20
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 15
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 13
+     },
+     {
+      "domain": "irunfar.com",
+      "kind": "review",
+      "answers": 11
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "answers": 10
+     },
+     {
+      "domain": "salomon.com",
+      "kind": "brand",
+      "answers": 9
+     },
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 9
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 7
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 4,
+      "answers": 11
+     },
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "confluencerunning.com",
+      "kind": "other",
+      "group": "budget",
+      "label": "Budget",
+      "competitors": 5,
+      "answers": 2
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "group": "drop",
+      "label": "Drop and minimal",
+      "competitors": 2,
+      "answers": 2
+     }
+    ]
+   },
+   "on": {
+    "sourced_answers": 24,
+    "answers": 148,
+    "by_engine": {
+     "gemini": 3,
+     "openai": 21
+    },
+    "top": [
+     {
+      "domain": "on.com",
+      "kind": "brand",
+      "answers": 19
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 5
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "au.hoka.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "newbalance.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 3
+     },
+     {
+      "domain": "adidas.com",
+      "kind": "brand",
+      "answers": 2
+     },
+     {
+      "domain": "fleetfeet.com",
+      "kind": "retailer",
+      "answers": 2
+     },
+     {
+      "domain": "medium.com",
+      "kind": "forum",
+      "answers": 2
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 2
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 4,
+      "answers": 11
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 10,
+      "answers": 9
+     },
+     {
+      "domain": "irunfar.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 8,
+      "answers": 9
+     },
+     {
+      "domain": "sixminutemile.com",
+      "kind": "other",
+      "group": "starting-out",
+      "label": "Starting out",
+      "competitors": 8,
+      "answers": 5
+     },
+     {
+      "domain": "runningshoesguru.com",
+      "kind": "review",
+      "group": "starting-out",
+      "label": "Starting out",
+      "competitors": 8,
+      "answers": 4
+     },
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "believeintherun.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "contentful-assets.strava.com",
+      "kind": "forum",
+      "group": "starting-out",
+      "label": "Starting out",
+      "competitors": 4,
+      "answers": 3
+     }
+    ]
+   },
+   "saucony": {
+    "sourced_answers": 89,
+    "answers": 568,
+    "by_engine": {
+     "openai": 61,
+     "gemini": 28
+    },
+    "top": [
+     {
+      "domain": "saucony.com",
+      "kind": "brand",
+      "answers": 42
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 19
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 17
+     },
+     {
+      "domain": "adidas.com",
+      "kind": "brand",
+      "answers": 11
+     },
+     {
+      "domain": "outdoorgearlab.com",
+      "kind": "review",
+      "answers": 10
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "answers": 10
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 9
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 9
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 7
+     },
+     {
+      "domain": "rtings.com",
+      "kind": "review",
+      "answers": 7
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "contentful-assets.strava.com",
+      "kind": "forum",
+      "group": "starting-out",
+      "label": "Starting out",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "group": "drop",
+      "label": "Drop and minimal",
+      "competitors": 2,
+      "answers": 2
+     }
+    ]
+   },
+   "asics": {
+    "sourced_answers": 163,
+    "answers": 673,
+    "by_engine": {
+     "openai": 140,
+     "gemini": 23
+    },
+    "top": [
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 107
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 66
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 21
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 18
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 15
+     },
+     {
+      "domain": "rtings.com",
+      "kind": "review",
+      "answers": 13
+     },
+     {
+      "domain": "newbalance.com",
+      "kind": "brand",
+      "answers": 12
+     },
+     {
+      "domain": "adidas.com",
+      "kind": "brand",
+      "answers": 11
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "answers": 10
+     },
+     {
+      "domain": "outdoorgearlab.com",
+      "kind": "review",
+      "answers": 9
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "solereview.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 6,
+      "answers": 2
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "group": "drop",
+      "label": "Drop and minimal",
+      "competitors": 2,
+      "answers": 2
+     }
+    ]
+   },
+   "nike": {
+    "sourced_answers": 105,
+    "answers": 499,
+    "by_engine": {
+     "openai": 85,
+     "gemini": 20
+    },
+    "top": [
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 66
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 21
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 16
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 15
+     },
+     {
+      "domain": "adidas.com",
+      "kind": "brand",
+      "answers": 13
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 12
+     },
+     {
+      "domain": "about.nike.com",
+      "kind": "brand",
+      "answers": 9
+     },
+     {
+      "domain": "news.adidas.com",
+      "kind": "brand",
+      "answers": 7
+     },
+     {
+      "domain": "rtings.com",
+      "kind": "review",
+      "answers": 7
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "answers": 7
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 4,
+      "answers": 11
+     },
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "confluencerunning.com",
+      "kind": "other",
+      "group": "budget",
+      "label": "Budget",
+      "competitors": 5,
+      "answers": 2
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "group": "drop",
+      "label": "Drop and minimal",
+      "competitors": 2,
+      "answers": 2
+     }
+    ]
+   },
+   "adidas": {
+    "sourced_answers": 80,
+    "answers": 314,
+    "by_engine": {
+     "openai": 67,
+     "gemini": 13
+    },
+    "top": [
+     {
+      "domain": "adidas.com",
+      "kind": "brand",
+      "answers": 49
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 17
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 12
+     },
+     {
+      "domain": "news.adidas.com",
+      "kind": "brand",
+      "answers": 9
+     },
+     {
+      "domain": "saucony.com",
+      "kind": "brand",
+      "answers": 9
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 8
+     },
+     {
+      "domain": "about.nike.com",
+      "kind": "brand",
+      "answers": 7
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 7
+     },
+     {
+      "domain": "believeintherun.com",
+      "kind": "review",
+      "answers": 7
+     },
+     {
+      "domain": "rtings.com",
+      "kind": "review",
+      "answers": 7
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 4,
+      "answers": 11
+     },
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "contentful-assets.strava.com",
+      "kind": "forum",
+      "group": "starting-out",
+      "label": "Starting out",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "solereview.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 6,
+      "answers": 2
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "group": "drop",
+      "label": "Drop and minimal",
+      "competitors": 2,
+      "answers": 2
+     }
+    ]
+   },
+   "new-balance": {
+    "sourced_answers": 72,
+    "answers": 439,
+    "by_engine": {
+     "openai": 59,
+     "gemini": 13
+    },
+    "top": [
+     {
+      "domain": "newbalance.com",
+      "kind": "brand",
+      "answers": 52
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 23
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 12
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 12
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 8
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 7
+     },
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 7
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "answers": 6
+     },
+     {
+      "domain": "adidas.com",
+      "kind": "brand",
+      "answers": 5
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "answers": 5
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "contentful-assets.strava.com",
+      "kind": "forum",
+      "group": "starting-out",
+      "label": "Starting out",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "bestrunningshoedeals.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     }
+    ]
+   },
+   "altra": {
+    "sourced_answers": 36,
+    "answers": 244,
+    "by_engine": {
+     "gemini": 9,
+     "openai": 27
+    },
+    "top": [
+     {
+      "domain": "altrarunning.com",
+      "kind": "brand",
+      "answers": 25
+     },
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 18
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 11
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 5
+     },
+     {
+      "domain": "fleetfeet.com",
+      "kind": "retailer",
+      "answers": 4
+     },
+     {
+      "domain": "newbalance.com",
+      "kind": "brand",
+      "answers": 4
+     },
+     {
+      "domain": "saucony.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 2
+     },
+     {
+      "domain": "irunfar.com",
+      "kind": "review",
+      "answers": 2
+     },
+     {
+      "domain": "medium.com",
+      "kind": "forum",
+      "answers": 2
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "zelpio.com",
+      "kind": "other",
+      "group": "budget",
+      "label": "Budget",
+      "competitors": 8,
+      "answers": 3
+     },
+     {
+      "domain": "believeintherun.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "outsideonline.com",
+      "kind": "review",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "bestrunningshoedeals.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     }
+    ]
+   },
+   "topo": {
+    "sourced_answers": 46,
+    "answers": 169,
+    "by_engine": {
+     "openai": 43,
+     "gemini": 3
+    },
+    "top": [
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 40
+     },
+     {
+      "domain": "altrarunning.com",
+      "kind": "brand",
+      "answers": 18
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 16
+     },
+     {
+      "domain": "newbalance.com",
+      "kind": "brand",
+      "answers": 7
+     },
+     {
+      "domain": "asics.com",
+      "kind": "brand",
+      "answers": 6
+     },
+     {
+      "domain": "stores.hoka.com",
+      "kind": "brand",
+      "answers": 5
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "answers": 4
+     },
+     {
+      "domain": "saucony.com",
+      "kind": "brand",
+      "answers": 4
+     },
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "answers": 3
+     },
+     {
+      "domain": "au.hoka.com",
+      "kind": "brand",
+      "answers": 2
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "bestrunningshoedeals.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "theruntesters.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 7,
+      "answers": 2
+     }
+    ]
+   },
+   "salomon": {
+    "sourced_answers": 28,
+    "answers": 125,
+    "by_engine": {
+     "openai": 22,
+     "gemini": 6
+    },
+    "top": [
+     {
+      "domain": "salomon.com",
+      "kind": "brand",
+      "answers": 17
+     },
+     {
+      "domain": "brooksrunning.com",
+      "kind": "brand",
+      "answers": 10
+     },
+     {
+      "domain": "irunfar.com",
+      "kind": "review",
+      "answers": 8
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 5
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "answers": 5
+     },
+     {
+      "domain": "stores.hoka.com",
+      "kind": "brand",
+      "answers": 5
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 4
+     },
+     {
+      "domain": "inov8.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "outdoorgearlab.com",
+      "kind": "review",
+      "answers": 3
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 3
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "rtings.com",
+      "kind": "review",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 7,
+      "answers": 5
+     },
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "group": "people",
+      "label": "Who is running",
+      "competitors": 4,
+      "answers": 4
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 7,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "theruntesters.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 7,
+      "answers": 2
+     }
+    ]
+   },
+   "merrell": {
+    "sourced_answers": 4,
+    "answers": 34,
+    "by_engine": {
+     "openai": 4
+    },
+    "top": [
+     {
+      "domain": "merrell.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "answers": 2
+     },
+     {
+      "domain": "xeroshoes.com",
+      "kind": "other",
+      "answers": 2
+     },
+     {
+      "domain": "doctorsofrunning.com",
+      "kind": "review",
+      "answers": 1
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "outdoorgearlab.com",
+      "kind": "review",
+      "answers": 1
+     },
+     {
+      "domain": "salomon.com",
+      "kind": "brand",
+      "answers": 1
+     },
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 1
+     },
+     {
+      "domain": "vivobarefoot.com",
+      "kind": "other",
+      "answers": 1
+     }
+    ],
+    "gaps": []
+   },
+   "la-sportiva": {
+    "sourced_answers": 6,
+    "answers": 64,
+    "by_engine": {
+     "openai": 5,
+     "gemini": 1
+    },
+    "top": [
+     {
+      "domain": "lasportivausa.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "stores.hoka.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 2
+     },
+     {
+      "domain": "blisterreview.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "nike.com",
+      "kind": "brand",
+      "answers": 1
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 1
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "answers": 1
+     },
+     {
+      "domain": "runnersneed.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 1
+     },
+     {
+      "domain": "support.brooksrunning.com",
+      "kind": "brand",
+      "answers": 1
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "irunfar.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 8,
+      "answers": 9
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 7,
+      "answers": 3
+     },
+     {
+      "domain": "outdoorgearlab.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 5,
+      "answers": 3
+     },
+     {
+      "domain": "believeintherun.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "tracksmith.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "theruntesters.com",
+      "kind": "other",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 7,
+      "answers": 2
+     },
+     {
+      "domain": "outsideonline.com",
+      "kind": "review",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 6,
+      "answers": 2
+     },
+     {
+      "domain": "solereview.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 6,
+      "answers": 2
+     },
+     {
+      "domain": "tomsguide.com",
+      "kind": "review",
+      "group": "brand",
+      "label": "Which brand",
+      "competitors": 4,
+      "answers": 2
+     }
+    ]
+   },
+   "mizuno": {
+    "sourced_answers": 2,
+    "answers": 54,
+    "by_engine": {
+     "gemini": 2
+    },
+    "top": [
+     {
+      "domain": "runtothefinish.com",
+      "kind": "other",
+      "answers": 2
+     },
+     {
+      "domain": "21run.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "fallbrookfootdoctor.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "mizuno.com.au",
+      "kind": "brand",
+      "answers": 1
+     },
+     {
+      "domain": "northernrunner.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 1
+     },
+     {
+      "domain": "run4it.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "runnea.co.uk",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "runnerslab.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "therunhouse.com",
+      "kind": "other",
+      "answers": 1
+     }
+    ],
+    "gaps": []
+   },
+   "puma": {
+    "sourced_answers": 11,
+    "answers": 111,
+    "by_engine": {
+     "openai": 5,
+     "gemini": 6
+    },
+    "top": [
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 6
+     },
+     {
+      "domain": "youtube.com",
+      "kind": "forum",
+      "answers": 4
+     },
+     {
+      "domain": "bestrunningshoedeals.com",
+      "kind": "other",
+      "answers": 3
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 3
+     },
+     {
+      "domain": "shoebacca.com",
+      "kind": "other",
+      "answers": 3
+     },
+     {
+      "domain": "findmyfootwear.com",
+      "kind": "other",
+      "answers": 2
+     },
+     {
+      "domain": "irunfar.com",
+      "kind": "review",
+      "answers": 2
+     },
+     {
+      "domain": "outdoorgearlab.com",
+      "kind": "review",
+      "answers": 2
+     },
+     {
+      "domain": "sixminutemile.com",
+      "kind": "other",
+      "answers": 2
+     },
+     {
+      "domain": "supwell.com",
+      "kind": "other",
+      "answers": 2
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "orthoinfo.org",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 4,
+      "answers": 11
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 10,
+      "answers": 9
+     },
+     {
+      "domain": "bayshorepodiatry.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "michiganfootdoctors.com",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 3,
+      "answers": 4
+     },
+     {
+      "domain": "pmc.ncbi.nlm.nih.gov",
+      "kind": "other",
+      "group": "racing",
+      "label": "Racing",
+      "competitors": 2,
+      "answers": 4
+     },
+     {
+      "domain": "believeintherun.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "contentful-assets.strava.com",
+      "kind": "forum",
+      "group": "starting-out",
+      "label": "Starting out",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nhs.uk",
+      "kind": "other",
+      "group": "stability",
+      "label": "Stability",
+      "competitors": 2,
+      "answers": 3
+     },
+     {
+      "domain": "orthoinfo.aaos.org",
+      "kind": "other",
+      "group": "cushion",
+      "label": "Cushion",
+      "competitors": 2,
+      "answers": 3
+     }
+    ]
+   },
+   "under-armour": {
+    "sourced_answers": 1,
+    "answers": 10,
+    "by_engine": {
+     "openai": 1
+    },
+    "top": [
+     {
+      "domain": "news.adidas.com",
+      "kind": "brand",
+      "answers": 1
+     },
+     {
+      "domain": "res.cloudinary.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "runnersworld.com",
+      "kind": "review",
+      "answers": 1
+     },
+     {
+      "domain": "techradar.com",
+      "kind": "review",
+      "answers": 1
+     }
+    ],
+    "gaps": []
+   },
+   "skechers": {
+    "sourced_answers": 0,
+    "answers": 13,
+    "by_engine": {},
+    "top": [],
+    "gaps": []
+   },
+   "inov8": {
+    "sourced_answers": 6,
+    "answers": 27,
+    "by_engine": {
+     "openai": 5,
+     "gemini": 1
+    },
+    "top": [
+     {
+      "domain": "inov8.com",
+      "kind": "brand",
+      "answers": 5
+     },
+     {
+      "domain": "salomon.com",
+      "kind": "brand",
+      "answers": 3
+     },
+     {
+      "domain": "topoathletic.com",
+      "kind": "brand",
+      "answers": 2
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 1
+     },
+     {
+      "domain": "runnersneed.com",
+      "kind": "other",
+      "answers": 1
+     },
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 1
+     },
+     {
+      "domain": "stores.hoka.com",
+      "kind": "brand",
+      "answers": 1
+     },
+     {
+      "domain": "tomsguide.com",
+      "kind": "review",
+      "answers": 1
+     }
+    ],
+    "gaps": [
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 10,
+      "answers": 9
+     },
+     {
+      "domain": "irunfar.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 8,
+      "answers": 9
+     },
+     {
+      "domain": "outdoorgearlab.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 5,
+      "answers": 3
+     },
+     {
+      "domain": "believeintherun.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "nnormal.com",
+      "kind": "other",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 4,
+      "answers": 3
+     },
+     {
+      "domain": "solereview.com",
+      "kind": "review",
+      "group": "trail",
+      "label": "Trail",
+      "competitors": 6,
+      "answers": 2
+     },
+     {
+      "domain": "ohsu.edu",
+      "kind": "other",
+      "group": "drop",
+      "label": "Drop and minimal",
+      "competitors": 2,
+      "answers": 2
+     }
+    ]
+   }
   }
  },
- "fixes": []
+ "fixes": [
+  {
+   "brand": "on",
+   "subject": "sourced",
+   "text": "Earn a mention on rei.com: cited in 9 trail answers naming 10 competitors, never in one naming you."
+  },
+  {
+   "brand": "on",
+   "subject": "sourced",
+   "text": "Earn a mention on irunfar.com: cited in 9 trail answers naming 8 competitors, never in one naming you."
+  },
+  {
+   "brand": "on",
+   "subject": "sourced",
+   "text": "Earn a mention on runningshoesguru.com: cited in 4 starting out answers naming 8 competitors, never in one naming you."
+  },
+  {
+   "brand": "saucony",
+   "subject": "sourced",
+   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
+  },
+  {
+   "brand": "asics",
+   "subject": "sourced",
+   "text": "Earn a mention on solereview.com: cited in 2 trail answers naming 6 competitors, never in one naming you."
+  },
+  {
+   "brand": "adidas",
+   "subject": "sourced",
+   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
+  },
+  {
+   "brand": "adidas",
+   "subject": "sourced",
+   "text": "Earn a mention on solereview.com: cited in 2 trail answers naming 6 competitors, never in one naming you."
+  },
+  {
+   "brand": "new-balance",
+   "subject": "sourced",
+   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
+  },
+  {
+   "brand": "altra",
+   "subject": "sourced",
+   "text": "Earn a mention on believeintherun.com: cited in 3 trail answers naming 4 competitors, never in one naming you."
+  },
+  {
+   "brand": "altra",
+   "subject": "sourced",
+   "text": "Earn a mention on outsideonline.com: cited in 3 racing answers naming 4 competitors, never in one naming you."
+  },
+  {
+   "brand": "salomon",
+   "subject": "sourced",
+   "text": "Earn a mention on rtings.com: cited in 5 cushion answers naming 7 competitors, never in one naming you."
+  },
+  {
+   "brand": "salomon",
+   "subject": "sourced",
+   "text": "Earn a mention on youtube.com: cited in 3 which brand answers naming 7 competitors, never in one naming you."
+  },
+  {
+   "brand": "la-sportiva",
+   "subject": "sourced",
+   "text": "Earn a mention on irunfar.com: cited in 9 trail answers naming 8 competitors, never in one naming you."
+  },
+  {
+   "brand": "la-sportiva",
+   "subject": "sourced",
+   "text": "Earn a mention on youtube.com: cited in 3 which brand answers naming 7 competitors, never in one naming you."
+  },
+  {
+   "brand": "la-sportiva",
+   "subject": "sourced",
+   "text": "Earn a mention on outdoorgearlab.com: cited in 3 trail answers naming 5 competitors, never in one naming you."
+  },
+  {
+   "brand": "puma",
+   "subject": "sourced",
+   "text": "Earn a mention on rei.com: cited in 9 trail answers naming 10 competitors, never in one naming you."
+  },
+  {
+   "brand": "puma",
+   "subject": "sourced",
+   "text": "Earn a mention on believeintherun.com: cited in 3 trail answers naming 4 competitors, never in one naming you."
+  },
+  {
+   "brand": "puma",
+   "subject": "sourced",
+   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
+  },
+  {
+   "brand": "inov8",
+   "subject": "sourced",
+   "text": "Earn a mention on rei.com: cited in 9 trail answers naming 10 competitors, never in one naming you."
+  },
+  {
+   "brand": "inov8",
+   "subject": "sourced",
+   "text": "Earn a mention on irunfar.com: cited in 9 trail answers naming 8 competitors, never in one naming you."
+  },
+  {
+   "brand": "inov8",
+   "subject": "sourced",
+   "text": "Earn a mention on outdoorgearlab.com: cited in 3 trail answers naming 5 competitors, never in one naming you."
+  }
+ ]
 }

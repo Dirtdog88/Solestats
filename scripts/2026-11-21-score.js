@@ -3,8 +3,8 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
-import { needGrid, h2hGrid, sideOf, placesView } from '../src/2026-11-22-insights.js';
-import { placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
+import { needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes } from '../src/2026-11-22-insights.js';
+import { MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
 if (!round || round.startsWith('--')) { console.error('usage: --round <id>'); process.exit(1); }
@@ -51,7 +51,9 @@ const views = { needs: { '': needGrid(runs, prompts, shoeBrands) }, h2h: { '': h
 views.places = placesView(runs, brands.filter(b => b.category === 'shoes'), retailers, placesFor);
 // Each brand's side of its head-to-head pairs, for the /h2h grid rows and the brand page.
 for (const slug of views.h2h[''].brands) views.h2h[slug] = { sides: views.h2h[''].pairs.filter(p => p.a === slug || p.b === slug).map(p => sideOf(p, slug)) };
+views.sources = sourcesView(runs, prompts, brands.filter(b => b.category === 'shoes'), MIN_SOURCED_ANSWERS);
 const fixes = []; // [{ brand, subject, text }] in order of importance per brand
+for (const [slug, v] of Object.entries(views.sources)) fixes.push(...sourceFixes(slug, v));
 sqls.unshift(`DELETE FROM views WHERE round_id = ${sql(round)};`, `DELETE FROM fixes WHERE round_id = ${sql(round)};`);
 for (const [view, byKey] of Object.entries(views)) for (const [key, detail] of Object.entries(byKey)) sqls.push(`INSERT OR REPLACE INTO views (round_id,view,key,detail_json) VALUES (${[round, view, key, JSON.stringify(detail)].map(sql).join(',')});`);
 const rank = {};

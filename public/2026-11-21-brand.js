@@ -5,6 +5,21 @@ import { needRow } from './2026-11-22-needs.js';
 
 const PLACE_LABEL = { own: "Brand's own site", specialty: 'Run specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
 
+const KIND = { review: 'review site', forum: 'forum', news: 'news', retailer: 'retailer', brand: 'brand site', other: 'other' };
+
+/** Sources to earn: the sites AI names most for this brand, and the ones it names for competitors but never for it. */
+function sourcesCard(s, name) {
+  if (!s || !s.answers) return null;
+  const engines = Object.entries(s.by_engine || {}).sort((a, b) => b[1] - a[1]).map(([e, n]) => `${engineName(e)} ${n}`).join(', ');
+  const basis = s.sourced_answers ? `From the ${s.sourced_answers} of ${s.answers} answers naming ${name} that named a source (${engines}). Engines not listed named none.` : `None of the ${s.answers} answers naming ${name} named a source.`;
+  const item = (domain, kind, extra) => el('li', {}, el('span', { class: 'dom' }, domain), el('span', { class: 'muted' }, ` ${KIND[kind] || kind || ''}`), el('span', { class: 'cnt' }, extra));
+  const parts = [el('h3', {}, 'Sources'), el('p', { class: 'muted small' }, basis)];
+  if (s.top.length) parts.push(el('h4', {}, defined('span', 'sources_top', { text: `Named most for ${name}` })), el('ol', { class: 'sources' }, ...s.top.map(t => item(t.domain, t.kind, `${t.answers} answers`))));
+  if (s.gaps.length) parts.push(el('h4', {}, defined('span', 'sources_gap', { text: 'Named for competitors, never for you' })), el('ol', { class: 'sources' }, ...s.gaps.map(g => item(g.domain, g.kind, `${g.answers} ${g.label.toLowerCase()} answers, ${g.competitors} competitors`))));
+  else if (s.sourced_answers) parts.push(el('p', { class: 'muted small' }, s.sourced_answers < 5 ? 'Too few answers named a source to look for gaps.' : 'No site was named for competitors in two or more answers and never for this brand.'));
+  return el('section', { class: 'card' }, ...parts);
+}
+
 /** Where the sale goes for this brand: one bar per kind of place, as a share of the places to buy in its answers. */
 function placesCard(p) {
   if (!p || !p.n) return null;
@@ -108,6 +123,8 @@ async function main() {
   }
   const pc = placesCard(d.places);
   if (pc) card.append(pc);
+  const sc = sourcesCard(d.sources, d.brand.name);
+  if (sc) card.append(sc);
   const rev = revenueCard(d.financials || []);
   if (rev) card.append(rev);
   const rc = racesCard(d.races || []);

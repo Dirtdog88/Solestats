@@ -67,3 +67,25 @@ test('placesView: shares of the brand\'s places by bucket, with the places behin
   assert.deepEqual(v.brooks.other_places, [{ slug: 'zappos', name: 'Zappos', n: 1 }]);
   assert.equal(v.on, undefined);                            // no places, no row
 });
+
+test('sourcesView: top named domains, gaps from competitors in shared need groups, brand sites and searched pages left out', async () => {
+  const { sourcesView, sourceFixes } = await import('../src/2026-11-22-insights.js');
+  const ps = [{ id: 'S024', set: 'shoe', group: 'stability' }, { id: 'S056', set: 'shoe', group: 'trail' }];
+  const c = (domain, kind = 'review', source = 'cited') => ({ domain, kind, source });
+  const r = (prompt_id, brands, citations, engine = 'openai') => ({ status: 'ok', prompt_id, engine, mentions: brands.map(b => ({ brand_slug: b })), citations });
+  const runs = [
+    r('S024', ['brooks'], [c('brooksrunning.com', 'brand'), c('runrepeat.com')]),
+    r('S024', ['hoka', 'asics'], [c('doctorsofrunning.com'), c('hoka.com', 'brand')]),
+    r('S024', ['saucony'], [c('doctorsofrunning.com'), c('reddit.com', 'forum', 'searched')]),
+    r('S024', ['hoka', 'saucony'], [c('reddit.com', 'forum', 'searched')]),          // searched only: not a source
+    r('S056', ['salomon', 'hoka', 'altra'], [c('irunfar.com')]),                     // trail: Brooks never appears there
+  ];
+  const v = sourcesView(runs, ps, [{ slug: 'brooks' }, { slug: 'on' }], 1);
+  assert.deepEqual(v.brooks.top.map(t => t.domain), ['brooksrunning.com', 'runrepeat.com']);
+  assert.deepEqual(v.brooks.gaps.map(g => [g.domain, g.answers, g.competitors, g.group]), [['doctorsofrunning.com', 2, 3, 'stability']]);
+  assert.equal(v.brooks.by_engine.openai, 1);
+  assert.deepEqual(v.on.gaps, []);                                                 // On has no sourced answers
+  assert.match(sourceFixes('brooks', v.brooks)[0].text, /^Earn a mention on doctorsofrunning\.com: cited in 2 stability answers naming 3 competitors, never in one naming you\.$/);
+  assert.deepEqual(sourceFixes('brooks', { gaps: [{ domain: 'nhs.uk', kind: 'other', answers: 9, competitors: 3, label: 'Stability' }] }), []); // not a site a brand can work with
+  assert.deepEqual(sourcesView(runs, ps, [{ slug: 'brooks' }], 5).brooks.gaps, []); // too few sourced answers: no gaps
+});

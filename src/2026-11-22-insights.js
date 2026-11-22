@@ -113,3 +113,68 @@ export function placesView(runs, brands, retailers, placesFor) {
   }
   return out;
 }
+
+/**
+ * Sources to earn, per brand. Only sources an answer names count (source !== 'searched'), each domain once per answer.
+ * top: the 10 domains named most often in answers that mention the brand. gaps: domains named in answers that mention
+ * competitors within a need group where the brand also appears, but never in any answer that mentions the brand; brand
+ * sites are left out (a brand cannot earn a mention on a rival's site). A gap must be named in at least two answers in
+ * that group, for at least two competitors; ranked by answers, then competitors (one long answer naming many brands
+ * should not outrank a site the engines keep coming back to). With fewer than minSourced answers naming a source, no gaps are listed (too little to go on).
+ * Returns { slug: { sourced_answers, by_engine, top: [{ domain, kind, answers }], gaps: [{ domain, kind, group, label, competitors, answers }] } }.
+ */
+export function sourcesView(runs, prompts, brands, minSourced) {
+  const gOf = groupOf(prompts);
+  const named = r => (r.citations || []).filter(c => c.source !== 'searched' && c.domain);
+  const ok = runs.filter(r => r.status === 'ok');
+  const mentions = (r, slug) => (r.mentions || []).some(m => m.brand_slug === slug);
+  // domain -> group -> { brands: Set(slugs it was named for), answers }, and kinds.
+  const forBrandInGroup = {}, kindOf = {};
+  for (const r of ok) {
+    const g = gOf[r.prompt_id];
+    for (const c of named(r)) {
+      kindOf[c.domain] ||= c.kind;
+    }
+    if (!g) continue;
+    for (const d of new Set(named(r).filter(c => c.kind !== 'brand').map(c => c.domain))) {
+      const cell = ((forBrandInGroup[d] ||= {})[g] ||= { brands: new Set(), answers: 0 });
+      cell.answers++;
+      for (const m of r.mentions || []) cell.brands.add(m.brand_slug);
+    }
+  }
+  const out = {};
+  for (const b of brands) {
+    const mine = ok.filter(r => mentions(r, b.slug));
+    const sourced = mine.filter(r => named(r).length);
+    const counts = {};
+    for (const r of sourced) for (const d of new Set(named(r).map(c => c.domain))) counts[d] = (counts[d] || 0) + 1;
+    const top = Object.entries(counts).sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0])).slice(0, 10).map(([domain, answers]) => ({ domain, kind: kindOf[domain], answers }));
+    const myGroups = new Set(mine.map(r => gOf[r.prompt_id]).filter(Boolean));
+    const gaps = [];
+    if (sourced.length >= minSourced) {
+      for (const [domain, byGroup] of Object.entries(forBrandInGroup)) {
+        if (counts[domain]) continue;
+        let best = null;
+        for (const [g, cell] of Object.entries(byGroup)) {
+          if (!myGroups.has(g)) continue;
+          const competitors = [...cell.brands].filter(s => s !== b.slug).length;
+          if (competitors < 2 || cell.answers < 2) continue;
+          if (!best || cell.answers > best.answers || (cell.answers === best.answers && competitors > best.competitors)) best = { group: g, label: GROUP_LABEL[g] || g, competitors, answers: cell.answers };
+        }
+        if (best) gaps.push({ domain, kind: kindOf[domain], ...best });
+      }
+      gaps.sort((x, y) => y.answers - x.answers || y.competitors - x.competitors || x.domain.localeCompare(y.domain));
+    }
+    const byEngine = {};
+    for (const r of sourced) byEngine[r.engine] = (byEngine[r.engine] || 0) + 1;
+    out[b.slug] = { sourced_answers: sourced.length, answers: mine.length, by_engine: byEngine, top, gaps: gaps.slice(0, 10) };
+  }
+  return out;
+}
+
+/** The fixes a brand's source gaps suggest: the top three on sites a brand can work with (review sites, forums, news and
+ *  retailers; not medical pages or other companies' stores, which the card still lists), for the Top fixes list. */
+export const EARNABLE = ['review', 'forum', 'news', 'retailer'];
+export function sourceFixes(slug, view, max = 3) {
+  return (view.gaps || []).filter(g => EARNABLE.includes(g.kind)).slice(0, max).map(g => ({ brand: slug, subject: 'sourced', text: `Earn a mention on ${g.domain}: cited in ${g.answers} ${g.label.toLowerCase()} answers naming ${g.competitors} competitors, never in one naming you.` }));
+}
