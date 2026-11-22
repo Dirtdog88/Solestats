@@ -41,3 +41,12 @@ footer { margin-top:18px; border-top:1px solid var(--ink); padding-top:6px; disp
 .tools { display:flex; gap:16px; margin:0 0 14px; font-size:12px; }
 .tools a, .tools button { color:var(--ink); background:none; border:0; padding:0; font:inherit; text-decoration:underline; cursor:pointer; }
 @media print { .tools { display:none; } }
+
+/* On a phone (screen only; printing keeps the one-page layout): one column, the need strip in rows of four. */
+@media screen and (max-width: 700px) {
+  .row.top, .row.two { grid-template-columns: 1fr; gap: 16px; }
+  .needs { grid-template-columns: repeat(4, 1fr); gap: 8px 4px; }
+  .needs .l { height: auto; min-height: 2.4em; font-size: 10px; }
+  .bars li { grid-template-columns: 42% 1fr 3.2em; }
+  footer { flex-direction: column; }
+}
