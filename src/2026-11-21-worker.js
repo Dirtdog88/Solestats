@@ -1,6 +1,7 @@
 import { MIN_SOURCED_ANSWERS, WEIGHTS } from './2026-11-21-score.js';
 const OVERALL_ORDER = Object.keys(WEIGHTS);
 import { brandCounts } from './2026-11-22-races.js';
+import { voiceVsSize } from './2026-11-22-insights.js';
 // SoleStats Worker: a public, read-only JSON API over D1 plus CSV downloads; everything else is a static file.
 // Nothing here writes: data is loaded with the scripts (wrangler d1 execute). No sign-in, no cookies.
 
@@ -181,7 +182,8 @@ async function shareOfVoiceView(env, round) {
     out.push({ top10: rb ? rb.top10 : 0, podiums: rb ? rb.podiums : 0, wins: rb ? rb.wins : 0, top10_share: rc.known ? (rb ? rb.top10_share : 0) : null, slug: b.slug, name: b.name, sov: s ? s.score : null, sov_margin: s ? s.margin : null, mentions: s ? s.n : 0, top_pick_share: d.top_pick_share ?? null, answer_share: d.answer_share ?? null, by_engine: d.by_engine || {}, sov_previous: p ? p.score : null, sov_change: s && p ? Math.round((s.score - p.score) * 10) / 10 : null, revenue });
   }
   out.sort((a, b) => (b.sov ?? -1) - (a.sov ?? -1));
-  return { round, previous_round: prev ? prev.id : null, brands: out, races: { places: rc.places, known: rc.known, races: rc.races, other_brands: rc.brands.filter(x => !x.slug) } };
+  const vs = voiceVsSize(out);
+  return { voice_vs_size: vs, round, previous_round: prev ? prev.id : null, brands: out, races: { places: rc.places, known: rc.known, races: rc.races, other_brands: rc.brands.filter(x => !x.slug) } };
 }
 
 async function latestRound(env) {

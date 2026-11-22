@@ -53,7 +53,7 @@ const LEVEL = { brand: 'brand', category: 'category', footwear: 'footwear', segm
 
 // Publicly reported revenue, newest fiscal year only: one line per measure. Year-over-year growth is the headline
 // (Alex, 2026-11-21); the amount, in the currency reported, sits under it with a link to the filing.
-function revenueCard(rows) {
+function revenueCard(rows, sov) {
   if (!rows.length) return null;
   const latest = rows[0].fiscal_year;
   const order = Object.keys(LEVEL); // narrowest first: brand, category, footwear, segment, whole company
@@ -67,7 +67,13 @@ function revenueCard(rows) {
       el('div', {}, growth ? `${amount}, ${r.fiscal_year}` : r.value == null ? `${r.owner || 'The company'} does not report it separately` : `${r.fiscal_year}, no prior year to compare`),
       el('div', { class: 'muted' }, `${r.period_end ? 'Year to ' + r.period_end + ' · ' : ''}${r.owner || ''} `, src));
   });
-  return el('section', { class: 'card' }, defined('h3', 'revenue'), el('ul', { class: 'revenue' }, ...items));
+  // Voice vs size, from the share-of-voice view: context beside the revenue, never a cause.
+  const vs = sov && sov.voice_ratio != null ? el('li', { class: 'rev' },
+    defined('div', 'voice_ratio', { class: 'label' }),
+    el('div', { class: 'big' }, `${sov.voice_ratio.toFixed(sov.voice_ratio < 1 ? 2 : 1)}×`),
+    el('div', {}, `${sov.sov.toFixed(1)}% of AI's brand mentions against ${sov.revenue_share.toFixed(1)}% of the revenue reported by the ${sov.brands_with_both} brands with both numbers${sov.voice_ratio_wide ? '; the figure is wider than the brand, so this reads low' : ''}.`),
+    el('div', { class: 'muted' }, 'Context, not cause.')) : null;
+  return el('section', { class: 'card' }, defined('h3', 'revenue'), el('ul', { class: 'revenue' }, ...items, vs));
 }
 
 // Top-10 finishes at the World Marathon Majors and the World Championships marathon in this brand's shoes.
@@ -125,7 +131,8 @@ async function main() {
   if (pc) card.append(pc);
   const sc = sourcesCard(d.sources, d.brand.name);
   if (sc) card.append(sc);
-  const rev = revenueCard(d.financials || []);
+  const sovView = await api('/api/share-of-voice').catch(() => ({ brands: [] }));
+  const rev = revenueCard(d.financials || [], { ...(sovView.brands || []).find(b => b.slug === d.brand.slug), brands_with_both: sovView.voice_vs_size?.brands_with_both });
   if (rev) card.append(rev);
   const rc = racesCard(d.races || []);
   if (rc) card.append(rc);

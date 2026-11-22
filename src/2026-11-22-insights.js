@@ -178,3 +178,21 @@ export const EARNABLE = ['review', 'forum', 'news', 'retailer'];
 export function sourceFixes(slug, view, max = 3) {
   return (view.gaps || []).filter(g => EARNABLE.includes(g.kind)).slice(0, max).map(g => ({ brand: slug, subject: 'sourced', text: `Earn a mention on ${g.domain}: cited in ${g.answers} ${g.label.toLowerCase()} answers naming ${g.competitors} competitors, never in one naming you.` }));
 }
+
+/**
+ * Voice vs size: share of voice divided by the brand's share of the reported revenue of the brands that have both a
+ * share of voice and a revenue figure in US dollars. 1 means AI talks about the brand in line with its size; above 1,
+ * more; below, less. Context, not cause. A figure wider than the brand (footwear, segment, whole company) overstates
+ * its size, so its ratio reads low: `wide` says so. Adds revenue_share and voice_ratio to each row it can.
+ */
+export function voiceVsSize(rows) {
+  const have = rows.filter(r => r.sov != null && r.revenue && r.revenue.usd > 0);
+  const total = have.reduce((a, r) => a + r.revenue.usd, 0);
+  for (const r of rows) {
+    if (!have.includes(r) || !total) { r.revenue_share = null; r.voice_ratio = null; continue; }
+    r.revenue_share = round1(pct(r.revenue.usd, total));
+    r.voice_ratio = Math.round((r.sov / pct(r.revenue.usd, total)) * 100) / 100;
+    r.voice_ratio_wide = !['brand', 'category'].includes(r.revenue.level);
+  }
+  return { brands_with_both: have.length };
+}

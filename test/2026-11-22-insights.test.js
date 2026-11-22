@@ -89,3 +89,20 @@ test('sourcesView: top named domains, gaps from competitors in shared need group
   assert.deepEqual(sourceFixes('brooks', { gaps: [{ domain: 'nhs.uk', kind: 'other', answers: 9, competitors: 3, label: 'Stability' }] }), []); // not a site a brand can work with
   assert.deepEqual(sourcesView(runs, ps, [{ slug: 'brooks' }], 5).brooks.gaps, []); // too few sourced answers: no gaps
 });
+
+test('voiceVsSize: share of voice over share of revenue among brands with both; wider figures flagged', async () => {
+  const { voiceVsSize } = await import('../src/2026-11-22-insights.js');
+  const rows = [
+    { slug: 'a', sov: 30, revenue: { usd: 1e9, level: 'brand' } },
+    { slug: 'b', sov: 10, revenue: { usd: 3e9, level: 'company' } },
+    { slug: 'c', sov: 5, revenue: null },                 // no figure: no ratio, and not in the total
+    { slug: 'd', sov: null, revenue: { usd: 9e9, level: 'brand' } },
+  ];
+  assert.deepEqual(voiceVsSize(rows), { brands_with_both: 2 });
+  assert.equal(rows[0].revenue_share, 25);
+  assert.equal(rows[0].voice_ratio, 1.2);
+  assert.equal(rows[1].voice_ratio, 0.13);
+  assert.equal(rows[1].voice_ratio_wide, true);
+  assert.equal(rows[2].voice_ratio, null);
+  assert.equal(rows[3].voice_ratio, null);
+});

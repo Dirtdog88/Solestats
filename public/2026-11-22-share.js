@@ -113,7 +113,7 @@ async function main() {
   // Table.
   const engines = [...new Set(brands.flatMap(b => Object.keys(b.by_engine || {})))].sort();
   // Share of voice, its change and revenue first (the comparison asked for); the detail after.
-  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), defined('th', 'sov_change', { class: 'num', text: 'Change' }), defined('th', 'revenue', { class: 'num', text: 'Revenue growth' }), defined('th', 'revenue_scale', { class: 'num', text: 'Revenue' }),
+  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), defined('th', 'sov_change', { class: 'num', text: 'Change' }), defined('th', 'revenue', { class: 'num', text: 'Revenue growth' }), defined('th', 'revenue_scale', { class: 'num', text: 'Revenue' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice vs size' }),
     defined('th', 'top10_share', { class: 'num', text: 'Top-10 share' }), defined('th', 'podiums', { class: 'num', text: 'Podiums' }),
     defined('th', 'top_pick_share', { class: 'num', text: 'Top picks' }), defined('th', 'answer_share', { class: 'num', text: 'In answers' }), ...engines.map(e => el('th', { class: 'num' }, engineName(e))));
   const f1 = v => v == null ? '—' : `${v.toFixed(1)}%`;
@@ -123,9 +123,17 @@ async function main() {
     el('td', { class: 'num' }, b.sov_change == null ? '—' : pts(b.sov_change)),
     el('td', { class: 'num' }, b.revenue && b.revenue.yoy_pct != null ? pct1(b.revenue.yoy_pct) : '—'),
     el('td', { class: 'num' }, b.revenue && b.revenue.usd ? `${usd(b.revenue.usd)} · ${LEVEL_WORD[b.revenue.level] || b.revenue.level}` : '—'),
+    el('td', { class: 'num' }, ratio(b)),
     el('td', { class: 'num' }, f1(b.top10_share)), el('td', { class: 'num' }, b.top10_share == null ? '—' : `${b.podiums}${b.wins ? ` (${b.wins})` : ''}`),
     el('td', { class: 'num' }, f1(b.top_pick_share)), el('td', { class: 'num' }, f1(b.answer_share)),
     ...engines.map(e => el('td', { class: 'num' }, f1(b.by_engine[e])))));
+  if (d.voice_vs_size && d.voice_vs_size.brands_with_both) document.getElementById('vs-note').textContent = `Voice vs size covers the ${d.voice_vs_size.brands_with_both} brands with both a share of voice and a revenue figure; their revenue shares are of those brands' total, so the ratio moves as figures are added. ○ marks a figure wider than the brand, which reads low. Context, not cause.`;
   document.getElementById('sov-table').replaceChildren(el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows)));
 }
 main();
+
+/** Voice vs size as "1.4×", with a ring mark when the revenue figure is wider than the brand (it then reads low). */
+export function ratio(b) {
+  if (b.voice_ratio == null) return '—';
+  return el('span', {}, `${b.voice_ratio.toFixed(b.voice_ratio < 1 ? 2 : 1)}×`, b.voice_ratio_wide ? el('span', { class: 'pm', title: 'Revenue figure wider than the brand: the ratio reads low' }, ' ○') : '');
+}
