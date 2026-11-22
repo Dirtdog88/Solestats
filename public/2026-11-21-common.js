@@ -104,24 +104,20 @@ let editionPromise = null;
 export const edition = () => (editionPromise ||= api('/api/edition').catch(() => null));
 
 const SUBJECT_NAME = { recommended: 'Recommended', accurate: 'Accurate', shoppable: 'Shoppable', sourced: 'Sourced', routing: 'Sale goes home' };
-// The plain words for each subject, for the line that says what the AI score covers.
-const PHRASE = { recommended: 'how often AI recommends the brand', sourced: 'the sources it cites', routing: 'where it sends shoppers to buy', accurate: 'whether it gets product facts right', shoppable: "how easy the brand's site is for AI to shop" };
 const list = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
 
 /** The AI score (subject "overall") is provisional while some subjects are unscored (Accurate and Shoppable until the
  *  quarterly checks). Rewrites its definition to say which subjects it covers this edition, and returns { provisional,
- *  label, note }: note is the plain line under the Brands heading. */
+ *  label }. */
 export async function overallStatus() {
   const d = await edition();
   const o = d && d.overall;
-  if (!o || !o.subjects || !o.subjects.length) return { provisional: false, label: 'AI score', note: '' };
+  if (!o || !o.subjects || !o.subjects.length) return { provisional: false, label: 'AI score' };
   if (o.provisional) {
     const missing = o.all.filter(s => !o.subjects.includes(s)).map(s => SUBJECT_NAME[s] || s);
     DEFINITIONS.overall = ['AI score', `One number out of 100 for how AI assistants treat the brand. This edition it covers ${list(o.subjects.map(s => SUBJECT_NAME[s] || s))} only; ${list(missing)} ${missing.length === 1 ? 'is' : 'are'} not scored yet. Full weights: Recommended 35, Accurate 25, Shoppable 20, Sourced 10, Sale goes home 10.`];
   }
-  const have = o.subjects.map(s => PHRASE[s] || s), miss = o.all.filter(s => !o.subjects.includes(s)).map(s => PHRASE[s] || s);
-  const note = `Out of 100. Combines ${list(have)}.${miss.length ? ` Still to come: ${list(miss)}.` : ''}`;
-  return { provisional: Boolean(o.provisional), label: 'AI score', note };
+  return { provisional: Boolean(o.provisional), label: 'AI score' };
 }
 
 export async function showEdition() {

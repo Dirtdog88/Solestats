@@ -77,3 +77,5 @@ table.heatmap td.heat { border-radius:0; }
 .bar .fill { height:8px; }
 .bar .val .of { font-weight:400; color:#9a9a9a; font-size:12px; margin-left:2px; }
 td .score.none { font-size:13px; color:#8a8a8a; font-weight:500; }
+/* The header's rule already sits above the first section; no second rule there. */
+main > section:first-child > h2:first-child { border-top:0; padding-top:0; margin-top:26px; }

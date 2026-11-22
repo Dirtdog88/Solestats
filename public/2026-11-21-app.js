@@ -80,10 +80,7 @@ async function main() {
   }).catch(() => {});
   const { brands, round } = await api('/api/brands').catch(() => ({ brands: [], round: null }));
   document.getElementById('engines').replaceChildren(...engineStrip(await api('/api/edition').catch(() => ({ engines: [], pending: [] }))));
-  const list = document.getElementById('brand-list');
-  for (const b of brands) list.append(el('option', { value: b.name }));
   const ai = await overallStatus();
-  document.getElementById('brands-note').textContent = ai.note;
   document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS, ai.label));
   const byOverall = brands.filter(b => b.category === 'shoes').sort((a, b) => (b.scores.overall?.score ?? -1) - (a.scores.overall?.score ?? -1) || a.name.localeCompare(b.name));
   const needs = await api('/api/views/needs').catch(() => ({}));
@@ -93,12 +90,5 @@ async function main() {
   const dl = document.getElementById('downloads');
   if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', 'financials', 'race-results']) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));
   else dl.append(el('li', { class: 'muted' }, 'None yet.'));
-  document.getElementById('lookup').addEventListener('submit', e => {
-    e.preventDefault();
-    const q = document.getElementById('q').value.trim().toLowerCase();
-    const b = brands.find(x => x.name.toLowerCase() === q) || brands.find(x => x.name.toLowerCase().startsWith(q));
-    if (b) location.href = `/brand.html?b=${encodeURIComponent(b.slug)}`;
-    else { notice.textContent = `Not in the index: ${document.getElementById('q').value.trim()}`; notice.hidden = false; }
-  });
 }
 main();
