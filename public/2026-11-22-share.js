@@ -113,13 +113,15 @@ async function main() {
   // Table.
   const engines = [...new Set(brands.flatMap(b => Object.keys(b.by_engine || {})))].sort();
   // Share of voice, its change and revenue first (the comparison asked for); the detail after.
-  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), defined('th', 'sov_change', { class: 'num', text: 'Change' }), defined('th', 'revenue', { class: 'num', text: 'Revenue growth' }), defined('th', 'revenue_scale', { class: 'num', text: 'Revenue' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice for its size' }),
+  const hasW = brands.some(b => b.weighted_sov != null); // from the demand weights, when they exist
+  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), hasW ? defined('th', 'weighted_sov', { class: 'num', text: 'Weighted by demand' }) : '', defined('th', 'sov_change', { class: 'num', text: 'Change' }), defined('th', 'revenue', { class: 'num', text: 'Revenue growth' }), defined('th', 'revenue_scale', { class: 'num', text: 'Revenue' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice for its size' }),
     defined('th', 'top10_share', { class: 'num', text: 'Top-10 share' }), defined('th', 'podiums', { class: 'num', text: 'Podiums' }),
     defined('th', 'top_pick_share', { class: 'num', text: 'Top picks' }), defined('th', 'answer_share', { class: 'num', text: 'In answers' }), ...engines.map(e => el('th', { class: 'num' }, engineName(e))));
   const f1 = v => v == null ? '—' : `${v.toFixed(1)}%`;
   const rows = brands.filter(b => b.sov != null).map((b, i) => el('tr', {},
     el('td', {}, el('span', { class: 'lane' }, String(i + 1)), el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)),
     el('td', { class: 'num' }, f1(b.sov), b.sov_margin != null ? el('span', { class: 'pm' }, ` ±${b.sov_margin.toFixed(1)}`) : ''),
+    hasW ? el('td', { class: 'num' }, f1(b.weighted_sov)) : '',
     el('td', { class: 'num' }, b.sov_change == null ? '—' : pts(b.sov_change)),
     el('td', { class: 'num' }, b.revenue && b.revenue.yoy_pct != null ? pct1(b.revenue.yoy_pct) : '—'),
     el('td', { class: 'num' }, b.revenue && b.revenue.usd ? `${usd(b.revenue.usd)} · ${LEVEL_WORD[b.revenue.level] || b.revenue.level}` : '—'),
@@ -131,9 +133,9 @@ async function main() {
   // The five columns a brand team reads first; the full table folds below.
   // "Change" appears from the second edition on.
   const hasChange = brands.some(b => b.sov_change != null);
-  const main5 = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), hasChange ? defined('th', 'sov_change', { class: 'num', text: 'Change' }) : '', defined('th', 'top_pick_share', { class: 'num', text: 'Top picks' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice for its size' }));
+  const main5 = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), hasW ? defined('th', 'weighted_sov', { class: 'num', text: 'Weighted by demand' }) : '', hasChange ? defined('th', 'sov_change', { class: 'num', text: 'Change' }) : '', defined('th', 'top_pick_share', { class: 'num', text: 'Top picks' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice for its size' }));
   const rows5 = brands.filter(b => b.sov != null).map(b => el('tr', {}, el('td', {}, el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)),
-    el('td', { class: 'num' }, f1(b.sov)), hasChange ? el('td', { class: 'num' }, b.sov_change == null ? '—' : pts(b.sov_change)) : '', el('td', { class: 'num' }, f1(b.top_pick_share)), el('td', { class: 'num' }, ratio(b))));
+    el('td', { class: 'num' }, f1(b.sov)), hasW ? el('td', { class: 'num' }, f1(b.weighted_sov)) : '', hasChange ? el('td', { class: 'num' }, b.sov_change == null ? '—' : pts(b.sov_change)) : '', el('td', { class: 'num' }, f1(b.top_pick_share)), el('td', { class: 'num' }, ratio(b))));
   for (const r of rows) r.querySelector('.lane')?.remove();
   document.getElementById('sov-table').replaceChildren(el('table', {}, el('thead', {}, main5), el('tbody', {}, ...rows5)));
   document.getElementById('sov-all').replaceChildren(el('details', { class: 'fold' }, el('summary', {}, 'All columns'), el('div', { class: 'table-wrap' }, el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows)))));

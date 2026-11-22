@@ -21,6 +21,9 @@ round. Round 1 is being collected. (Six more categories of running gear are park
 5. `npm run export -- --round 2026-12` writes the open dataset CSVs; the Worker also serves them live from D1
    at `/download/<round>/<file>.csv`.
 6. `npm run deploy` applies migrations and deploys the Worker + static site.
+7. Once a quarter, on a PC: `npm run demand-signals -- --all` collects the free demand signals (Google Trends, Reddit, public
+   AI-conversation corpora) and `npm run demand` turns them into `data/2026-11-22-demand.csv`; the next `score` then adds
+   "Where the demand is" (which answers matter for each brand) to the site. Estimates with a range, never scored.
 
 Nothing is final until a person has looked at the detections: `mentions.checked` is there for that.
 

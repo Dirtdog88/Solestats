@@ -109,3 +109,10 @@ td.wrap { white-space:normal; }
 #sov-table th, #sov-table td { padding-left:8px; padding-right:8px; }
 .brief-link { margin:14px 0 0; font-size:14px; }
 .brief-link a { color:var(--accent); font-weight:600; }
+
+/* Which answers matter (2026-11-22): the demand table on the brand page and the weights under the heat map's headers. */
+table.demand tr.first td { font-weight:700; }
+table.demand tr.inel td { color:var(--muted); }
+table.demand td .pill { margin-left:8px; font-size:10px; padding:1px 5px; vertical-align:1px; letter-spacing:.04em; }
+table.demand tr:focus td, table.demand tr:hover td { background:var(--h0); }
+table.heatmap th .sub { display:block; font-weight:400; color:var(--muted); font-size:11px; letter-spacing:0; text-transform:none; }

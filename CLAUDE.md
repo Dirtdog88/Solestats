@@ -27,6 +27,9 @@ Add nothing else without a strong reason.
 | `src/2026-11-21-detect.js` | pure: brand mentions, head-to-head winner, citation kinds, routes |
 | `src/2026-11-21-score.js` | pure: the rubric (weights, eligibility, subjects, overall, routing table) |
 | `src/2026-11-21-worker.js` | read-only JSON API and CSV downloads over D1; static files otherwise |
+| `src/2026-11-22-demand.js` | pure: "Where the demand is" (2026-11-22): the phrase classifier, the weights from the signals, the per-brand view (weighted share of voice, fix first) |
+| `data/2026-11-22-demand-keywords.csv`, `data/2026-11-22-demand-terms.csv` | the search term behind each shoe prompt (Google Trends), and the phrase lists that sort posts and prompts into need groups |
+| `scripts/2026-11-22-demand-signals.js`, `scripts/2026-11-22-demand.js` | the collectors (Trends, Reddit, the conversation corpora; run on a PC) and the builder that writes `data/2026-11-22-demand.csv`; the score script reads that file when it exists |
 | `public/` | the site: index, brand page, method page, styles, scripts (built with `textContent`) |
 | `migrations/NNNN_name.sql` | D1 schema, `IF NOT EXISTS`, never edit an applied one |
 
@@ -60,6 +63,10 @@ Add nothing else without a strong reason.
   `--set pulse` stay as a cheaper fallback but are not used.
 - Shoppable by AI is the checklist in `data/2026-11-21-shoppable-checklist.csv`, scored by hand per brand per round
   into `data/rounds/<round>/site-checks.jsonl` ({brand_slug, item, result 1|0, notes}).
+- **Where the demand is** (Alex, 2026-11-22: free signals only, no paid prompt-volume data): the need-group weights are
+  estimates from Google Trends, Reddit and public conversation corpora, shown with their range, refreshed once a quarter
+  (`npm run demand-signals -- --all` on a PC, then `npm run demand`, then re-score), and never part of the AI score. Without
+  `data/2026-11-22-demand.csv` the score script writes no demand view and the site shows nothing about demand.
 
 ## Checks before pushing
 

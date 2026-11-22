@@ -7,6 +7,7 @@ import { modelMatchers, modelView, steeringView, versionCurrency, substitutionVi
 import { brandMatchers, findMentions } from '../src/2026-11-21-detect.js';
 import { GROUP_LABEL, needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
 import { eligible, MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
+import { weightsFromRows, demandView } from '../src/2026-11-22-demand.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
 if (!round || round.startsWith('--')) { console.error('usage: --round <id>'); process.exit(1); }
@@ -83,6 +84,22 @@ views.engine_patterns = { '': { patterns: ep.patterns } };
 for (const p of ep.patterns) for (const v of Object.values(views.engines)) if (v[p.subject] && v[p.subject].low === p.engine) v[p.subject].pattern = true;
 fixes.push(...ep.fixes.map(({ engine, ...f }) => f));
 for (const [slug, v] of Object.entries(views.sources)) fixes.push(...sourceFixes(slug, v));
+// Where the demand is (src/2026-11-22-demand.js): only once data/2026-11-22-demand.csv exists (npm run demand-signals on a
+// PC, then npm run demand). Credible groups per brand come from the spec sheet as in When not you, who: verified rows,
+// else the draft rows, else every group.
+const demandRows = read('2026-11-22-demand.csv');
+const weights = demandRows.length ? weightsFromRows(demandRows) : null;
+if (weights) {
+  const specAll = read('2026-11-21-spec-sheet.csv');
+  const eligibleGroups = {};
+  for (const b of brands.filter(x => x.category === 'shoes')) {
+    const verified = specAll.filter(m => m.brand_slug === b.slug && m.verified_on);
+    const rowsFor = verified.length ? verified : specAll.filter(m => m.brand_slug === b.slug);
+    eligibleGroups[b.slug] = new Set(prompts.filter(p => p.set_name === 'shoe' && eligible(b, p, rowsFor)).map(p => p.group));
+  }
+  const dv = demandView(views.needs[''], weights, eligibleGroups);
+  if (dv) views.demand = dv;
+}
 sqls.unshift(`DELETE FROM views WHERE round_id = ${sql(round)};`, `DELETE FROM fixes WHERE round_id = ${sql(round)};`);
 for (const [view, byKey] of Object.entries(views)) for (const [key, detail] of Object.entries(byKey)) sqls.push(`INSERT OR REPLACE INTO views (round_id,view,key,detail_json) VALUES (${[round, view, key, JSON.stringify(detail)].map(sql).join(',')});`);
 const rank = {};
