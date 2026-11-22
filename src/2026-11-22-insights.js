@@ -40,3 +40,40 @@ export function needGrid(runs, prompts, brandSlugs) {
   }
   return { groups, brands };
 }
+
+/**
+ * Head-to-head grid: for each pair of brands asked about head to head, what the answers concluded (the winner the
+ * import read from each answer: a brand slug, 'tie' or 'unclear'), in total and by engine. A pair's win rate counts a
+ * tie as half and leaves unclear answers out. Brand names in the prompts are matched to slugs through brands.
+ * Returns { brands: [slug], pairs: [{ prompt_id, a, b, n, a_wins, b_wins, ties, unclear, a_rate, by_engine }] }.
+ */
+export function h2hGrid(runs, prompts, brands) {
+  const slugOf = name => (brands.find(b => b.name.toLowerCase() === String(name || '').toLowerCase()) || {}).slug;
+  const tally = (list, a, b) => {
+    const t = { n: list.length, a_wins: 0, b_wins: 0, ties: 0, unclear: 0 };
+    for (const r of list) {
+      if (r.winner === a) t.a_wins++; else if (r.winner === b) t.b_wins++; else if (r.winner === 'tie') t.ties++; else t.unclear++;
+    }
+    const decided = t.a_wins + t.b_wins + t.ties;
+    t.a_rate = decided ? round1(pct(t.a_wins + t.ties / 2, decided)) : null;
+    return t;
+  };
+  const pairs = [];
+  for (const p of prompts.filter(p => (p.set_name || p.set) === 'h2h')) {
+    const a = slugOf(p.pair_a), b = slugOf(p.pair_b);
+    if (!a || !b) continue;
+    const rel = runs.filter(r => r.prompt_id === p.id && r.status === 'ok');
+    const engines = [...new Set(rel.map(r => r.engine))].sort();
+    pairs.push({ prompt_id: p.id, a, b, ...tally(rel, a, b), by_engine: Object.fromEntries(engines.map(e => [e, tally(rel.filter(r => r.engine === e), a, b)])) });
+  }
+  const order = brands.map(b => b.slug);
+  const inPairs = new Set(pairs.flatMap(p => [p.a, p.b]));
+  return { brands: order.filter(s => inPairs.has(s)), pairs };
+}
+
+/** One brand's side of a pair: { rate, wins, losses, ties, unclear, n, by_engine } from the row brand's point of view. */
+export function sideOf(pair, slug) {
+  const flip = t => pair.a === slug ? { rate: t.a_rate, wins: t.a_wins, losses: t.b_wins, ties: t.ties, unclear: t.unclear, n: t.n }
+    : { rate: t.a_rate == null ? null : round1(100 - t.a_rate), wins: t.b_wins, losses: t.a_wins, ties: t.ties, unclear: t.unclear, n: t.n };
+  return { ...flip(pair), opponent: pair.a === slug ? pair.b : pair.a, by_engine: Object.fromEntries(Object.entries(pair.by_engine || {}).map(([e, t]) => [e, flip(t)])) };
+}

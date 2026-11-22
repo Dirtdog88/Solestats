@@ -35,6 +35,7 @@ export const DEFINITIONS = {
   top10_share: ['Top-10 share', "Of the top-10 places at the World Marathon Majors and the World Championships marathon since 2025, men's and women's races, the share whose shoe brand is confirmed and is this brand. Race-day shoes where a source reports them, otherwise the athlete's sponsor."],
   podiums: ['Podiums', 'Top-3 places at those races in this brand, with wins in brackets.'],
   need: ['By runner need', "Share of answers in each group of shoe questions (starting out, stability, trail and so on) that name the brand, once per answer. The tip adds how often it was the top pick. Not part of Overall; every brand is counted on every group, whether or not it makes a shoe for that need."],
+  h2h: ['Head to head', "Share of answers to \"Brand A or Brand B: which should I buy?\" that favour this brand, ties counted as half and answers that pick neither left out. Nine answers per pair (three engines, three repeats), so small gaps are noise. Part of Recommended."],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],

@@ -32,3 +32,20 @@ test('every shoe prompt is in one of the listed need groups', async () => {
   const ids = new Set(GROUPS.map(([id]) => id));
   for (const p of parseCsv(readFileSync(new URL('../data/2026-11-21-prompts.csv', import.meta.url), 'utf8')).filter(p => p.set === 'shoe')) assert.ok(ids.has(p.group), p.id);
 });
+
+test('h2hGrid: wins, ties as half, unclear left out of the rate, split by engine; sideOf flips to either brand', async () => {
+  const { h2hGrid, sideOf } = await import('../src/2026-11-22-insights.js');
+  const brands = [{ slug: 'brooks', name: 'Brooks' }, { slug: 'hoka', name: 'Hoka' }, { slug: 'new-balance', name: 'New Balance' }];
+  const ps = [{ id: 'H001', set: 'h2h', pair_a: 'Brooks', pair_b: 'Hoka' }, { id: 'H002', set: 'h2h', pair_a: 'Brooks', pair_b: 'Nobody' }];
+  const r = (engine, winner, status = 'ok') => ({ prompt_id: 'H001', engine, winner, status });
+  const g = h2hGrid([r('openai', 'brooks'), r('openai', 'tie'), r('anthropic', 'hoka'), r('anthropic', 'unclear'), r('gemini', 'brooks', 'error')], ps, brands);
+  assert.deepEqual(g.brands, ['brooks', 'hoka']);
+  assert.equal(g.pairs.length, 1);                       // a pair naming an unknown brand is skipped
+  const p = g.pairs[0];
+  assert.deepEqual([p.n, p.a_wins, p.b_wins, p.ties, p.unclear, p.a_rate], [4, 1, 1, 1, 1, 50]);
+  assert.equal(p.by_engine.openai.a_rate, 75);
+  assert.equal(p.by_engine.anthropic.a_rate, 0);
+  const h = sideOf(p, 'hoka');
+  assert.deepEqual([h.opponent, h.rate, h.wins, h.losses], ['brooks', 50, 1, 1]);
+  assert.equal(h.by_engine.openai.rate, 25);
+});

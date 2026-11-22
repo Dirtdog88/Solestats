@@ -1,7 +1,8 @@
 // One brand's report card.
 const ORDER = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
-import { el, engineName, showEdition, plainAnswer, defined, installTips, DEFINITIONS, money, overallStatus } from './2026-11-21-common.js';
+import { el, engineName, showEdition, plainAnswer, defined, installTips, api, DEFINITIONS, money, overallStatus } from './2026-11-21-common.js';
 import { needRow } from './2026-11-22-needs.js';
+import { h2hCard } from './2026-11-22-h2h.js';
 const TREATMENT = { full: 'core brand', eligible: 'watched brand', scan: 'scan' };
 
 const SOURCING_TAG = { not_provided: true, no_search: true };
@@ -83,6 +84,11 @@ async function main() {
   card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));
   const nr = needRow(d.needs, d.brand.name);
   if (nr) card.append(nr);
+  if (d.h2h) {
+    const { brands } = await api('/api/brands').catch(() => ({ brands: [] }));
+    const hc = h2hCard(d.h2h, d.brand.name, Object.fromEntries(brands.map(b => [b.slug, b.name])), Object.fromEntries(brands.map(b => [b.slug, b.scores.overall?.score ?? -1])));
+    if (hc) card.append(hc);
+  }
   const rev = revenueCard(d.financials || []);
   if (rev) card.append(rev);
   const rc = racesCard(d.races || []);

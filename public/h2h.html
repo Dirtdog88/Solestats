@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SoleStats · Head to head</title>
+<meta name="description" content="When runners ask AI to choose between two of the eight biggest running shoe brands, which way the answers lean, by pair and by engine.">
+<link rel="stylesheet" href="/2026-11-21-styles.css">
+</head>
+<body>
+<header class="hero small">
+  <p class="brand"><a href="/">SoleStats</a></p>
+  <h1>Head to head</h1>
+</header>
+<main>
+  <p class="muted small">Each cell is the share of answers to "<span id="example">Brand A or Brand B: which should I buy?</span>" that favour the row brand over the column brand. Ties count as half; answers that pick neither are left out. Tap a cell for the counts and the split by engine.</p>
+  <div id="h2h-legend"></div>
+  <div id="h2h-grid" class="heat-wrap"></div>
+  <p class="muted small" id="h2h-n"></p>
+  <h2>By pair</h2>
+  <div class="table-wrap" id="h2h-table"></div>
+</main>
+<section class="edition-foot">
+  <p class="edition muted" id="edition"></p>
+  <p class="notice" id="notice" hidden></p>
+</section>
+<footer><p><a href="/">Index</a> · <a href="/share.html">Share of voice</a> · <a href="/method.html">Method and definitions</a></p></footer>
+<div id="tip" class="tip" role="status" hidden></div>
+<script src="/2026-11-22-h2h.js" type="module"></script>
+</body>
+</html>

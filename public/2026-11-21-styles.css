@@ -145,3 +145,20 @@ table.heatmap td.heat { text-align: center; font-weight: 700; font-variant-numer
 table.heatmap { table-layout: fixed; min-width: 660px; }
 table.heatmap th.stick { width: 118px; }
 .heat-legend .swatch.h0 { box-shadow: inset 0 0 0 1px #d5d9e3; }
+
+/* Head to head (2026-11-22): diverging, orange below an even split, grey around it, blue above. */
+.heat.d0 { background: #b84300; color: #fff; }
+.heat.d1 { background: #f7c3a3; color: var(--ink); }
+.heat.d2 { background: #e6e7ec; color: var(--ink); }
+.heat.d3 { background: #bccdf3; color: var(--ink); }
+.heat.d4 { background: #2f5fd6; color: #fff; }
+table.heatmap td.heat.d0 { background: #b84300; color: #fff; } table.heatmap td.heat.d1 { background: #f7c3a3; }
+table.heatmap td.heat.d2 { background: #e6e7ec; } table.heatmap td.heat.d3 { background: #bccdf3; }
+table.heatmap td.heat.d4 { background: #2f5fd6; color: #fff; }
+table.heatmap td.heat.self { background: repeating-linear-gradient(45deg, #f3f3f6, #f3f3f6 4px, #fff 4px, #fff 8px); cursor: default; }
+table.heatmap td.heat.d-none { background: #f6f6f8; color: var(--muted); cursor: default; }
+table.heatmap.h2h { min-width: 560px; }
+.h2h-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.h2h-list li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 6px 6px 10px; background: #fafafa; border-radius: 8px; font-size: 14px; }
+.h2h-list .heat { min-width: 2.6em; text-align: center; font-weight: 800; border-radius: 6px; padding: 4px 6px; font-variant-numeric: tabular-nums; cursor: pointer; outline: none; }
+[hidden] { display: none !important; }
