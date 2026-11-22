@@ -61,7 +61,7 @@ async function main() {
   const brands = d.brands || [];
 
   // Chart 1: share of voice against revenue scale.
-  document.getElementById('h-scale').replaceChildren(defined('span', 'sov', { text: 'Share of voice' }), ' against ', defined('span', 'revenue_scale', { text: 'reported revenue' }));
+  document.getElementById('h-scale').replaceChildren(defined('span', 'sov', { text: 'Share of voice' }), ' vs ', defined('span', 'revenue_scale', { text: 'revenue' }));
   document.getElementById('legend-scale').replaceChildren(
     el('span', { class: 'key' }, el('span', { class: 'swatch' }), 'brand or running figure'),
     el('span', { class: 'key' }, el('span', { class: 'swatch ring' }), 'footwear, segment or whole-company figure'));
@@ -80,7 +80,7 @@ async function main() {
   document.getElementById('missing-scale').textContent = missing.length ? `Not plotted, no reported revenue amount: ${missing.map(b => `${b.name} (${b.sov.toFixed(1)}%)`).join(', ')}.` : '';
 
   // Chart 2: share-of-voice change against revenue growth.
-  document.getElementById('h-growth').replaceChildren(defined('span', 'sov_change', { text: 'Share-of-voice change' }), ' against ', defined('span', 'revenue', { text: 'revenue growth' }));
+  document.getElementById('h-growth').replaceChildren('Change in ', defined('span', 'sov', { text: 'share of voice' }), ' vs ', defined('span', 'revenue', { text: 'revenue growth' }));
   const p2 = brands.filter(b => b.sov_change != null && b.revenue && b.revenue.yoy_pct != null).map(b => ({ label: b.name, x: b.revenue.yoy_pct, y: b.sov_change, weight: Math.abs(b.sov_change), filled: NARROW.has(b.revenue.level), b }));
   if (p2.length) {
     const xa = Math.max(10, ...p2.map(p => Math.abs(p.x))) * 1.1, ya = Math.max(1, ...p2.map(p => Math.abs(p.y))) * 1.15;
@@ -91,12 +91,12 @@ async function main() {
       describe: p => `${p.b.name}: share of voice ${pts(p.b.sov_change)} since ${d.previous_round} (${p.b.sov_previous.toFixed(1)}% to ${p.b.sov.toFixed(1)}%); ${p.b.revenue.measure} ${pct1(p.b.revenue.yoy_pct)} in ${p.b.revenue.fiscal_year}.`,
     });
   } else {
-    document.getElementById('chart-growth').replaceChildren(el('p', { class: 'empty' }, `Share-of-voice change needs two editions. It appears with the next one; this is edition ${d.round || 'one'}.`));
+    document.getElementById('chart-growth').closest('section').hidden = true; // appears with the second edition
   }
 
   // Chart 3: AI share of voice against share of top-10 finishes at the majors.
   const rc = d.races || { known: 0 };
-  document.getElementById('h-races').replaceChildren(defined('span', 'sov', { text: 'Share of voice' }), ' against ', defined('span', 'top10_share', { text: 'share of top-10 finishes' }));
+  document.getElementById('h-races').replaceChildren(defined('span', 'sov', { text: 'Share of voice' }), ' vs ', defined('span', 'top10_share', { text: 'top-10 finishes at the majors' }));
   const p3 = brands.filter(b => b.sov != null && b.top10_share != null).map(b => ({ label: b.name, x: b.top10_share, y: b.sov, weight: b.sov + b.top10_share, filled: true, b }));
   if (rc.known && p3.length) {
     const top = niceMax(Math.max(...p3.map(p => Math.max(p.x, p.y))) * 1.1, 5);
@@ -107,13 +107,13 @@ async function main() {
       describe: p => `${p.b.name}: share of voice ${p.b.sov.toFixed(1)}%; ${p.b.top10} of ${rc.known} top-10 places (${p.b.top10_share.toFixed(1)}%), ${p.b.podiums} podiums, ${p.b.wins} wins.`,
     });
     document.getElementById('races-note').textContent = `${rc.races} races, ${rc.places} top-10 places; shoe brand confirmed for ${rc.known}. Above the line, AI mentions the brand more than elite results would suggest; below it, less.`;
-  } else document.getElementById('chart-races').replaceChildren(el('p', { class: 'empty' }, rc.places ? `Results for ${rc.places} top-10 places in ${rc.races} races are in; the shoe brands are being checked against their sources.` : 'Race results are being collected.'));
+  } else document.getElementById('chart-races').closest('section').hidden = true; // appears once the shoe brands are confirmed
   if (rc.other_brands && rc.other_brands.length) document.getElementById('other-brands').textContent = `Other brands in the top 10 at the majors: ${rc.other_brands.map(o => `${o.name} ${o.top10}${o.podiums ? ` (${o.podiums} podiums)` : ''}`).join(', ')}.`;
 
   // Table.
   const engines = [...new Set(brands.flatMap(b => Object.keys(b.by_engine || {})))].sort();
   // Share of voice, its change and revenue first (the comparison asked for); the detail after.
-  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), defined('th', 'sov_change', { class: 'num', text: 'Change' }), defined('th', 'revenue', { class: 'num', text: 'Revenue growth' }), defined('th', 'revenue_scale', { class: 'num', text: 'Revenue' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice vs size' }),
+  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), defined('th', 'sov_change', { class: 'num', text: 'Change' }), defined('th', 'revenue', { class: 'num', text: 'Revenue growth' }), defined('th', 'revenue_scale', { class: 'num', text: 'Revenue' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice for its size' }),
     defined('th', 'top10_share', { class: 'num', text: 'Top-10 share' }), defined('th', 'podiums', { class: 'num', text: 'Podiums' }),
     defined('th', 'top_pick_share', { class: 'num', text: 'Top picks' }), defined('th', 'answer_share', { class: 'num', text: 'In answers' }), ...engines.map(e => el('th', { class: 'num' }, engineName(e))));
   const f1 = v => v == null ? '—' : `${v.toFixed(1)}%`;
@@ -127,8 +127,16 @@ async function main() {
     el('td', { class: 'num' }, f1(b.top10_share)), el('td', { class: 'num' }, b.top10_share == null ? '—' : `${b.podiums}${b.wins ? ` (${b.wins})` : ''}`),
     el('td', { class: 'num' }, f1(b.top_pick_share)), el('td', { class: 'num' }, f1(b.answer_share)),
     ...engines.map(e => el('td', { class: 'num' }, f1(b.by_engine[e])))));
-  if (d.voice_vs_size && d.voice_vs_size.brands_with_both) document.getElementById('vs-note').textContent = `Voice vs size covers the ${d.voice_vs_size.brands_with_both} brands with both a share of voice and a revenue figure; their revenue shares are of those brands' total, so the ratio moves as figures are added. ○ marks a figure wider than the brand, which reads low. Context, not cause.`;
-  document.getElementById('sov-table').replaceChildren(el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows)));
+  if (d.voice_vs_size && d.voice_vs_size.brands_with_both) document.getElementById('vs-note').textContent = `Voice for its size: share of voice divided by share of revenue, for the ${d.voice_vs_size.brands_with_both} brands with a revenue figure. ○ means the figure covers more than the brand, so it reads low. Context, not cause.`;
+  // The five columns a brand team reads first; the full table folds below.
+  // "Change" appears from the second edition on.
+  const hasChange = brands.some(b => b.sov_change != null);
+  const main5 = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), hasChange ? defined('th', 'sov_change', { class: 'num', text: 'Change' }) : '', defined('th', 'top_pick_share', { class: 'num', text: 'Top picks' }), defined('th', 'voice_ratio', { class: 'num', text: 'Voice for its size' }));
+  const rows5 = brands.filter(b => b.sov != null).map(b => el('tr', {}, el('td', {}, el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)),
+    el('td', { class: 'num' }, f1(b.sov)), hasChange ? el('td', { class: 'num' }, b.sov_change == null ? '—' : pts(b.sov_change)) : '', el('td', { class: 'num' }, f1(b.top_pick_share)), el('td', { class: 'num' }, ratio(b))));
+  for (const r of rows) r.querySelector('.lane')?.remove();
+  document.getElementById('sov-table').replaceChildren(el('table', {}, el('thead', {}, main5), el('tbody', {}, ...rows5)));
+  document.getElementById('sov-all').replaceChildren(el('details', { class: 'fold' }, el('summary', {}, 'All columns'), el('div', { class: 'table-wrap' }, el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows)))));
 }
 main();
 

@@ -103,3 +103,9 @@ details.fold > summary::after { content:"+"; font-weight:400; font-size:22px; co
 details.fold[open] > summary::after { content:"−"; }
 details.fold > section { padding:0 0 18px; margin:0; border:0; }
 @media (max-width: 480px) { .score-top { grid-template-columns:1fr; gap:6px; } }
+td .sub { display:block; font-size:12px; color:#8a8a8a; font-weight:400; }
+td.wrap { white-space:normal; }
+#sov-table th { white-space:normal; line-height:1.2; vertical-align:bottom; }
+#sov-table th, #sov-table td { padding-left:8px; padding-right:8px; }
+.brief-link { margin:14px 0 0; font-size:14px; }
+.brief-link a { color:var(--accent); font-weight:600; }

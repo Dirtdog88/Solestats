@@ -26,13 +26,14 @@ function grid(order, names, by) {
 
 function legend() {
   const labels = ['under 20', '20–40', '40–60', '60–80', '80+'];
-  return el('div', { class: 'heat-legend', 'aria-hidden': 'true' }, ...labels.map((l, i) => el('span', { class: 'key' }, el('span', { class: `swatch heat d${i}` }), l)), el('span', { class: 'muted' }, '% favouring the row brand'));
+  return el('div', { class: 'heat-legend', 'aria-hidden': 'true' }, ...labels.map((l, i) => el('span', { class: 'key' }, el('span', { class: `swatch heat d${i}` }), l)), el('span', { class: 'muted' }, '% of the time AI picked the row brand'));
 }
 
 function pairTable(pairs, names, models = {}) {
   const shoes = p => { const ms = models[p.prompt_id] || []; const one = s => ms.find(m => m.brand_slug === s); return [one(p.a), one(p.b)].filter(Boolean).map(m => m.name).join(' · ') || '—'; };
-  const head = el('tr', {}, el('th', {}, 'Answers favouring'), defined('th', 'pair_models', { text: 'Shoes named most' }), el('th', { class: 'num' }, 'Tie'), el('th', { class: 'num' }, 'Unclear'), defined('th', 'n', { class: 'num' }));
-  const rows = pairs.map(p => el('tr', {}, el('td', {}, `${names[p.a] || p.a} ${p.a_wins} · ${names[p.b] || p.b} ${p.b_wins}`), el('td', {}, shoes(p)), el('td', { class: 'num' }, String(p.ties)), el('td', { class: 'num' }, String(p.unclear)), el('td', { class: 'num' }, String(p.n))));
+  const head = el('tr', {}, el('th', {}, 'Picked'), defined('th', 'pair_models', { text: 'Shoes compared' }));
+  const rest = p => [p.ties ? `${p.ties} even` : '', p.unclear ? `${p.unclear} no pick` : ''].filter(Boolean).join(', ');
+  const rows = pairs.map(p => el('tr', {}, el('td', {}, `${names[p.a] || p.a} ${p.a_wins} · ${names[p.b] || p.b} ${p.b_wins}`, rest(p) ? el('span', { class: 'sub' }, rest(p)) : ''), el('td', { class: 'wrap' }, shoes(p))));
   return el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows));
 }
 
@@ -52,7 +53,7 @@ async function main() {
   document.getElementById('h2h-legend').replaceChildren(legend());
   const ns = [...new Set(v.data.pairs.map(p => p.n))];
   const engines = [...new Set(v.data.pairs.flatMap(p => Object.keys(p.by_engine || {})))];
-  document.getElementById('h2h-n').textContent = `${v.data.pairs.length} pairs, ${ns.length === 1 ? ns[0] : ns.join(' to ')} answers each (${engines.length} engines × repeats). With so few answers per pair, a difference of one or two answers is noise: read the grid for clear leans, not small gaps. Brands are in AI score order.`;
+  document.getElementById('h2h-n').textContent = `${ns.length === 1 ? ns[0] : ns.join(' to ')} answers per pair (${engines.length} engines, 3 tries each), so only big differences mean anything.`;
   document.getElementById('h2h-table').replaceChildren(pairTable(v.data.pairs, names, (mv.data && mv.data.h2h) || {}));
 }
 // The brand page imports the helpers below; only the head-to-head page has the grid.

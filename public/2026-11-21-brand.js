@@ -193,6 +193,7 @@ async function main() {
     el('div', { class: 'ai' }, defined('div', 'overall', { class: 'label', text: 'AI score' }), ai && ai.score != null ? el('div', { class: 'big' }, String(Math.round(ai.score)), el('span', { class: 'of' }, '/100')) : el('div', { class: 'big none' }, 'Not enough data yet')),
     el('ul', { class: 'subj-list' }, ...['recommended', 'sourced', 'routing', 'accurate', 'shoppable'].map(rowFor)));
   card.append(scoreBlock);
+  card.prepend(el('p', { class: 'brief-link' }, el('a', { href: `/brief.html?b=${encodeURIComponent(d.brand.slug)}` }, 'One-page brief (print or PDF)')));
   // ---- 2. What to fix.
   card.append(el('section', { class: 'card top' }, el('h3', {}, 'What to fix'), d.fixes.length
     ? el('ol', { class: 'fixes' }, ...d.fixes.map(f => el('li', {}, el('span', { class: 'fx-subj' }, (DEFINITIONS[f.subject] || [f.subject])[0]), f.text)))

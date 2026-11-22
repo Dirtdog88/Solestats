@@ -1,0 +1,43 @@
+/* The one-page brand brief (Alex, 2026-11-22): Swiss, forest green, sized to print on one US Letter or A4 page. */
+@page { size: letter; margin: 0.45in; }
+:root { --ink:#0a0a0a; --muted:#6e6e6e; --line:#e4e4e4; --g:#0b5d3b; }
+* { box-sizing:border-box; }
+html, body { margin:0; background:#fff; color:var(--ink); font:12px/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.brief { max-width:7.6in; margin:0 auto; padding:24px 16px; }
+@media print { .brief { padding:0; max-width:none; } }
+header { border-bottom:2px solid var(--ink); padding-bottom:10px; }
+.brand { color:var(--g); font-weight:700; letter-spacing:.18em; font-size:10px; margin:0; }
+h1 { font-size:40px; letter-spacing:-.04em; line-height:1; margin:6px 0 4px; }
+.ed { color:var(--muted); margin:0; font-size:11px; }
+h2 { font-size:13px; margin:0 0 8px; letter-spacing:-.01em; border-top:2px solid var(--ink); padding-top:8px; }
+section { margin-top:16px; }
+.row { display:grid; gap:24px; }
+.row.top { grid-template-columns: 40% 1fr; }
+.row.two { grid-template-columns: 1fr 1fr; }
+.lbl { font-size:11px; color:var(--muted); font-weight:600; border-top:2px solid var(--ink); padding-top:8px; }
+.big { font-size:60px; font-weight:700; letter-spacing:-.05em; line-height:1; margin:4px 0 6px; }
+.big small { font-size:16px; color:#9a9a9a; font-weight:400; letter-spacing:0; }
+.subj { list-style:none; margin:0; padding:0; }
+.subj li { display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding:4px 0; }
+.subj .v { font-weight:700; } .subj .v.none { font-weight:400; color:#9a9a9a; }
+.fix ol, .src { margin:0; padding-left:16px; display:grid; gap:6px; }
+.fix .s { display:block; font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--g); font-weight:700; }
+.fix p { margin:0; color:var(--muted); }
+.bars { list-style:none; margin:0; padding:0; display:grid; gap:5px; }
+.bars li { display:grid; grid-template-columns: 38% 1fr 3.2em; gap:8px; align-items:center; }
+.bars .t { height:8px; background:#eef0ee; } .bars .f { height:100%; background:var(--g); }
+.bars .n { text-align:right; font-weight:700; }
+.note { color:var(--muted); font-size:10px; margin:6px 0 0; }
+.needs { display:grid; grid-template-columns: repeat(11, 1fr); gap:2px; }
+.needs div { text-align:center; } .needs .l { font-size:8.5px; color:var(--muted); line-height:1.15; height:2.4em; display:flex; align-items:flex-end; justify-content:center; }
+.needs .c { font-weight:700; padding:6px 0; margin-top:3px; }
+.h0{background:#f2f4f2;color:#9a9a9a}.h1{background:#d7eadf}.h2{background:#a7cfb7}.h3{background:#62a07e}.h4{background:#1d6b45;color:#fff}.h5{background:#0a3a24;color:#fff}
+.src li .k { color:var(--muted); }
+footer { margin-top:18px; border-top:1px solid var(--ink); padding-top:6px; display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-size:9.5px; }
+.attrs { list-style:none; margin:0; padding:0; display:grid; gap:4px; }
+.attrs li { display:flex; justify-content:space-between; gap:8px; border-bottom:1px solid var(--line); padding:3px 0; }
+.attrs .d { font-weight:700; } .attrs .d.up { color:var(--g); } .attrs .d.down { color:#b84300; }
+.attrs .all { color:var(--muted); font-weight:400; }
+.tools { display:flex; gap:16px; margin:0 0 14px; font-size:12px; }
+.tools a, .tools button { color:var(--ink); background:none; border:0; padding:0; font:inherit; text-decoration:underline; cursor:pointer; }
+@media print { .tools { display:none; } }
