@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import worker, { csv } from '../src/2026-11-21-worker.js';
+import worker, { csv, brandMeta } from '../src/2026-11-21-worker.js';
 
 // A tiny fake D1: every query returns the canned rows for its first table name.
 function fakeDb(tables) {
@@ -98,4 +98,19 @@ test('www sends visitors on to the bare domain, keeping the path and query', asy
   const res = await worker.fetch(new Request('https://www.solestats.net/brand.html?b=hoka'), env);
   assert.equal(res.status, 301);
   assert.equal(res.headers.get('location'), 'https://solestats.net/brand.html?b=hoka');
+});
+
+test('brand pages get their own title and link-preview tags, escaped; unknown brands keep the page as it is', async () => {
+  const head = '<title>SoleStats · Brand</title><meta name="description" content="x"><meta property="og:title" content="Brand · SoleStats"><meta property="og:description" content="x"><meta property="og:url" content="https://solestats.net/brand.html">';
+  const h = brandMeta(head, { slug: 'hoka', name: 'Hoka', score: 50.1 });
+  assert.match(h, /<title>SoleStats · Hoka<\/title>/);
+  assert.match(h, /og:title" content="Hoka · AI score 50\/100 · SoleStats"/);
+  assert.match(h, /og:url" content="https:\/\/solestats.net\/brand.html\?b=hoka"/);
+  assert.match(brandMeta(head, { slug: 'x', name: 'A "B" <C>', score: null }), /og:title" content="A &quot;B&quot; &lt;C&gt; · SoleStats"/);
+  const page = '<!doctype html><head>' + head + '</head>';
+  const e = { ...env, ASSETS: { fetch: async () => new Response(page, { headers: { 'content-type': 'text/html' } }) },
+    DB: fakeDb({ rounds: [{ id: '2026-11' }], brands: [{ slug: 'hoka', name: 'Hoka' }], scores: [{ score: 50.1 }] }) };
+  assert.match(await (await worker.fetch(new Request('https://solestats.net/brand?b=hoka'), e)).text(), /Hoka · AI score 50\/100/);
+  const none = { ...e, DB: fakeDb({ rounds: [{ id: '2026-11' }], brands: [] }) };
+  assert.equal(await (await worker.fetch(new Request('https://solestats.net/brand?b=nope'), none)).text(), page);
 });

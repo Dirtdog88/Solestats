@@ -22,7 +22,13 @@ export default {
     try {
       if (url.pathname.startsWith('/api/')) res = await api(url, env);
       else if (url.pathname.startsWith('/download/')) res = await download(url, env);
-      else res = await env.ASSETS.fetch(request);
+      else {
+        res = await env.ASSETS.fetch(request);
+        // Brand pages: link-preview robots don't run the page's script, so the Worker writes the brand's name and AI
+        // score into the page's title and preview tags. Any failure leaves the page as it is.
+        const slug = url.searchParams.get('b');
+        if (slug && (url.pathname === '/brand' || url.pathname === '/brand.html') && res.status === 200) res = await withBrandMeta(res, slug, env).catch(() => res);
+      }
     } catch (e) {
       console.error(e);
       res = json({ error: 'something went wrong' }, 500);
@@ -213,6 +219,34 @@ async function shareOfVoiceView(env, round) {
   out.sort((a, b) => (b.sov ?? -1) - (a.sov ?? -1));
   const vs = voiceVsSize(out);
   return { voice_vs_size: vs, round, previous_round: prev ? prev.id : null, brands: out, races: { places: rc.places, known: rc.known, races: rc.races, other_brands: rc.brands.filter(x => !x.slug) } };
+}
+
+const escAttr = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** A brand page's head with the brand's own title, description and preview tags (pure, so it can be tested). */
+export function brandMeta(html, { slug, name, score }) {
+  const title = `${name} · SoleStats`;
+  const desc = score == null
+    ? `How ChatGPT, Claude and Gemini treat ${name}: what they recommend, what they cite, and who they pick instead.`
+    : `${name}'s AI score is ${Math.round(score)}/100: how often ChatGPT, Claude and Gemini recommend ${name}, what they cite, and who they pick instead.`;
+  const set = (h, re, value) => h.replace(re, (_, a, b) => a + escAttr(value) + b);
+  let out = html.replace(/<title>[^<]*<\/title>/, `<title>SoleStats · ${escAttr(name)}</title>`);
+  out = set(out, /(<meta name="description" content=")[^"]*(">)/, desc);
+  out = set(out, /(<meta property="og:title" content=")[^"]*(">)/, score == null ? title : `${name} · AI score ${Math.round(score)}/100 · SoleStats`);
+  out = set(out, /(<meta property="og:description" content=")[^"]*(">)/, desc);
+  out = set(out, /(<meta property="og:url" content=")[^"]*(">)/, `https://solestats.net/brand.html?b=${encodeURIComponent(slug)}`);
+  return out;
+}
+
+async function withBrandMeta(res, slug, env) {
+  const brand = await env.DB.prepare('SELECT slug, name FROM brands WHERE slug = ?').bind(slug).first();
+  if (!brand) return res;
+  const round = await latestRound(env);
+  const s = round ? await env.DB.prepare(`SELECT score FROM scores WHERE round_id = ? AND brand_slug = ? AND subject = 'overall'`).bind(round, slug).first() : null;
+  const html = brandMeta(await res.text(), { slug: brand.slug, name: brand.name, score: s ? s.score : null });
+  const headers = new Headers(res.headers);
+  headers.delete('content-length');
+  return new Response(html, { status: res.status, headers });
 }
 
 async function latestRound(env) {
