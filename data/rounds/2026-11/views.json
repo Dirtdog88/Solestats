@@ -51,7 +51,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "answers": 90
      },
      {
@@ -9600,7 +9600,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 11,
       "top": {
        "slug": "asics",
@@ -9689,7 +9689,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 23,
       "top": {
        "slug": "brooks",
@@ -9823,7 +9823,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 59,
       "top": {
        "slug": "brooks",
@@ -9939,7 +9939,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 38,
       "top": {
        "slug": "brooks",
@@ -10055,7 +10055,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 17,
       "top": {
        "slug": "brooks",
@@ -10207,7 +10207,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 22,
       "top": {
        "slug": "brooks",
@@ -10314,7 +10314,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 52,
       "top": {
        "slug": "brooks",
@@ -10457,7 +10457,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 24,
       "top": {
        "slug": "brooks",
@@ -10973,7 +10973,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 18,
       "top": {
        "slug": "brooks",
@@ -11089,7 +11089,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 61,
       "top": {
        "slug": "brooks",
@@ -11205,7 +11205,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 36,
       "top": {
        "slug": "brooks",
@@ -11303,7 +11303,7 @@
      },
      {
       "id": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "missed": 36,
       "top": {
        "slug": "brooks",
@@ -13658,7 +13658,7 @@
       "domain": "orthoinfo.org",
       "kind": "other",
       "group": "people",
-      "label": "Who is running",
+      "label": "Specific demographic",
       "competitors": 4,
       "answers": 4
      },

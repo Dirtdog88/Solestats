@@ -20,13 +20,23 @@ export function heatLegend() {
   return el('div', { class: 'heat-legend', 'aria-hidden': 'true' }, ...edges.map((lo, i) => el('span', { class: 'key' }, el('span', { class: `swatch heat h${i}` }), i < HEAT_STEPS.length ? `${lo}–${HEAT_STEPS[i]}` : `${lo}+`)), el('span', { class: 'muted' }, '% of answers'));
 }
 
-/** The front-page heat map: rows are brands in the order given (by AI score), columns the need groups. */
-export function needTable(view, brands) {
+/** The front-page heat map: rows are brands in the order given (by AI score), columns the need groups. With demand
+ *  weights (src/2026-11-22-demand.js), the columns run from the most asked group to the least, each with its share of the
+ *  asking under its name and the range in its tip. */
+export function needTable(view, brands, weights = null) {
   if (!view || !view.groups || !view.groups.length) return el('p', { class: 'empty' }, 'No need groups in this edition yet.');
-  const head = el('tr', {}, el('th', { class: 'stick' }, 'Brand'), ...view.groups.map(g => el('th', { class: 'heat-h' }, g.label)));
+  const wOf = weights && weights.groups ? Object.fromEntries(weights.groups.map(g => [g.id, g])) : null;
+  const groups = wOf ? [...view.groups].sort((a, b) => ((wOf[b.id] || {}).weight ?? -1) - ((wOf[a.id] || {}).weight ?? -1)) : view.groups;
+  const th = g => {
+    const w = wOf && wOf[g.id];
+    if (!w) return el('th', { class: 'heat-h' }, g.label);
+    const text = `About ${Math.round(w.weight)}% of the asking${w.low != null && w.high != null ? ` (range ${Math.round(w.low)}–${Math.round(w.high)} across the signals)` : ''}.`;
+    return el('th', { class: 'heat-h', 'data-tip': text, 'data-tip-title': g.label, title: `${g.label}: ${text}`, tabindex: '0' }, g.label, el('span', { class: 'sub' }, `${Math.round(w.weight)}%`));
+  };
+  const head = el('tr', {}, el('th', { class: 'stick' }, 'Brand'), ...groups.map(th));
   const rows = brands.filter(b => view.brands[b.slug]).map(b => el('tr', {},
     el('td', { class: 'stick' }, el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)),
-    ...view.groups.map(g => cell('td', b.name, g, view.brands[b.slug][g.id] || { share: 0, top_share: 0, margin: null }))));
+    ...groups.map(g => cell('td', b.name, g, view.brands[b.slug][g.id] || { share: 0, top_share: 0, margin: null }))));
   return el('table', { class: 'heatmap' }, el('thead', {}, head), el('tbody', {}, ...rows));
 }
 

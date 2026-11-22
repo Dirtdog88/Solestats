@@ -113,6 +113,33 @@ function placesCard(p) {
 import { h2hCard } from './2026-11-22-h2h.js';
 const TREATMENT = { full: 'core brand', eligible: 'watched brand', scan: 'scan' };
 
+/** Which answers matter (src/2026-11-22-demand.js): the need groups from the most asked to the least, the brand's share
+ *  of answers in each against the group's leader, the three to fix first, and share of voice weighted by demand. */
+function demandCard(dm, name, names, plainSov) {
+  if (!dm || !dm.rows || !dm.rows.length) return null;
+  const rows = [...dm.rows].sort((a, b) => b.weight - a.weight);
+  const first = new Set(dm.fix_first || []);
+  const who = slug => names[slug] || slug;
+  const tr = r => {
+    const range = r.low != null && r.high != null && r.high !== r.low ? ` (range ${Math.round(r.low)}–${Math.round(r.high)} across the signals)` : '';
+    const text = `About ${Math.round(r.weight)}% of the asking${range}. ${name} is named in ${Math.round(r.share)}% of the ${r.answers} answers there${r.leader_slug ? `; ${who(r.leader_slug)} leads with ${Math.round(r.leader)}%` : ''}.${r.eligible === false ? ' No credible shoe for this need on the spec sheet, so it is not a fix.' : first.has(r.id) ? ' One of the three to fix first: demand times the gap to the leader.' : ''}`;
+    return el('tr', { class: `${first.has(r.id) ? 'first' : ''} ${r.eligible === false ? 'inel' : ''}`.trim(), 'data-tip': text, 'data-tip-title': r.label, title: `${r.label}: ${text}`, tabindex: '0' },
+      el('td', {}, r.label, first.has(r.id) ? el('span', { class: 'pill' }, 'fix first') : ''),
+      el('td', { class: 'num' }, `${Math.round(r.weight)}%`),
+      el('td', { class: 'num' }, `${Math.round(r.share)}%`),
+      el('td', { class: 'num muted' }, r.leader_slug ? `${who(r.leader_slug)} ${Math.round(r.leader)}%` : '—'));
+  };
+  const firsts = rows.filter(r => first.has(r.id));
+  const lead = firsts.length
+    ? el('p', {}, defined('span', 'fix_first', { text: 'Fix these first' }), `: ${firsts.map(r => `${r.label} (${Math.round(r.weight)}% of the asking; ${name} is named in ${Math.round(r.share)}% of answers, ${who(r.leader_slug)} in ${Math.round(r.leader)}%)`).join('; ')}.`)
+    : el('p', {}, `${name} is level with the leaders on every group where it has a credible shoe.`);
+  const signals = (dm.weights && dm.weights.signals || []).map(s => ({ trends: 'Google Trends', reddit: 'Reddit', corpus: 'AI conversations' })[s] || s);
+  return el('section', { class: 'card top' }, el('h3', {}, defined('span', 'demand', { text: 'Which answers matter' })), lead,
+    dm.weighted_sov != null ? el('p', { class: 'muted small' }, defined('span', 'weighted_sov', { text: 'Share of voice weighted by demand' }), `: ${dm.weighted_sov.toFixed(1)}%${plainSov != null ? ` (unweighted ${plainSov.toFixed(1)}%)` : ''}.`) : '',
+    el('table', { class: 'mini demand' }, el('thead', {}, el('tr', {}, el('th', {}, 'Need'), defined('th', 'demand', { class: 'num', text: 'Of the asking' }), el('th', { class: 'num' }, name), el('th', { class: 'num' }, 'Leader'))), el('tbody', {}, ...rows.map(tr))),
+    el('p', { class: 'muted small' }, `Demand weights from ${signals.join(', ') || 'the collected signals'}${dm.built_on ? `, built ${dm.built_on}` : ''}: estimates with a range (tap a row), refreshed quarterly. Not part of the AI score.`));
+}
+
 const SOURCING_TAG = { not_provided: true, no_search: true };
 
 // Beside Sourced: answers about the brand that searched but named no source, and answers given without a search.
@@ -175,6 +202,7 @@ async function main() {
   const r = await fetch(`/api/brands/${encodeURIComponent(slug)}`);
   if (!r.ok) { card.append(el('p', { class: 'empty' }, 'No such brand in the index.')); return; }
   const d = await r.json();
+  const allBrands = api('/api/brands').catch(() => ({ brands: [] })); // names for the cards below
   document.title = `SoleStats · ${d.brand.name}`;
   document.getElementById('name').textContent = d.brand.name;
   document.getElementById('sub').textContent = [d.brand.category === 'shoes' ? 'Running shoes' : d.brand.category, TREATMENT[d.brand.treatment] || d.brand.treatment].join(' · ');
@@ -198,6 +226,9 @@ async function main() {
   card.append(el('section', { class: 'card top' }, el('h3', {}, 'What to fix'), d.fixes.length
     ? el('ol', { class: 'fixes' }, ...d.fixes.map(f => el('li', {}, el('span', { class: 'fx-subj' }, (DEFINITIONS[f.subject] || [f.subject])[0]), f.text)))
     : el('p', { class: 'muted' }, 'Nothing flagged this edition: no engine far behind the others, and no review site, forum, news site or retailer cited for competitors but never for this brand.')));
+  // ---- 2b. Which answers matter (once the demand weights exist).
+  const dc = demandCard(d.demand, d.brand.name, Object.fromEntries((await allBrands).brands.map(b => [b.slug, b.name])), d.scores.share_of_voice ? d.scores.share_of_voice.score : null);
+  if (dc) card.append(dc);
   // ---- 3. When not you, who.
   const subc = await substitutionCard(d.substitution, d.brand.name);
   if (subc) card.append(subc), subc.classList.add('top');

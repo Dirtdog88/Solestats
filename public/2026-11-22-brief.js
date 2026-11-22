@@ -25,6 +25,12 @@ async function main() {
   const P = { own: "Brand's own site", specialty: 'Run specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
   if (d.places) document.getElementById('places').replaceChildren(...Object.entries(P).map(([k, l]) => bar(l, d.places.buckets[k]?.share || 0)));
   if (d.needs) document.getElementById('needs').replaceChildren(...d.needs.groups.map(g => { const c = d.needs.cells[g.id] || { share: 0 }; return el('div', {}, el('div', { class: 'l' }, g.label), el('div', { class: `c h${STEPS.filter(x => c.share >= x).length}` }, String(Math.round(c.share)))); }));
+  // Where the demand is: the groups to fix first, by demand weight times the gap to the leader (src/2026-11-22-demand.js).
+  const dm = d.demand;
+  if (dm && dm.fix_first && dm.fix_first.length) {
+    const rows = Object.fromEntries(dm.rows.map(r => [r.id, r]));
+    document.getElementById('demand').textContent = `Fix these first, by demand: ${dm.fix_first.map(id => { const r = rows[id]; return `${r.label} (${Math.round(r.weight)}% of the asking; ${name} ${Math.round(r.share)}% against ${names[r.leader_slug] || r.leader_slug} ${Math.round(r.leader)}%)`; }).join('; ')}. Share of voice weighted by demand: ${dm.weighted_sov.toFixed(1)}%.`;
+  }
   // What AI says about it: the attributes furthest above or below all brands (the fixes already name the sources to earn).
   const at = (d.attributes?.attributes || []).map(a => ({ ...a, diff: a.share - a.all })).sort((x, y) => Math.abs(y.diff) - Math.abs(x.diff)).slice(0, 5);
   document.getElementById('attrs').replaceChildren(...(at.length ? at.map(a => el('li', {}, el('span', {}, a.label), el('span', {}, el('span', { class: `d ${a.diff >= 10 ? 'up' : a.diff <= -10 ? 'down' : ''}` }, `${Math.round(a.share)}%`), el('span', { class: 'all' }, ` vs ${Math.round(a.all)}%`)))) : [el('li', {}, 'Not enough answers yet.')]));

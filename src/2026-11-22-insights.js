@@ -7,7 +7,7 @@
 export const GROUPS = [
   ['starting-out', 'Starting out'], ['budget', 'Budget'], ['cushion', 'Cushion'], ['stability', 'Stability'],
   ['fit', 'Fit and width'], ['racing', 'Racing'], ['trail', 'Trail'], ['drop', 'Drop and minimal'],
-  ['conditions', 'Weather and surface'], ['people', 'Who is running'], ['brand', 'Which brand'],
+  ['conditions', 'Weather and surface'], ['people', 'Specific demographic'], ['brand', 'Which brand'],
 ];
 export const GROUP_LABEL = Object.fromEntries(GROUPS);
 

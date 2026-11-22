@@ -84,12 +84,14 @@ async function main() {
   const ai = await overallStatus();
   document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS, ai.label));
   const byOverall = brands.filter(b => b.category === 'shoes').sort((a, b) => (b.scores.overall?.score ?? -1) - (a.scores.overall?.score ?? -1) || a.name.localeCompare(b.name));
-  const needs = await api('/api/views/needs').catch(() => ({}));
-  document.getElementById('need-table').replaceChildren(needTable(needs.data, byOverall));
+  const [needs, demand] = await Promise.all([api('/api/views/needs').catch(() => ({})), api('/api/views/demand').catch(() => ({}))]);
+  const weights = demand.data && demand.data.weights ? demand.data.weights : null;
+  document.getElementById('need-table').replaceChildren(needTable(needs.data, byOverall, weights));
   if (needs.data) document.getElementById('need-legend').replaceChildren(heatLegend());
+  if (weights) document.getElementById('need-note').replaceChildren('Share of answers in each group of questions that name the brand. Sorted by AI score; columns from the most asked group to the least, with each group\'s ', defined('span', 'demand', { text: 'share of the asking' }), ' under its name. Tap a cell for how often it was the top pick.');
   document.getElementById('retail-table').replaceChildren(retailTable(await api('/api/retailers').catch(() => ({ rows: [], answers: [] }))));
   const dl = document.getElementById('downloads');
-  if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', 'financials', 'race-results']) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));
+  if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', 'financials', 'race-results', ...(weights ? ['demand'] : [])]) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));
   else dl.append(el('li', { class: 'muted' }, 'None yet.'));
 }
 main();

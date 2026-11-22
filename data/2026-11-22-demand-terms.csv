@@ -1,0 +1,23 @@
+group,kind,phrases
+starting-out,strong,beginner*;new to running;couch to 5k;c25k;first pair;first running shoe*;just started running;getting into running;daily trainer*;everyday shoe*;everyday trainer*;all-around*;all around*;all-rounder;one shoe for everything;only one pair;do-it-all;do it all;most popular;worth the money
+starting-out,weak,starting out;new runner*;daily;everyday;versatile;workhorse;reliable
+budget,strong,under $*;under 100;under 130;under 150;on sale;cheap*;budget;clearance;affordable;discount*;last year's model;worth $;worth the price;price drop
+budget,weak,sale;deal*;price*;expensive;cost
+cushion,strong,max cushion*;max-cushion*;most cushion*;cushioned;plush;softest;soft shoe*;bad knees;heavy runner*;heavier runner*;long run shoe*;long runs;recovery run*;recovery shoe*;sore feet;easy day*;easy run*;walking on clouds;pillowy
+cushion,weak,cushion*;soft;comfort*;comfortable;knees;long run
+stability,strong,stability shoe*;stability running;overpronat*;over-pronat*;pronat*;flat feet;flat foot;flat-footed;high arch*;plantar*;fasciitis;shin splint*;it band;itb*;achilles;tendon*;knee pain;bunion*;runner's knee;runners knee;podiatrist*;posterior tibial;arch support;motion control
+stability,weak,stability;support*;injur*;pain;arch*;stable
+fit,strong,wide feet;wide foot;wide fit;narrow feet;narrow foot;toe box;toebox;toe-box;2e;4e;size 14;size 15;size 16;run small;runs small;run big;runs big;run large;runs large;half size;half a size;heel slip*;narrow heel*;extra wide;wide width*;sizing
+fit,weak,wide;narrow;fit*;size up;size down;true to size;tts;roomy;snug
+racing,strong,carbon plate*;carbon-plate*;plated;super shoe*;supershoe*;super trainer*;race day;race-day;racing shoe*;racing flat*;marathon shoe*;half marathon;sub-20;sub 20;sub-3;sub 3;sub-4;sub 4;tempo shoe*;tempo run*;speed work*;speedwork;interval*;track workout*;lightweight;vaporfly;alphafly;adios pro;metaspeed;endorphin pro;endorphin speed;rocket x;cielo;deviate;fast shoe*
+racing,weak,racing;race*;marathon;5k;10k;tempo;speed;fast;pr;pb;workout*
+trail,strong,trail shoe*;trail running;trail runner*;trail-running;technical trail*;rocky;mud*;ultra*;50k;50 mile*;100 mile*;100k;waterproof;gore-tex;goretex;gtx;door to trail;door-to-trail;hiking;hike*;lug*;grip*;wet rock*;speedgoat;peregrine;lone peak;sense ride;ultraglide;caldera;cascadia;mafate;tecton
+trail,weak,trail*;trails;mountain*;scramble*;rocks;roots
+drop,strong,zero drop;zero-drop;low drop;low-drop;high drop;high-drop;drop shoe*;minimal*;barefoot;forefoot strik*;midfoot strik*;heel strik*;heel-to-toe drop;transition* to lower
+drop,weak,drop;minimalist;natural running;ground feel
+conditions,strong,treadmill*;winter running;winter shoe*;snow;ice;icy;rain*;wet weather;hot weather;heat;summer;breathab*;concrete;pavement;asphalt;gravel;crushed stone;track spikes;track shoe*;run-walk;run/walk;run walk;jeff galloway;cold weather;slush;humid*
+conditions,weak,winter;weather;surface*;indoor*;outdoor*
+people,strong,women's;womens;for women;over 50;over 60;over 40;senior*;older runner*;kid*;kids;child*;youth;cross country;cross-country;xc;high school;pregnan*;nurse*;on my feet all day;walking shoe*;walk and run;stress fracture*;triathl*;tri shoe*;teen*;middle school;masters runner*
+people,weak,women;men's;mens;age;older;young*;walking
+brand,strong,best brand*;which brand*;what brand*;brand is best;favorite brand*;favourite brand*;most durable brand*;brand loyalty;elite* wear;pros wear;what do pros;look good;looks good;stylish;good looking;casual wear;lifestyle;fashion*;aesthetic*
+brand,weak,brand*;elite*

@@ -34,3 +34,10 @@ One-time steps, in order. Everything is on Cloudflare's free plan plus pay-as-yo
    Wix). The `routes` in `wrangler.toml` attach solestats.net and www.solestats.net to the Worker as Custom Domains on
    deploy; Cloudflare makes the DNS records and certificates. The Worker redirects www to the bare domain.
 11. **Publish.** Only after the gate: set `PREVIEW_NOTICE = ""` in `wrangler.toml`, deploy, send brands their numbers.
+12. **Demand signals (PC, once a quarter; added 2026-11-22).** Google Trends and Reddit refuse cloud addresses, so on a PC:
+   `npm run demand-signals -- --all` (about ten minutes: Trends in batches with pauses, Reddit at ten requests a minute;
+   resumable, a 429 just means run it again later). For the conversation corpora make a free Hugging Face account, accept
+   the terms on the WildChat-1M and LMSYS-Chat-1M dataset pages, create a read token and set `HF_TOKEN` first; without it
+   that signal is skipped. Then `npm run demand` writes `data/2026-11-22-demand.csv` (check the table it prints),
+   `npm run score -- --round <current>` and load `scores.sql` as in step 9. Commit the signals, the Reddit titles and the
+   weights CSV: they are part of the open data.

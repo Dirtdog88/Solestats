@@ -73,7 +73,7 @@ async function api(url, env) {
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
-    const [scores, fixes, context, examples, sourcing, financials, races, needs, h2h, places, sources, engineViews, modelViews, steering, versions, substitution, attributes] = await Promise.all([
+    const [scores, fixes, context, examples, sourcing, financials, races, needs, h2h, places, sources, engineViews, modelViews, steering, versions, substitution, attributes, demand] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
@@ -97,6 +97,7 @@ async function api(url, env) {
       readViews(env, round, 'versions'),
       readViews(env, round, 'substitution'),
       readViews(env, round, 'attributes'),
+      readViews(env, round, 'demand'),
     ]);
     // This brand's slice of each view.
     const needRow = needs[''] && needs[''].brands[slug] ? { groups: needs[''].groups, cells: needs[''].brands[slug] } : null;
@@ -115,6 +116,8 @@ async function api(url, env) {
       versions: versions[slug] || null,
       substitution: substitution[slug] || null,
       attributes: attributes[slug] || null,
+      // Where the demand is: this brand's rows and fixes, with the weights and when they were built (src/2026-11-22-demand.js).
+      demand: demand[slug] ? { ...demand[slug], weights: demand['']?.weights || null, built_on: demand['']?.built_on || null } : null,
     });
   }
   if (parts[1] === 'share-of-voice') return json(await shareOfVoiceView(env, round));
@@ -171,10 +174,18 @@ async function download(url, env) {
     'race-results.csv': 'SELECT race, year, date, gender, place, athlete, country, time, results_url, brand, brand_slug, model, basis, shoe_source_url, shoe_quote, shoe_checked_on, notes, checked_on FROM race_results WHERE ? IS NOT NULL ORDER BY date, gender, place',
     'financials.csv': 'SELECT brand_slug, owner, ticker, fiscal_year, period_end, level, measure, value, unit, currency, prior_value, yoy_pct, source_type, source_url, published_on, quote, notes, checked_on FROM financials WHERE ? IS NOT NULL ORDER BY brand_slug, period_end DESC',
   }[file];
+  // The demand weights behind "Where the demand is", from the views row the score script stored for the round.
+  if (file === 'demand.csv' && round) {
+    const v = await readViews(env, round, 'demand');
+    const w = v[''] && v[''].weights;
+    if (!w || !w.groups) return json({ error: 'not found' }, 404);
+    return csvResponse(csv(w.groups.map(g => ({ group: g.id, label: g.label, weight: g.weight, low: g.low, high: g.high, trends_share: g.by_signal?.trends ?? null, reddit_share: g.by_signal?.reddit ?? null, corpus_share: g.by_signal?.corpus ?? null, built_on: v[''].built_on || null }))), round, file);
+  }
   if (!round || !q) return json({ error: 'not found' }, 404);
   const { results } = await env.DB.prepare(q).bind(round).all();
-  return new Response(csv(results), { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="solestats-${round}-${file}"`, 'cache-control': 'public, max-age=3600' } });
+  return csvResponse(csv(results), round, file);
 }
+const csvResponse = (text, round, file) => new Response(text, { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="solestats-${round}-${file}"`, 'cache-control': 'public, max-age=3600' } });
 
 // Share of voice beside revenue: this round's share of voice, the previous round's (for the change), and each brand's
 // narrowest reported revenue figure with its growth, converted to US dollars at the yearly average rate only to put
@@ -184,13 +195,14 @@ async function shareOfVoiceView(env, round) {
   if (!round) return { round: null, previous_round: null, brands: [] };
   const soft = p => p.then(r => r.results).catch(() => []);
   const prev = await env.DB.prepare(`SELECT id FROM rounds WHERE started_at < (SELECT started_at FROM rounds WHERE id = ?) AND id IN (SELECT round_id FROM scores WHERE subject = 'share_of_voice') ORDER BY started_at DESC LIMIT 1`).bind(round).first().catch(() => null);
-  const [brands, sov, sovPrev, fin, fx, races] = await Promise.all([
+  const [brands, sov, sovPrev, fin, fx, races, demand] = await Promise.all([
     soft(env.DB.prepare('SELECT slug, name, treatment FROM brands ORDER BY name').all()),
     soft(env.DB.prepare(`SELECT brand_slug, score, margin, n, detail_json FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(round).all()),
     prev ? soft(env.DB.prepare(`SELECT brand_slug, score FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(prev.id).all()) : [],
     soft(env.DB.prepare('SELECT brand_slug, fiscal_year, period_end, level, measure, owner, value, unit, currency, yoy_pct, source_type, source_url FROM financials').all()),
     soft(env.DB.prepare('SELECT currency, year, usd_per_unit FROM fx_rates').all()),
     soft(env.DB.prepare('SELECT race, year, gender, place, brand, brand_slug, basis FROM race_results').all()),
+    readViews(env, round, 'demand'), // share of voice weighted by demand, when the weights exist
   ]);
   const rc = brandCounts(races);
   const rate = (cur, periodEnd) => {
@@ -214,7 +226,7 @@ async function shareOfVoiceView(env, round) {
     }
     const rb = rc.brands.find(x => x.slug === b.slug);
     if (!s && !revenue && !rb) continue;
-    out.push({ top10: rb ? rb.top10 : 0, podiums: rb ? rb.podiums : 0, wins: rb ? rb.wins : 0, top10_share: rc.known ? (rb ? rb.top10_share : 0) : null, slug: b.slug, name: b.name, sov: s ? s.score : null, sov_margin: s ? s.margin : null, mentions: s ? s.n : 0, top_pick_share: d.top_pick_share ?? null, answer_share: d.answer_share ?? null, by_engine: d.by_engine || {}, sov_previous: p ? p.score : null, sov_change: s && p ? Math.round((s.score - p.score) * 10) / 10 : null, revenue });
+    out.push({ weighted_sov: demand[b.slug] ? demand[b.slug].weighted_sov ?? null : null, top10: rb ? rb.top10 : 0, podiums: rb ? rb.podiums : 0, wins: rb ? rb.wins : 0, top10_share: rc.known ? (rb ? rb.top10_share : 0) : null, slug: b.slug, name: b.name, sov: s ? s.score : null, sov_margin: s ? s.margin : null, mentions: s ? s.n : 0, top_pick_share: d.top_pick_share ?? null, answer_share: d.answer_share ?? null, by_engine: d.by_engine || {}, sov_previous: p ? p.score : null, sov_change: s && p ? Math.round((s.score - p.score) * 10) / 10 : null, revenue });
   }
   out.sort((a, b) => (b.sov ?? -1) - (a.sov ?? -1));
   const vs = voiceVsSize(out);
