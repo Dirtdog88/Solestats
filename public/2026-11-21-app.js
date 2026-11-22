@@ -73,6 +73,11 @@ async function main() {
   const notice = document.getElementById('notice');
   if (health.notice) { notice.textContent = health.notice; notice.hidden = false; }
   showEdition();
+  api('/api/summary').then(s => {
+    if (!s.sentences || !s.sentences.length) return;
+    document.getElementById('summary-text').replaceChildren(...s.sentences.map(t => el('p', {}, t)));
+    document.getElementById('summary').hidden = false;
+  }).catch(() => {});
   const { brands, round } = await api('/api/brands').catch(() => ({ brands: [], round: null }));
   document.getElementById('engines').replaceChildren(...engineStrip(await api('/api/edition').catch(() => ({ engines: [], pending: [] }))));
   const list = document.getElementById('brand-list');

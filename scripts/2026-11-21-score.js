@@ -3,7 +3,7 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
-import { needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes } from '../src/2026-11-22-insights.js';
+import { needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, topSourceDomains } from '../src/2026-11-22-insights.js';
 import { MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
@@ -48,6 +48,7 @@ for (const b of brands) {
 // Views for brand teams (src/2026-11-22-insights.js): one row per view and key, replaced whole each time.
 const shoeBrands = brands.filter(b => b.category === 'shoes').map(b => b.slug);
 const views = { needs: { '': needGrid(runs, prompts, shoeBrands) }, h2h: { '': h2hGrid(runs, prompts, brands.filter(b => b.category === 'shoes')) } };
+views.sourcing = { '': topSourceDomains(runs) };
 views.places = placesView(runs, brands.filter(b => b.category === 'shoes'), retailers, placesFor);
 // Each brand's side of its head-to-head pairs, for the /h2h grid rows and the brand page.
 for (const slug of views.h2h[''].brands) views.h2h[slug] = { sides: views.h2h[''].pairs.filter(p => p.a === slug || p.b === slug).map(p => sideOf(p, slug)) };

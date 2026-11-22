@@ -120,3 +120,24 @@ test('engineSplit scores each engine alone; engineFixes flags an engine more tha
   // Too few observations on an engine: it takes no part.
   assert.deepEqual(engineFixes('b', { routing: { by_engine: { openai: { score: 100, n: 3 }, gemini: { score: 0, n: 2 } } } }), []);
 });
+
+test('editionSummary builds every sentence from the data: leaders, voice vs size, engine gap, sourcing', async () => {
+  const { editionSummary, topSourceDomains } = await import('../src/2026-11-22-insights.js');
+  const engines = [{ engine: 'anthropic', runs: 100, cited: 0 }, { engine: 'openai', runs: 100, cited: 100 }];
+  const brands = [
+    { slug: 'a', name: 'Alpha', overall: 64, overall_provisional: true, sov: 12.0, voice_ratio: 3.3 },
+    { slug: 'b', name: 'Beta', overall: 61, sov: 15.7, voice_ratio: 0.4 },
+    { slug: 'c', name: 'Gamma', overall: 40, sov: 2, voice_ratio: 0.1, voice_ratio_wide: true },
+  ];
+  const engineViews = { b: { recommended: { by_engine: { anthropic: { score: 69, n: 300 }, openai: { score: 27, n: 300 } } } }, a: { routing: { by_engine: { openai: { score: 90, n: 5 }, anthropic: { score: 10, n: 5 } } } } };
+  const s = editionSummary({ engines, brands, engineViews, sources: { top: [{ domain: 'runrepeat.com', answers: 40 }] } });
+  assert.equal(s.length, 4);
+  assert.equal(s[0], 'Across 200 answers from Claude and ChatGPT, Alpha has the highest provisional Overall (64, level with Beta at 61), and Beta the largest share of voice (15.7% of brand mentions).');
+  assert.equal(s[1], 'Among the 2 brands with a brand or running-level revenue figure, Alpha gets the most share of voice for its size (3.3×) and Beta the least (0.40×); context, not cause.');
+  assert.match(editionSummary({ brands: [{ name: 'A', voice_ratio: 4 }, { name: 'B', voice_ratio: 2 }] })[0], /B the least \(2\.0×\); all of them get more voice than their size alone would suggest; context, not cause\.$/);
+  assert.equal(s[2], "The engines disagree most on Beta's Recommended score: 69 on Claude's answers against 27 on ChatGPT's.");  // Alpha's routing gap has too few observations
+  assert.equal(s[3], '50% of answers named their sources: ChatGPT in 100%, Claude in none; outside brand sites, the most named was runrepeat.com (40 answers).');
+  assert.deepEqual(editionSummary({}), []);
+  const t = topSourceDomains([{ status: 'ok', citations: [{ domain: 'x.com', kind: 'review', source: 'cited' }, { domain: 'x.com', kind: 'review', source: 'cited' }, { domain: 'b.com', kind: 'brand', source: 'cited' }, { domain: 'y.com', kind: 'forum', source: 'searched' }] }]);
+  assert.deepEqual(t, { sourced_answers: 1, top: [{ domain: 'x.com', kind: 'review', answers: 1 }] });
+});

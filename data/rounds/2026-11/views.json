@@ -4332,6 +4332,38 @@
     ]
    }
   },
+  "sourcing": {
+   "": {
+    "sourced_answers": 447,
+    "top": [
+     {
+      "domain": "runrepeat.com",
+      "kind": "review",
+      "answers": 35
+     },
+     {
+      "domain": "rei.com",
+      "kind": "retailer",
+      "answers": 34
+     },
+     {
+      "domain": "reddit.com",
+      "kind": "forum",
+      "answers": 21
+     },
+     {
+      "domain": "runningwarehouse.com",
+      "kind": "retailer",
+      "answers": 20
+     },
+     {
+      "domain": "rtings.com",
+      "kind": "review",
+      "answers": 17
+     }
+    ]
+   }
+  },
   "places": {
    "brooks": {
     "n": 596,

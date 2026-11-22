@@ -234,3 +234,73 @@ export function engineFixes(slug, split, subjectLabel = s => s) {
   }
   return fixes;
 }
+
+/** The domains named as sources most often across the round (once per answer), brand sites left out. */
+export function topSourceDomains(runs, n = 5) {
+  const counts = {}, kinds = {};
+  let sourced = 0;
+  for (const r of runs.filter(x => x.status === 'ok')) {
+    const named = (r.citations || []).filter(c => c.source !== 'searched' && c.domain);
+    if (named.length) sourced++;
+    for (const c of named) kinds[c.domain] ||= c.kind;
+    for (const d of new Set(named.filter(c => c.kind !== 'brand').map(c => c.domain))) counts[d] = (counts[d] || 0) + 1;
+  }
+  return { sourced_answers: sourced, top: Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, n).map(([domain, answers]) => ({ domain, kind: kinds[domain], answers })) };
+}
+
+const NOISE = 5; // points: gaps under this are noise (the method page says so)
+const SUBJECT_WORD = { recommended: 'Recommended', sourced: 'Sourced', routing: 'Sale goes home' };
+const listOf = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
+const fmt = v => (Math.round(v * 10) / 10).toFixed(1);
+
+/**
+ * The edition summary on the front page: four or five sentences made only from the data passed in, so a new round
+ * rewrites it with no edits. No ranks, grades or verdicts beyond what the numbers say; gaps under five points are
+ * called level. Input: { engines: [{ engine, runs, cited }], brands: [{ slug, name, overall, overall_provisional, sov,
+ * voice_ratio, voice_ratio_wide }], engineViews: { slug: { subject: { by_engine } } }, sources: { sourced_answers, top } }.
+ */
+export function editionSummary({ engines = [], brands = [], engineViews = {}, sources = null, minN = 20 }) {
+  const out = [];
+  const name = Object.fromEntries(brands.map(b => [b.slug, b.name]));
+  const answers = engines.reduce((a, e) => a + (e.runs || 0), 0);
+  // 1. Who leads on Overall and on share of voice.
+  const byOverall = brands.filter(b => b.overall != null).sort((a, b) => b.overall - a.overall);
+  const bySov = brands.filter(b => b.sov != null).sort((a, b) => b.sov - a.sov);
+  if (byOverall.length && bySov.length) {
+    const [o1, o2] = byOverall, [s1] = bySov;
+    const ov = `the highest${byOverall[0].overall_provisional ? ' provisional' : ''} Overall (${Math.round(o1.overall)}${o2 ? o1.overall - o2.overall < NOISE ? `, level with ${o2.name} at ${Math.round(o2.overall)}` : `, ${Math.round(o1.overall - o2.overall)} points above ${o2.name}` : ''})`;
+    const lead = `Across ${answers.toLocaleString('en-US')} answers from ${listOf(engines.map(e => ENGINE_LABEL[e.engine] || e.engine))}, `;
+    out.push(o1.slug === s1.slug ? `${lead}${o1.name} has ${ov} and the largest share of voice (${fmt(s1.sov)}% of brand mentions).`
+      : `${lead}${o1.name} has ${ov}, and ${s1.name} the largest share of voice (${fmt(s1.sov)}% of brand mentions).`);
+  }
+  // 2. Voice against size: the widest gaps either way, preferring figures at brand or running level.
+  const narrow = brands.filter(b => b.voice_ratio != null && !b.voice_ratio_wide);
+  const pool = narrow.length >= 2 ? narrow : brands.filter(b => b.voice_ratio != null);
+  if (pool.length >= 2) {
+    const sorted = [...pool].sort((a, b) => b.voice_ratio - a.voice_ratio);
+    const hi = sorted[0], lo = sorted[sorted.length - 1];
+    const r = v => `${v < 1 ? v.toFixed(2) : v.toFixed(1)}×`;
+    const side = lo.voice_ratio > 1 ? '; all of them get more voice than their size alone would suggest' : hi.voice_ratio < 1 ? '; all of them get less voice than their size alone would suggest' : '';
+    out.push(`Among the ${pool.length} brands with ${pool === narrow ? 'a brand or running-level revenue figure' : 'a revenue figure'}, ${hi.name} gets the most share of voice for its size (${r(hi.voice_ratio)}) and ${lo.name} the least (${r(lo.voice_ratio)})${side}; context, not cause.`);
+  }
+  // 3. Where the engines disagree most.
+  let best = null;
+  for (const [slug, subjects] of Object.entries(engineViews)) for (const [subject, v] of Object.entries(subjects || {})) {
+    const es = Object.entries(v.by_engine || {}).filter(([, x]) => (x.n ?? 0) >= minN);
+    if (es.length < 2) continue;
+    es.sort((a, b) => b[1].score - a[1].score);
+    const gap = es[0][1].score - es[es.length - 1][1].score;
+    if (!best || gap > best.gap) best = { slug, subject, gap, hi: es[0], lo: es[es.length - 1] };
+  }
+  if (best && best.gap >= NOISE) out.push(`The engines disagree most on ${name[best.slug] || best.slug}'s ${SUBJECT_WORD[best.subject] || best.subject} score: ${Math.round(best.hi[1].score)} on ${ENGINE_LABEL[best.hi[0]] || best.hi[0]}'s answers against ${Math.round(best.lo[1].score)} on ${ENGINE_LABEL[best.lo[0]] || best.lo[0]}'s.`);
+  // 4. Sourcing: who names sources, and what gets named.
+  if (engines.length && answers) {
+    const parts = engines.map(e => ({ e: ENGINE_LABEL[e.engine] || e.engine, p: e.runs ? Math.round(100 * (e.cited || 0) / e.runs) : 0 })).sort((a, b) => b.p - a.p);
+    const named = parts.filter(x => x.p > 0).map(x => `${x.e} in ${x.p}%`), none = parts.filter(x => !x.p).map(x => x.e);
+    const total = engines.reduce((a, e) => a + (e.cited || 0), 0);
+    let s = `${Math.round(100 * total / answers)}% of answers named their sources${named.length ? `: ${listOf(named)}` : ''}${none.length ? `, ${listOf(none)} in none` : ''}.`;
+    if (sources && sources.top && sources.top.length) s = s.slice(0, -1) + `; outside brand sites, the most named was ${sources.top[0].domain} (${sources.top[0].answers} answers).`;
+    out.push(s);
+  }
+  return out;
+}
