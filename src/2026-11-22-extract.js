@@ -203,3 +203,59 @@ export function substitutionView(runs, prompts, brands, specRows, eligible, grou
   }
   return out;
 }
+
+/**
+ * Attribute phrases from data/2026-11-22-attributes.csv (reviewed by hand): phrases are case-insensitive, matched on
+ * word edges; a trailing * allows any ending ("cushion*" is cushioned, cushioning). Returns [{ attribute, kind, label, re }].
+ */
+export function attributeMatchers(rows) {
+  return rows.filter(r => r.attribute && r.phrases).map(r => {
+    const alts = r.phrases.split(';').map(p => p.trim()).filter(Boolean).map(p => {
+      const star = p.endsWith('*'), body = esc(star ? p.slice(0, -1) : p).replace(/\s+/g, '\\s+');
+      const pre = /^\w/.test(p) ? '(?<!\\w)' : '', post = star ? '\\w*' : /\w$/.test(p) ? '(?![\\w-])' : '';
+      return pre + body + post;
+    });
+    return { attribute: r.attribute, kind: r.kind || 'trait', label: r.label || r.attribute, re: new RegExp(alts.join('|'), 'gi') };
+  });
+}
+
+// A caution right after a negation is not a caution: "not too firm", "without feeling harsh", "no heel slip".
+const NEGATION = /\b(?:not|no|never|without|nor|neither|isn't|aren't|doesn't|don't|won't|wasn't|hardly)\b(?:\W+\w+){0,3}\W*$/i;
+
+/** Whether an attribute's phrases are used in a piece of text (a caution must not follow a negation). */
+export function usesAttribute(a, text) {
+  a.re.lastIndex = 0;
+  for (let m; (m = a.re.exec(text));) {
+    if (a.kind !== 'caution' || !NEGATION.test(text.slice(Math.max(0, m.index - 40), m.index))) return true;
+    if (m[0] === '') a.re.lastIndex++;
+  }
+  return false;
+}
+
+/**
+ * Attribute language per brand: of the answers naming the brand (shoe and head-to-head prompts), the share where a
+ * piece about the brand or its shoe uses each attribute's phrases; beside it the pooled share across all brands.
+ * Returns { '': { attribute: share }, slug: { answers, attributes: [{ attribute, kind, label, share, answers, all }] } }.
+ */
+export function attributeView(runs, prompts, findBrands, matchers, attrs, brandSlugs) {
+  const sets = Object.fromEntries(prompts.map(p => [p.id, p.set_name || p.set]));
+  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'h2h'].includes(sets[r.prompt_id]));
+  const hits = rel.map(r => {
+    const by = {};
+    for (const s of segments(r.answer, findBrands, matchers)) for (const a of attrs) if (usesAttribute(a, s.text)) for (const b of s.brands) ((by[b] ||= new Set()).add(a.attribute));
+    return { brands: new Set((r.mentions || []).map(m => m.brand_slug)), by };
+  });
+  const all = {};
+  for (const a of attrs) {
+    let pairs = 0, used = 0;
+    for (const h of hits) for (const b of h.brands) if (brandSlugs.includes(b)) { pairs++; if (h.by[b]?.has(a.attribute)) used++; }
+    all[a.attribute] = round1(pct(used, pairs));
+  }
+  const out = { '': all };
+  for (const slug of brandSlugs) {
+    const mine = hits.filter(h => h.brands.has(slug));
+    if (!mine.length) continue;
+    out[slug] = { answers: mine.length, attributes: attrs.map(a => { const n = mine.filter(h => h.by[slug]?.has(a.attribute)).length; return { attribute: a.attribute, kind: a.kind, label: a.label, answers: n, share: round1(pct(n, mine.length)), all: all[a.attribute] }; }) };
+  }
+  return out;
+}

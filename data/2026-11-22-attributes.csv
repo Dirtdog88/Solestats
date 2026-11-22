@@ -1,0 +1,13 @@
+attribute,kind,label,phrases,notes
+cushioning,trait,Cushioning,cushion*;plush;soft;max cushion*;well-cushioned;pillowy;comfortable ride;comfort,"counted when said of the brand or its shoe"
+stability,trait,Stability,stability;stable;support*;overpronat*;pronation;guide rails;guiderails;motion control,
+durability,trait,Durability,durab*;long-lasting;lasts;last for;high mileage;miles out of;workhorse,"the praise side; complaints are under durability_concern"
+price,trait,Price and value,price*;value;affordable;budget;cheap*;inexpensive;bargain;cost*;$,"any mention of money said of the brand"
+width,trait,Width and fit,wide;width*;2E;4E;extra wide;narrow;roomy;toe box;toebox,"widths offered or a roomy fit; 'runs narrow' is a caution"
+speed,trait,Speed,fast;speed*;tempo;race*;racing;responsive;propulsive;bouncy;snappy;carbon plate*;plated,
+weight,trait,Light weight,lightweight;light;featherweight;weighs;ounces;oz,
+heavier_runners,trait,For heavier runners,heavier runner*;bigger runner*;larger runner*;heavier people;plus-size;over 200;200 lb*;220 lb*;250 lb*;more weight,
+caution_fit,caution,Fit warning,runs narrow;runs small;runs large;runs short;size up;size down;half size up;half-size up;tight toe box;narrow toe box;heel slip*;snug fit,
+caution_durability,caution,Durability concern,wears out;wear out;wore out;breaks down;broke down;doesn't last;don't last;less durable;durability concern*;durability issue*;outsole wear;foam packs out;packs out,
+caution_ride,caution,Ride concern,too firm;firm ride;harsh;unstable;wobbly;tippy;stiff;break-in;break in period;not as stable,
+caution_avoid,caution,Avoid or not for,avoid;skip;not for;not ideal;not the best;wouldn't recommend;would not recommend;steer clear;not recommended;drawback*;downside*;cons:,

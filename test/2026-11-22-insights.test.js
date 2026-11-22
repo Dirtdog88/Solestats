@@ -211,3 +211,22 @@ test('substitutionView: who got the first pick where the brand had a credible sh
   assert.deepEqual(v.brooks, { basis: 'draft', eligible: 4, missed: 3, substitutes: [{ slug: 'hoka', answers: 2, share: 66.7 }], no_pick: 1,
     groups: [{ id: 'stability', label: 'Stability', missed: 3, top: { slug: 'hoka', share: 66.7 } }] });   // trail is not credible for Brooks's draft rows
 });
+
+test('attributeView: attribute words in the pieces about each brand, cautions not after a negation, pooled share', async () => {
+  const { modelMatchers, attributeMatchers, attributeView, usesAttribute } = await import('../src/2026-11-22-extract.js');
+  const A = attributeMatchers([{ attribute: 'cushioning', kind: 'trait', label: 'Cushioning', phrases: 'cushion*;plush' }, { attribute: 'caution_ride', kind: 'caution', label: 'Ride concern', phrases: 'too firm;harsh' }, { attribute: 'price', kind: 'trait', phrases: '$;budget' }]);
+  assert.equal(usesAttribute(A[1], 'not too soft or too firm'), false);
+  assert.equal(usesAttribute(A[1], 'the ride is too firm'), true);
+  assert.equal(usesAttribute(A[2], 'about $130'), true);
+  assert.equal(usesAttribute(A[0], 'well-cushioned'), true);
+  const fb = t => (/\bBrooks\b/.test(t) ? ['brooks'] : []).concat(/\bHoka\b/.test(t) ? ['hoka'] : []);
+  const M = modelMatchers([], [], []);
+  const runs = [
+    { status: 'ok', prompt_id: 'S1', mentions: [{ brand_slug: 'brooks' }, { brand_slug: 'hoka' }], answer: 'Brooks is plush. Hoka feels too firm.' },
+    { status: 'ok', prompt_id: 'S1', mentions: [{ brand_slug: 'brooks' }], answer: 'Brooks is not harsh at all.' },
+  ];
+  const v = attributeView(runs, [{ id: 'S1', set: 'shoe' }], fb, M, A, ['brooks', 'hoka']);
+  assert.deepEqual(v.brooks.attributes.map(a => [a.attribute, a.share]), [['cushioning', 50], ['caution_ride', 0], ['price', 0]]);
+  assert.deepEqual(v.hoka.attributes.map(a => [a.attribute, a.share]), [['cushioning', 0], ['caution_ride', 100], ['price', 0]]);
+  assert.deepEqual(v[''], { cushioning: 33.3, caution_ride: 33.3, price: 0 });
+});

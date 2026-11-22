@@ -193,3 +193,7 @@ table.mini { margin-top: 14px; font-size: 14px; }
 table.mini th, table.mini td { color: var(--ink); background: transparent; border-bottom: 1px solid var(--line); padding: 7px 6px; white-space: normal; }
 table.mini th { color: var(--muted); font-size: 11px; position: static; }
 table.mini tbody tr:nth-child(even) td { background: transparent; }
+table.attrs td.up::after { content: " ▲"; font-size: 10px; color: var(--bar); }
+table.attrs td.down::after { content: " ▼"; font-size: 10px; color: #b84300; }
+table.attrs tr { cursor: pointer; outline: none; }
+table.attrs tr:focus td, table.attrs tr:hover td { background: #f6f6f8; }

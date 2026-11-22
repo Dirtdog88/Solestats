@@ -31,6 +31,21 @@ function modelsCard(m, name) {
     el('p', { class: 'muted small' }, `Share of the ${m.answers} answers naming ${name} that name each shoe. Tap one for the versions named.`));
 }
 
+/** What AI says about it: attribute and caution words in the pieces of answers about the brand, against all brands. */
+function attributesCard(a, name) {
+  if (!a || !a.answers) return null;
+  const row = x => {
+    const diff = x.share - x.all;
+    const mark = Math.abs(diff) >= 10 ? (diff > 0 ? 'up' : 'down') : '';
+    const text = `${x.answers} of ${a.answers} answers naming ${name} use these words about it (${Math.round(x.share)}%), against ${Math.round(x.all)}% across all brands.`;
+    return el('tr', { 'data-tip': text, 'data-tip-title': x.label, title: text, tabindex: '0' }, el('td', {}, x.label), el('td', { class: `num ${mark}` }, `${Math.round(x.share)}%`), el('td', { class: 'num muted' }, `${Math.round(x.all)}%`));
+  };
+  const table = (title, xs) => el('table', { class: 'mini attrs' }, el('thead', {}, el('tr', {}, el('th', {}, title), el('th', { class: 'num' }, name), el('th', { class: 'num' }, 'All brands'))), el('tbody', {}, ...xs.map(row)));
+  return el('section', { class: 'card' }, el('h3', {}, defined('span', 'attributes')),
+    el('p', { class: 'muted small' }, `Share of the ${a.answers} answers naming ${name} that say this about it. ▲ ▼ mark 10 points or more above or below all brands.`),
+    table('Said about it', a.attributes.filter(x => x.kind !== 'caution')), table('Cautions', a.attributes.filter(x => x.kind === 'caution')));
+}
+
 /** Version and price: is AI naming the current version, and how often does it steer to an older or cheaper pair. */
 function versionCard(v, s, name) {
   if (!v && !s) return null;
@@ -190,6 +205,8 @@ async function main() {
   }
   const mc = modelsCard(d.models, d.brand.name);
   if (mc) card.append(mc);
+  const ac = attributesCard(d.attributes, d.brand.name);
+  if (ac) card.append(ac);
   const vc = versionCard(d.versions, d.steering, d.brand.name);
   if (vc) card.append(vc);
   const subc = await substitutionCard(d.substitution, d.brand.name);

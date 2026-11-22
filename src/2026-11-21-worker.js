@@ -65,7 +65,7 @@ async function api(url, env) {
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
-    const [scores, fixes, context, examples, sourcing, financials, races, needs, h2h, places, sources, engineViews, modelViews, steering, versions, substitution] = await Promise.all([
+    const [scores, fixes, context, examples, sourcing, financials, races, needs, h2h, places, sources, engineViews, modelViews, steering, versions, substitution, attributes] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
@@ -88,6 +88,7 @@ async function api(url, env) {
       readViews(env, round, 'steering'),
       readViews(env, round, 'versions'),
       readViews(env, round, 'substitution'),
+      readViews(env, round, 'attributes'),
     ]);
     // This brand's slice of each view.
     const needRow = needs[''] && needs[''].brands[slug] ? { groups: needs[''].groups, cells: needs[''].brands[slug] } : null;
@@ -105,6 +106,7 @@ async function api(url, env) {
       steering: steering[slug] ? { ...steering[slug], all_brands: steering['']?.any ?? null } : null,
       versions: versions[slug] || null,
       substitution: substitution[slug] || null,
+      attributes: attributes[slug] || null,
     });
   }
   if (parts[1] === 'share-of-voice') return json(await shareOfVoiceView(env, round));
