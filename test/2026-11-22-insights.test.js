@@ -49,3 +49,21 @@ test('h2hGrid: wins, ties as half, unclear left out of the rate, split by engine
   assert.deepEqual([h.opponent, h.rate, h.wins, h.losses], ['brooks', 50, 1, 1]);
   assert.equal(h.by_engine.openai.rate, 25);
 });
+
+test('placesView: shares of the brand\'s places by bucket, with the places behind Other', async () => {
+  const { placesView } = await import('../src/2026-11-22-insights.js');
+  const { placesFor } = await import('../src/2026-11-21-score.js');
+  const retailers = [{ slug: 'fleet-feet', kind: 'run-specialty' }, { slug: 'running-warehouse', kind: 'run-specialty-online' }, { slug: 'amazon', kind: 'marketplace' }, { slug: 'dicks', kind: 'big-box' }, { slug: 'zappos', name: 'Zappos', kind: 'online-retailer' }];
+  const rt = (retailer_slug, brand_slug = null) => ({ retailer_slug, brand_slug });
+  const runs = [
+    { status: 'ok', repeat_no: 1, mentions: [{ brand_slug: 'brooks' }], routes: [rt('brand-site', 'brooks'), rt('fleet-feet'), rt('amazon')] },
+    { status: 'ok', repeat_no: 2, mentions: [{ brand_slug: 'brooks' }], routes: [rt('brand-site', 'hoka'), rt('running-warehouse'), rt('dicks'), rt('zappos')] }, // Hoka's site is not a place for Brooks
+    { status: 'ok', repeat_no: 1, mentions: [{ brand_slug: 'hoka' }], routes: [rt('amazon')] },
+  ];
+  const v = placesView(runs, [{ slug: 'brooks' }, { slug: 'on' }], retailers, placesFor);
+  assert.equal(v.brooks.n, 6);
+  assert.deepEqual(Object.fromEntries(Object.entries(v.brooks.buckets).map(([k, x]) => [k, x.n])), { own: 1, specialty: 2, amazon: 1, big_box: 1, other: 1 });
+  assert.equal(v.brooks.buckets.specialty.share, 33.3);
+  assert.deepEqual(v.brooks.other_places, [{ slug: 'zappos', name: 'Zappos', n: 1 }]);
+  assert.equal(v.on, undefined);                            // no places, no row
+});

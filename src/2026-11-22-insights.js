@@ -77,3 +77,39 @@ export function sideOf(pair, slug) {
     : { rate: t.a_rate == null ? null : round1(100 - t.a_rate), wins: t.b_wins, losses: t.a_wins, ties: t.ties, unclear: t.unclear, n: t.n };
   return { ...flip(pair), opponent: pair.a === slug ? pair.b : pair.a, by_engine: Object.fromEntries(Object.entries(pair.by_engine || {}).map(([e, t]) => [e, flip(t)])) };
 }
+
+/** The five places a sale can go, in the order the brand page shows them. */
+export const PLACE_BUCKETS = [['own', "Brand's own site"], ['specialty', 'Run specialty (store and online)'], ['amazon', 'Amazon'], ['big_box', 'Big box'], ['other', 'Other']];
+const bucketOf = (slug, retailers) => {
+  if (slug === 'brand-site') return 'own';
+  if (slug === 'amazon') return 'amazon';
+  const kind = (retailers.find(r => r.slug === slug) || {}).kind;
+  if (kind === 'run-specialty' || kind === 'run-specialty-online') return 'specialty';
+  if (kind === 'big-box') return 'big_box';
+  return 'other';
+};
+
+/**
+ * Where the sale goes, per brand: of the places to buy in answers that name the brand (placesFor: a place counts once
+ * per answer, and only the brand's own site counts as its site), the share in each bucket, with the places behind
+ * "other" and a margin from the repeats. Returns { slug: { n, buckets: { own: { share, n, margin } ... }, other_places } }.
+ */
+export function placesView(runs, brands, retailers, placesFor) {
+  const out = {};
+  const repeats = [...new Set(runs.map(r => r.repeat_no))].sort();
+  for (const b of brands) {
+    const rel = runs.filter(r => r.status === 'ok' && (r.mentions || []).some(m => m.brand_slug === b.slug));
+    const places = rel.flatMap(r => placesFor(b, r).map(slug => ({ slug, repeat_no: r.repeat_no })));
+    if (!places.length) continue;
+    const buckets = {};
+    for (const [id] of PLACE_BUCKETS) {
+      const n = places.filter(p => bucketOf(p.slug, retailers) === id).length;
+      const byRepeat = repeats.map(k => { const xs = places.filter(p => p.repeat_no === k); return pct(xs.filter(p => bucketOf(p.slug, retailers) === id).length, xs.length); });
+      buckets[id] = { share: round1(pct(n, places.length)), n, margin: repeats.length > 1 ? round1(sd(byRepeat)) : null };
+    }
+    const other = {};
+    for (const p of places) if (bucketOf(p.slug, retailers) === 'other') other[p.slug] = (other[p.slug] || 0) + 1;
+    out[b.slug] = { n: places.length, buckets, other_places: Object.entries(other).sort((x, y) => y[1] - x[1]).map(([slug, n]) => ({ slug, name: (retailers.find(r => r.slug === slug) || {}).name || slug, n })) };
+  }
+  return out;
+}

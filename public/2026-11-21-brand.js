@@ -2,6 +2,23 @@
 const ORDER = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
 import { el, engineName, showEdition, plainAnswer, defined, installTips, api, DEFINITIONS, money, overallStatus } from './2026-11-21-common.js';
 import { needRow } from './2026-11-22-needs.js';
+
+const PLACE_LABEL = { own: "Brand's own site", specialty: 'Run specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
+
+/** Where the sale goes for this brand: one bar per kind of place, as a share of the places to buy in its answers. */
+function placesCard(p) {
+  if (!p || !p.n) return null;
+  const rows = Object.entries(PLACE_LABEL).map(([id, label]) => {
+    const b = p.buckets[id] || { share: 0, n: 0, margin: null };
+    const f = el('div', { class: 'fill' }); f.style.width = `${Math.max(b.share ? 2 : 0, Math.min(100, b.share))}%`;
+    const text = `${b.n} of ${p.n} places to buy${b.margin != null ? ` (±${Math.round(b.margin)} between repeats)` : ''}.`;
+    return el('li', { 'data-tip': text, 'data-tip-title': label, title: `${label}: ${text}`, tabindex: '0' }, el('span', { class: 'plabel' }, label), el('span', { class: 'ptrack' }, f), el('span', { class: 'pval' }, `${Math.round(b.share)}%`));
+  });
+  const other = (p.other_places || []).slice(0, 4).map(o => `${o.name} ${o.n}`).join(', ');
+  return el('section', { class: 'card' }, el('h3', {}, defined('span', 'places')),
+    el('ul', { class: 'places' }, ...rows),
+    el('p', { class: 'muted small' }, `${p.n} places to buy in answers that name the brand.${other ? ` Other is mostly ${other}.` : ''}`));
+}
 import { h2hCard } from './2026-11-22-h2h.js';
 const TREATMENT = { full: 'core brand', eligible: 'watched brand', scan: 'scan' };
 
@@ -89,6 +106,8 @@ async function main() {
     const hc = h2hCard(d.h2h, d.brand.name, Object.fromEntries(brands.map(b => [b.slug, b.name])), Object.fromEntries(brands.map(b => [b.slug, b.scores.overall?.score ?? -1])));
     if (hc) card.append(hc);
   }
+  const pc = placesCard(d.places);
+  if (pc) card.append(pc);
   const rev = revenueCard(d.financials || []);
   if (rev) card.append(rev);
   const rc = racesCard(d.races || []);

@@ -64,7 +64,7 @@ async function api(url, env) {
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
-    const [scores, fixes, context, examples, sourcing, financials, races, needs, h2h] = await Promise.all([
+    const [scores, fixes, context, examples, sourcing, financials, races, needs, h2h, places] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
@@ -80,6 +80,7 @@ async function api(url, env) {
       env.DB.prepare('SELECT race, year, date, gender, place, athlete, country, time, model, basis, shoe_source_url FROM race_results WHERE brand_slug = ? ORDER BY date DESC, place').bind(slug).all().catch(() => ({ results: [] })),
       readViews(env, round, 'needs'),
       readViews(env, round, 'h2h'),
+      readViews(env, round, 'places'),
     ]);
     // This brand's slice of each view.
     const needRow = needs[''] && needs[''].brands[slug] ? { groups: needs[''].groups, cells: needs[''].brands[slug] } : null;
@@ -90,6 +91,7 @@ async function api(url, env) {
       sourcing: { ...Object.fromEntries(sourcing.results.map(x => [x.sourcing, x.n])), min: MIN_SOURCED_ANSWERS },
       needs: needRow,
       h2h: h2h[slug] || null,
+      places: places[slug] || null,
     });
   }
   if (parts[1] === 'share-of-voice') return json(await shareOfVoiceView(env, round));
