@@ -1,6 +1,6 @@
 // One brand's report card.
 const ORDER = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
-import { el, engineName, showEdition, plainAnswer, defined, installTips, api, DEFINITIONS, money, overallStatus } from './2026-11-21-common.js';
+import { el, engineName, showEdition, plainAnswer, defined, installTips, api, DEFINITIONS, money, overallStatus, fixBody } from './2026-11-21-common.js';
 import { needRow } from './2026-11-22-needs.js';
 
 const PLACE_LABEL = { own: "Brand's own site", specialty: 'Run specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
@@ -224,7 +224,7 @@ async function main() {
   card.prepend(el('p', { class: 'brief-link' }, el('a', { href: `/brief.html?b=${encodeURIComponent(d.brand.slug)}` }, 'One-page brief (print or PDF)')));
   // ---- 2. What to fix.
   card.append(el('section', { class: 'card top' }, el('h3', {}, 'What to fix'), d.fixes.length
-    ? el('ol', { class: 'fixes' }, ...d.fixes.map(f => el('li', {}, el('span', { class: 'fx-subj' }, (DEFINITIONS[f.subject] || [f.subject])[0]), f.text)))
+    ? el('ol', { class: 'fixes' }, ...d.fixes.map(f => el('li', {}, el('span', { class: 'fx-subj' }, (DEFINITIONS[f.subject] || [f.subject])[0]), ...fixBody(f.text))))
     : el('p', { class: 'muted' }, 'Nothing flagged this edition: no engine far behind the others, and no review site, forum, news site or retailer cited for competitors but never for this brand.')));
   // ---- 2b. Which answers matter (once the demand weights exist).
   const dc = demandCard(d.demand, d.brand.name, Object.fromEntries((await allBrands).brands.map(b => [b.slug, b.name])), d.scores.share_of_voice ? d.scores.share_of_voice.score : null);

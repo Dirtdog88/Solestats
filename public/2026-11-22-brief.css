@@ -50,3 +50,10 @@ footer { margin-top:18px; border-top:1px solid var(--ink); padding-top:6px; disp
   .bars li { grid-template-columns: 42% 1fr 3.2em; }
   footer { flex-direction: column; }
 }
+.fix .how { display:block; margin-top:2px; color:#3a3a3a; }
+.fix .how b { color:var(--g); }
+.fix ol { font-size:11px; gap:5px; } .fix .how { font-size:10.5px; }
+@media print {
+  section { margin-top:11px; } h1 { font-size:34px; } .big { font-size:50px; }
+  .needs .c { padding:4px 0; } .bars { gap:3px; } .attrs { gap:2px; } footer { margin-top:12px; }
+}

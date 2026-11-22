@@ -1,6 +1,6 @@
 // The one-page brand brief (Alex, 2026-11-22): the brand page's CMO view on one printable page, from the same API, so it
 // updates itself every edition. Built with textContent like every other page.
-import { el, api, engineName } from './2026-11-21-common.js';
+import { el, api, engineName, fixBody } from './2026-11-21-common.js';
 const SUBJ = [['recommended', 'Recommended'], ['sourced', 'Sourced'], ['routing', 'Sale goes home'], ['accurate', 'Accurate'], ['shoppable', 'Shoppable']];
 const STEPS = [5, 15, 30, 50, 70];
 const bar = (label, pct, text) => { const f = el('div', { class: 'f' }); f.style.width = `${Math.max(1, Math.min(100, pct))}%`; return el('li', {}, el('span', {}, label), el('div', { class: 't' }, f), el('span', { class: 'n' }, text ?? `${Math.round(pct)}%`)); };
@@ -15,7 +15,8 @@ async function main() {
   const ai = d.scores.overall;
   document.getElementById('score').replaceChildren(ai ? String(Math.round(ai.score)) : '—', el('small', {}, ai ? ' /100' : ' not enough data yet'));
   document.getElementById('subj').replaceChildren(...SUBJ.map(([k, l]) => { const v = d.scores[k]; return el('li', {}, el('span', {}, l), el('span', { class: v ? 'v' : 'v none' }, v ? String(Math.round(v.score)) : 'to come')); }));
-  document.getElementById('fixes').replaceChildren(...(d.fixes.length ? d.fixes.map(f => el('li', {}, el('span', { class: 's' }, f.subject === 'routing' ? 'Sale goes home' : f.subject), f.text)) : [el('p', {}, 'Nothing flagged this edition.')]));
+  document.getElementById('fixes').replaceChildren(...(d.fixes.length ? d.fixes.slice(0, 3).map(f => el('li', {}, el('span', { class: 's' }, f.subject === 'routing' ? 'Sale goes home' : f.subject), ...fixBody(f.text))) : [el('p', {}, 'Nothing flagged this edition.')]));
+  if (d.fixes.length > 3) document.getElementById('fixes').after(el('p', { class: 'note' }, `${d.fixes.length - 3} more on the brand page.`));
   const s = d.substitution;
   if (s && s.missed) {
     document.getElementById('sub-h').textContent = `When not ${name}, who`;

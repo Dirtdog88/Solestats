@@ -328,3 +328,89 @@ export function editionSummary({ engines = [], brands = [], engineViews = {}, so
   }
   return out;
 }
+
+const listWords = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
+
+/**
+ * The "How" behind an engine fix (Alex, 2026-11-22: a CMO asks "great, how?"), built from the answers, never by hand.
+ * Recommended: how many brands that engine names per answer, the need group where the gap is widest, who it picks
+ * first there instead, the sites it cites in those answers (review sites, forums, news, retailers; not file hosts), and
+ * the brand's own shoes for that need (as the other engines name them). Sale goes home: where that engine sends the
+ * brand's shoppers instead, against the other engines. ctx: { brand: { slug, name }, names: { slug: name }, runs,
+ * prompts, retailers, placesFor, modelsIn: answer => [{ brand_slug, name }] }. Returns a sentence or null.
+ */
+export function engineHow(fix, ctx) {
+  const { brand, names = {}, runs, prompts, retailers = [], placesFor, modelsIn } = ctx;
+  const E = ENGINE_LABEL[fix.engine] || fix.engine;
+  const ok = runs.filter(r => r.status === 'ok');
+  const names_ = r => (r.mentions || []).some(m => m.brand_slug === brand.slug);
+  const pc = (a, b) => Math.round(pct(a, b));
+  if (fix.subject === 'recommended') {
+    const gOf = groupOf(prompts);
+    const shoe = ok.filter(r => gOf[r.prompt_id]);
+    const engines = [...new Set(shoe.map(r => r.engine))];
+    const others = engines.filter(e => e !== fix.engine);
+    if (!others.length) return null;
+    const avg = e => { const xs = shoe.filter(r => r.engine === e); return xs.length ? xs.reduce((a, r) => a + (r.mentions || []).length, 0) / xs.length : 0; };
+    const mine = avg(fix.engine), theirs = others.map(avg);
+    const parts = [];
+    if (theirs.every(t => t >= mine * 1.5)) parts.push(`${E} names about ${Math.round(mine)} brand${Math.round(mine) === 1 ? '' : 's'} per answer (${others.map((e, i) => `${ENGINE_LABEL[e] || e} ${Math.round(theirs[i])}`).join(', ')}), so ${mine < 3 ? 'only a first pick counts' : 'a brand has to make a short list'}.`);
+    let best = null;
+    for (const g of new Set(Object.values(gOf))) {
+      const low = shoe.filter(r => r.engine === fix.engine && gOf[r.prompt_id] === g);
+      const rest = shoe.filter(r => others.includes(r.engine) && gOf[r.prompt_id] === g);
+      if (low.length < 9 || rest.length < 9) continue;
+      const a = pct(low.filter(names_).length, low.length), b = pct(rest.filter(names_).length, rest.length);
+      if (!best || b - a > best.gap) best = { g, a, b, gap: b - a, low, rest };
+    }
+    if (best && best.gap >= ENGINE_GAP) {
+      const label = (GROUP_LABEL[best.g] || best.g).toLowerCase();
+      const missed = best.low.filter(r => !names_(r));
+      const first = {};
+      for (const r of missed) { const f = (r.mentions || []).find(m => m.top_pick); if (f) first[f.brand_slug] = (first[f.brand_slug] || 0) + 1; }
+      const [rival] = Object.entries(first).sort((x, y) => y[1] - x[1])[0] || [];
+      parts.push(`The gap is widest on ${label} questions: ${brand.name} is in ${Math.round(best.a)}% of ${E}'s answers, against ${Math.round(best.b)}% on the others${rival ? `, and ${E} picks ${names[rival] || rival} first` : ''}.`);
+      const dom = {}, kind = {};
+      for (const r of missed) for (const c of r.citations || []) {
+        if (c.source === 'searched' || !c.domain || !EARNABLE.includes(c.kind) || isFileHost(c.domain)) continue;
+        kind[c.domain] = c.kind;
+      }
+      for (const r of missed) for (const d of new Set((r.citations || []).filter(c => c.source !== 'searched' && kind[c.domain]).map(c => c.domain))) dom[d] = (dom[d] || 0) + 1;
+      const doms = Object.entries(dom).filter(([, n]) => n >= 2).sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0])).slice(0, 3).map(([d]) => d);
+      let models = [];
+      if (modelsIn) {
+        const m = {};
+        for (const r of best.rest.filter(names_)) for (const x of modelsIn(r.answer).filter(x => x.brand_slug === brand.slug)) m[x.name] = (m[x.name] || 0) + 1;
+        models = Object.entries(m).sort((x, y) => y[1] - x[1]).slice(0, 2).map(([n]) => n);
+      }
+      if (doms.length) parts.push(`Those answers cite ${listWords(doms)}: get ${models.length ? `the ${listWords(models)}` : `${brand.name}'s ${label} shoes`} reviewed and compared there.`);
+      else if (models.length) parts.push(`The other engines name the ${listWords(models)} there; ${E} doesn't.`);
+    }
+    return parts.length ? parts.join(' ') : null;
+  }
+  if (fix.subject === 'routing' && placesFor) {
+    const share = es => {
+      const places = ok.filter(r => es.includes(r.engine) && names_(r)).flatMap(r => placesFor(brand, r));
+      const t = {};
+      for (const p of places) { const b = bucketOf(p, retailers); t[b] = (t[b] || 0) + 1; }
+      return { n: places.length, b: t, places };
+    };
+    const engines = [...new Set(ok.map(r => r.engine))];
+    const low = share([fix.engine]), rest = share(engines.filter(e => e !== fix.engine));
+    if (!low.n || !rest.n) return null;
+    const label = { amazon: 'Amazon', big_box: 'big box stores', other: 'other shops' };
+    let best = null;
+    for (const k of Object.keys(label)) { const d = pct(low.b[k] || 0, low.n) - pct(rest.b[k] || 0, rest.n); if (!best || d > best.d) best = { k, d }; }
+    const home = s => pct((s.b.own || 0) + (s.b.specialty || 0), s.n);
+    let where = label[best.k];
+    if (best.k === 'other') {
+      const o = {};
+      for (const p of low.places) if (bucketOf(p, retailers) === 'other') o[p] = (o[p] || 0) + 1;
+      const top = Object.entries(o).sort((x, y) => y[1] - x[1]).slice(0, 2).map(([s]) => (retailers.find(r => r.slug === s) || {}).name || s);
+      if (top.length) where = listWords(top);
+    }
+    if (best.d < 5) return `${E} names ${brand.name}'s own site and run specialty stores for ${pc(home(low), 100)}% of the places it sends shoppers, against ${pc(home(rest), 100)}% on the others.`;
+    return `${E} sends ${brand.name} shoppers to ${where} for ${pc(low.b[best.k] || 0, low.n)}% of the places it names, against ${pc(rest.b[best.k] || 0, rest.n)}% on the others. Its answers about ${brand.name} name its own site and run specialty stores less often, so make sure ${E} can find ${brand.name}'s own product pages and its specialty stockists.`;
+  }
+  return null;
+}

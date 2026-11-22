@@ -13,6 +13,12 @@ export const api = p => fetch(p).then(r => r.ok ? r.json() : Promise.reject(new 
 
 export const engineName = e => ENGINE_NAMES[e] || e;
 
+/** A fix's text with its "How" (after " How: ") on a line of its own. */
+export function fixBody(text) {
+  const [what, how] = String(text).split(' How: ');
+  return how ? [what, el('span', { class: 'how' }, el('b', {}, 'How: '), how)] : [what];
+}
+
 /** Every metric's definition, in one place: the hover/tap tips on the data pages and the Definitions list on the
  *  method page both read it. Keep each to one or two sentences. */
 export const DEFINITIONS = {

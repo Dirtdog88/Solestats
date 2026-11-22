@@ -240,3 +240,20 @@ test('isFileHost: asset and CDN hosts are never a source to earn; ordinary sites
   const v = sourcesView([r(['on'], 'x.com', 'review'), r(['hoka', 'brooks'], 'contentful-assets.strava.com', 'forum'), r(['hoka', 'altra'], 'contentful-assets.strava.com', 'forum')], ps, [{ slug: 'on' }], 1);
   assert.equal(v.on.gaps[0].kind, 'other');
 });
+
+test('engineHow: list length, the widest need-group gap, who wins there, what that engine cites, the brand shoes', async () => {
+  const { engineHow } = await import('../src/2026-11-22-insights.js');
+  const ps = [{ id: 'S1', set: 'shoe', group: 'cushion' }, { id: 'S2', set: 'shoe', group: 'trail' }];
+  const m = (...s) => s.map((b, i) => ({ brand_slug: b, top_pick: i === 0 ? 1 : 0 }));
+  const runs = [];
+  for (let i = 0; i < 9; i++) {
+    runs.push({ status: 'ok', engine: 'openai', prompt_id: 'S1', mentions: m('brooks'), citations: [{ domain: 'runrepeat.com', kind: 'review', source: 'cited' }, { domain: 'cdn.x.com', kind: 'review', source: 'cited' }] });
+    runs.push({ status: 'ok', engine: 'anthropic', prompt_id: 'S1', mentions: m('brooks', 'hoka', 'asics', 'nike'), answer: 'the Hoka Bondi' });
+    runs.push({ status: 'ok', engine: 'openai', prompt_id: 'S2', mentions: m('hoka'), citations: [] });
+    runs.push({ status: 'ok', engine: 'anthropic', prompt_id: 'S2', mentions: m('hoka', 'brooks', 'salomon'), answer: '' });
+  }
+  const how = engineHow({ subject: 'recommended', engine: 'openai' }, { brand: { slug: 'hoka', name: 'Hoka' }, names: { brooks: 'Brooks' }, runs, prompts: ps,
+    modelsIn: a => /Bondi/.test(a) ? [{ brand_slug: 'hoka', name: 'Bondi' }] : [] });
+  assert.equal(how, 'ChatGPT names about 1 brand per answer (Claude 4), so only a first pick counts. The gap is widest on cushion questions: Hoka is in 0% of ChatGPT\'s answers, against 100% on the others, and ChatGPT picks Brooks first. Those answers cite runrepeat.com: get the Bondi reviewed and compared there.');
+  assert.equal(engineHow({ subject: 'sourced', engine: 'gemini' }, { brand: { slug: 'hoka', name: 'Hoka' }, runs, prompts: ps }), null);
+});

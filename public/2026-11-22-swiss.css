@@ -116,3 +116,5 @@ table.demand tr.inel td { color:var(--muted); }
 table.demand td .pill { margin-left:8px; font-size:10px; padding:1px 5px; vertical-align:1px; letter-spacing:.04em; }
 table.demand tr:focus td, table.demand tr:hover td { background:var(--h0); }
 table.heatmap th .sub { display:block; font-weight:400; color:var(--muted); font-size:11px; letter-spacing:0; text-transform:none; }
+.fixes .how { display:block; margin-top:4px; color:#3a3a3a; font-size:14px; }
+.fixes .how b { color:var(--accent); }

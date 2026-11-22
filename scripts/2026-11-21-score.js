@@ -3,9 +3,9 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
-import { modelMatchers, modelView, steeringView, versionCurrency, substitutionView, attributeMatchers, attributeView } from '../src/2026-11-22-extract.js';
+import { modelsIn, modelMatchers, modelView, steeringView, versionCurrency, substitutionView, attributeMatchers, attributeView } from '../src/2026-11-22-extract.js';
 import { brandMatchers, findMentions } from '../src/2026-11-21-detect.js';
-import { GROUP_LABEL, needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
+import { GROUP_LABEL, needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, engineHow, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
 import { eligible, MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 import { weightsFromRows, demandView } from '../src/2026-11-22-demand.js';
 
@@ -82,7 +82,12 @@ for (const b of brands.filter(x => x.category === 'shoes')) {
 const ep = enginePatterns(engineFixList, views.engines);
 views.engine_patterns = { '': { patterns: ep.patterns } };
 for (const p of ep.patterns) for (const v of Object.values(views.engines)) if (v[p.subject] && v[p.subject].low === p.engine) v[p.subject].pattern = true;
-fixes.push(...ep.fixes.map(({ engine, ...f }) => f));
+// Each engine fix gets its "How" (engineHow): where the gap is, who wins instead, what that engine reads.
+const brandNames = Object.fromEntries(brands.map(b => [b.slug, b.name]));
+fixes.push(...ep.fixes.map(({ engine, ...f }) => {
+  const how = engineHow({ ...f, engine }, { brand: { slug: f.brand, name: brandNames[f.brand] }, names: brandNames, runs, prompts, retailers, placesFor, modelsIn: a => modelsIn(a, matchers) });
+  return how ? { ...f, text: `${f.text} How: ${how}` } : f;
+}));
 for (const [slug, v] of Object.entries(views.sources)) fixes.push(...sourceFixes(slug, v));
 // Where the demand is (src/2026-11-22-demand.js): only once data/2026-11-22-demand.csv exists (npm run demand-signals on a
 // PC, then npm run demand). Credible groups per brand come from the spec sheet as in When not you, who: verified rows,
