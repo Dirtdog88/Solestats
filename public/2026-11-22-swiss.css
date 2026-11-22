@@ -1,0 +1,72 @@
+/* SoleStats look (Alex, 2026-11-22): Swiss, forest green. White, black and one green; hairline rules instead of cards,
+   square corners, big grotesk numbers. Loaded after 2026-11-21-styles.css and overrides it; heat maps run pale sage to
+   dark green, head to head burnt orange (below an even split) to green (above). */
+:root { --ink:#0a0a0a; --paper:#fff; --card:#fff;  --muted:#6e6e6e; --line:#e4e4e4; --bar:#0a0a0a; --track:#fff; --track-deep:#fff; --lane:#0a0a0a; --cream:#6e6e6e; --radius:0; --shadow:none; }
+html { font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif; background:#fff; }
+.hero { background:#fff; color:var(--ink); border-bottom:2px solid var(--ink); box-shadow:none; padding-top:36px; padding-bottom:28px; }
+.hero.small { padding-bottom:20px; }
+.brand { color:var(--accent-ink); letter-spacing:.18em; }
+.brand a, .brand { background:var(--brand-bg, transparent); padding:var(--brand-pad, 0); display:inline-block; }
+h1 { color:var(--ink); font-weight:700; letter-spacing:-.045em; font-size:clamp(36px,7.5vw,72px); line-height:.98; }
+h2 { font-weight:700; letter-spacing:-.03em; font-size:26px; border-top:2px solid var(--ink); padding-top:14px; margin-top:44px; }
+.hero .muted, .hero .edition { color:var(--muted); }
+.hero [data-def] { text-decoration-color:#bbb; }
+.lookup input { border:1px solid var(--ink); border-radius:0; background:#fff; }
+.lookup button { border-radius:0; background:var(--ink); }
+.table-wrap, .heat-wrap { background:transparent; color:var(--ink); border-radius:0; box-shadow:none; padding:0; }
+th { background:#fff; color:var(--muted); border-bottom:1px solid var(--ink); letter-spacing:.04em; font-weight:600; }
+td { border-bottom:1px solid var(--line); }
+tbody tr:nth-child(even) td { background:transparent; }
+td a { color:var(--ink); }
+td .lane { color:var(--muted); font-weight:500; }
+.table-wrap [data-def] { text-decoration-color:#bbb; }
+.bar .fill { height:6px; border-radius:0; background:var(--ink); }
+.bar .val { color:var(--ink); }
+.score.none { color:#c4c4c4; }
+.margin { color:var(--muted); opacity:1; }
+.card { border-radius:0; box-shadow:none; border-top:2px solid var(--ink); padding:16px 0; background:transparent; }
+.subjects { gap:0; }
+.subject { background:none; border-radius:0; border-left:1px solid var(--line); padding:4px 14px 10px; }
+.subject .big { font-weight:700; letter-spacing:-.05em; font-size:46px; }
+.pill { border-radius:0; background:none; border:1px solid var(--ink); color:var(--ink); font-weight:600; }
+.pill.grey { background:none; border-color:var(--line); color:var(--muted); }
+.summary > div { border-radius:0; box-shadow:none; background:none; border-left:3px solid var(--accent); padding:2px 0 2px 18px; }
+.summary p { font-size:18px; line-height:1.45; }
+.summary h2 { border-top:0; padding-top:0; }
+table.heatmap { border-spacing:1px; }
+table.heatmap th, table.heatmap td { background:#fff; }
+table.heatmap th { border-bottom:0; }
+table.heatmap td.heat { border-radius:0; }
+.need-tile .big, .h2h-list .heat { border-radius:0; }
+.h2h-list li, .places li:hover { background:none; border-radius:0; }
+.h2h-list li { border-bottom:1px solid var(--line); }
+.places .ptrack { background:#f0f0f0; border-radius:0; height:8px; }
+.places .fill { background:var(--ink); border-radius:0; }
+.by-engine .eng { border-radius:0; background:none; border:1px solid var(--line); color:var(--ink); }
+.by-engine .eng.low { background:var(--accent); color:var(--on-accent); border-color:var(--accent); }
+.engine { border-radius:0; box-shadow:none; border-top:2px solid var(--ink); padding-left:0; }
+.engine .name::before { border-radius:0; }
+.downloads a { border-radius:0; border:1px solid var(--ink); }
+.notice { border-radius:0; background:var(--ink); color:#fff; }
+.tip { border-radius:0; }
+.example { border-left:2px solid var(--ink); }
+
+.heat.h0, table.heatmap td.heat.h0 { background:var(--h0); color:#9a9a9a; }
+.heat.h1, table.heatmap td.heat.h1 { background:var(--h1); color:var(--ink); }
+.heat.h2, table.heatmap td.heat.h2 { background:var(--h2); color:var(--ink); }
+.heat.h3, table.heatmap td.heat.h3 { background:var(--h3); color:var(--h3-ink); }
+.heat.h4, table.heatmap td.heat.h4 { background:var(--h4); color:#fff; }
+.heat.h5, table.heatmap td.heat.h5 { background:var(--h5); color:#fff; }
+.heat.d0, table.heatmap td.heat.d0 { background:var(--d0); color:var(--d0-ink); }
+.heat.d1, table.heatmap td.heat.d1 { background:var(--d1); color:var(--ink); }
+.heat.d2, table.heatmap td.heat.d2 { background:#efefef; color:var(--ink); }
+.heat.d3, table.heatmap td.heat.d3 { background:var(--d3); color:var(--ink); }
+.heat.d4, table.heatmap td.heat.d4 { background:var(--d4); color:#fff; }
+.bar .fill, .places .fill { background:var(--fill); }
+.summary > div { border-left-color:var(--accent); }
+.notice { background:var(--accent); color:var(--on-accent); }
+
+/* Forest palette */
+:root { --accent:#0b5d3b; --accent-ink:#0b5d3b; --on-accent:#fff; --fill:#0b5d3b; --bar:#0b5d3b;
+  --h0:#f2f4f2; --h1:#d7eadf; --h2:#a7cfb7; --h3:#62a07e; --h3-ink:#0a0a0a; --h4:#1d6b45; --h5:#0a3a24;
+  --d0:#c4501c; --d0-ink:#fff; --d1:#f3c6ad; --d3:#a7cfb7; --d4:#0b5d3b; }
