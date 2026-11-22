@@ -106,3 +106,17 @@ test('voiceVsSize: share of voice over share of revenue among brands with both; 
   assert.equal(rows[2].voice_ratio, null);
   assert.equal(rows[3].voice_ratio, null);
 });
+
+test('engineSplit scores each engine alone; engineFixes flags an engine more than 10 points below all the others', async () => {
+  const { engineSplit, engineFixes } = await import('../src/2026-11-22-insights.js');
+  const runs = [{ engine: 'openai', v: 80 }, { engine: 'anthropic', v: 75 }, { engine: 'gemini', v: 60 }];
+  const split = engineSplit(runs, { recommended: rs => ({ score: rs[0].v, n: 30 }), sourced: rs => ({ score: rs[0].engine === 'anthropic' ? null : rs[0].v - 20, n: 25 }) });
+  assert.deepEqual(Object.keys(split.sourced.by_engine), ['gemini', 'openai']);   // no score on Claude: left out
+  const fixes = engineFixes('brooks', split, s => s[0].toUpperCase() + s.slice(1));
+  assert.deepEqual(fixes.map(f => f.subject), ['recommended', 'sourced']);
+  assert.equal(fixes[0].text, 'Close the gap on Gemini: Recommended there is 60, against 75 on Claude and 80 on ChatGPT.');
+  // 10 points or less below one of the others: no fix.
+  assert.deepEqual(engineFixes('b', { recommended: { by_engine: { openai: { score: 70, n: 30 }, anthropic: { score: 55, n: 30 }, gemini: { score: 60, n: 30 } } } }), []);
+  // Too few observations on an engine: it takes no part.
+  assert.deepEqual(engineFixes('b', { routing: { by_engine: { openai: { score: 100, n: 3 }, gemini: { score: 0, n: 2 } } } }), []);
+});

@@ -5,6 +5,17 @@ import { needRow } from './2026-11-22-needs.js';
 
 const PLACE_LABEL = { own: "Brand's own site", specialty: 'Run specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
 
+/** A subject's score on each engine's answers alone, under the combined score; an engine more than 10 points below
+ *  the others (a Top fix) is marked. */
+function byEngine(split) {
+  const es = Object.entries((split && split.by_engine) || {});
+  if (!es.length) return '';
+  return el('div', { class: 'by-engine' }, ...es.map(([e, x]) => {
+    const text = `${Math.round(x.score)} on ${engineName(e)}'s answers alone (n ${x.n})${split.low === e ? '; more than 10 points below the other engines' : ''}.`;
+    return el('span', { class: split.low === e ? 'eng low' : 'eng', 'data-tip': text, 'data-tip-title': engineName(e), title: text, tabindex: '0' }, `${engineName(e)} ${Math.round(x.score)}`);
+  }));
+}
+
 const KIND = { review: 'review site', forum: 'forum', news: 'news', retailer: 'retailer', brand: 'brand site', other: 'other' };
 
 /** Sources to earn: the sites AI names most for this brand, and the ones it names for competitors but never for it. */
@@ -116,7 +127,7 @@ async function main() {
       continue;
     }
     if (!v) continue;
-    grid.append(el('div', { class: 'subject' }, defined('div', s, s === 'overall' ? { class: 'label', text: ov.label } : { class: 'label' }), el('div', { class: 'big' }, v.score == null ? '—' : String(Math.round(v.score))),
+    grid.append(el('div', { class: 'subject' }, defined('div', s, s === 'overall' ? { class: 'label', text: ov.label } : { class: 'label' }), el('div', { class: 'big' }, v.score == null ? '—' : String(Math.round(v.score))), byEngine(d.engines && d.engines[s]),
       el('div', { class: 'pills' }, v.margin != null ? defined('span', 'margin', { class: 'pill', text: `±${Math.round(v.margin)}` }) : '', defined('span', 'n', { class: 'pill grey', text: `n ${v.n}` }), ...(s === 'sourced' ? sourcedPills(v.detail) : []), v.detail?.checked_round ? defined('span', 'checked', { class: 'pill grey', text: `checked ${v.detail.checked_round}` }) : '')));
   }
   card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));

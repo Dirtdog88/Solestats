@@ -177,3 +177,9 @@ h4 { font-size: 14px; margin: 16px 0 6px; font-weight: 800; }
 .sources li { line-height: 1.35; }
 .sources .dom { font-weight: 700; word-break: break-all; }
 .sources .cnt { display: block; color: var(--muted); font-size: 13px; }
+
+/* Engine split under each subject (2026-11-22) */
+.by-engine { display: flex; flex-wrap: wrap; gap: 4px 6px; margin: -2px 0 8px; font-size: 12px; }
+.by-engine .eng { padding: 2px 6px; border-radius: 6px; background: #eef1f7; color: #333; font-variant-numeric: tabular-nums; cursor: pointer; outline: none; }
+.by-engine .eng.low { background: #fde2d3; color: #8a2e00; font-weight: 700; }
+.by-engine .eng.low::before { content: "▼ "; font-size: 9px; vertical-align: 1px; }

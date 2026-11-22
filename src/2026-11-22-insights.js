@@ -196,3 +196,41 @@ export function voiceVsSize(rows) {
   }
   return { brands_with_both: have.length };
 }
+
+export const ENGINE_LABEL = { openai: 'ChatGPT', anthropic: 'Claude', gemini: 'Gemini', perplexity: 'Perplexity', rufus: 'Amazon Rufus' };
+export const ENGINE_GAP = 10; // points: an engine this far below every other engine's score becomes a fix
+export const ENGINE_MIN_N = 20; // observations an engine's score needs to take part in that comparison
+
+/**
+ * Engine split: each subject that comes from the answers, scored on each engine's answers alone, beside the combined
+ * score. scorers is { subject: runs => { score, n } } (the rubric's own functions, so the rules stay in score.js).
+ * Returns { subject: { by_engine: { engine: { score, n } } } } with only the engines that have a score.
+ */
+export function engineSplit(runs, scorers) {
+  const engines = [...new Set(runs.map(r => r.engine))].sort();
+  const out = {};
+  for (const [subject, f] of Object.entries(scorers)) {
+    const by = {};
+    for (const e of engines) { const s = f(runs.filter(r => r.engine === e)); if (s && s.score != null) by[e] = { score: s.score, n: s.n }; }
+    out[subject] = { by_engine: by };
+  }
+  return out;
+}
+
+/** Fixes from the engine split: a subject where one engine is more than ENGINE_GAP points below every other engine
+ *  that has a score (at least two engines scored), counting only engines with ENGINE_MIN_N observations or more. */
+export function engineFixes(slug, split, subjectLabel = s => s) {
+  const fixes = [];
+  for (const [subject, { by_engine: by }] of Object.entries(split)) {
+    const es = Object.entries(by).filter(([, s]) => (s.n ?? 0) >= ENGINE_MIN_N);
+    if (es.length < 2) continue;
+    for (const [e, s] of es) {
+      const others = es.filter(([o]) => o !== e);
+      if (others.every(([, o]) => o.score - s.score > ENGINE_GAP)) {
+        const list = others.map(([o, x]) => `${Math.round(x.score)} on ${ENGINE_LABEL[o] || o}`).join(' and ');
+        fixes.push({ brand: slug, subject, engine: e, text: `Close the gap on ${ENGINE_LABEL[e] || e}: ${subjectLabel(subject)} there is ${Math.round(s.score)}, against ${list}.` });
+      }
+    }
+  }
+  return fixes;
+}

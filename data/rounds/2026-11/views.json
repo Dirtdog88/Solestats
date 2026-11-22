@@ -7114,9 +7114,859 @@
      }
     ]
    }
+  },
+  "engines": {
+   "brooks": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 68.1,
+       "n": 306
+      },
+      "gemini": {
+       "score": 76.3,
+       "n": 306
+      },
+      "openai": {
+       "score": 61.4,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 20.7,
+       "n": 222
+      },
+      "openai": {
+       "score": 47.5,
+       "n": 550
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 63.1,
+       "n": 217
+      },
+      "gemini": {
+       "score": 69.8,
+       "n": 169
+      },
+      "openai": {
+       "score": 89.5,
+       "n": 210
+      }
+     }
+    }
+   },
+   "hoka": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 68.5,
+       "n": 306
+      },
+      "gemini": {
+       "score": 61.5,
+       "n": 306
+      },
+      "openai": {
+       "score": 27.1,
+       "n": 306
+      }
+     },
+     "low": "openai"
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 19.9,
+       "n": 206
+      },
+      "openai": {
+       "score": 36.2,
+       "n": 196
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 61.8,
+       "n": 207
+      },
+      "gemini": {
+       "score": 67.5,
+       "n": 154
+      },
+      "openai": {
+       "score": 87.3,
+       "n": 55
+      }
+     }
+    }
+   },
+   "on": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 22.4,
+       "n": 306
+      },
+      "gemini": {
+       "score": 20.5,
+       "n": 306
+      },
+      "openai": {
+       "score": 15,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "openai": {
+       "score": 52.5,
+       "n": 40
+      }
+     }
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 70.4,
+       "n": 27
+      },
+      "gemini": {
+       "score": 64.4,
+       "n": 59
+      },
+      "openai": {
+       "score": 100,
+       "n": 19
+      }
+     }
+    }
+   },
+   "saucony": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 64.1,
+       "n": 306
+      },
+      "gemini": {
+       "score": 66.8,
+       "n": 306
+      },
+      "openai": {
+       "score": 36.3,
+       "n": 306
+      }
+     },
+     "low": "openai"
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 21.1,
+       "n": 204
+      },
+      "openai": {
+       "score": 44.7,
+       "n": 152
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 64.2,
+       "n": 187
+      },
+      "gemini": {
+       "score": 65.5,
+       "n": 148
+      },
+      "openai": {
+       "score": 86.8,
+       "n": 53
+      }
+     }
+    }
+   },
+   "asics": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 73.4,
+       "n": 306
+      },
+      "gemini": {
+       "score": 66.8,
+       "n": 306
+      },
+      "openai": {
+       "score": 53,
+       "n": 306
+      }
+     },
+     "low": "openai"
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 21.3,
+       "n": 183
+      },
+      "openai": {
+       "score": 42.5,
+       "n": 362
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 63.7,
+       "n": 182
+      },
+      "gemini": {
+       "score": 67.5,
+       "n": 151
+      },
+      "openai": {
+       "score": 90.1,
+       "n": 131
+      }
+     }
+    }
+   },
+   "nike": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 49.6,
+       "n": 306
+      },
+      "gemini": {
+       "score": 48.5,
+       "n": 306
+      },
+      "openai": {
+       "score": 36.1,
+       "n": 306
+      }
+     },
+     "low": "openai"
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 21.2,
+       "n": 156
+      },
+      "openai": {
+       "score": 51.3,
+       "n": 228
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 60.6,
+       "n": 175
+      },
+      "gemini": {
+       "score": 66.5,
+       "n": 164
+      },
+      "openai": {
+       "score": 94,
+       "n": 83
+      }
+     }
+    }
+   },
+   "adidas": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 41.9,
+       "n": 306
+      },
+      "gemini": {
+       "score": 39.7,
+       "n": 306
+      },
+      "openai": {
+       "score": 32.8,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 27.8,
+       "n": 108
+      },
+      "openai": {
+       "score": 56.9,
+       "n": 160
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 62.8,
+       "n": 43
+      },
+      "gemini": {
+       "score": 54.8,
+       "n": 73
+      },
+      "openai": {
+       "score": 96.6,
+       "n": 58
+      }
+     }
+    }
+   },
+   "new-balance": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 61.4,
+       "n": 306
+      },
+      "gemini": {
+       "score": 39.7,
+       "n": 306
+      },
+      "openai": {
+       "score": 29.9,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 24.5,
+       "n": 94
+      },
+      "openai": {
+       "score": 41.9,
+       "n": 160
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 66.7,
+       "n": 165
+      },
+      "gemini": {
+       "score": 66.7,
+       "n": 96
+      },
+      "openai": {
+       "score": 91.7,
+       "n": 60
+      }
+     }
+    }
+   },
+   "altra": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 41.7,
+       "n": 306
+      },
+      "gemini": {
+       "score": 35.7,
+       "n": 306
+      },
+      "openai": {
+       "score": 23.8,
+       "n": 306
+      }
+     },
+     "low": "openai"
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 10.9,
+       "n": 64
+      },
+      "openai": {
+       "score": 42.7,
+       "n": 89
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 53.8,
+       "n": 13
+      },
+      "gemini": {
+       "score": 65.4,
+       "n": 104
+      },
+      "openai": {
+       "score": 92.6,
+       "n": 27
+      }
+     },
+     "low": "gemini"
+    }
+   },
+   "topo": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 31.3,
+       "n": 306
+      },
+      "gemini": {
+       "score": 30.1,
+       "n": 306
+      },
+      "openai": {
+       "score": 28.1,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "openai": {
+       "score": 37.9,
+       "n": 140
+      }
+     }
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 73.3,
+       "n": 15
+      },
+      "gemini": {
+       "score": 69.7,
+       "n": 33
+      },
+      "openai": {
+       "score": 91.1,
+       "n": 45
+      }
+     },
+     "low": "gemini"
+    }
+   },
+   "salomon": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 27.8,
+       "n": 306
+      },
+      "gemini": {
+       "score": 28.1,
+       "n": 306
+      },
+      "openai": {
+       "score": 23.2,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 23.5,
+       "n": 34
+      },
+      "openai": {
+       "score": 44.4,
+       "n": 72
+      }
+     },
+     "low": "gemini"
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 42.9,
+       "n": 7
+      },
+      "gemini": {
+       "score": 67.7,
+       "n": 62
+      },
+      "openai": {
+       "score": 77.3,
+       "n": 22
+      }
+     }
+    }
+   },
+   "merrell": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 23,
+       "n": 306
+      },
+      "gemini": {
+       "score": 20.3,
+       "n": 306
+      },
+      "openai": {
+       "score": 19.7,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {}
+    },
+    "routing": {
+     "by_engine": {
+      "gemini": {
+       "score": 0,
+       "n": 1
+      },
+      "openai": {
+       "score": 100,
+       "n": 3
+      }
+     }
+    }
+   },
+   "la-sportiva": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 25.9,
+       "n": 306
+      },
+      "gemini": {
+       "score": 23.4,
+       "n": 306
+      },
+      "openai": {
+       "score": 19.8,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "openai": {
+       "score": 23.1,
+       "n": 13
+      }
+     }
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 0,
+       "n": 4
+      },
+      "gemini": {
+       "score": 66.7,
+       "n": 9
+      },
+      "openai": {
+       "score": 75,
+       "n": 4
+      }
+     }
+    }
+   },
+   "mizuno": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 27,
+       "n": 306
+      },
+      "gemini": {
+       "score": 20.3,
+       "n": 306
+      },
+      "openai": {
+       "score": 18.8,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {}
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 53.8,
+       "n": 13
+      },
+      "gemini": {
+       "score": 100,
+       "n": 1
+      }
+     }
+    }
+   },
+   "puma": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 31.1,
+       "n": 306
+      },
+      "gemini": {
+       "score": 25.6,
+       "n": 306
+      },
+      "openai": {
+       "score": 19.7,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "gemini": {
+       "score": 20,
+       "n": 45
+      },
+      "openai": {
+       "score": 30.8,
+       "n": 13
+      }
+     }
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 47.4,
+       "n": 19
+      },
+      "gemini": {
+       "score": 54.5,
+       "n": 33
+      },
+      "openai": {
+       "score": 75,
+       "n": 4
+      }
+     }
+    }
+   },
+   "under-armour": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 20.1,
+       "n": 306
+      },
+      "gemini": {
+       "score": 18.8,
+       "n": 306
+      },
+      "openai": {
+       "score": 18.9,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {}
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 100,
+       "n": 2
+      },
+      "gemini": {
+       "score": 33.3,
+       "n": 9
+      }
+     }
+    }
+   },
+   "skechers": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 21.2,
+       "n": 306
+      },
+      "gemini": {
+       "score": 18.8,
+       "n": 306
+      },
+      "openai": {
+       "score": 18.8,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {}
+    },
+    "routing": {
+     "by_engine": {
+      "anthropic": {
+       "score": 25,
+       "n": 4
+      }
+     }
+    }
+   },
+   "inov8": {
+    "recommended": {
+     "by_engine": {
+      "anthropic": {
+       "score": 21.4,
+       "n": 306
+      },
+      "gemini": {
+       "score": 20.1,
+       "n": 306
+      },
+      "openai": {
+       "score": 19.7,
+       "n": 306
+      }
+     }
+    },
+    "sourced": {
+     "by_engine": {
+      "openai": {
+       "score": 50,
+       "n": 12
+      }
+     }
+    },
+    "routing": {
+     "by_engine": {
+      "gemini": {
+       "score": 0,
+       "n": 1
+      },
+      "openai": {
+       "score": 100,
+       "n": 5
+      }
+     }
+    }
+   }
   }
  },
  "fixes": [
+  {
+   "brand": "brooks",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 21, against 48 on ChatGPT."
+  },
+  {
+   "brand": "hoka",
+   "subject": "recommended",
+   "text": "Close the gap on ChatGPT: Recommended there is 27, against 69 on Claude and 62 on Gemini."
+  },
+  {
+   "brand": "hoka",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 20, against 36 on ChatGPT."
+  },
+  {
+   "brand": "saucony",
+   "subject": "recommended",
+   "text": "Close the gap on ChatGPT: Recommended there is 36, against 64 on Claude and 67 on Gemini."
+  },
+  {
+   "brand": "saucony",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 21, against 45 on ChatGPT."
+  },
+  {
+   "brand": "asics",
+   "subject": "recommended",
+   "text": "Close the gap on ChatGPT: Recommended there is 53, against 73 on Claude and 67 on Gemini."
+  },
+  {
+   "brand": "asics",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 21, against 43 on ChatGPT."
+  },
+  {
+   "brand": "nike",
+   "subject": "recommended",
+   "text": "Close the gap on ChatGPT: Recommended there is 36, against 50 on Claude and 49 on Gemini."
+  },
+  {
+   "brand": "nike",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 21, against 51 on ChatGPT."
+  },
+  {
+   "brand": "adidas",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 28, against 57 on ChatGPT."
+  },
+  {
+   "brand": "new-balance",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 25, against 42 on ChatGPT."
+  },
+  {
+   "brand": "altra",
+   "subject": "recommended",
+   "text": "Close the gap on ChatGPT: Recommended there is 24, against 42 on Claude and 36 on Gemini."
+  },
+  {
+   "brand": "altra",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 11, against 43 on ChatGPT."
+  },
+  {
+   "brand": "altra",
+   "subject": "routing",
+   "text": "Close the gap on Gemini: Sale goes home there is 65, against 93 on ChatGPT."
+  },
+  {
+   "brand": "topo",
+   "subject": "routing",
+   "text": "Close the gap on Gemini: Sale goes home there is 70, against 91 on ChatGPT."
+  },
+  {
+   "brand": "salomon",
+   "subject": "sourced",
+   "text": "Close the gap on Gemini: Sourced there is 24, against 44 on ChatGPT."
+  },
   {
    "brand": "on",
    "subject": "sourced",
