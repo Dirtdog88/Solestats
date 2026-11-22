@@ -1,0 +1,5 @@
+currency,year,usd_per_unit,source_url,quote,checked_on
+EUR,2025,1.1306,https://www.federalreserve.gov/releases/g5a/current/default.htm,"*EMU MEMBERS EURO 1.1306 (2025 annual average, U.S. dollars per euro)",2026-11-22
+JPY,2025,0.0066858953,https://www.federalreserve.gov/releases/g5a/current/default.htm,"JAPAN YEN 149.5686 (2025 annual average, yen per U.S. dollar; stored as 1/149.5686)",2026-11-22
+CHF,2025,1.2040939193,https://www.federalreserve.gov/releases/g5a/current/default.htm,"SWITZERLAND FRANC 0.8305 (2025 annual average, francs per U.S. dollar; stored as 1/0.8305)",2026-11-22
+USD,2025,1,https://www.federalreserve.gov/releases/g5a/current/default.htm,"U.S. dollar",2026-11-22

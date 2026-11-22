@@ -3,7 +3,7 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
-import { scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
+import { shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
 if (!round || round.startsWith('--')) { console.error('usage: --round <id>'); process.exit(1); }
@@ -35,6 +35,14 @@ for (const b of brands) {
     rows.push({ round, brand: b.slug, category: b.category, subject, score: s.score, margin: s.margin, n: s.n, detail: JSON.stringify(s.detail) });
     sqls.push(`INSERT OR REPLACE INTO scores (round_id,brand_slug,subject,score,margin,n,detail_json) VALUES (${[round, b.slug, subject, s.score, s.margin, s.n, JSON.stringify(s.detail)].map(sql).join(',')});`);
   }
+}
+// Share of voice: a row per brand under subject share_of_voice (not part of Overall).
+const sov = shareOfVoice(runs, prompts);
+for (const b of brands) {
+  const s = sov[b.slug];
+  if (!s) continue;
+  rows.push({ round, brand: b.slug, category: b.category, subject: 'share_of_voice', score: s.score, margin: s.margin, n: s.n, detail: JSON.stringify(s.detail) });
+  sqls.push(`INSERT OR REPLACE INTO scores (round_id,brand_slug,subject,score,margin,n,detail_json) VALUES (${[round, b.slug, 'share_of_voice', s.score, s.margin, s.n, JSON.stringify(s.detail)].map(sql).join(',')});`);
 }
 writeFileSync(new URL('scores.csv', dir), toCsv(rows, ['round', 'brand', 'category', 'subject', 'score', 'margin', 'n', 'detail']));
 writeFileSync(new URL('scores.sql', dir), sqls.join('\n') + '\n');

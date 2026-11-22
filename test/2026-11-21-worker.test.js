@@ -66,3 +66,19 @@ test('GET /api/edition lists the engines in the round and the pending ones from 
   assert.deepEqual(empty, { round: null, engines: [], pending: ['gemini'] });
 });
 
+
+test('GET /api/share-of-voice joins share of voice, the previous round and dollar-scaled revenue', async () => {
+  const scores = [{ brand_slug: 'hoka', score: 13.2, margin: 0.4, n: 534, detail_json: '{"top_pick_share":8.5,"answer_share":58,"by_engine":{"openai":12}}' }];
+  const e = { ...env, DB: fakeDb({ rounds: [{ id: '2026-12' }], brands: [{ slug: 'hoka', name: 'Hoka', treatment: 'full' }, { slug: 'zzz', name: 'Nobody' }], scores,
+    financials: [{ brand_slug: 'hoka', fiscal_year: 'FY2026', period_end: '2026-03-31', level: 'brand', measure: 'HOKA brand net sales', value: 2587, unit: 'millions', currency: 'USD', yoy_pct: 15.9 },
+                 { brand_slug: 'hoka', fiscal_year: 'FY2026', period_end: '2026-03-31', level: 'company', measure: 'Deckers net sales', value: 4986, unit: 'millions', currency: 'USD', yoy_pct: 9 }],
+    fx_rates: [{ currency: 'USD', year: '2025', usd_per_unit: 1 }] }) };
+  const body = await (await worker.fetch(new Request('https://solestats.com/api/share-of-voice'), e)).json();
+  assert.equal(body.brands.length, 1);              // a brand with neither share of voice nor revenue is left out
+  const h = body.brands[0];
+  assert.equal(h.sov, 13.2);
+  assert.equal(h.top_pick_share, 8.5);
+  assert.equal(h.revenue.level, 'brand');           // the narrowest figure wins
+  assert.equal(h.revenue.usd, 2587000000);
+  assert.equal(h.sov_change, 13.2 - 13.2);          // the fake returns the same rows for the previous round
+});

@@ -75,6 +75,7 @@ async function api(url, env) {
       sourcing: { ...Object.fromEntries(sourcing.results.map(x => [x.sourcing, x.n])), min: MIN_SOURCED_ANSWERS },
     });
   }
+  if (parts[1] === 'share-of-voice') return json(await shareOfVoiceView(env, round));
   if (parts[1] === 'retailers') {
     if (!round) return json({ round: null, rows: [] });
     const rows = (await env.DB.prepare(`SELECT p.category, rt.retailer_slug, re.name, re.kind, COUNT(DISTINCT rt.run_id) AS n
@@ -103,6 +104,47 @@ async function download(url, env) {
   if (!round || !q) return json({ error: 'not found' }, 404);
   const { results } = await env.DB.prepare(q).bind(round).all();
   return new Response(csv(results), { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="solestats-${round}-${file}"`, 'cache-control': 'public, max-age=3600' } });
+}
+
+// Share of voice beside revenue: this round's share of voice, the previous round's (for the change), and each brand's
+// narrowest reported revenue figure with its growth, converted to US dollars at the yearly average rate only to put
+// brands on one scale. The financials and fx tables fail soft until their migrations are applied.
+const LEVELS = ['brand', 'category', 'footwear', 'segment', 'company'];
+async function shareOfVoiceView(env, round) {
+  if (!round) return { round: null, previous_round: null, brands: [] };
+  const soft = p => p.then(r => r.results).catch(() => []);
+  const prev = await env.DB.prepare(`SELECT id FROM rounds WHERE started_at < (SELECT started_at FROM rounds WHERE id = ?) AND id IN (SELECT round_id FROM scores WHERE subject = 'share_of_voice') ORDER BY started_at DESC LIMIT 1`).bind(round).first().catch(() => null);
+  const [brands, sov, sovPrev, fin, fx] = await Promise.all([
+    soft(env.DB.prepare('SELECT slug, name, treatment FROM brands ORDER BY name').all()),
+    soft(env.DB.prepare(`SELECT brand_slug, score, margin, n, detail_json FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(round).all()),
+    prev ? soft(env.DB.prepare(`SELECT brand_slug, score FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(prev.id).all()) : [],
+    soft(env.DB.prepare('SELECT brand_slug, fiscal_year, period_end, level, measure, owner, value, unit, currency, yoy_pct, source_type, source_url FROM financials').all()),
+    soft(env.DB.prepare('SELECT currency, year, usd_per_unit FROM fx_rates').all()),
+  ]);
+  const rate = (cur, periodEnd) => {
+    const rows = fx.filter(r => r.currency === cur).sort((a, b) => b.year.localeCompare(a.year));
+    const y = String(periodEnd || '').slice(0, 4);
+    return (rows.find(r => r.year === y) || rows[0] || {}).usd_per_unit ?? null;
+  };
+  const out = [];
+  for (const b of brands) {
+    const s = sov.find(x => x.brand_slug === b.slug);
+    const d = s ? safeJson(s.detail_json) || {} : {};
+    const p = sovPrev.find(x => x.brand_slug === b.slug);
+    const mine = fin.filter(x => x.brand_slug === b.slug);
+    const latestFy = mine.map(x => x.period_end || '').sort().pop();
+    const r = mine.filter(x => (x.period_end || '') === latestFy).sort((x, y) => LEVELS.indexOf(x.level) - LEVELS.indexOf(y.level))[0];
+    let revenue = null;
+    if (r) {
+      const fxr = r.value != null ? rate(r.currency, r.period_end) : null;
+      const amount = r.value != null ? r.value * (r.unit === 'billions' ? 1e9 : 1e6) : null;
+      revenue = { measure: r.measure, level: r.level, owner: r.owner, fiscal_year: r.fiscal_year, period_end: r.period_end, value: r.value, unit: r.unit, currency: r.currency, yoy_pct: r.yoy_pct, source_type: r.source_type, source_url: r.source_url, usd: amount != null && fxr != null ? Math.round(amount * fxr) : null };
+    }
+    if (!s && !revenue) continue;
+    out.push({ slug: b.slug, name: b.name, sov: s ? s.score : null, sov_margin: s ? s.margin : null, mentions: s ? s.n : 0, top_pick_share: d.top_pick_share ?? null, answer_share: d.answer_share ?? null, by_engine: d.by_engine || {}, sov_previous: p ? p.score : null, sov_change: s && p ? Math.round((s.score - p.score) * 10) / 10 : null, revenue });
+  }
+  out.sort((a, b) => (b.sov ?? -1) - (a.sov ?? -1));
+  return { round, previous_round: prev ? prev.id : null, brands: out };
 }
 
 async function latestRound(env) {

@@ -29,7 +29,7 @@ test('every financials row names a watched brand, a primary source and a quote; 
 
 test('the loader replaces the table and loads only checked rows', () => {
   const db = new DatabaseSync(':memory:');
-  for (const f of ['0001_init.sql', '0002_pulse.sql', '0003_financials.sql']) db.exec(readFileSync(new URL(`../migrations/${f}`, import.meta.url), 'utf8'));
+  for (const f of ['0001_init.sql', '0002_pulse.sql', '0003_financials.sql', '0004_fx_rates.sql']) db.exec(readFileSync(new URL(`../migrations/${f}`, import.meta.url), 'utf8'));
   db.exec(execFileSync(process.execPath, [new URL('../scripts/2026-11-21-seed.js', import.meta.url).pathname], { encoding: 'utf8' }));
   const sql = execFileSync(process.execPath, [new URL('../scripts/2026-11-21-financials.js', import.meta.url).pathname], { encoding: 'utf8' });
   assert.match(sql, /^DELETE FROM financials;/);

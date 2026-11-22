@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SoleStats · Share of voice</title>
+<meta name="description" content="Each running shoe brand's share of AI answers beside its reported revenue, and share-of-voice change beside revenue growth.">
+<link rel="stylesheet" href="/2026-11-21-styles.css">
+</head>
+<body>
+<header class="hero small">
+  <p class="brand"><a href="/">SoleStats</a></p>
+  <h1>Share of voice</h1>
+  <p class="edition" id="edition"></p>
+  <p class="notice" id="notice" hidden></p>
+</header>
+<main>
+  <section class="card chart-card">
+    <h3 id="h-scale"></h3>
+    <div class="legend" id="legend-scale"></div>
+    <div class="chart" id="chart-scale"></div>
+    <p class="readout muted" id="readout-scale" aria-live="polite"></p>
+    <p class="muted small" id="missing-scale"></p>
+  </section>
+  <section class="card chart-card">
+    <h3 id="h-growth"></h3>
+    <div class="chart" id="chart-growth"></div>
+    <p class="readout muted" id="readout-growth" aria-live="polite"></p>
+  </section>
+  <h2>By brand</h2>
+  <div class="table-wrap" id="sov-table"></div>
+</main>
+<footer><p><a href="/">Index</a> · <a href="/method.html">Method and definitions</a></p></footer>
+<div id="tip" class="tip" role="status" hidden></div>
+<script src="/2026-11-22-share.js" type="module"></script>
+</body>
+</html>

@@ -8255,6 +8255,7 @@ INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S037/anthropic/2','asics',4,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S037/anthropic/2','adidas',5,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S037/anthropic/2','altra',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S037/anthropic/2','on',7,0);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/S037/anthropic/2','https://runtothefinish.com/wide-foot-running-shoes/','runtothefinish.com','other','searched',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/S037/anthropic/2','https://www.runandbecome.com/running-product-advice/best-running-shoes-wide-feet','runandbecome.com','other','searched',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/S037/anthropic/2','https://www.solereview.com/best-running-shoes-for-wide-feet/','solereview.com','review','searched',NULL,NULL);
@@ -14938,6 +14939,7 @@ INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S090/anthropic/1','brooks',3,1);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S090/anthropic/1','adidas',4,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S090/anthropic/1','altra',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S090/anthropic/1','on',6,0);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/S090/anthropic/1','https://therunningchannel.com/best-shoes-walking-2025/','therunningchannel.com','other','searched',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/S090/anthropic/1','https://runrepeat.com/guides/best-walking-running-shoes','runrepeat.com','review','searched',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/S090/anthropic/1','https://www.today.com/shop/best-sneakers-2025-rcna252320','today.com','review','searched',NULL,NULL);
@@ -16150,9 +16152,9 @@ These results are from the 2025 season, and newer models or 2026 results may hav
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','adidas',1,1);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','nike',2,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','asics',3,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','puma',4,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','under-armour',5,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','on',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','on',4,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','puma',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','under-armour',6,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','hoka',7,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/S100/anthropic/1','saucony',8,0);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/S100/anthropic/1','https://www.yahoo.com/lifestyle/shoes-worn-2025-boston-marathon-184113662.html','yahoo.com','other','searched',NULL,NULL);
@@ -19904,7 +19906,8 @@ Amazon, Zappos, Dick''s, and most general retailers usually want the shoes unwor
 If you tell me which shoe brand you''re looking at, I can tell you what I know about where to buy it.','[]','[{"url":"https://thebossmagazine.com/post/11-best-online-stores-for-runners/","title":"The 11 Best Online Stores for Runners - BOSS Publishing"},{"url":"https://retailreturnspolicy.com/best-return-policy-for-shoes/","title":"Best Return Policy for Shoes (2026): Run, Sweat, Return"},{"url":"https://www.shopday.com/stores-that-let-you-exchange-worn-shoes","title":"10 Stores That Let You Return Worn Shoes - Shopday.com"},{"url":"https://canireturn.com/blog/shoe-return-policy-comparison","title":"Shoe Return Policies in 2026: Nike, Zappos, DSW, Foot Locker & 9 More Compared"},{"url":"https://ca.trustpilot.com/review/all4running.nl","title":"ca.trustpilot.com"},{"url":"https://au.trustpilot.com/review/m.deichmann.com","title":"au.trustpilot.com"},{"url":"https://ca.trustpilot.com/review/groundies.com","title":"groundies.com Reviews 259"},{"url":"https://ca.trustpilot.com/review/fleetfeet.com","title":"Fleetfeet Reviews 55"},{"url":"https://slickdeals.net/f/14081933-new-balance-880-v9-running-shoe-61-98-assorted-colors-free-shipping","title":"14081933 new balance 880 v9 running shoe 61 98 assorted colors free shipping"},{"url":"https://runblogger.com/2012/06/new-running-warehouse-90-day-no-sweat.html","title":"New Running Warehouse 90 Day No-Sweat Return Policy"},{"url":"https://www.runningwarehouse.com/SupportCenter/Shipping/?from=RW","title":"Shipping & Returns - Running Warehouse"},{"url":"https://img.runningwarehouse.com/pdf/domestic_return.pdf","title":"Name Order # Reason For Return:"},{"url":"https://img.runningwarehouse.com/pdf/RW-int-returns.pdf","title":"Scan this code for more details"},{"url":"https://howtoreturns.com/running-warehouse-return-policy/","title":"Running Warehouse Return Policy 2026 Refund & Exchanges"},{"url":"https://img.runningwarehouse.com/pdf/return_auth.pdf","title":"Name Order # Reason For Return:"},{"url":"https://return-policy.org/running-warehouse-return-policy","title":"Running Warehouse Return Policy"},{"url":"https://wnbastore.nba.com/how-do-i-return-an-international-order/ch-2269","title":"Back to Home"},{"url":"https://www.scribd.com/document/828855188/Fun","title":"0% found this document useful (0 votes)"},{"url":"https://www.supermoney.com/fleet-feet-return-policy","title":"Fleet Feet Return Policy (2026): Window, Receipt Rules & Exceptions - SuperMoney"},{"url":"https://www.fleetfeet.com/s/poughkeepsie/fleet-feet-poughkeepsie-exchange-policy","title":"Fleet Feet Poughkeepsie Exchange Policy - Fleet Feet Poughkeepsie"},{"url":"https://www.fleetfeet.com/s/hoboken/aboutus/faq","title":"FAQ - Fleet Feet Hoboken"},{"url":"https://www.fleetfeet.com/s/hoboken/faq/what-is-your-return-policy","title":"What is your Return Policy? - Fleet Feet Hoboken"},{"url":"https://www.fleetfeet.com/s/madison/services/frequently-asked-questions","title":"FAQ for Fleet Feet Madison & Sun Prairie"},{"url":"https://www.oreateai.com/blog/fleet-feet-return-policy-worn-shoes/56289c78ca578fe3f92101cfc88a6de6","title":"Fleet Feet Return Policy Worn Shoes - Oreate AI Blog"},{"url":"https://thereturnguide.com/blogs/retail-store-returns/fleet-feet-return-policy-guide","title":"Fleet Feet Return Policy Online Returns and Refunds Guide"},{"url":"https://en.wikipedia.org/wiki/Fleet_Feet","title":"Fleet Feet"},{"url":"https://www.cbsnews.com/amp/chicago/news/fleet-feet-shoes-special-olympics-athletes","title":"Fleet Feet gives out more than 150 pairs of new shoes to Special Olympics athletes"},{"url":"https://www.gearpatrol.com/outdoors/rei-changes-return-policy-member-ban/","title":"REI Changes Its Legendary Return Policy, with Crackdowns Coming"},{"url":"https://backpackinglight.com/forums/topic/reis-recent-return-policy-change/","title":"REI’s recent return policy change - Backpacking Light"},{"url":"https://thekrazycouponlady.com/coupons-for/rei/rei-return-policy","title":"What to Know About the REI Return Policy - The Krazy Coupon Lady"},{"url":"https://comingsoonwp.com/rei-return-policy-explained-rules-time-limits-exceptions/amp/","title":"REI Return Policy Explained: Rules, Time Limits & Exceptions - Coming Soon & Maintenance Mode for WordPress"},{"url":"https://thesmallbusinesstimes.com/rei-shoe-return-policy/","title":"REI Shoe Return Policy - The Small Business Times"},{"url":"https://www.npr.org/transcripts/1221795521","title":"www.npr.org"},{"url":"https://slickdeals.net/f/15997531-rei-labor-day-sale-co-op-members-offer-extra-savings-on-one-outlet-item-20-off-free-store-pickup","title":"15997531 rei labor day sale co op members offer extra savings on one outlet item 20 off free store pickup"},{"url":"https://www.nbcnews.com/select/amp/rcna172651","title":"Is REI’s membership program worth it? Yes, here’s why"},{"url":"https://patch.com/washington/universityplace/rei-ends-unlimited-return-policyare-you-less-likely-to-shop-there_20e02cd5","title":"Business & Tech"}]',5,19288,1261,0.1524,24301,NULL,'2026-11-21T15:54:36.220Z');
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R006/anthropic/1','brooks',1,1);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R006/anthropic/1','hoka',2,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R006/anthropic/1','saucony',3,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R006/anthropic/1','on',3,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R006/anthropic/1','saucony',4,0);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R006/anthropic/1','https://thebossmagazine.com/post/11-best-online-stores-for-runners/','thebossmagazine.com','other','searched',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R006/anthropic/1','https://retailreturnspolicy.com/best-return-policy-for-shoes/','retailreturnspolicy.com','other','searched',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R006/anthropic/1','https://www.shopday.com/stores-that-let-you-exchange-worn-shoes','shopday.com','other','searched',NULL,NULL);
@@ -20354,7 +20357,8 @@ INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R008/anthropic/2','hoka',2,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R008/anthropic/2','brooks',3,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R008/anthropic/2','saucony',4,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R008/anthropic/2','asics',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R008/anthropic/2','on',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R008/anthropic/2','asics',6,0);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R008/anthropic/2','https://thebossmagazine.com/post/11-best-online-stores-for-runners/','thebossmagazine.com','other','searched',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R008/anthropic/2','https://www.roadrunnersports.com/','roadrunnersports.com','retailer','searched',NULL,'road-runner-sports');
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R008/anthropic/2','https://runpacers.com/','runpacers.com','other','searched',NULL,NULL);
@@ -43227,10 +43231,10 @@ Here is how to choose between the two based on ride feel, mechanics, and top mod
 * **Buy Hoka (specifically the Clifton)** if your priority is pure joint comfort, tired-leg recovery, and a soft, gliding transition on pure road surfaces.
 * **Buy On (specifically the Cloudsurfer or Cloudmonster)** if you want energy return, a snappier toe-off, a standard heel drop, or a shoe that looks sleek enough to wear to the gym, travel, or the office after your run.','[]','[]',0,38,1922,0.0048,21426,NULL,'2026-11-21T19:57:05.084Z');
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','hoka',1,1);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','brooks',2,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','asics',3,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','nike',4,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','on',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','on',2,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','brooks',3,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','asics',4,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/H008/gemini/1','nike',5,0);
 INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at) VALUES ('2026-11/H008/gemini/3','2026-11','H008','gemini','gemini-3.8-flash',3,'Hoka or On: which should I buy for a daily running shoe, and why?','ok','Between **Hoka** and **On**, the right choice comes down to how you want the road to feel under your feet: **Hoka** prioritizes plush, maximum shock absorption, while **On** prioritizes a firmer, springier, and more responsive ride.
 
 Here is a breakdown of how they compare for daily running and how to decide between them.
@@ -48386,10 +48390,11 @@ INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','altra',2,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','brooks',3,1);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','salomon',4,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','asics',5,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','nike',6,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','saucony',7,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','new-balance',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','on',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','asics',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','nike',7,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','saucony',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R001/gemini/1','new-balance',9,0);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R001/gemini/1','running-warehouse',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R001/gemini/1','fleet-feet',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R001/gemini/1','rei',NULL,NULL);
@@ -48613,9 +48618,10 @@ INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','brooks',3,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','asics',4,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','saucony',5,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','altra',6,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','salomon',7,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','new-balance',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','on',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','altra',7,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','salomon',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/1','new-balance',9,0);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/1','running-warehouse',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/1','fleet-feet',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/1','rei',NULL,NULL);
@@ -48699,10 +48705,11 @@ INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','altra',2,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','salomon',3,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','brooks',4,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','nike',5,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','asics',6,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','saucony',7,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','new-balance',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','on',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','nike',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','asics',7,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','saucony',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/2','new-balance',9,0);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/2','running-warehouse',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/2','fleet-feet',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/2','rei',NULL,NULL);
@@ -48791,12 +48798,13 @@ Running shoe models update every 12 months, and the changes are often cosmetic o
 * **Want complete peace of mind on returns?** Buy through **REI** or direct from **Brooks/Nike**.','[]','[]',0,31,1394,0.0035,17123,NULL,'2026-11-21T20:05:57.089Z');
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','hoka',1,1);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','brooks',2,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','saucony',3,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','altra',4,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','salomon',5,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','asics',6,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','nike',7,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','new-balance',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','on',3,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','saucony',4,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','altra',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','salomon',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','asics',7,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','nike',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R002/gemini/3','new-balance',9,0);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/3','running-warehouse',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/3','fleet-feet',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R002/gemini/3','rei',NULL,NULL);
@@ -50013,9 +50021,10 @@ INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','brooks',3,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','saucony',4,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','new-balance',5,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','altra',6,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','topo',7,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','salomon',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','on',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','altra',7,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','topo',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/1','salomon',9,0);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R007/gemini/1','https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQErcSTuJl8Fn9_CIVgqTOVv2z8b8HsLwR01lm4gzE0XLLOYTZHVkdr6tijKYyDzgSFo1cfXaVImhPfBQod_X-KlzNlm21oZ_87AZfzGDsyte8wM4KWm','superjocknjill.com','other','cited',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R007/gemini/1','https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHckz_wEOC-R4QHd6EmiBVVqjgGnhN8iGNpYXXa_hr2wfOZEX-mNcrpTjXhEGaxAqMOtt8ViV9IAeuA4X64m_lw5XHg7ruVSVegEqD6DC4ML2Oalhh46FMudprZui5prd5nHmoW9X4DfJdvbvmVkJ1vXMWkpzi8P_El5txXs7nM_g==','reddit.com','forum','cited',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R007/gemini/1','https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE917jRAoS0fk685iz3Jf4mO-zlr6tENE14fXzFCQb56XyEwm-nKdacp0sounS3uK6JL3ptGRCxWM_hgkkuw8aMkxN-WPtWCv2CSaWNrbHlJYbwPV0TWaR80BQh31zwOZI9xkbI9OyAr4HUyf7-1gQ=','fleetfeet.com','retailer','cited',NULL,'fleet-feet');
@@ -50166,11 +50175,12 @@ INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','brooks',1,1);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','hoka',2,0);
 INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','asics',3,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','saucony',4,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','new-balance',5,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','altra',6,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','topo',7,0);
-INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','salomon',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','on',4,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','saucony',5,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','new-balance',6,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','altra',7,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','topo',8,0);
+INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES ('2026-11/R007/gemini/3','salomon',9,0);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R007/gemini/3','https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGINQaHcQpjOeMo6wVGGbRjR6j6nRgFSLdc732900nFW1xkQm1QB7asGkPuOhWDmxAN9RDxipeW9YEPcS7-cFfzOmij8YSorFjUC1gjZYSzZUpK3Qm1','superjocknjill.com','other','cited',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R007/gemini/3','https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG2PmPDJtYTVtdZ-DRw092RVeD-x1yKy9NOvx83lmYMgm7HFMUj-x6xef4uGnz_5jRjx-MACPLhMj9wdJNs4W0qv5Aonknrl_NFx3b1AXfBy2_8cFgfAD5lopVmolQpGw==','superjocknjill.com','other','cited',NULL,NULL);
 INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES ('2026-11/R007/gemini/3','https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEJW2MsTGn96kO3S1iWR-uhmtJzQ2OTO-nvsKpejUiQjh8YyPquR0q-gejeC2LOLzN6BoM2366chSlxK-715JfrdrOLEflgP7Lt6CGAE8HbbQPhsUqOAt7njpXRsbmypbkAYi1PAMTrI2UH_RJ6kRxmXYke2HNqxD-Xm5-6-0H8E30BJg==','on-running.com','brand','cited','on',NULL);

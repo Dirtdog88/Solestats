@@ -91,3 +91,25 @@ main.prose p, main.prose li { line-height: 1.55; }
 .revenue .muted { font-size: 13px; }
 .revenue .muted a { color: inherit; }
 .revenue .big.down { color: var(--muted); }
+
+/* Share of voice page: scatter charts on white cards. One series colour (--bar); rings mark wider revenue figures. */
+.chart { width: 100%; overflow: hidden; }
+.chart svg { display: block; width: 100%; height: auto; }
+.scatter .grid { stroke: var(--line); stroke-width: 1; }
+.scatter .zero { stroke: #b9b9c2; stroke-width: 1.5; }
+.scatter .tick { font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.scatter .axis-label { font-size: 12px; fill: var(--muted); }
+.scatter .dot { fill: var(--bar); stroke: var(--card); stroke-width: 2; }
+.scatter .dot.ring { fill: var(--card); stroke: var(--bar); stroke-width: 2.5; }
+.scatter .hit { fill: transparent; }
+.scatter .pt { cursor: pointer; outline: none; }
+.scatter .pt:hover .dot, .scatter .pt:focus .dot { stroke: var(--ink); }
+.scatter .pt-label { font-size: 12px; fill: var(--ink); font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); margin: -4px 0 8px; }
+.legend .key { display: inline-flex; align-items: center; gap: 6px; }
+.legend .swatch { width: 10px; height: 10px; border-radius: 50%; background: var(--bar); }
+.legend .swatch.ring { background: var(--card); border: 2.5px solid var(--bar); width: 11px; height: 11px; }
+.readout { font-size: 14px; min-height: 2.8em; margin: 6px 0 0; }
+.small { font-size: 13px; }
+.empty { color: var(--muted); padding: 28px 0; text-align: center; }
+td .pm { font-weight: 400; opacity: .75; font-size: 13px; }

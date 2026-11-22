@@ -127,6 +127,51 @@ export function placesFor(brand, run) {
   return [...places];
 }
 
+/**
+ * Share of voice (Alex, 2026-11-22; shown beside revenue, not part of Overall): of all the brand mentions in answers to
+ * the shoe prompts, the share that are this brand. A brand counts once per answer. Head-to-head prompts (which name two
+ * brands) and where-to-buy prompts are left out. Also: share of top picks, share of answers that name the brand, the
+ * share by engine, and a margin from the spread across repeats, like every other number.
+ */
+export function shareOfVoice(runs, prompts) {
+  const shoe = new Set(prompts.filter(p => (p.set_name || p.set) === 'shoe').map(p => p.id));
+  const rel = runs.filter(r => r.status === 'ok' && shoe.has(r.prompt_id));
+  const tally = (list) => {
+    const m = {}, t = {};
+    let mentions = 0, tops = 0;
+    for (const r of list) {
+      const seen = new Set();
+      for (const x of r.mentions || []) {
+        if (seen.has(x.brand_slug)) continue;
+        seen.add(x.brand_slug);
+        m[x.brand_slug] = (m[x.brand_slug] || 0) + 1; mentions++;
+        if (x.top_pick) { t[x.brand_slug] = (t[x.brand_slug] || 0) + 1; tops++; }
+      }
+    }
+    return { m, t, mentions, tops, answers: list.length };
+  };
+  const all = tally(rel);
+  const engines = [...new Set(rel.map(r => r.engine))].sort();
+  const byEngine = Object.fromEntries(engines.map(e => [e, tally(rel.filter(r => r.engine === e))]));
+  const repeats = [...new Set(rel.map(r => r.repeat_no))].sort();
+  const byRepeat = repeats.map(n => tally(rel.filter(r => r.repeat_no === n)));
+  const out = {};
+  for (const slug of Object.keys(all.m)) {
+    out[slug] = {
+      score: round1(pct(all.m[slug], all.mentions)),
+      margin: byRepeat.length > 1 ? round1(sd(byRepeat.map(x => pct(x.m[slug] || 0, x.mentions)))) : null,
+      n: all.m[slug],
+      detail: {
+        mentions_total: all.mentions, answers: all.answers,
+        answer_share: round1(pct(all.m[slug], all.answers)),
+        top_pick_share: round1(pct(all.t[slug] || 0, all.tops)),
+        by_engine: Object.fromEntries(engines.map(e => [e, round1(pct(byEngine[e].m[slug] || 0, byEngine[e].mentions))])),
+      },
+    };
+  }
+  return out;
+}
+
 /** Where the sale goes = share of the places to buy, in answers that name the brand, that are the brand's own site or
  *  run specialty. Only the brand's own site counts as its site. */
 export function scoreRouting(brand, runs, retailers) {

@@ -38,7 +38,9 @@ export function brandMatchers(brands) {
     const flags = CASE_SENSITIVE.has(b.slug) ? 'g' : 'gi';
     // "On" alone is too common a word: require "On Running", "On Cloud..." or "On's" style use.
     const patterns = b.slug === 'on'
-      ? [/\bOn Running\b/g, /\bOn Cloud\w*/g, /\bOn's\b/g, /\bOn \(the brand\)/g, /\bCloud(?:monster|surfer|runner|eclipse|ultra|boom|swift|stratus|flow|go|vista)\w*/g]
+      ? [/\bOn Running\b/g, /\bOn Cloud\w*/g, /\bOn's\b/g, /\bOn \(the brand\)/g, /\bCloud(?:monster|surfer|runner|eclipse|ultra|boom|swift|stratus|flow|go|vista)\w*/g,
+         // "On" bare in a list of brands ("Hoka, Brooks, On, Altra", "(Hoka, On)") or "On (Cloud line)"; capital O only.
+         /(?<=(?:[,(]\s?|\b(?:and|or)\s))On(?=\s?[,)]|\s(?:and|or)\s[A-Z]|\.?$|\s*\n)/gm, /\bOn(?=\s\(Cloud)/g]
       : names.map(n => new RegExp('\\b' + escapeRe(n) + '\\b', flags));
     return { slug: b.slug, category: b.category, patterns };
   });

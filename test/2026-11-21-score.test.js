@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { eligible, scoreRecommended, scoreAccurate, scoreSourced, sourcing, scoreRouting, scoreShoppable, overall, routingTable, WEIGHTS } from '../src/2026-11-21-score.js';
+import { shareOfVoice, eligible, scoreRecommended, scoreAccurate, scoreSourced, sourcing, scoreRouting, scoreShoppable, overall, routingTable, WEIGHTS } from '../src/2026-11-21-score.js';
 
 const brooks = { slug: 'brooks', name: 'Brooks', category: 'shoes' };
 const hoka = { slug: 'hoka', name: 'Hoka', category: 'shoes' };
@@ -150,4 +150,20 @@ test('scoreShoppable and routingTable', () => {
   const t = routingTable([run('S1', 1, [], { routes: [{ retailer_slug: 'amazon' }] }), run('C1', 1, [], { routes: [] })], prompts);
   assert.deepEqual(t.shoes, { answers: 1, with_route: 1, by_retailer: { amazon: 1 } });
   assert.deepEqual(t.fuel, { answers: 1, with_route: 0, by_retailer: {} });
+});
+
+test('shareOfVoice counts each brand once per shoe answer, leaves out head-to-head, and splits by engine', () => {
+  const prompts = [{ id: 'S1', set: 'shoe' }, { id: 'H1', set: 'h2h' }];
+  const r = (prompt_id, engine, repeat_no, slugs) => ({ prompt_id, engine, repeat_no, status: 'ok', mentions: slugs.map((s, i) => ({ brand_slug: s, top_pick: i === 0 ? 1 : 0 })) });
+  const runs = [r('S1', 'a', 1, ['brooks', 'hoka', 'brooks']), r('S1', 'a', 2, ['hoka']), r('S1', 'b', 1, ['brooks', 'nike']), r('H1', 'a', 1, ['nike', 'on'])];
+  const s = shareOfVoice(runs, prompts);
+  assert.equal(s.brooks.n, 2);                    // once per answer
+  assert.equal(s.brooks.score, 40);               // 2 of 5 mentions
+  assert.equal(s.hoka.score, 40);
+  assert.equal(s.nike.score, 20);                 // the head-to-head mention is left out
+  assert.equal(s.on, undefined);
+  assert.equal(s.brooks.detail.top_pick_share, 66.7);
+  assert.equal(s.brooks.detail.answer_share, 66.7);
+  assert.deepEqual(s.brooks.detail.by_engine, { a: 33.3, b: 50 });
+  assert.ok(s.brooks.margin != null);
 });

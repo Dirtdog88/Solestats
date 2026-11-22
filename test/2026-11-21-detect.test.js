@@ -8,6 +8,19 @@ const brands = parseCsv(readFileSync(new URL('../data/2026-11-21-brands.csv', im
 const retailers = parseCsv(readFileSync(new URL('../data/2026-11-21-retailers.csv', import.meta.url), 'utf8'));
 const matchers = brandMatchers(brands);
 
+test('On is found bare in a list of brands, never as the word "on"', () => {
+  const on = t => findMentions(t, matchers).some(m => m.brand_slug === 'on');
+  assert.ok(on('Great selection of road and trail brands (Hoka, Brooks, On, Altra, Salomon).'));
+  assert.ok(on('Nike, Hoka, Brooks, Saucony, On, ASICS and others release new colors.'));
+  assert.ok(on('Trail runners (Hoka, Altra, Brooks, Salomon, On).'));
+  assert.ok(on('- **On (Cloud line):** A good pick if looks matter.'));
+  assert.ok(on('The big names are Brooks and On.'));
+  assert.ok(!on('Based on, say, your gait, try a stability shoe.'));
+  assert.ok(!on('On the other hand, the Brooks Ghost is softer.'));
+  assert.ok(!on('Put them on, then walk around the store.'));
+  assert.ok(!on('On long runs, cushioning matters more.'));
+});
+
 test('findMentions orders brands by first appearance and marks the first as top pick', () => {
   const m = findMentions('For a daily trainer I would go with the Brooks Ghost 17. The Hoka Clifton 10 and ASICS Novablast are close.', matchers);
   assert.deepEqual(m.map(x => x.brand_slug), ['brooks', 'hoka', 'asics']);
