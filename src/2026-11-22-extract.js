@@ -92,3 +92,82 @@ export function modelView(runs, prompts, matchers, brandSlugs) {
   out[''] = { h2h: Object.fromEntries(Object.entries(h2h).map(([pid, ms]) => [pid, Object.values(ms).sort((a, b) => b.answers - a.answers)])) };
   return out;
 }
+
+/**
+ * An answer cut into pieces a phrase can belong to: each line, and each sentence within it. A piece belongs to the
+ * brands it names, by brand name (brandMatchers/findMentions from detect.js) or by one of the brand's shoes. A line
+ * that names no brand takes the brands of the line before it when that line is a short title ("**Brooks Ghost 17**",
+ * "Hoka Clifton 10:"), so the bullets under a shoe count for its brand; the first line that is not a bullet ends that.
+ * Returns [{ text, brands: [slug] }].
+ */
+export function segments(answer, findBrands, matchers) {
+  const lines = plainText(answer).split(/\n+/).map(l => l.trim()).filter(Boolean);
+  const out = [];
+  let carry = [];
+  for (const line of lines) {
+    const own = [...new Set([...findBrands(line), ...modelsIn(line, matchers).map(m => m.brand_slug)])];
+    const title = own.length && line.length <= 80 && (/:$/.test(line) || !/[.!?]/.test(line.replace(/\d\.\d/g, '')));
+    const bullet = /^(?:[-•–]|\d{1,2}[.)])\s/.test(line);
+    if (!own.length && !bullet) carry = [];
+    const lineBrands = own.length ? own : carry;
+    for (const s of line.split(/(?<=[.!?])\s+(?=[A-Z0-9"“(])/)) {
+      const sb = [...new Set([...findBrands(s), ...modelsIn(s, matchers).map(m => m.brand_slug)])];
+      out.push({ text: s, brands: sb.length ? sb : lineBrands });
+    }
+    carry = title ? own : own.length ? [] : carry;
+  }
+  return out;
+}
+
+/** Phrases that steer a shopper to an older model or a lower price (version currency and price steering). */
+export const STEERING = {
+  older: /\b(?:last[\s-]year'?s|previous|prior|older|outgoing|earlier|last)\s+(?:model|version|generation|edition|iteration)s?\b|\bprevious[\s-]gen\b|\b(?:an?|the)\s+older\s+(?:pair|one)\b/i,
+  deal: /\bon sale\b|\bsales?\s+(?:price|rack|section|season)\b|\bdiscount(?:ed|s)?\b|\bclearance\b|\boutlets?\b|\bmark(?:ed)?[\s-]?downs?\b|\bcloseouts?\b|\bcoupons?\b|\bbargain\b/i,
+};
+
+/**
+ * Price steering per brand: of the answers that name the brand (shoe and head-to-head prompts), the share where a
+ * piece about the brand steers to an older model, to a sale or discount, or either; and the "either" share by engine.
+ * Returns { '': { pairs, any }, slug: { answers, older, deal, any, by_engine: { engine: share } } } with shares in percent.
+ */
+export function steeringView(runs, prompts, findBrands, matchers, brandSlugs) {
+  const sets = Object.fromEntries(prompts.map(p => [p.id, p.set_name || p.set]));
+  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'h2h'].includes(sets[r.prompt_id]));
+  const hits = rel.map(r => {
+    const segs = segments(r.answer, findBrands, matchers);
+    const by = {};
+    for (const s of segs) for (const k of Object.keys(STEERING)) if (STEERING[k].test(s.text)) for (const b of s.brands) ((by[b] ||= {})[k] = true);
+    return { r, by };
+  });
+  // Across brands, like for like with each brand's share: steered brand-answer pairs over all brand-answer pairs.
+  let pairs = 0, steered = 0;
+  for (const h of hits) for (const slug of new Set((h.r.mentions || []).map(m => m.brand_slug).filter(s => brandSlugs.includes(s)))) { pairs++; if (h.by[slug]) steered++; }
+  const out = { '': { pairs, any: round1(pct(steered, pairs)) } };
+  for (const slug of brandSlugs) {
+    const mine = hits.filter(h => (h.r.mentions || []).some(m => m.brand_slug === slug));
+    if (!mine.length) continue;
+    const n = k => mine.filter(h => h.by[slug] && (k ? h.by[slug][k] : true)).length;
+    const engines = [...new Set(mine.map(h => h.r.engine))].sort();
+    out[slug] = { answers: mine.length, older: round1(pct(n('older'), mine.length)), deal: round1(pct(n('deal'), mine.length)), any: round1(pct(n(null), mine.length)),
+      by_engine: Object.fromEntries(engines.map(e => { const xs = mine.filter(h => h.r.engine === e); return [e, round1(pct(xs.filter(h => h.by[slug]).length, xs.length))]; })) };
+  }
+  return out;
+}
+
+/**
+ * Version currency per brand: of the mentions of its shoes that name a version, the share naming the current one.
+ * Current versions come only from spec-sheet rows with a version and a verified_on date; until there are some the
+ * brand is { pending: true }. modelSlice is one brand's entry from modelView.
+ */
+export function versionCurrency(modelSlice, specRows) {
+  const current = Object.fromEntries(specRows.filter(m => m.verified_on && m.version !== '' && m.version != null && !Number.isNaN(Number(m.version))).map(m => [m.id, Number(m.version)]));
+  const models = (modelSlice?.models || []).filter(m => current[m.id] != null);
+  if (!models.length) return { pending: true };
+  let named = 0, cur = 0;
+  const per = models.map(m => {
+    const n = m.versions.reduce((a, v) => a + v.answers, 0), c = m.versions.filter(v => v.version === current[m.id]).reduce((a, v) => a + v.answers, 0);
+    named += n; cur += c;
+    return { id: m.id, name: m.name, current: current[m.id], named: n, current_share: n ? round1(pct(c, n)) : null };
+  });
+  return { pending: false, named, current_share: named ? round1(pct(cur, named)) : null, models: per };
+}

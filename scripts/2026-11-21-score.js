@@ -3,7 +3,8 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
-import { modelMatchers, modelView } from '../src/2026-11-22-extract.js';
+import { modelMatchers, modelView, steeringView, versionCurrency } from '../src/2026-11-22-extract.js';
+import { brandMatchers, findMentions } from '../src/2026-11-21-detect.js';
 import { needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
 import { MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 
@@ -53,6 +54,11 @@ views.sourcing = { '': topSourceDomains(runs) };
 // Tier 2 extraction: models named, from every spec-sheet row (names need no verification; facts do).
 const matchers = modelMatchers(read('2026-11-21-spec-sheet.csv'), read('2026-11-22-model-aliases.csv'), brands);
 views.models = modelView(runs, prompts, matchers, shoeBrands);
+const bm = brandMatchers(brands.filter(b => b.category === 'shoes'));
+const findBrands = t => findMentions(t, bm).map(m => m.brand_slug);
+views.steering = steeringView(runs, prompts, findBrands, matchers, shoeBrands);
+// Version currency needs the current version from verified spec-sheet rows; until then each brand is pending.
+views.versions = Object.fromEntries(shoeBrands.map(s => [s, versionCurrency(views.models[s], read('2026-11-21-spec-sheet.csv'))]));
 views.places = placesView(runs, brands.filter(b => b.category === 'shoes'), retailers, placesFor);
 // Each brand's side of its head-to-head pairs, for the /h2h grid rows and the brand page.
 for (const slug of views.h2h[''].brands) views.h2h[slug] = { sides: views.h2h[''].pairs.filter(p => p.a === slug || p.b === slug).map(p => sideOf(p, slug)) };

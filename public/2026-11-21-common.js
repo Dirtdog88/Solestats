@@ -43,6 +43,8 @@ export const DEFINITIONS = {
   by_engine: ['By engine', "The same score worked out on one engine's answers at a time. An engine more than 10 points below every other engine (each with at least 20 observations) is marked and becomes a Top fix."],
   models: ['Models named', "The brand's shoes named in answers that mention the brand, from the models on the spec sheet: the share of those answers naming each, the versions named, and the other brand's shoe named most often in the same answers."],
   pair_models: ['Shoes named most', "Each brand's shoe named most often in the answers to that pair's question. The question names only the brands, so this is the shoe the engines chose to compare."],
+  version_current: ['Current version', "Of the times the brand's shoes are named with a version number, the share naming the version on sale now, from the hand-checked spec sheet."],
+  steering: ['Steered to older or cheaper', "Share of answers naming the brand where the part about the brand points the shopper to last year's model or an older version, or to a sale, discount, outlet or clearance. Phrase lists, read in the sentence or bullet that names the brand or its shoe."],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],

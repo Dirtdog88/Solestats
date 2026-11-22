@@ -31,6 +31,23 @@ function modelsCard(m, name) {
     el('p', { class: 'muted small' }, `Share of the ${m.answers} answers naming ${name} that name each shoe. Tap one for the versions named.`));
 }
 
+/** Version and price: is AI naming the current version, and how often does it steer to an older or cheaper pair. */
+function versionCard(v, s, name) {
+  if (!v && !s) return null;
+  const tiles = [];
+  if (v) tiles.push(el('div', { class: 'subject' }, defined('div', 'version_current', { class: 'label' }),
+    v.pending ? el('div', { class: 'big none' }, '—') : el('div', { class: 'big' }, v.current_share == null ? '—' : `${Math.round(v.current_share)}%`),
+    el('div', { class: 'muted small' }, v.pending ? 'Waiting for the spec sheet: current versions are being checked by hand.' : `of ${v.named} mentions that name a version`)));
+  if (s) {
+    const engines = Object.entries(s.by_engine || {}).map(([e, x]) => `${engineName(e)} ${Math.round(x)}%`).join(', ');
+    const text = `Older model ${Math.round(s.older)}%, sale or discount ${Math.round(s.deal)}%, of ${s.answers} answers naming ${name}. By engine: ${engines}.${s.all_brands != null ? ` Across all brands: ${Math.round(s.all_brands)}%.` : ''}`;
+    tiles.push(el('div', { class: 'subject', 'data-tip': text, 'data-tip-title': 'Steered to older or cheaper', title: text, tabindex: '0' }, defined('div', 'steering', { class: 'label' }),
+      el('div', { class: 'big' }, `${Math.round(s.any)}%`),
+      el('div', { class: 'muted small' }, `older model ${Math.round(s.older)}% · sale or discount ${Math.round(s.deal)}%${s.all_brands != null ? ` · all brands ${Math.round(s.all_brands)}%` : ''}`)));
+  }
+  return el('section', { class: 'card' }, el('h3', {}, 'Version and price'), el('div', { class: 'subjects' }, ...tiles));
+}
+
 const KIND = { review: 'review site', forum: 'forum', news: 'news', retailer: 'retailer', brand: 'brand site', other: 'other' };
 
 /** Sources to earn: the sites AI names most for this brand, and the ones it names for competitors but never for it. */
@@ -155,6 +172,8 @@ async function main() {
   }
   const mc = modelsCard(d.models, d.brand.name);
   if (mc) card.append(mc);
+  const vc = versionCard(d.versions, d.steering, d.brand.name);
+  if (vc) card.append(vc);
   const pc = placesCard(d.places);
   if (pc) card.append(pc);
   const sc = sourcesCard(d.sources, d.brand.name);

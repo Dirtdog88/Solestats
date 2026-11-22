@@ -179,3 +179,23 @@ test('modelsIn: names, aliases and versions; common words need their brand or a 
   assert.equal(v.brooks.answers, 3);
   assert.deepEqual(v.brooks.models[0], { id: 'brooks/ghost', name: 'Ghost', answers: 2, share: 66.7, versions: [{ version: 17, answers: 1 }, { version: 16, answers: 1 }], beside: { id: 'nike/pegasus', name: 'Pegasus', brand_slug: 'nike', answers: 1 } });
 });
+
+test('segments carry a shoe title to the bullets under it; steeringView and versionCurrency', async () => {
+  const { modelMatchers, segments, steeringView, versionCurrency } = await import('../src/2026-11-22-extract.js');
+  const M = modelMatchers([{ id: 'brooks/ghost', brand_slug: 'brooks', name: 'Ghost' }, { id: 'hoka/clifton', brand_slug: 'hoka', name: 'Clifton' }], [], []);
+  const fb = t => (/\bBrooks\b/.test(t) ? ['brooks'] : []).concat(/\bHoka\b/.test(t) ? ['hoka'] : []);
+  const segs = segments('**Brooks Ghost 17**\n- Soft. Last year\'s model is often on sale.\n**Hoka Clifton 10:**\n- Very cushioned.\nAny of these work.', fb, M);
+  assert.deepEqual(segs.map(s => s.brands), [['brooks'], ['brooks'], ['brooks'], ['hoka'], ['hoka'], []]);
+  const runs = [
+    { status: 'ok', prompt_id: 'S1', engine: 'openai', mentions: [{ brand_slug: 'brooks' }, { brand_slug: 'hoka' }], answer: '**Brooks Ghost 17**\n- Last year\'s model is often on sale.\n**Hoka Clifton 10**\n- Plush.' },
+    { status: 'ok', prompt_id: 'S1', engine: 'anthropic', mentions: [{ brand_slug: 'brooks' }], answer: 'The Brooks Ghost is a safe daily trainer.' },
+    { status: 'ok', prompt_id: 'S1', engine: 'anthropic', mentions: [{ brand_slug: 'hoka' }], answer: 'Hoka Clifton. Check the outlet for discounts.' },
+  ];
+  const v = steeringView(runs, [{ id: 'S1', set: 'shoe' }], fb, M, ['brooks', 'hoka']);
+  assert.deepEqual(v.brooks, { answers: 2, older: 50, deal: 50, any: 50, by_engine: { anthropic: 0, openai: 100 } });
+  assert.deepEqual([v.hoka.older, v.hoka.deal], [0, 50]);   // 'Check the outlet' follows a sentence naming Hoka on the same line
+  assert.deepEqual(v[''], { pairs: 4, any: 50 });          // brooks 1 of 2, hoka 1 of 2
+  const slice = { models: [{ id: 'brooks/ghost', name: 'Ghost', versions: [{ version: 17, answers: 6 }, { version: 16, answers: 2 }] }] };
+  assert.deepEqual(versionCurrency(slice, [{ id: 'brooks/ghost', version: '17', verified_on: '' }]), { pending: true });
+  assert.deepEqual(versionCurrency(slice, [{ id: 'brooks/ghost', version: '17', verified_on: '2026-12-01' }]), { pending: false, named: 8, current_share: 75, models: [{ id: 'brooks/ghost', name: 'Ghost', current: 17, named: 8, current_share: 75 }] });
+});
