@@ -4364,6 +4364,3118 @@
     ]
    }
   },
+  "models": {
+   "brooks": {
+    "answers": 700,
+    "models": [
+     {
+      "id": "brooks/ghost",
+      "name": "Ghost",
+      "answers": 485,
+      "share": 69.3,
+      "versions": [
+       {
+        "version": 18,
+        "answers": 132
+       },
+       {
+        "version": 16,
+        "answers": 67
+       },
+       {
+        "version": 17,
+        "answers": 47
+       },
+       {
+        "version": 15,
+        "answers": 28
+       },
+       {
+        "version": 2,
+        "answers": 28
+       },
+       {
+        "version": 3,
+        "answers": 19
+       },
+       {
+        "version": 4,
+        "answers": 16
+       },
+       {
+        "version": 1,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 180
+      }
+     },
+     {
+      "id": "brooks/adrenaline-gts",
+      "name": "Adrenaline GTS",
+      "answers": 354,
+      "share": 50.6,
+      "versions": [
+       {
+        "version": 25,
+        "answers": 79
+       },
+       {
+        "version": 23,
+        "answers": 33
+       },
+       {
+        "version": 24,
+        "answers": 23
+       },
+       {
+        "version": 26,
+        "answers": 22
+       }
+      ],
+      "beside": {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 168
+      }
+     },
+     {
+      "id": "brooks/glycerin",
+      "name": "Glycerin",
+      "answers": 171,
+      "share": 24.4,
+      "versions": [
+       {
+        "version": 21,
+        "answers": 25
+       },
+       {
+        "version": 23,
+        "answers": 18
+       },
+       {
+        "version": 22,
+        "answers": 6
+       }
+      ],
+      "beside": {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 91
+      }
+     },
+     {
+      "id": "brooks/cascadia",
+      "name": "Cascadia",
+      "answers": 68,
+      "share": 9.7,
+      "versions": [
+       {
+        "version": 20,
+        "answers": 33
+       },
+       {
+        "version": 19,
+        "answers": 9
+       },
+       {
+        "version": 18,
+        "answers": 5
+       },
+       {
+        "version": 17,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 44
+      }
+     },
+     {
+      "id": "brooks/hyperion-max",
+      "name": "Hyperion Max",
+      "answers": 31,
+      "share": 4.4,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 4
+       },
+       {
+        "version": 2,
+        "answers": 3
+       },
+       {
+        "version": 4,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 11
+      }
+     },
+     {
+      "id": "brooks/launch",
+      "name": "Launch",
+      "answers": 8,
+      "share": 1.1,
+      "versions": [
+       {
+        "version": 12,
+        "answers": 2
+       },
+       {
+        "version": 10,
+        "answers": 2
+       },
+       {
+        "version": 11,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 6
+      }
+     }
+    ]
+   },
+   "hoka": {
+    "answers": 600,
+    "models": [
+     {
+      "id": "hoka/clifton",
+      "name": "Clifton",
+      "answers": 272,
+      "share": 45.3,
+      "versions": [
+       {
+        "version": 9,
+        "answers": 62
+       },
+       {
+        "version": 11,
+        "answers": 44
+       },
+       {
+        "version": 10,
+        "answers": 41
+       },
+       {
+        "version": 8,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 180
+      }
+     },
+     {
+      "id": "hoka/bondi",
+      "name": "Bondi",
+      "answers": 202,
+      "share": 33.7,
+      "versions": [
+       {
+        "version": 9,
+        "answers": 50
+       },
+       {
+        "version": 8,
+        "answers": 43
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 136
+      }
+     },
+     {
+      "id": "hoka/speedgoat",
+      "name": "Speedgoat",
+      "answers": 108,
+      "share": 18,
+      "versions": [
+       {
+        "version": 7,
+        "answers": 39
+       },
+       {
+        "version": 6,
+        "answers": 35
+       },
+       {
+        "version": 5,
+        "answers": 3
+       },
+       {
+        "version": 2,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "saucony/peregrine",
+       "name": "Peregrine",
+       "brand_slug": "saucony",
+       "answers": 45
+      }
+     },
+     {
+      "id": "hoka/arahi",
+      "name": "Arahi",
+      "answers": 68,
+      "share": 11.3,
+      "versions": [
+       {
+        "version": 9,
+        "answers": 10
+       },
+       {
+        "version": 8,
+        "answers": 6
+       },
+       {
+        "version": 7,
+        "answers": 3
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 50
+      }
+     },
+     {
+      "id": "hoka/mach",
+      "name": "Mach",
+      "answers": 67,
+      "share": 11.2,
+      "versions": [
+       {
+        "version": 6,
+        "answers": 37
+       },
+       {
+        "version": 7,
+        "answers": 9
+       },
+       {
+        "version": 2,
+        "answers": 3
+       },
+       {
+        "version": 3,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 30
+      }
+     },
+     {
+      "id": "hoka/rocket-x",
+      "name": "Rocket X",
+      "answers": 18,
+      "share": 3,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 7
+       }
+      ],
+      "beside": {
+       "id": "asics/metaspeed-sky",
+       "name": "Metaspeed Sky",
+       "brand_slug": "asics",
+       "answers": 5
+      }
+     }
+    ]
+   },
+   "on": {
+    "answers": 134,
+    "models": [
+     {
+      "id": "on/cloudsurfer",
+      "name": "Cloudsurfer",
+      "answers": 74,
+      "share": 55.2,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 23
+       },
+       {
+        "version": 3,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 16
+      }
+     },
+     {
+      "id": "on/cloudmonster",
+      "name": "Cloudmonster",
+      "answers": 62,
+      "share": 46.3,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 18
+       },
+       {
+        "version": 3,
+        "answers": 10
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 18
+      }
+     },
+     {
+      "id": "on/cloudrunner",
+      "name": "Cloudrunner",
+      "answers": 26,
+      "share": 19.4,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 5
+       },
+       {
+        "version": 3,
+        "answers": 3
+       }
+      ],
+      "beside": {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 10
+      }
+     },
+     {
+      "id": "on/cloudboom-strike",
+      "name": "Cloudboom Strike",
+      "answers": 19,
+      "share": 14.2,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 6
+       }
+      ],
+      "beside": {
+       "id": "adidas/adizero-adios-pro",
+       "name": "Adizero Adios Pro",
+       "brand_slug": "adidas",
+       "answers": 12
+      }
+     },
+     {
+      "id": "on/cloudeclipse",
+      "name": "Cloudeclipse",
+      "answers": 8,
+      "share": 6,
+      "versions": [],
+      "beside": {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 4
+      }
+     },
+     {
+      "id": "on/cloudultra",
+      "name": "Cloudultra",
+      "answers": 6,
+      "share": 4.5,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 2
+       },
+       {
+        "version": 3,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "hoka/rocket-x",
+       "name": "Rocket X",
+       "brand_slug": "hoka",
+       "answers": 4
+      }
+     }
+    ]
+   },
+   "saucony": {
+    "answers": 531,
+    "models": [
+     {
+      "id": "saucony/ride",
+      "name": "Ride",
+      "answers": 158,
+      "share": 29.8,
+      "versions": [
+       {
+        "version": 19,
+        "answers": 46
+       },
+       {
+        "version": 18,
+        "answers": 32
+       },
+       {
+        "version": 17,
+        "answers": 15
+       },
+       {
+        "version": 16,
+        "answers": 11
+       },
+       {
+        "version": 15,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 93
+      }
+     },
+     {
+      "id": "saucony/endorphin-speed",
+      "name": "Endorphin Speed",
+      "answers": 139,
+      "share": 26.2,
+      "versions": [
+       {
+        "version": 4,
+        "answers": 57
+       },
+       {
+        "version": 5,
+        "answers": 25
+       },
+       {
+        "version": 6,
+        "answers": 10
+       },
+       {
+        "version": 3,
+        "answers": 4
+       }
+      ],
+      "beside": {
+       "id": "nike/vaporfly",
+       "name": "Vaporfly",
+       "brand_slug": "nike",
+       "answers": 50
+      }
+     },
+     {
+      "id": "saucony/guide",
+      "name": "Guide",
+      "answers": 95,
+      "share": 17.9,
+      "versions": [
+       {
+        "version": 19,
+        "answers": 17
+       },
+       {
+        "version": 17,
+        "answers": 9
+       },
+       {
+        "version": 18,
+        "answers": 6
+       },
+       {
+        "version": 16,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 69
+      }
+     },
+     {
+      "id": "saucony/triumph",
+      "name": "Triumph",
+      "answers": 88,
+      "share": 16.6,
+      "versions": [
+       {
+        "version": 22,
+        "answers": 18
+       },
+       {
+        "version": 21,
+        "answers": 10
+       },
+       {
+        "version": 23,
+        "answers": 9
+       },
+       {
+        "version": 24,
+        "answers": 6
+       },
+       {
+        "version": 20,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 53
+      }
+     },
+     {
+      "id": "saucony/peregrine",
+      "name": "Peregrine",
+      "answers": 66,
+      "share": 12.4,
+      "versions": [
+       {
+        "version": 16,
+        "answers": 19
+       },
+       {
+        "version": 14,
+        "answers": 14
+       },
+       {
+        "version": 15,
+        "answers": 4
+       }
+      ],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 45
+      }
+     },
+     {
+      "id": "saucony/kinvara",
+      "name": "Kinvara",
+      "answers": 48,
+      "share": 9,
+      "versions": [
+       {
+        "version": 14,
+        "answers": 9
+       },
+       {
+        "version": 16,
+        "answers": 4
+       },
+       {
+        "version": 15,
+        "answers": 4
+       }
+      ],
+      "beside": {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 21
+      }
+     }
+    ]
+   },
+   "asics": {
+    "answers": 638,
+    "models": [
+     {
+      "id": "asics/gel-nimbus",
+      "name": "Gel-Nimbus",
+      "answers": 241,
+      "share": 37.8,
+      "versions": [
+       {
+        "version": 26,
+        "answers": 39
+       },
+       {
+        "version": 28,
+        "answers": 32
+       },
+       {
+        "version": 27,
+        "answers": 19
+       },
+       {
+        "version": 25,
+        "answers": 8
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 157
+      }
+     },
+     {
+      "id": "asics/gel-kayano",
+      "name": "Gel-Kayano",
+      "answers": 228,
+      "share": 35.7,
+      "versions": [
+       {
+        "version": 33,
+        "answers": 38
+       },
+       {
+        "version": 31,
+        "answers": 30
+       },
+       {
+        "version": 32,
+        "answers": 18
+       },
+       {
+        "version": 30,
+        "answers": 2
+       },
+       {
+        "version": 14,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 168
+      }
+     },
+     {
+      "id": "asics/novablast",
+      "name": "Novablast",
+      "answers": 192,
+      "share": 30.1,
+      "versions": [
+       {
+        "version": 6,
+        "answers": 41
+       },
+       {
+        "version": 5,
+        "answers": 40
+       },
+       {
+        "version": 4,
+        "answers": 37
+       },
+       {
+        "version": 3,
+        "answers": 7
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 105
+      }
+     },
+     {
+      "id": "asics/gel-cumulus",
+      "name": "Gel-Cumulus",
+      "answers": 114,
+      "share": 17.9,
+      "versions": [
+       {
+        "version": 28,
+        "answers": 53
+       },
+       {
+        "version": 27,
+        "answers": 6
+       },
+       {
+        "version": 26,
+        "answers": 6
+       },
+       {
+        "version": 25,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 61
+      }
+     },
+     {
+      "id": "asics/metaspeed-sky",
+      "name": "Metaspeed Sky",
+      "answers": 76,
+      "share": 11.9,
+      "versions": [],
+      "beside": {
+       "id": "nike/vaporfly",
+       "name": "Vaporfly",
+       "brand_slug": "nike",
+       "answers": 40
+      }
+     },
+     {
+      "id": "asics/superblast",
+      "name": "Superblast",
+      "answers": 63,
+      "share": 9.9,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 29
+       },
+       {
+        "version": 2,
+        "answers": 28
+       }
+      ],
+      "beside": {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 35
+      }
+     }
+    ]
+   },
+   "nike": {
+    "answers": 458,
+    "models": [
+     {
+      "id": "nike/pegasus",
+      "name": "Pegasus",
+      "answers": 223,
+      "share": 48.7,
+      "versions": [
+       {
+        "version": 41,
+        "answers": 61
+       },
+       {
+        "version": 42,
+        "answers": 44
+       },
+       {
+        "version": 40,
+        "answers": 25
+       },
+       {
+        "version": 2,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 139
+      }
+     },
+     {
+      "id": "nike/vaporfly",
+      "name": "Vaporfly",
+      "answers": 103,
+      "share": 22.5,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 33
+       },
+       {
+        "version": 4,
+        "answers": 27
+       },
+       {
+        "version": 5,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 49
+      }
+     },
+     {
+      "id": "nike/vomero",
+      "name": "Vomero",
+      "answers": 93,
+      "share": 20.3,
+      "versions": [
+       {
+        "version": 18,
+        "answers": 29
+       },
+       {
+        "version": 17,
+        "answers": 9
+       },
+       {
+        "version": 5,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 33
+      }
+     },
+     {
+      "id": "nike/pegasus-trail",
+      "name": "Pegasus Trail",
+      "answers": 41,
+      "share": 9,
+      "versions": [
+       {
+        "version": 5,
+        "answers": 15
+       },
+       {
+        "version": 4,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "brooks/cascadia",
+       "name": "Cascadia",
+       "brand_slug": "brooks",
+       "answers": 21
+      }
+     },
+     {
+      "id": "nike/invincible",
+      "name": "Invincible",
+      "answers": 28,
+      "share": 6.1,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 16
+       }
+      ],
+      "beside": {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 17
+      }
+     },
+     {
+      "id": "nike/structure",
+      "name": "Structure",
+      "answers": 16,
+      "share": 3.5,
+      "versions": [
+       {
+        "version": 26,
+        "answers": 5
+       }
+      ],
+      "beside": {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 9
+      }
+     }
+    ]
+   },
+   "adidas": {
+    "answers": 303,
+    "models": [
+     {
+      "id": "adidas/adizero-evo-sl",
+      "name": "Adizero Evo SL",
+      "answers": 102,
+      "share": 33.7,
+      "versions": [],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 27
+      }
+     },
+     {
+      "id": "adidas/adizero-adios-pro",
+      "name": "Adizero Adios Pro",
+      "answers": 72,
+      "share": 23.8,
+      "versions": [
+       {
+        "version": 4,
+        "answers": 25
+       },
+       {
+        "version": 3,
+        "answers": 18
+       },
+       {
+        "version": 5,
+        "answers": 7
+       }
+      ],
+      "beside": {
+       "id": "nike/vaporfly",
+       "name": "Vaporfly",
+       "brand_slug": "nike",
+       "answers": 43
+      }
+     },
+     {
+      "id": "adidas/supernova-rise",
+      "name": "Supernova Rise",
+      "answers": 71,
+      "share": 23.4,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 31
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 20
+      }
+     },
+     {
+      "id": "adidas/adizero-boston",
+      "name": "Adizero Boston",
+      "answers": 52,
+      "share": 17.2,
+      "versions": [
+       {
+        "version": 12,
+        "answers": 31
+       },
+       {
+        "version": 13,
+        "answers": 12
+       }
+      ],
+      "beside": {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 25
+      }
+     },
+     {
+      "id": "adidas/ultraboost",
+      "name": "Ultraboost",
+      "answers": 10,
+      "share": 3.3,
+      "versions": [
+       {
+        "version": 5,
+        "answers": 3
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 7
+      }
+     },
+     {
+      "id": "adidas/terrex-agravic",
+      "name": "Terrex Agravic",
+      "answers": 7,
+      "share": 2.3,
+      "versions": [],
+      "beside": {
+       "id": "la-sportiva/prodigio",
+       "name": "Prodigio",
+       "brand_slug": "la-sportiva",
+       "answers": 3
+      }
+     }
+    ]
+   },
+   "new-balance": {
+    "answers": 408,
+    "models": [
+     {
+      "id": "new-balance/fresh-foam-x-1080",
+      "name": "Fresh Foam X 1080",
+      "answers": 226,
+      "share": 55.4,
+      "versions": [
+       {
+        "version": 15,
+        "answers": 63
+       },
+       {
+        "version": 14,
+        "answers": 14
+       },
+       {
+        "version": 13,
+        "answers": 9
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 132
+      }
+     },
+     {
+      "id": "new-balance/fresh-foam-x-880",
+      "name": "Fresh Foam X 880",
+      "answers": 141,
+      "share": 34.6,
+      "versions": [
+       {
+        "version": 15,
+        "answers": 45
+       },
+       {
+        "version": 14,
+        "answers": 9
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 83
+      }
+     },
+     {
+      "id": "new-balance/rebel",
+      "name": "Rebel",
+      "answers": 91,
+      "share": 22.3,
+      "versions": [
+       {
+        "version": 4,
+        "answers": 25
+       },
+       {
+        "version": 5,
+        "answers": 23
+       },
+       {
+        "version": 1,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 32
+      }
+     },
+     {
+      "id": "new-balance/fresh-foam-x-860",
+      "name": "Fresh Foam X 860",
+      "answers": 78,
+      "share": 19.1,
+      "versions": [
+       {
+        "version": 15,
+        "answers": 14
+       },
+       {
+        "version": 14,
+        "answers": 6
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 60
+      }
+     },
+     {
+      "id": "new-balance/fresh-foam-x-hierro",
+      "name": "Fresh Foam X Hierro",
+      "answers": 15,
+      "share": 3.7,
+      "versions": [
+       {
+        "version": 9,
+        "answers": 12
+       },
+       {
+        "version": 8,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "altra/lone-peak",
+       "name": "Lone Peak",
+       "brand_slug": "altra",
+       "answers": 6
+      }
+     },
+     {
+      "id": "new-balance/fuelcell-supercomp-elite",
+      "name": "FuelCell SuperComp Elite",
+      "answers": 12,
+      "share": 2.9,
+      "versions": [
+       {
+        "version": 5,
+        "answers": 6
+       },
+       {
+        "version": 4,
+        "answers": 6
+       }
+      ],
+      "beside": {
+       "id": "adidas/adizero-adios-pro",
+       "name": "Adizero Adios Pro",
+       "brand_slug": "adidas",
+       "answers": 8
+      }
+     }
+    ]
+   },
+   "altra": {
+    "answers": 224,
+    "models": [
+     {
+      "id": "altra/lone-peak",
+      "name": "Lone Peak",
+      "answers": 74,
+      "share": 33,
+      "versions": [
+       {
+        "version": 9,
+        "answers": 26
+       },
+       {
+        "version": 8,
+        "answers": 13
+       }
+      ],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 39
+      }
+     },
+     {
+      "id": "altra/torin",
+      "name": "Torin",
+      "answers": 74,
+      "share": 33,
+      "versions": [
+       {
+        "version": 9,
+        "answers": 19
+       },
+       {
+        "version": 7,
+        "answers": 15
+       },
+       {
+        "version": 8,
+        "answers": 13
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 40
+      }
+     },
+     {
+      "id": "altra/escalante",
+      "name": "Escalante",
+      "answers": 31,
+      "share": 13.8,
+      "versions": [
+       {
+        "version": 5,
+        "answers": 9
+       },
+       {
+        "version": 4,
+        "answers": 9
+       }
+      ],
+      "beside": {
+       "id": "saucony/kinvara",
+       "name": "Kinvara",
+       "brand_slug": "saucony",
+       "answers": 12
+      }
+     }
+    ]
+   },
+   "topo": {
+    "answers": 162,
+    "models": [
+     {
+      "id": "topo/phantom",
+      "name": "Phantom",
+      "answers": 50,
+      "share": 30.9,
+      "versions": [
+       {
+        "version": 4,
+        "answers": 23
+       },
+       {
+        "version": 3,
+        "answers": 9
+       }
+      ],
+      "beside": {
+       "id": "altra/torin",
+       "name": "Torin",
+       "brand_slug": "altra",
+       "answers": 31
+      }
+     },
+     {
+      "id": "topo/ultraventure",
+      "name": "Ultraventure",
+      "answers": 30,
+      "share": 18.5,
+      "versions": [
+       {
+        "version": 5,
+        "answers": 11
+       },
+       {
+        "version": 4,
+        "answers": 8
+       },
+       {
+        "version": 3,
+        "answers": 5
+       }
+      ],
+      "beside": {
+       "id": "altra/lone-peak",
+       "name": "Lone Peak",
+       "brand_slug": "altra",
+       "answers": 19
+      }
+     },
+     {
+      "id": "topo/cyclone",
+      "name": "Cyclone",
+      "answers": 11,
+      "share": 6.8,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 10
+       },
+       {
+        "version": 3,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 8
+      }
+     }
+    ]
+   },
+   "salomon": {
+    "answers": 113,
+    "models": [
+     {
+      "id": "salomon/speedcross",
+      "name": "Speedcross",
+      "answers": 66,
+      "share": 58.4,
+      "versions": [
+       {
+        "version": 6,
+        "answers": 45
+       }
+      ],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 44
+      }
+     },
+     {
+      "id": "salomon/genesis",
+      "name": "Genesis",
+      "answers": 26,
+      "share": 23,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 11
+       }
+      ],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 20
+      }
+     },
+     {
+      "id": "salomon/sense-ride",
+      "name": "Sense Ride",
+      "answers": 6,
+      "share": 5.3,
+      "versions": [
+       {
+        "version": 5,
+        "answers": 4
+       }
+      ],
+      "beside": {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 4
+      }
+     }
+    ]
+   },
+   "merrell": {
+    "answers": 34,
+    "models": [
+     {
+      "id": "merrell/agility-peak",
+      "name": "Agility Peak",
+      "answers": 6,
+      "share": 17.6,
+      "versions": [
+       {
+        "version": 6,
+        "answers": 3
+       },
+       {
+        "version": 5,
+        "answers": 3
+       }
+      ],
+      "beside": {
+       "id": "salomon/speedcross",
+       "name": "Speedcross",
+       "brand_slug": "salomon",
+       "answers": 6
+      }
+     },
+     {
+      "id": "merrell/morphlite",
+      "name": "Morphlite",
+      "answers": 2,
+      "share": 5.9,
+      "versions": [],
+      "beside": {
+       "id": "brooks/cascadia",
+       "name": "Cascadia",
+       "brand_slug": "brooks",
+       "answers": 2
+      }
+     }
+    ]
+   },
+   "la-sportiva": {
+    "answers": 62,
+    "models": [
+     {
+      "id": "la-sportiva/bushido",
+      "name": "Bushido",
+      "answers": 28,
+      "share": 45.2,
+      "versions": [],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 24
+      }
+     },
+     {
+      "id": "la-sportiva/prodigio",
+      "name": "Prodigio",
+      "answers": 22,
+      "share": 35.5,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 15
+      }
+     }
+    ]
+   },
+   "mizuno": {
+    "answers": 53,
+    "models": [
+     {
+      "id": "mizuno/wave-rider",
+      "name": "Wave Rider",
+      "answers": 25,
+      "share": 47.2,
+      "versions": [
+       {
+        "version": 29,
+        "answers": 6
+       },
+       {
+        "version": 28,
+        "answers": 6
+       },
+       {
+        "version": 30,
+        "answers": 4
+       },
+       {
+        "version": 27,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 19
+      }
+     },
+     {
+      "id": "mizuno/wave-inspire",
+      "name": "Wave Inspire",
+      "answers": 20,
+      "share": 37.7,
+      "versions": [
+       {
+        "version": 22,
+        "answers": 4
+       },
+       {
+        "version": 21,
+        "answers": 2
+       },
+       {
+        "version": 20,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 19
+      }
+     },
+     {
+      "id": "mizuno/neo-vista",
+      "name": "Neo Vista",
+      "answers": 9,
+      "share": 17,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 6
+       },
+       {
+        "version": 3,
+        "answers": 3
+       }
+      ],
+      "beside": {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 9
+      }
+     }
+    ]
+   },
+   "puma": {
+    "answers": 106,
+    "models": [
+     {
+      "id": "puma/deviate-nitro",
+      "name": "Deviate Nitro",
+      "answers": 34,
+      "share": 32.1,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 10
+       },
+       {
+        "version": 2,
+        "answers": 7
+       },
+       {
+        "version": 4,
+        "answers": 3
+       }
+      ],
+      "beside": {
+       "id": "asics/metaspeed-sky",
+       "name": "Metaspeed Sky",
+       "brand_slug": "asics",
+       "answers": 14
+      }
+     },
+     {
+      "id": "puma/velocity-nitro",
+      "name": "Velocity Nitro",
+      "answers": 30,
+      "share": 28.3,
+      "versions": [
+       {
+        "version": 3,
+        "answers": 12
+       },
+       {
+        "version": 4,
+        "answers": 5
+       },
+       {
+        "version": 2,
+        "answers": 4
+       }
+      ],
+      "beside": {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 22
+      }
+     },
+     {
+      "id": "puma/foreverrun-nitro",
+      "name": "ForeverRun Nitro",
+      "answers": 2,
+      "share": 1.9,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 2
+       }
+      ],
+      "beside": {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 2
+      }
+     }
+    ]
+   },
+   "under-armour": {
+    "answers": 8,
+    "models": [
+     {
+      "id": "under-armour/velociti",
+      "name": "Velociti",
+      "answers": 4,
+      "share": 50,
+      "versions": [],
+      "beside": {
+       "id": "adidas/adizero-adios-pro",
+       "name": "Adizero Adios Pro",
+       "brand_slug": "adidas",
+       "answers": 4
+      }
+     }
+    ]
+   },
+   "skechers": {
+    "answers": 13,
+    "models": []
+   },
+   "inov8": {
+    "answers": 27,
+    "models": [
+     {
+      "id": "inov8/trailfly",
+      "name": "Trailfly",
+      "answers": 11,
+      "share": 40.7,
+      "versions": [
+       {
+        "version": 2,
+        "answers": 1
+       }
+      ],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 8
+      }
+     },
+     {
+      "id": "inov8/trailtalon",
+      "name": "TrailTalon",
+      "answers": 3,
+      "share": 11.1,
+      "versions": [],
+      "beside": {
+       "id": "hoka/speedgoat",
+       "name": "Speedgoat",
+       "brand_slug": "hoka",
+       "answers": 3
+      }
+     },
+     {
+      "id": "inov8/parkclaw",
+      "name": "Parkclaw",
+      "answers": 1,
+      "share": 3.7,
+      "versions": [],
+      "beside": {
+       "id": "altra/lone-peak",
+       "name": "Lone Peak",
+       "brand_slug": "altra",
+       "answers": 1
+      }
+     }
+    ]
+   },
+   "": {
+    "h2h": {
+     "H001": [
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 9
+      },
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 9
+      },
+      {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 5
+      },
+      {
+       "id": "hoka/arahi",
+       "name": "Arahi",
+       "brand_slug": "hoka",
+       "answers": 5
+      },
+      {
+       "id": "brooks/glycerin",
+       "name": "Glycerin",
+       "brand_slug": "brooks",
+       "answers": 3
+      },
+      {
+       "id": "hoka/bondi",
+       "name": "Bondi",
+       "brand_slug": "hoka",
+       "answers": 3
+      },
+      {
+       "id": "brooks/hyperion-max",
+       "name": "Hyperion Max",
+       "brand_slug": "brooks",
+       "answers": 2
+      },
+      {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 2
+      },
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 1
+      }
+     ],
+     "H002": [
+      {
+       "id": "on/cloudsurfer",
+       "name": "Cloudsurfer",
+       "brand_slug": "on",
+       "answers": 9
+      },
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 9
+      },
+      {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 6
+      },
+      {
+       "id": "on/cloudmonster",
+       "name": "Cloudmonster",
+       "brand_slug": "on",
+       "answers": 6
+      },
+      {
+       "id": "brooks/glycerin",
+       "name": "Glycerin",
+       "brand_slug": "brooks",
+       "answers": 4
+      },
+      {
+       "id": "on/cloudrunner",
+       "name": "Cloudrunner",
+       "brand_slug": "on",
+       "answers": 3
+      }
+     ],
+     "H003": [
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 9
+      },
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 9
+      },
+      {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 6
+      },
+      {
+       "id": "saucony/guide",
+       "name": "Guide",
+       "brand_slug": "saucony",
+       "answers": 5
+      },
+      {
+       "id": "brooks/glycerin",
+       "name": "Glycerin",
+       "brand_slug": "brooks",
+       "answers": 3
+      },
+      {
+       "id": "saucony/triumph",
+       "name": "Triumph",
+       "brand_slug": "saucony",
+       "answers": 2
+      }
+     ],
+     "H004": [
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 9
+      },
+      {
+       "id": "asics/gel-cumulus",
+       "name": "Gel-Cumulus",
+       "brand_slug": "asics",
+       "answers": 7
+      },
+      {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "brooks/glycerin",
+       "name": "Glycerin",
+       "brand_slug": "brooks",
+       "answers": 6
+      },
+      {
+       "id": "brooks/hyperion-max",
+       "name": "Hyperion Max",
+       "brand_slug": "brooks",
+       "answers": 1
+      }
+     ],
+     "H005": [
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 9
+      },
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 9
+      },
+      {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 6
+      },
+      {
+       "id": "brooks/glycerin",
+       "name": "Glycerin",
+       "brand_slug": "brooks",
+       "answers": 5
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 5
+      },
+      {
+       "id": "nike/structure",
+       "name": "Structure",
+       "brand_slug": "nike",
+       "answers": 3
+      },
+      {
+       "id": "nike/invincible",
+       "name": "Invincible",
+       "brand_slug": "nike",
+       "answers": 3
+      },
+      {
+       "id": "puma/deviate-nitro",
+       "name": "Deviate Nitro",
+       "brand_slug": "puma",
+       "answers": 1
+      }
+     ],
+     "H006": [
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 9
+      },
+      {
+       "id": "adidas/adizero-evo-sl",
+       "name": "Adizero Evo SL",
+       "brand_slug": "adidas",
+       "answers": 6
+      },
+      {
+       "id": "adidas/supernova-rise",
+       "name": "Supernova Rise",
+       "brand_slug": "adidas",
+       "answers": 6
+      },
+      {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 5
+      },
+      {
+       "id": "brooks/glycerin",
+       "name": "Glycerin",
+       "brand_slug": "brooks",
+       "answers": 5
+      },
+      {
+       "id": "adidas/adizero-boston",
+       "name": "Adizero Boston",
+       "brand_slug": "adidas",
+       "answers": 3
+      },
+      {
+       "id": "brooks/hyperion-max",
+       "name": "Hyperion Max",
+       "brand_slug": "brooks",
+       "answers": 2
+      },
+      {
+       "id": "adidas/ultraboost",
+       "name": "Ultraboost",
+       "brand_slug": "adidas",
+       "answers": 1
+      }
+     ],
+     "H007": [
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 9
+      },
+      {
+       "id": "new-balance/fresh-foam-x-1080",
+       "name": "Fresh Foam X 1080",
+       "brand_slug": "new-balance",
+       "answers": 7
+      },
+      {
+       "id": "new-balance/fresh-foam-x-880",
+       "name": "Fresh Foam X 880",
+       "brand_slug": "new-balance",
+       "answers": 7
+      },
+      {
+       "id": "brooks/adrenaline-gts",
+       "name": "Adrenaline GTS",
+       "brand_slug": "brooks",
+       "answers": 6
+      },
+      {
+       "id": "new-balance/fresh-foam-x-860",
+       "name": "Fresh Foam X 860",
+       "brand_slug": "new-balance",
+       "answers": 6
+      },
+      {
+       "id": "brooks/glycerin",
+       "name": "Glycerin",
+       "brand_slug": "brooks",
+       "answers": 5
+      },
+      {
+       "id": "new-balance/rebel",
+       "name": "Rebel",
+       "brand_slug": "new-balance",
+       "answers": 3
+      }
+     ],
+     "H008": [
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 9
+      },
+      {
+       "id": "on/cloudsurfer",
+       "name": "Cloudsurfer",
+       "brand_slug": "on",
+       "answers": 7
+      },
+      {
+       "id": "on/cloudmonster",
+       "name": "Cloudmonster",
+       "brand_slug": "on",
+       "answers": 6
+      },
+      {
+       "id": "on/cloudrunner",
+       "name": "Cloudrunner",
+       "brand_slug": "on",
+       "answers": 5
+      },
+      {
+       "id": "hoka/bondi",
+       "name": "Bondi",
+       "brand_slug": "hoka",
+       "answers": 4
+      },
+      {
+       "id": "hoka/arahi",
+       "name": "Arahi",
+       "brand_slug": "hoka",
+       "answers": 2
+      },
+      {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 2
+      }
+     ],
+     "H009": [
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 9
+      },
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 8
+      },
+      {
+       "id": "hoka/arahi",
+       "name": "Arahi",
+       "brand_slug": "hoka",
+       "answers": 4
+      },
+      {
+       "id": "saucony/triumph",
+       "name": "Triumph",
+       "brand_slug": "saucony",
+       "answers": 3
+      },
+      {
+       "id": "saucony/guide",
+       "name": "Guide",
+       "brand_slug": "saucony",
+       "answers": 3
+      },
+      {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 3
+      },
+      {
+       "id": "saucony/kinvara",
+       "name": "Kinvara",
+       "brand_slug": "saucony",
+       "answers": 3
+      },
+      {
+       "id": "hoka/bondi",
+       "name": "Bondi",
+       "brand_slug": "hoka",
+       "answers": 3
+      },
+      {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 2
+      }
+     ],
+     "H010": [
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 9
+      },
+      {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-cumulus",
+       "name": "Gel-Cumulus",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "hoka/bondi",
+       "name": "Bondi",
+       "brand_slug": "hoka",
+       "answers": 5
+      },
+      {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 4
+      },
+      {
+       "id": "hoka/arahi",
+       "name": "Arahi",
+       "brand_slug": "hoka",
+       "answers": 4
+      },
+      {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 2
+      }
+     ],
+     "H011": [
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 9
+      },
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 9
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 4
+      },
+      {
+       "id": "hoka/bondi",
+       "name": "Bondi",
+       "brand_slug": "hoka",
+       "answers": 3
+      },
+      {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 1
+      },
+      {
+       "id": "nike/structure",
+       "name": "Structure",
+       "brand_slug": "nike",
+       "answers": 1
+      },
+      {
+       "id": "hoka/arahi",
+       "name": "Arahi",
+       "brand_slug": "hoka",
+       "answers": 1
+      }
+     ],
+     "H012": [
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 9
+      },
+      {
+       "id": "adidas/supernova-rise",
+       "name": "Supernova Rise",
+       "brand_slug": "adidas",
+       "answers": 7
+      },
+      {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 5
+      },
+      {
+       "id": "adidas/adizero-evo-sl",
+       "name": "Adizero Evo SL",
+       "brand_slug": "adidas",
+       "answers": 4
+      },
+      {
+       "id": "hoka/bondi",
+       "name": "Bondi",
+       "brand_slug": "hoka",
+       "answers": 3
+      },
+      {
+       "id": "adidas/adizero-boston",
+       "name": "Adizero Boston",
+       "brand_slug": "adidas",
+       "answers": 2
+      },
+      {
+       "id": "hoka/arahi",
+       "name": "Arahi",
+       "brand_slug": "hoka",
+       "answers": 1
+      }
+     ],
+     "H013": [
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 9
+      },
+      {
+       "id": "new-balance/fresh-foam-x-880",
+       "name": "Fresh Foam X 880",
+       "brand_slug": "new-balance",
+       "answers": 8
+      },
+      {
+       "id": "hoka/bondi",
+       "name": "Bondi",
+       "brand_slug": "hoka",
+       "answers": 6
+      },
+      {
+       "id": "new-balance/fresh-foam-x-1080",
+       "name": "Fresh Foam X 1080",
+       "brand_slug": "new-balance",
+       "answers": 6
+      },
+      {
+       "id": "new-balance/rebel",
+       "name": "Rebel",
+       "brand_slug": "new-balance",
+       "answers": 3
+      },
+      {
+       "id": "hoka/arahi",
+       "name": "Arahi",
+       "brand_slug": "hoka",
+       "answers": 2
+      },
+      {
+       "id": "new-balance/fresh-foam-x-860",
+       "name": "Fresh Foam X 860",
+       "brand_slug": "new-balance",
+       "answers": 2
+      },
+      {
+       "id": "hoka/mach",
+       "name": "Mach",
+       "brand_slug": "hoka",
+       "answers": 1
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 1
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 1
+      },
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 1
+      }
+     ],
+     "H014": [
+      {
+       "id": "on/cloudsurfer",
+       "name": "Cloudsurfer",
+       "brand_slug": "on",
+       "answers": 9
+      },
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 9
+      },
+      {
+       "id": "on/cloudmonster",
+       "name": "Cloudmonster",
+       "brand_slug": "on",
+       "answers": 6
+      },
+      {
+       "id": "saucony/triumph",
+       "name": "Triumph",
+       "brand_slug": "saucony",
+       "answers": 5
+      },
+      {
+       "id": "saucony/guide",
+       "name": "Guide",
+       "brand_slug": "saucony",
+       "answers": 3
+      },
+      {
+       "id": "on/cloudrunner",
+       "name": "Cloudrunner",
+       "brand_slug": "on",
+       "answers": 2
+      },
+      {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 1
+      },
+      {
+       "id": "on/cloudeclipse",
+       "name": "Cloudeclipse",
+       "brand_slug": "on",
+       "answers": 1
+      }
+     ],
+     "H015": [
+      {
+       "id": "on/cloudsurfer",
+       "name": "Cloudsurfer",
+       "brand_slug": "on",
+       "answers": 9
+      },
+      {
+       "id": "asics/gel-cumulus",
+       "name": "Gel-Cumulus",
+       "brand_slug": "asics",
+       "answers": 7
+      },
+      {
+       "id": "on/cloudmonster",
+       "name": "Cloudmonster",
+       "brand_slug": "on",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "on/cloudrunner",
+       "name": "Cloudrunner",
+       "brand_slug": "on",
+       "answers": 5
+      },
+      {
+       "id": "on/cloudeclipse",
+       "name": "Cloudeclipse",
+       "brand_slug": "on",
+       "answers": 4
+      }
+     ],
+     "H016": [
+      {
+       "id": "on/cloudsurfer",
+       "name": "Cloudsurfer",
+       "brand_slug": "on",
+       "answers": 9
+      },
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 9
+      },
+      {
+       "id": "on/cloudmonster",
+       "name": "Cloudmonster",
+       "brand_slug": "on",
+       "answers": 6
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 5
+      },
+      {
+       "id": "on/cloudrunner",
+       "name": "Cloudrunner",
+       "brand_slug": "on",
+       "answers": 1
+      }
+     ],
+     "H017": [
+      {
+       "id": "on/cloudsurfer",
+       "name": "Cloudsurfer",
+       "brand_slug": "on",
+       "answers": 9
+      },
+      {
+       "id": "adidas/supernova-rise",
+       "name": "Supernova Rise",
+       "brand_slug": "adidas",
+       "answers": 8
+      },
+      {
+       "id": "on/cloudmonster",
+       "name": "Cloudmonster",
+       "brand_slug": "on",
+       "answers": 5
+      },
+      {
+       "id": "adidas/adizero-evo-sl",
+       "name": "Adizero Evo SL",
+       "brand_slug": "adidas",
+       "answers": 3
+      },
+      {
+       "id": "adidas/adizero-boston",
+       "name": "Adizero Boston",
+       "brand_slug": "adidas",
+       "answers": 3
+      },
+      {
+       "id": "adidas/adizero-adios-pro",
+       "name": "Adizero Adios Pro",
+       "brand_slug": "adidas",
+       "answers": 2
+      },
+      {
+       "id": "on/cloudeclipse",
+       "name": "Cloudeclipse",
+       "brand_slug": "on",
+       "answers": 2
+      },
+      {
+       "id": "on/cloudboom-strike",
+       "name": "Cloudboom Strike",
+       "brand_slug": "on",
+       "answers": 1
+      },
+      {
+       "id": "on/cloudrunner",
+       "name": "Cloudrunner",
+       "brand_slug": "on",
+       "answers": 1
+      }
+     ],
+     "H018": [
+      {
+       "id": "new-balance/fresh-foam-x-1080",
+       "name": "Fresh Foam X 1080",
+       "brand_slug": "new-balance",
+       "answers": 8
+      },
+      {
+       "id": "new-balance/fresh-foam-x-880",
+       "name": "Fresh Foam X 880",
+       "brand_slug": "new-balance",
+       "answers": 7
+      },
+      {
+       "id": "on/cloudsurfer",
+       "name": "Cloudsurfer",
+       "brand_slug": "on",
+       "answers": 7
+      },
+      {
+       "id": "on/cloudmonster",
+       "name": "Cloudmonster",
+       "brand_slug": "on",
+       "answers": 6
+      },
+      {
+       "id": "new-balance/rebel",
+       "name": "Rebel",
+       "brand_slug": "new-balance",
+       "answers": 4
+      },
+      {
+       "id": "on/cloudrunner",
+       "name": "Cloudrunner",
+       "brand_slug": "on",
+       "answers": 2
+      },
+      {
+       "id": "new-balance/fresh-foam-x-860",
+       "name": "Fresh Foam X 860",
+       "brand_slug": "new-balance",
+       "answers": 1
+      }
+     ],
+     "H019": [
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 9
+      },
+      {
+       "id": "asics/gel-cumulus",
+       "name": "Gel-Cumulus",
+       "brand_slug": "asics",
+       "answers": 7
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 5
+      },
+      {
+       "id": "saucony/guide",
+       "name": "Guide",
+       "brand_slug": "saucony",
+       "answers": 5
+      },
+      {
+       "id": "saucony/triumph",
+       "name": "Triumph",
+       "brand_slug": "saucony",
+       "answers": 3
+      },
+      {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 3
+      },
+      {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 2
+      }
+     ],
+     "H020": [
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 9
+      },
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 9
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 5
+      },
+      {
+       "id": "saucony/triumph",
+       "name": "Triumph",
+       "brand_slug": "saucony",
+       "answers": 4
+      },
+      {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 2
+      },
+      {
+       "id": "nike/invincible",
+       "name": "Invincible",
+       "brand_slug": "nike",
+       "answers": 2
+      },
+      {
+       "id": "nike/structure",
+       "name": "Structure",
+       "brand_slug": "nike",
+       "answers": 1
+      },
+      {
+       "id": "saucony/guide",
+       "name": "Guide",
+       "brand_slug": "saucony",
+       "answers": 1
+      },
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 1
+      },
+      {
+       "id": "brooks/ghost",
+       "name": "Ghost",
+       "brand_slug": "brooks",
+       "answers": 1
+      },
+      {
+       "id": "saucony/kinvara",
+       "name": "Kinvara",
+       "brand_slug": "saucony",
+       "answers": 1
+      }
+     ],
+     "H021": [
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 9
+      },
+      {
+       "id": "adidas/supernova-rise",
+       "name": "Supernova Rise",
+       "brand_slug": "adidas",
+       "answers": 7
+      },
+      {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 5
+      },
+      {
+       "id": "saucony/triumph",
+       "name": "Triumph",
+       "brand_slug": "saucony",
+       "answers": 4
+      },
+      {
+       "id": "adidas/adizero-evo-sl",
+       "name": "Adizero Evo SL",
+       "brand_slug": "adidas",
+       "answers": 3
+      },
+      {
+       "id": "adidas/adizero-boston",
+       "name": "Adizero Boston",
+       "brand_slug": "adidas",
+       "answers": 3
+      },
+      {
+       "id": "saucony/guide",
+       "name": "Guide",
+       "brand_slug": "saucony",
+       "answers": 1
+      }
+     ],
+     "H022": [
+      {
+       "id": "saucony/ride",
+       "name": "Ride",
+       "brand_slug": "saucony",
+       "answers": 8
+      },
+      {
+       "id": "new-balance/fresh-foam-x-880",
+       "name": "Fresh Foam X 880",
+       "brand_slug": "new-balance",
+       "answers": 8
+      },
+      {
+       "id": "new-balance/fresh-foam-x-1080",
+       "name": "Fresh Foam X 1080",
+       "brand_slug": "new-balance",
+       "answers": 7
+      },
+      {
+       "id": "saucony/triumph",
+       "name": "Triumph",
+       "brand_slug": "saucony",
+       "answers": 5
+      },
+      {
+       "id": "saucony/endorphin-speed",
+       "name": "Endorphin Speed",
+       "brand_slug": "saucony",
+       "answers": 3
+      },
+      {
+       "id": "new-balance/rebel",
+       "name": "Rebel",
+       "brand_slug": "new-balance",
+       "answers": 3
+      },
+      {
+       "id": "saucony/guide",
+       "name": "Guide",
+       "brand_slug": "saucony",
+       "answers": 2
+      },
+      {
+       "id": "new-balance/fresh-foam-x-860",
+       "name": "Fresh Foam X 860",
+       "brand_slug": "new-balance",
+       "answers": 2
+      },
+      {
+       "id": "saucony/kinvara",
+       "name": "Kinvara",
+       "brand_slug": "saucony",
+       "answers": 1
+      }
+     ],
+     "H023": [
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 9
+      },
+      {
+       "id": "asics/gel-cumulus",
+       "name": "Gel-Cumulus",
+       "brand_slug": "asics",
+       "answers": 8
+      },
+      {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 6
+      },
+      {
+       "id": "nike/invincible",
+       "name": "Invincible",
+       "brand_slug": "nike",
+       "answers": 3
+      },
+      {
+       "id": "nike/structure",
+       "name": "Structure",
+       "brand_slug": "nike",
+       "answers": 2
+      }
+     ],
+     "H024": [
+      {
+       "id": "adidas/supernova-rise",
+       "name": "Supernova Rise",
+       "brand_slug": "adidas",
+       "answers": 9
+      },
+      {
+       "id": "asics/gel-cumulus",
+       "name": "Gel-Cumulus",
+       "brand_slug": "asics",
+       "answers": 8
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 7
+      },
+      {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 5
+      },
+      {
+       "id": "adidas/adizero-evo-sl",
+       "name": "Adizero Evo SL",
+       "brand_slug": "adidas",
+       "answers": 4
+      },
+      {
+       "id": "adidas/adizero-boston",
+       "name": "Adizero Boston",
+       "brand_slug": "adidas",
+       "answers": 3
+      }
+     ],
+     "H025": [
+      {
+       "id": "asics/gel-cumulus",
+       "name": "Gel-Cumulus",
+       "brand_slug": "asics",
+       "answers": 9
+      },
+      {
+       "id": "new-balance/fresh-foam-x-1080",
+       "name": "Fresh Foam X 1080",
+       "brand_slug": "new-balance",
+       "answers": 8
+      },
+      {
+       "id": "new-balance/fresh-foam-x-880",
+       "name": "Fresh Foam X 880",
+       "brand_slug": "new-balance",
+       "answers": 7
+      },
+      {
+       "id": "asics/novablast",
+       "name": "Novablast",
+       "brand_slug": "asics",
+       "answers": 6
+      },
+      {
+       "id": "new-balance/rebel",
+       "name": "Rebel",
+       "brand_slug": "new-balance",
+       "answers": 5
+      },
+      {
+       "id": "asics/gel-nimbus",
+       "name": "Gel-Nimbus",
+       "brand_slug": "asics",
+       "answers": 5
+      },
+      {
+       "id": "asics/gel-kayano",
+       "name": "Gel-Kayano",
+       "brand_slug": "asics",
+       "answers": 5
+      },
+      {
+       "id": "new-balance/fresh-foam-x-860",
+       "name": "Fresh Foam X 860",
+       "brand_slug": "new-balance",
+       "answers": 4
+      }
+     ],
+     "H026": [
+      {
+       "id": "adidas/supernova-rise",
+       "name": "Supernova Rise",
+       "brand_slug": "adidas",
+       "answers": 9
+      },
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 9
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 6
+      },
+      {
+       "id": "adidas/adizero-evo-sl",
+       "name": "Adizero Evo SL",
+       "brand_slug": "adidas",
+       "answers": 3
+      },
+      {
+       "id": "nike/invincible",
+       "name": "Invincible",
+       "brand_slug": "nike",
+       "answers": 2
+      },
+      {
+       "id": "adidas/adizero-boston",
+       "name": "Adizero Boston",
+       "brand_slug": "adidas",
+       "answers": 2
+      },
+      {
+       "id": "hoka/clifton",
+       "name": "Clifton",
+       "brand_slug": "hoka",
+       "answers": 1
+      }
+     ],
+     "H027": [
+      {
+       "id": "nike/pegasus",
+       "name": "Pegasus",
+       "brand_slug": "nike",
+       "answers": 9
+      },
+      {
+       "id": "new-balance/fresh-foam-x-880",
+       "name": "Fresh Foam X 880",
+       "brand_slug": "new-balance",
+       "answers": 8
+      },
+      {
+       "id": "new-balance/fresh-foam-x-1080",
+       "name": "Fresh Foam X 1080",
+       "brand_slug": "new-balance",
+       "answers": 7
+      },
+      {
+       "id": "nike/vomero",
+       "name": "Vomero",
+       "brand_slug": "nike",
+       "answers": 6
+      },
+      {
+       "id": "new-balance/rebel",
+       "name": "Rebel",
+       "brand_slug": "new-balance",
+       "answers": 4
+      },
+      {
+       "id": "nike/invincible",
+       "name": "Invincible",
+       "brand_slug": "nike",
+       "answers": 3
+      },
+      {
+       "id": "new-balance/fresh-foam-x-860",
+       "name": "Fresh Foam X 860",
+       "brand_slug": "new-balance",
+       "answers": 2
+      }
+     ],
+     "H028": [
+      {
+       "id": "new-balance/fresh-foam-x-1080",
+       "name": "Fresh Foam X 1080",
+       "brand_slug": "new-balance",
+       "answers": 8
+      },
+      {
+       "id": "adidas/supernova-rise",
+       "name": "Supernova Rise",
+       "brand_slug": "adidas",
+       "answers": 7
+      },
+      {
+       "id": "new-balance/fresh-foam-x-880",
+       "name": "Fresh Foam X 880",
+       "brand_slug": "new-balance",
+       "answers": 7
+      },
+      {
+       "id": "adidas/adizero-evo-sl",
+       "name": "Adizero Evo SL",
+       "brand_slug": "adidas",
+       "answers": 4
+      },
+      {
+       "id": "new-balance/rebel",
+       "name": "Rebel",
+       "brand_slug": "new-balance",
+       "answers": 4
+      },
+      {
+       "id": "new-balance/fresh-foam-x-860",
+       "name": "Fresh Foam X 860",
+       "brand_slug": "new-balance",
+       "answers": 1
+      },
+      {
+       "id": "adidas/adizero-adios-pro",
+       "name": "Adizero Adios Pro",
+       "brand_slug": "adidas",
+       "answers": 1
+      },
+      {
+       "id": "adidas/adizero-boston",
+       "name": "Adizero Boston",
+       "brand_slug": "adidas",
+       "answers": 1
+      }
+     ]
+    }
+   }
+  },
   "places": {
    "brooks": {
     "n": 596,

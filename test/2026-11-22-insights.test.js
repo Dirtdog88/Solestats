@@ -153,3 +153,29 @@ test('enginePatterns: a gap one engine shows for most brands leaves the fixes an
   assert.deepEqual(enginePatterns(fixes.slice(0, 1), views).patterns, []); // 1 of 3: stays a fix
   assert.equal(editionSummary({ patterns: r.patterns })[0], 'Gemini scores more than 10 points below the other engines on Sourced for 2 of the 3 brands compared, which says more about the engine than about any brand.');
 });
+
+test('modelsIn: names, aliases and versions; common words need their brand or a version; longest name first', async () => {
+  const { modelMatchers, modelsIn, modelView } = await import('../src/2026-11-22-extract.js');
+  const models = [{ id: 'brooks/ghost', brand_slug: 'brooks', name: 'Ghost' }, { id: 'saucony/ride', brand_slug: 'saucony', name: 'Ride' },
+    { id: 'nike/pegasus', brand_slug: 'nike', name: 'Pegasus' }, { id: 'nike/pegasus-trail', brand_slug: 'nike', name: 'Pegasus Trail' },
+    { id: 'asics/gel-nimbus', brand_slug: 'asics', name: 'Gel-Nimbus' }, { id: 'new-balance/fresh-foam-x-1080', brand_slug: 'new-balance', name: 'Fresh Foam X 1080' },
+    { id: 'adidas/adizero-boston', brand_slug: 'adidas', name: 'Adizero Boston' }];
+  const aliases = [{ id: 'saucony/ride', needs_context: '1' }, { id: 'asics/gel-nimbus', aliases: 'Nimbus' }, { id: 'new-balance/fresh-foam-x-1080', aliases: '1080' }, { id: 'adidas/adizero-boston', aliases: 'Boston', needs_context: '1' }];
+  const brands = [{ slug: 'saucony', name: 'Saucony' }, { slug: 'adidas', name: 'adidas', aliases: 'Adidas' }];
+  const M = modelMatchers(models, aliases, brands);
+  const names = t => modelsIn(t, M).map(m => m.name + (m.versions.length ? ' ' + m.versions.join('/') : '')).sort();
+  assert.deepEqual(names('Try the **Brooks Ghost 17** or [Ghost 16](https://x).'), ['Ghost 17/16']);
+  assert.deepEqual(names('The Saucony Ride gives a smooth ride; the Ride 18 too.'), ['Ride 18']);
+  assert.deepEqual(names('a smooth ride on a long run'), []);
+  assert.deepEqual(names('Pegasus Trail 5 and Pegasus 41'), ['Pegasus 41', 'Pegasus Trail 5']);
+  assert.deepEqual(names('Gel Nimbus 27 or a Nimbus; New Balance 1080v14'), ['Fresh Foam X 1080 14', 'Gel-Nimbus 27']);
+  assert.deepEqual(names('the Boston Marathon; Adidas Boston 13'), ['Adizero Boston 13']);
+  const runs = [
+    { status: 'ok', prompt_id: 'S1', mentions: [{ brand_slug: 'brooks' }, { brand_slug: 'nike' }], answer: 'Ghost 17 or Pegasus 41' },
+    { status: 'ok', prompt_id: 'S1', mentions: [{ brand_slug: 'brooks' }], answer: 'Brooks Ghost 16, or any Brooks' },
+    { status: 'ok', prompt_id: 'S1', mentions: [{ brand_slug: 'brooks' }], answer: 'Brooks makes good shoes' },
+  ];
+  const v = modelView(runs, [{ id: 'S1', set: 'shoe' }], M, ['brooks']);
+  assert.equal(v.brooks.answers, 3);
+  assert.deepEqual(v.brooks.models[0], { id: 'brooks/ghost', name: 'Ghost', answers: 2, share: 66.7, versions: [{ version: 17, answers: 1 }, { version: 16, answers: 1 }], beside: { id: 'nike/pegasus', name: 'Pegasus', brand_slug: 'nike', answers: 1 } });
+});

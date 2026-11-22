@@ -16,6 +16,21 @@ function byEngine(split) {
   }));
 }
 
+/** Models named: the brand's shoes in its answers, the versions named and the competitor shoe named beside each. */
+function modelsCard(m, name) {
+  if (!m || !m.models || !m.models.length) return null;
+  const rows = m.models.slice(0, 8).map(x => {
+    const f = el('div', { class: 'fill' }); f.style.width = `${Math.max(2, Math.min(100, x.share))}%`;
+    const vs = x.versions.slice(0, 3).map(v => `${v.version} (${v.answers})`).join(', ');
+    const text = `Named in ${x.answers} of ${m.answers} answers that mention ${name}.${vs ? ` Versions named: ${vs}.` : ' No version named.'}${x.beside ? ` Named most often beside it: ${x.beside.name} (${x.beside.answers} answers).` : ''}`;
+    return el('li', { 'data-tip': text, 'data-tip-title': x.name, title: `${x.name}: ${text}`, tabindex: '0' },
+      el('span', { class: 'plabel' }, x.name, x.beside ? el('span', { class: 'sub' }, `beside ${x.beside.name}`) : ''), el('span', { class: 'ptrack' }, f), el('span', { class: 'pval' }, `${Math.round(x.share)}%`));
+  });
+  return el('section', { class: 'card' }, el('h3', {}, defined('span', 'models')),
+    el('ul', { class: 'places models' }, ...rows),
+    el('p', { class: 'muted small' }, `Share of the ${m.answers} answers naming ${name} that name each shoe. Tap one for the versions named.`));
+}
+
 const KIND = { review: 'review site', forum: 'forum', news: 'news', retailer: 'retailer', brand: 'brand site', other: 'other' };
 
 /** Sources to earn: the sites AI names most for this brand, and the ones it names for competitors but never for it. */
@@ -138,6 +153,8 @@ async function main() {
     const hc = h2hCard(d.h2h, d.brand.name, Object.fromEntries(brands.map(b => [b.slug, b.name])), Object.fromEntries(brands.map(b => [b.slug, b.scores.overall?.score ?? -1])));
     if (hc) card.append(hc);
   }
+  const mc = modelsCard(d.models, d.brand.name);
+  if (mc) card.append(mc);
   const pc = placesCard(d.places);
   if (pc) card.append(pc);
   const sc = sourcesCard(d.sources, d.brand.name);

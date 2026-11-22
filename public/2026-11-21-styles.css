@@ -187,3 +187,5 @@ h4 { font-size: 14px; margin: 16px 0 6px; font-weight: 800; }
 /* The edition summary (2026-11-22): generated sentences on a white card at the top of the index. */
 .summary > div { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 20px; }
 .summary p { margin: 8px 0; line-height: 1.5; }
+.places.models .plabel { display: flex; flex-direction: column; line-height: 1.2; }
+.places .sub { font-size: 12px; color: var(--muted); }

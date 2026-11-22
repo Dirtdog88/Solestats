@@ -29,9 +29,10 @@ function legend() {
   return el('div', { class: 'heat-legend', 'aria-hidden': 'true' }, ...labels.map((l, i) => el('span', { class: 'key' }, el('span', { class: `swatch heat d${i}` }), l)), el('span', { class: 'muted' }, '% favouring the row brand'));
 }
 
-function pairTable(pairs, names) {
-  const head = el('tr', {}, el('th', {}, 'Answers favouring'), el('th', { class: 'num' }, 'Tie'), el('th', { class: 'num' }, 'Unclear'), defined('th', 'n', { class: 'num' }));
-  const rows = pairs.map(p => el('tr', {}, el('td', {}, `${names[p.a] || p.a} ${p.a_wins} · ${names[p.b] || p.b} ${p.b_wins}`), el('td', { class: 'num' }, String(p.ties)), el('td', { class: 'num' }, String(p.unclear)), el('td', { class: 'num' }, String(p.n))));
+function pairTable(pairs, names, models = {}) {
+  const shoes = p => { const ms = models[p.prompt_id] || []; const one = s => ms.find(m => m.brand_slug === s); return [one(p.a), one(p.b)].filter(Boolean).map(m => m.name).join(' · ') || '—'; };
+  const head = el('tr', {}, el('th', {}, 'Answers favouring'), defined('th', 'pair_models', { text: 'Shoes named most' }), el('th', { class: 'num' }, 'Tie'), el('th', { class: 'num' }, 'Unclear'), defined('th', 'n', { class: 'num' }));
+  const rows = pairs.map(p => el('tr', {}, el('td', {}, `${names[p.a] || p.a} ${p.a_wins} · ${names[p.b] || p.b} ${p.b_wins}`), el('td', {}, shoes(p)), el('td', { class: 'num' }, String(p.ties)), el('td', { class: 'num' }, String(p.unclear)), el('td', { class: 'num' }, String(p.n))));
   return el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows));
 }
 
@@ -41,7 +42,7 @@ async function main() {
   const notice = document.getElementById('notice');
   if (health.notice) { notice.textContent = health.notice; notice.hidden = false; }
   showEdition();
-  const [{ brands }, v] = await Promise.all([api('/api/brands').catch(() => ({ brands: [] })), api('/api/views/h2h').catch(() => ({}))]);
+  const [{ brands }, v, mv] = await Promise.all([api('/api/brands').catch(() => ({ brands: [] })), api('/api/views/h2h').catch(() => ({})), api('/api/views/models').catch(() => ({}))]);
   const host = document.getElementById('h2h-grid');
   if (!v.data || !v.data.pairs.length) { host.replaceChildren(el('p', { class: 'empty' }, 'No head-to-head answers in this edition yet.')); return; }
   const names = Object.fromEntries(brands.map(b => [b.slug, b.name]));
@@ -52,7 +53,7 @@ async function main() {
   const ns = [...new Set(v.data.pairs.map(p => p.n))];
   const engines = [...new Set(v.data.pairs.flatMap(p => Object.keys(p.by_engine || {})))];
   document.getElementById('h2h-n').textContent = `${v.data.pairs.length} pairs, ${ns.length === 1 ? ns[0] : ns.join(' to ')} answers each (${engines.length} engines × repeats). With so few answers per pair, a difference of one or two answers is noise: read the grid for clear leans, not small gaps. Brands are in Overall order.`;
-  document.getElementById('h2h-table').replaceChildren(pairTable(v.data.pairs, names));
+  document.getElementById('h2h-table').replaceChildren(pairTable(v.data.pairs, names, (mv.data && mv.data.h2h) || {}));
 }
 // The brand page imports the helpers below; only the head-to-head page has the grid.
 if (document.getElementById('h2h-grid')) main();

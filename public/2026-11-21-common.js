@@ -41,6 +41,8 @@ export const DEFINITIONS = {
   sources_top: ['Named most', "The sites AI names as its sources most often in answers that mention the brand, counted once per answer. Only sources an answer names count, so this comes from the engines that name them."],
   sources_gap: ['Sources to earn', "Sites named as sources in answers that mention competitors, in a group of questions where the brand also appears, but never in an answer that mentions the brand. Each was named in at least two such answers. Review sites, forums, news and retailers become Top fixes."],
   by_engine: ['By engine', "The same score worked out on one engine's answers at a time. An engine more than 10 points below every other engine (each with at least 20 observations) is marked and becomes a Top fix."],
+  models: ['Models named', "The brand's shoes named in answers that mention the brand, from the models on the spec sheet: the share of those answers naming each, the versions named, and the other brand's shoe named most often in the same answers."],
+  pair_models: ['Shoes named most', "Each brand's shoe named most often in the answers to that pair's question. The question names only the brands, so this is the shoe the engines chose to compare."],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],
