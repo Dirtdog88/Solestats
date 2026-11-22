@@ -3,6 +3,7 @@ const SUBJECTS = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 
 const CATS = { shoes: 'Shoes', retail: 'Where to buy' };
 // Column definitions live in DEFINITIONS (common.js); headers show them on hover and tap.
 import { el, api, showEdition, engineName, defined, installTips, overallStatus } from './2026-11-21-common.js';
+import { needTable, heatLegend } from './2026-11-22-needs.js';
 
 function scoreCell(s, extraClass = '') {
   if (!s || s.score == null) return el('td', { class: `num ${extraClass}` }, el('span', { class: 'score none' }, '—'));
@@ -77,6 +78,10 @@ async function main() {
   const list = document.getElementById('brand-list');
   for (const b of brands) list.append(el('option', { value: b.name }));
   document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS, (await overallStatus()).label));
+  const byOverall = brands.filter(b => b.category === 'shoes').sort((a, b) => (b.scores.overall?.score ?? -1) - (a.scores.overall?.score ?? -1) || a.name.localeCompare(b.name));
+  const needs = await api('/api/views/needs').catch(() => ({}));
+  document.getElementById('need-table').replaceChildren(needTable(needs.data, byOverall));
+  if (needs.data) document.getElementById('need-legend').replaceChildren(heatLegend());
   document.getElementById('retail-table').replaceChildren(retailTable(await api('/api/retailers').catch(() => ({ rows: [], answers: [] }))));
   const dl = document.getElementById('downloads');
   if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', 'financials', 'race-results']) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));

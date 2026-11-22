@@ -1,6 +1,7 @@
 // One brand's report card.
 const ORDER = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
 import { el, engineName, showEdition, plainAnswer, defined, installTips, DEFINITIONS, money, overallStatus } from './2026-11-21-common.js';
+import { needRow } from './2026-11-22-needs.js';
 const TREATMENT = { full: 'core brand', eligible: 'watched brand', scan: 'scan' };
 
 const SOURCING_TAG = { not_provided: true, no_search: true };
@@ -80,6 +81,8 @@ async function main() {
       el('div', { class: 'pills' }, v.margin != null ? defined('span', 'margin', { class: 'pill', text: `±${Math.round(v.margin)}` }) : '', defined('span', 'n', { class: 'pill grey', text: `n ${v.n}` }), ...(s === 'sourced' ? sourcedPills(v.detail) : []), v.detail?.checked_round ? defined('span', 'checked', { class: 'pill grey', text: `checked ${v.detail.checked_round}` }) : '')));
   }
   card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));
+  const nr = needRow(d.needs, d.brand.name);
+  if (nr) card.append(nr);
   const rev = revenueCard(d.financials || []);
   if (rev) card.append(rev);
   const rc = racesCard(d.races || []);

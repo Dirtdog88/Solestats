@@ -3,6 +3,7 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
+import { needGrid } from '../src/2026-11-22-insights.js';
 import { shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
@@ -44,10 +45,19 @@ for (const b of brands) {
   rows.push({ round, brand: b.slug, category: b.category, subject: 'share_of_voice', score: s.score, margin: s.margin, n: s.n, detail: JSON.stringify(s.detail) });
   sqls.push(`INSERT OR REPLACE INTO scores (round_id,brand_slug,subject,score,margin,n,detail_json) VALUES (${[round, b.slug, 'share_of_voice', s.score, s.margin, s.n, JSON.stringify(s.detail)].map(sql).join(',')});`);
 }
+// Views for brand teams (src/2026-11-22-insights.js): one row per view and key, replaced whole each time.
+const shoeBrands = brands.filter(b => b.category === 'shoes').map(b => b.slug);
+const views = { needs: { '': needGrid(runs, prompts, shoeBrands) } };
+const fixes = []; // [{ brand, subject, text }] in order of importance per brand
+sqls.unshift(`DELETE FROM views WHERE round_id = ${sql(round)};`, `DELETE FROM fixes WHERE round_id = ${sql(round)};`);
+for (const [view, byKey] of Object.entries(views)) for (const [key, detail] of Object.entries(byKey)) sqls.push(`INSERT OR REPLACE INTO views (round_id,view,key,detail_json) VALUES (${[round, view, key, JSON.stringify(detail)].map(sql).join(',')});`);
+const rank = {};
+for (const f of fixes) { const k = f.brand + '/' + f.subject; rank[k] = (rank[k] || 0) + 1; sqls.push(`INSERT OR REPLACE INTO fixes (round_id,brand_slug,subject,rank,text) VALUES (${[round, f.brand, f.subject, rank[k], f.text].map(sql).join(',')});`); }
+writeFileSync(new URL('views.json', dir), JSON.stringify({ round, views, fixes }, null, 1));
 writeFileSync(new URL('scores.csv', dir), toCsv(rows, ['round', 'brand', 'category', 'subject', 'score', 'margin', 'n', 'detail']));
 writeFileSync(new URL('scores.sql', dir), sqls.join('\n') + '\n');
 writeFileSync(new URL('routing.json', dir), JSON.stringify(routingTable(runs, prompts), null, 2));
-console.log(`${rows.length} scores for ${new Set(rows.map(r => r.brand)).size} brands -> scores.csv, scores.sql, routing.json`);
+console.log(`${rows.length} scores for ${new Set(rows.map(r => r.brand)).size} brands, ${Object.keys(views).length} views, ${fixes.length} fixes -> scores.csv, scores.sql, views.json, routing.json`);
 
 /** The given checks file from this round, else from the latest earlier monthly round (YYYY-MM) that has one. */
 function latestChecks(name) {

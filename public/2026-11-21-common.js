@@ -34,6 +34,7 @@ export const DEFINITIONS = {
   revenue_scale: ['Reported revenue', "The narrowest revenue figure the brand or its owner reports for its latest fiscal year, converted to US dollars at the Federal Reserve's yearly average rate only to put brands on one scale. Filled dots are the brand or its running business; rings are wider figures (all footwear, a segment or the whole company) and overstate the running business. Running-shoe market share is not published, so this stands in for it."],
   top10_share: ['Top-10 share', "Of the top-10 places at the World Marathon Majors and the World Championships marathon since 2025, men's and women's races, the share whose shoe brand is confirmed and is this brand. Race-day shoes where a source reports them, otherwise the athlete's sponsor."],
   podiums: ['Podiums', 'Top-3 places at those races in this brand, with wins in brackets.'],
+  need: ['By runner need', "Share of answers in each group of shoe questions (starting out, stability, trail and so on) that name the brand, once per answer. The tip adds how often it was the top pick. Not part of Overall; every brand is counted on every group, whether or not it makes a shoe for that need."],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],
@@ -61,10 +62,11 @@ export function installTips() {
   const tip = document.getElementById('tip');
   if (!tip) return;
   let shownAt = 0;
-  const show = node => { const [label, text] = DEFINITIONS[node.dataset.def] || []; if (!text) return; tip.replaceChildren(el('b', {}, label), text); tip.hidden = false; shownAt = Date.now(); };
+  // [data-def] shows a definition; [data-tip] (a heat-map cell, say) shows its own numbers.
+  const show = node => { const [label, text] = node.dataset.tip ? [node.dataset.tipTitle || '', node.dataset.tip] : DEFINITIONS[node.dataset.def] || []; if (!text) return; tip.replaceChildren(el('b', {}, label), text); tip.hidden = false; shownAt = Date.now(); };
   // A tap focuses first (which shows the tip) and then clicks; the click must not hide what the focus just showed.
-  document.addEventListener('click', e => { const n = e.target.closest('[data-def]'); if (n) { e.preventDefault(); show(n); } else if (!e.target.closest('#tip') && Date.now() - shownAt > 400) tip.hidden = true; });
-  document.addEventListener('focusin', e => { const n = e.target.closest('[data-def]'); if (n) show(n); });
+  document.addEventListener('click', e => { const n = e.target.closest('[data-def],[data-tip]'); if (n) { e.preventDefault(); show(n); } else if (!e.target.closest('#tip') && Date.now() - shownAt > 400) tip.hidden = true; });
+  document.addEventListener('focusin', e => { const n = e.target.closest('[data-def],[data-tip]'); if (n) show(n); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') tip.hidden = true; });
 }
 

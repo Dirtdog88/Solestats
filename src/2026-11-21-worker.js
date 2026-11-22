@@ -64,7 +64,7 @@ async function api(url, env) {
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
-    const [scores, fixes, context, examples, sourcing, financials, races] = await Promise.all([
+    const [scores, fixes, context, examples, sourcing, financials, races, needs] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
@@ -78,15 +78,25 @@ async function api(url, env) {
       env.DB.prepare('SELECT fiscal_year, period_end, level, measure, owner, ticker, value, unit, currency, prior_value, yoy_pct, source_type, source_url, published_on, notes FROM financials WHERE brand_slug = ? ORDER BY period_end DESC, level').bind(slug).all().catch(() => ({ results: [] })),
       // Top-10 finishes at the majors in this brand's shoes (context, never scored). Fails soft until migration 0005.
       env.DB.prepare('SELECT race, year, date, gender, place, athlete, country, time, model, basis, shoe_source_url FROM race_results WHERE brand_slug = ? ORDER BY date DESC, place').bind(slug).all().catch(() => ({ results: [] })),
+      readViews(env, round, 'needs'),
     ]);
+    // This brand's slice of each view.
+    const needRow = needs[''] && needs[''].brands[slug] ? { groups: needs[''].groups, cells: needs[''].brands[slug] } : null;
     return json({
       round, brand,
       scores: Object.fromEntries(scores.results.map(s => [s.subject, { score: s.score, margin: s.margin, n: s.n, detail: safeJson(s.detail_json) }])),
       fixes: fixes.results, context: context.results, examples: examples.results, financials: financials.results, races: races.results,
       sourcing: { ...Object.fromEntries(sourcing.results.map(x => [x.sourcing, x.n])), min: MIN_SOURCED_ANSWERS },
+      needs: needRow,
     });
   }
   if (parts[1] === 'share-of-voice') return json(await shareOfVoiceView(env, round));
+  // The brand-team views the score script stores (src/2026-11-22-insights.js): the whole-round row and any per-brand rows.
+  if (parts[1] === 'views' && parts[2]) {
+    if (!round) return json({ round: null, view: parts[2], data: null, by: {} });
+    const rows = await readViews(env, round, parts[2]);
+    return json({ round, view: parts[2], data: rows[''] || null, by: Object.fromEntries(Object.entries(rows).filter(([k]) => k)) });
+  }
   if (parts[1] === 'retailers') {
     if (!round) return json({ round: null, rows: [] });
     const rows = (await env.DB.prepare(`SELECT p.category, rt.retailer_slug, re.name, re.kind, COUNT(DISTINCT rt.run_id) AS n
@@ -97,6 +107,12 @@ async function api(url, env) {
   }
   if (parts[1] === 'prompts') return json({ prompts: (await env.DB.prepare('SELECT id, set_name, category, text, tags FROM prompts ORDER BY id').all()).results });
   return json({ error: 'not found' }, 404);
+}
+
+/** { key: detail } for one view in a round. Empty until migration 0006 is applied and the round is re-scored. */
+async function readViews(env, round, view) {
+  const { results } = await env.DB.prepare('SELECT key, detail_json FROM views WHERE round_id = ? AND view = ?').bind(round, view).all().catch(() => ({ results: [] }));
+  return Object.fromEntries(results.map(r => [r.key ?? '', safeJson(r.detail_json)]).filter(([, d]) => d));
 }
 
 // /download/<round>/<answers|mentions|routes|scores|prompts>.csv straight from D1, so the open data is always the live data.
