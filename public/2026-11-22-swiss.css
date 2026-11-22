@@ -32,7 +32,6 @@ td .lane { color:var(--muted); font-weight:500; }
 .pill.grey { background:none; border-color:var(--line); color:var(--muted); }
 .summary > div { border-radius:0; box-shadow:none; background:none; border-left:3px solid var(--accent); padding:2px 0 2px 18px; }
 .summary p { font-size:18px; line-height:1.45; }
-.summary h2 { border-top:0; padding-top:0; }
 table.heatmap { border-spacing:1px; }
 table.heatmap th, table.heatmap td { background:#fff; }
 table.heatmap th { border-bottom:0; }
