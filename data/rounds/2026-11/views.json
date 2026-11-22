@@ -7176,7 +7176,8 @@
        "n": 550
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7224,7 +7225,8 @@
        "n": 196
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7314,7 +7316,8 @@
        "n": 152
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7362,7 +7365,8 @@
        "n": 362
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7410,7 +7414,8 @@
        "n": 228
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7457,7 +7462,8 @@
        "n": 160
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7504,7 +7510,8 @@
        "n": 160
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7552,7 +7559,8 @@
        "n": 89
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7643,7 +7651,8 @@
        "n": 72
       }
      },
-     "low": "gemini"
+     "low": "gemini",
+     "pattern": true
     },
     "routing": {
      "by_engine": {
@@ -7916,23 +7925,25 @@
      }
     }
    }
+  },
+  "engine_patterns": {
+   "": {
+    "patterns": [
+     {
+      "engine": "gemini",
+      "subject": "sourced",
+      "brands_low": 9,
+      "brands_compared": 9
+     }
+    ]
+   }
   }
  },
  "fixes": [
   {
-   "brand": "brooks",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 21, against 48 on ChatGPT."
-  },
-  {
    "brand": "hoka",
    "subject": "recommended",
    "text": "Close the gap on ChatGPT: Recommended there is 27, against 69 on Claude and 62 on Gemini."
-  },
-  {
-   "brand": "hoka",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 20, against 36 on ChatGPT."
   },
   {
    "brand": "saucony",
@@ -7940,19 +7951,9 @@
    "text": "Close the gap on ChatGPT: Recommended there is 36, against 64 on Claude and 67 on Gemini."
   },
   {
-   "brand": "saucony",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 21, against 45 on ChatGPT."
-  },
-  {
    "brand": "asics",
    "subject": "recommended",
    "text": "Close the gap on ChatGPT: Recommended there is 53, against 73 on Claude and 67 on Gemini."
-  },
-  {
-   "brand": "asics",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 21, against 43 on ChatGPT."
   },
   {
    "brand": "nike",
@@ -7960,29 +7961,9 @@
    "text": "Close the gap on ChatGPT: Recommended there is 36, against 50 on Claude and 49 on Gemini."
   },
   {
-   "brand": "nike",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 21, against 51 on ChatGPT."
-  },
-  {
-   "brand": "adidas",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 28, against 57 on ChatGPT."
-  },
-  {
-   "brand": "new-balance",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 25, against 42 on ChatGPT."
-  },
-  {
    "brand": "altra",
    "subject": "recommended",
    "text": "Close the gap on ChatGPT: Recommended there is 24, against 42 on Claude and 36 on Gemini."
-  },
-  {
-   "brand": "altra",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 11, against 43 on ChatGPT."
   },
   {
    "brand": "altra",
@@ -7993,11 +7974,6 @@
    "brand": "topo",
    "subject": "routing",
    "text": "Close the gap on Gemini: Sale goes home there is 70, against 91 on ChatGPT."
-  },
-  {
-   "brand": "salomon",
-   "subject": "sourced",
-   "text": "Close the gap on Gemini: Sourced there is 24, against 44 on ChatGPT."
   },
   {
    "brand": "on",

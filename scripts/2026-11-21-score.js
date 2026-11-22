@@ -3,7 +3,7 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
-import { needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, topSourceDomains } from '../src/2026-11-22-insights.js';
+import { needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
 import { MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
@@ -58,12 +58,18 @@ const fixes = []; // [{ brand, subject, text }] in order of importance per brand
 // from the hand checks, not the answers). An engine more than 10 points below the others is a fix.
 const SUBJECT_LABEL = { recommended: 'Recommended', sourced: 'Sourced', routing: 'Sale goes home' };
 views.engines = {};
+const engineFixList = [];
 for (const b of brands.filter(x => x.category === 'shoes')) {
   views.engines[b.slug] = engineSplit(runs, { recommended: rs => scoreRecommended(b, prompts, rs, models), sourced: rs => scoreSourced(b, rs), routing: rs => scoreRouting(b, rs, retailers) });
   const ef = engineFixes(b.slug, views.engines[b.slug], s => SUBJECT_LABEL[s] || s);
   for (const f of ef) views.engines[b.slug][f.subject].low = f.engine; // the brand page marks it
-  fixes.push(...ef.map(({ engine, ...f }) => f));
+  engineFixList.push(...ef);
 }
+// A gap one engine shows for most brands is one note in the summary, not a fix on every page; the marks stay.
+const ep = enginePatterns(engineFixList, views.engines);
+views.engine_patterns = { '': { patterns: ep.patterns } };
+for (const p of ep.patterns) for (const v of Object.values(views.engines)) if (v[p.subject] && v[p.subject].low === p.engine) v[p.subject].pattern = true;
+fixes.push(...ep.fixes.map(({ engine, ...f }) => f));
 for (const [slug, v] of Object.entries(views.sources)) fixes.push(...sourceFixes(slug, v));
 sqls.unshift(`DELETE FROM views WHERE round_id = ${sql(round)};`, `DELETE FROM fixes WHERE round_id = ${sql(round)};`);
 for (const [view, byKey] of Object.entries(views)) for (const [key, detail] of Object.entries(byKey)) sqls.push(`INSERT OR REPLACE INTO views (round_id,view,key,detail_json) VALUES (${[round, view, key, JSON.stringify(detail)].map(sql).join(',')});`);

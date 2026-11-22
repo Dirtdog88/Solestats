@@ -11,7 +11,7 @@ function byEngine(split) {
   const es = Object.entries((split && split.by_engine) || {});
   if (!es.length) return '';
   return el('div', { class: 'by-engine' }, ...es.map(([e, x]) => {
-    const text = `${Math.round(x.score)} on ${engineName(e)}'s answers alone (n ${x.n})${split.low === e ? '; more than 10 points below the other engines' : ''}.`;
+    const text = `${Math.round(x.score)} on ${engineName(e)}'s answers alone (n ${x.n})${split.low === e ? `; more than 10 points below the other engines${split.pattern ? `, as it is for most brands (see the edition summary), so it is not a fix` : ''}` : ''}.`;
     return el('span', { class: split.low === e ? 'eng low' : 'eng', 'data-tip': text, 'data-tip-title': engineName(e), title: text, tabindex: '0' }, `${engineName(e)} ${Math.round(x.score)}`);
   }));
 }

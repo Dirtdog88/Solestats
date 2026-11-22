@@ -141,3 +141,15 @@ test('editionSummary builds every sentence from the data: leaders, voice vs size
   const t = topSourceDomains([{ status: 'ok', citations: [{ domain: 'x.com', kind: 'review', source: 'cited' }, { domain: 'x.com', kind: 'review', source: 'cited' }, { domain: 'b.com', kind: 'brand', source: 'cited' }, { domain: 'y.com', kind: 'forum', source: 'searched' }] }]);
   assert.deepEqual(t, { sourced_answers: 1, top: [{ domain: 'x.com', kind: 'review', answers: 1 }] });
 });
+
+test('enginePatterns: a gap one engine shows for most brands leaves the fixes and becomes a pattern', async () => {
+  const { enginePatterns, editionSummary } = await import('../src/2026-11-22-insights.js');
+  const v = (g, o) => ({ sourced: { by_engine: { gemini: { score: g, n: 30 }, openai: { score: o, n: 30 } } }, recommended: { by_engine: { gemini: { score: 50, n: 30 }, openai: { score: 50, n: 30 } } } });
+  const views = { a: v(20, 50), b: v(20, 45), c: v(40, 45) };
+  const fixes = [{ brand: 'a', subject: 'sourced', engine: 'gemini' }, { brand: 'b', subject: 'sourced', engine: 'gemini' }, { brand: 'c', subject: 'recommended', engine: 'openai' }];
+  const r = enginePatterns(fixes, views);
+  assert.deepEqual(r.patterns, [{ engine: 'gemini', subject: 'sourced', brands_low: 2, brands_compared: 3 }]);
+  assert.deepEqual(r.fixes.map(f => f.brand), ['c']);   // 1 of 3 on recommended is not a pattern
+  assert.deepEqual(enginePatterns(fixes.slice(0, 1), views).patterns, []); // 1 of 3: stays a fix
+  assert.equal(editionSummary({ patterns: r.patterns })[0], 'Gemini scores more than 10 points below the other engines on Sourced for 2 of the 3 brands compared, which says more about the engine than about any brand.');
+});

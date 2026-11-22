@@ -103,16 +103,17 @@ async function api(url, env) {
   // The edition summary on the front page: sentences made from this round's data only (src/2026-11-22-insights.js).
   if (parts[1] === 'summary') {
     if (!round) return json({ round: null, sentences: [] });
-    const [engines, scores, sov, engineViews, sourcing] = await Promise.all([
+    const [engines, scores, sov, engineViews, sourcing, patterns] = await Promise.all([
       env.DB.prepare(`SELECT engine, COUNT(*) AS runs, SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited FROM runs WHERE round_id = ? AND status = 'ok' GROUP BY engine ORDER BY engine`).bind(round).all(),
       env.DB.prepare(`SELECT s.brand_slug, s.score, s.detail_json FROM scores s JOIN brands b ON b.slug = s.brand_slug WHERE s.round_id = ? AND s.subject = 'overall' AND b.category = 'shoes'`).bind(round).all(),
       shareOfVoiceView(env, round),
       readViews(env, round, 'engines'),
       readViews(env, round, 'sourcing'),
+      readViews(env, round, 'engine_patterns'),
     ]);
     const overall = Object.fromEntries(scores.results.map(s => [s.brand_slug, { score: s.score, provisional: OVERALL_ORDER.some(k => !(k in (safeJson(s.detail_json)?.weights || {}))) }]));
     const brands = sov.brands.map(b => ({ slug: b.slug, name: b.name, sov: b.sov, voice_ratio: b.voice_ratio, voice_ratio_wide: b.voice_ratio_wide, overall: overall[b.slug]?.score ?? null, overall_provisional: overall[b.slug]?.provisional }));
-    return json({ round, sentences: editionSummary({ engines: engines.results, brands, engineViews, sources: sourcing[''] || null }) });
+    return json({ round, sentences: editionSummary({ engines: engines.results, brands, engineViews, sources: sourcing[''] || null, patterns: patterns['']?.patterns || [] }) });
   }
   // The brand-team views the score script stores (src/2026-11-22-insights.js): the whole-round row and any per-brand rows.
   if (parts[1] === 'views' && parts[2]) {

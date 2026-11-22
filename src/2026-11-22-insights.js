@@ -235,6 +235,25 @@ export function engineFixes(slug, split, subjectLabel = s => s) {
   return fixes;
 }
 
+/**
+ * Engine patterns (Alex, 2026-11-22): when one engine is low on the same subject for most brands (more than half of
+ * the brands with two or more engines compared on it), the gap says more about the engine than about any brand, so it
+ * becomes one note in the edition summary instead of a fix on every brand page. Takes the engine fixes (with their
+ * engine) and the engine views; returns { fixes: what stays, patterns: [{ engine, subject, brands_low, brands_compared }] }.
+ */
+export function enginePatterns(fixes, engineViews) {
+  const compared = {};
+  for (const subjects of Object.values(engineViews)) for (const [subject, v] of Object.entries(subjects || {})) {
+    if (Object.values(v.by_engine || {}).filter(x => (x.n ?? 0) >= ENGINE_MIN_N).length >= 2) compared[subject] = (compared[subject] || 0) + 1;
+  }
+  const low = {};
+  for (const f of fixes) { const k = f.engine + '|' + f.subject; low[k] = (low[k] || 0) + 1; }
+  const patterns = Object.entries(low).filter(([k, n]) => n > (compared[k.split('|')[1]] || 0) / 2)
+    .map(([k, n]) => { const [engine, subject] = k.split('|'); return { engine, subject, brands_low: n, brands_compared: compared[subject] }; });
+  const systemic = new Set(patterns.map(p => p.engine + '|' + p.subject));
+  return { fixes: fixes.filter(f => !systemic.has(f.engine + '|' + f.subject)), patterns };
+}
+
 /** The domains named as sources most often across the round (once per answer), brand sites left out. */
 export function topSourceDomains(runs, n = 5) {
   const counts = {}, kinds = {};
@@ -259,7 +278,7 @@ const fmt = v => (Math.round(v * 10) / 10).toFixed(1);
  * called level. Input: { engines: [{ engine, runs, cited }], brands: [{ slug, name, overall, overall_provisional, sov,
  * voice_ratio, voice_ratio_wide }], engineViews: { slug: { subject: { by_engine } } }, sources: { sourced_answers, top } }.
  */
-export function editionSummary({ engines = [], brands = [], engineViews = {}, sources = null, minN = 20 }) {
+export function editionSummary({ engines = [], brands = [], engineViews = {}, sources = null, patterns = [], minN = 20 }) {
   const out = [];
   const name = Object.fromEntries(brands.map(b => [b.slug, b.name]));
   const answers = engines.reduce((a, e) => a + (e.runs || 0), 0);
@@ -292,6 +311,8 @@ export function editionSummary({ engines = [], brands = [], engineViews = {}, so
     const gap = es[0][1].score - es[es.length - 1][1].score;
     if (!best || gap > best.gap) best = { slug, subject, gap, hi: es[0], lo: es[es.length - 1] };
   }
+  // 3b. A gap one engine shows for most brands is said once here (enginePatterns), not as a fix on each brand page.
+  for (const p of patterns) out.push(`${ENGINE_LABEL[p.engine] || p.engine} scores more than ${ENGINE_GAP} points below the other engines on ${SUBJECT_WORD[p.subject] || p.subject} for ${p.brands_low} of the ${p.brands_compared} brands compared, which says more about the engine than about any brand.`);
   if (best && best.gap >= NOISE) out.push(`The engines disagree most on ${name[best.slug] || best.slug}'s ${SUBJECT_WORD[best.subject] || best.subject} score: ${Math.round(best.hi[1].score)} on ${ENGINE_LABEL[best.hi[0]] || best.hi[0]}'s answers against ${Math.round(best.lo[1].score)} on ${ENGINE_LABEL[best.lo[0]] || best.lo[0]}'s.`);
   // 4. Sourcing: who names sources, and what gets named.
   if (engines.length && answers) {
