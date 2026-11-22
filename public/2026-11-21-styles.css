@@ -5,7 +5,7 @@
 html { background: var(--paper); color: var(--ink); font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 body { margin: 0; }
 a { color: var(--ink); }
-.engines, main, footer { max-width: 960px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+.engines, main, footer, .edition-foot { max-width: 960px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
 /* The track: a full-width brick-red band with a white lane line along its bottom edge. */
 .hero { background: var(--track); color: #fff; padding: 28px max(16px, calc((100% - 960px) / 2)) 22px; border-bottom: 3px solid var(--lane); box-shadow: inset 0 -12px 0 var(--track), inset 0 -14px 0 var(--lane); }
 .hero.small { padding-bottom: 18px; }
@@ -116,3 +116,4 @@ td .pm { font-weight: 400; opacity: .75; font-size: 13px; }
 .scatter .diag { stroke-dasharray: 4 4; }
 .races { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; font-size: 14px; }
 .races .muted a, .races a.muted { color: var(--muted); }
+.edition-foot { padding-top: 8px; }
