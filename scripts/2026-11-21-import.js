@@ -17,7 +17,7 @@ const runs = readFileSync(new URL('runs.jsonl', dir), 'utf8').split('\n').filter
 const out = [`INSERT OR REPLACE INTO rounds (id,started_at,engines,repeats,notes) VALUES (${[round, runs[0]?.created_at || new Date().toISOString(), [...new Set(runs.map(r => r.engine))].join(';'), Math.max(...runs.map(r => r.repeat_no))].map(sql).join(',')}, NULL);`];
 const scored = [];
 for (const r of runs) {
-  out.push(`INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at) VALUES (${[r.id, r.round_id, r.prompt_id, r.engine, r.model, r.repeat_no, r.prompt_text, r.status, r.answer, r.citations ? JSON.stringify(r.citations) : null, r.searched ? JSON.stringify(r.searched) : null, r.searches ?? null, r.input_tokens, r.output_tokens, r.cost_usd, r.latency_ms, r.error, r.created_at].map(sql).join(',')});`);
+  out.push(`INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at,winner) VALUES (${[r.id, r.round_id, r.prompt_id, r.engine, r.model, r.repeat_no, r.prompt_text, r.status, r.answer, r.citations ? JSON.stringify(r.citations) : null, r.searched ? JSON.stringify(r.searched) : null, r.searches ?? null, r.input_tokens, r.output_tokens, r.cost_usd, r.latency_ms, r.error, r.created_at, null].map(sql).join(',')});`);
   if (r.status !== 'ok') { scored.push(r); continue; }
   const p = byPrompt[r.prompt_id] || {};
   // Detect on the prose only: inline citation links would otherwise read as the answer naming a retailer or brand.
@@ -40,6 +40,7 @@ for (const r of runs) {
     const a = brands.find(b => b.name === p.pair_a)?.slug, b = brands.find(x => x.name === p.pair_b)?.slug;
     winner = pickWinner(prose, a, b, matchers);
   }
+  if (winner) out.push(`UPDATE runs SET winner = ${sql(winner)} WHERE id = ${sql(r.id)};`);
   for (const m of mentions) out.push(`INSERT OR REPLACE INTO mentions (run_id,brand_slug,position,top_pick) VALUES (${[r.id, m.brand_slug, m.position, m.top_pick].map(sql).join(',')});`);
   for (const c of citations) if (c.url) out.push(`INSERT OR REPLACE INTO citations (run_id,url,domain,kind,source,brand_slug,retailer_slug) VALUES (${[r.id, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug].map(sql).join(',')});`);
   for (const rt of routes) out.push(`INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES (${[r.id, rt.retailer_slug, rt.brand_slug || '', rt.url].map(sql).join(',')});`);

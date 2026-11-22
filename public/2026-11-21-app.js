@@ -2,7 +2,7 @@
 const SUBJECTS = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
 const CATS = { shoes: 'Shoes', retail: 'Where to buy' };
 // Column definitions live in DEFINITIONS (common.js); headers show them on hover and tap.
-import { el, api, showEdition, engineName, defined, installTips } from './2026-11-21-common.js';
+import { el, api, showEdition, engineName, defined, installTips, overallStatus } from './2026-11-21-common.js';
 
 function scoreCell(s, extraClass = '') {
   if (!s || s.score == null) return el('td', { class: `num ${extraClass}` }, el('span', { class: 'score none' }, '—'));
@@ -19,10 +19,10 @@ function barCell(s) {
   return el('td', { class: 'barcell' }, el('div', { class: 'bar' }, fill(v), el('span', { class: 'val' }, String(v)), s.margin != null ? el('span', { class: 'margin' }, `±${Math.round(s.margin)}`) : ''));
 }
 
-function brandTable(brands, subjects) {
+function brandTable(brands, subjects, overallLabel = 'Overall') {
   if (!brands.length) return el('p', { class: 'empty' }, 'No scores yet.');
   const [first, ...rest] = subjects;
-  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', first), ...rest.map(s => defined('th', s, { class: 'num sec' })));
+  const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', first, first === 'overall' ? { text: overallLabel } : {}), ...rest.map(s => defined('th', s, { class: 'num sec' })));
   const sorted = [...brands].sort((a, b) => (b.scores[subjects[0]]?.score ?? -1) - (a.scores[subjects[0]]?.score ?? -1) || a.name.localeCompare(b.name));
   // Lane numbers: the rank by the first subject, only for brands that have it.
   const rows = sorted.map((b, i) => el('tr', {}, el('td', {}, b.scores[first]?.score != null ? el('span', { class: 'lane' }, String(i + 1)) : '', el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)), barCell(b.scores[first]), ...rest.map(s => scoreCell(b.scores[s], 'sec'))));
@@ -76,7 +76,7 @@ async function main() {
   document.getElementById('engines').replaceChildren(...engineStrip(await api('/api/edition').catch(() => ({ engines: [], pending: [] }))));
   const list = document.getElementById('brand-list');
   for (const b of brands) list.append(el('option', { value: b.name }));
-  document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS));
+  document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS, (await overallStatus()).label));
   document.getElementById('retail-table').replaceChildren(retailTable(await api('/api/retailers').catch(() => ({ rows: [], answers: [] }))));
   const dl = document.getElementById('downloads');
   if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', 'financials', 'race-results']) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));

@@ -84,10 +84,30 @@ export function plainAnswer(text) {
 }
 
 /** Fills the #edition element: "Edition 2026-11: ChatGPT (gpt-6.2-astra) and Claude (claude-opus-5-5), 3 repeats each. Gemini: pending." */
+/** The edition (engines, models, which subjects Overall covers), fetched once per page. */
+let editionPromise = null;
+export const edition = () => (editionPromise ||= api('/api/edition').catch(() => null));
+
+const SUBJECT_NAME = { recommended: 'Recommended', accurate: 'Accurate', shoppable: 'Shoppable', sourced: 'Sourced', routing: 'Sale goes home' };
+const list = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
+
+/** Overall is provisional while some subjects are unscored (Accurate and Shoppable until the quarterly checks). Rewrites
+ *  the Overall definition to say which subjects it covers this edition, and returns { provisional, label }. */
+export async function overallStatus() {
+  const d = await edition();
+  const o = d && d.overall;
+  if (!o || !o.subjects || !o.subjects.length) return { provisional: false, label: 'Overall' };
+  if (o.provisional) {
+    const missing = o.all.filter(s => !o.subjects.includes(s)).map(s => SUBJECT_NAME[s] || s);
+    DEFINITIONS.overall = ['Overall (provisional)', `Weighted mean of the scored subjects, 0 to 100, no curve. Provisional: this edition it covers ${list(o.subjects.map(s => SUBJECT_NAME[s] || s))} only; ${list(missing)} ${missing.length === 1 ? 'is' : 'are'} not scored yet. Full weights: Recommended 35, Accurate 25, Shoppable 20, Sourced 10, Sale goes home 10.`];
+  }
+  return { provisional: Boolean(o.provisional), label: o.provisional ? 'Overall · provisional' : 'Overall' };
+}
+
 export async function showEdition() {
   const node = document.getElementById('edition');
   if (!node) return;
-  const d = await api('/api/edition').catch(() => null);
+  const d = await edition();
   if (!d || !d.round) { node.textContent = 'No edition yet.'; return; }
   const parts = d.engines.map(e => `${engineName(e.engine)} (${e.model})`);
   const list = parts.length <= 1 ? parts.join('') : parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];

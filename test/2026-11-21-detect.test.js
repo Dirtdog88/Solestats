@@ -125,3 +125,15 @@ test('canonicalUrl removes tracking parameters, fragments and trailing slashes',
   assert.equal(canonicalUrl('https://www.brooksrunning.com/en_us/shoes/?utm_source=openai'), 'https://www.brooksrunning.com/en_us/shoes');
   assert.equal(canonicalUrl('not a url'), 'not a url');
 });
+
+test('pickWinner reads the verdicts the engines actually write (2026-11-22)', () => {
+  const w = (t, a, b) => pickWinner(t, a, b, matchers);
+  assert.equal(w("For most people, I'd pick **Brooks**, specifically the **Brooks Ghost**. **On** is the better choice in a few cases.", 'on', 'brooks'), 'brooks');
+  assert.equal(w('I’d buy the Saucony Ride 19 if you want one pair. I’d choose the Hoka Clifton 11 instead if your miles are easy.', 'hoka', 'saucony'), 'saucony');
+  assert.equal(w("Neither brand is better overall. For a typical everyday running shoe, I'd lean Brooks. If you want something faster, go with adidas.", 'brooks', 'adidas'), 'brooks');
+  assert.equal(w("My pick: If you want one shoe for all your runs, I'd lean toward the Saucony Ride 18.", 'brooks', 'saucony'), 'saucony');
+  assert.equal(w('Winner: Brooks Ghost for pure running comfort; Nike Pegasus if you also want a gym shoe.', 'brooks', 'nike'), 'brooks');
+  assert.equal(w("For most people, I'd go with the Nike Pegasus. The On Cloudsurfer and On Cloudmonster are good, the On Cloudeclipse too.", 'on', 'nike'), 'nike');
+  assert.equal(w("I'd go with On, specifically the Cloudmonster.", 'on', 'nike'), 'on');
+  assert.equal(w('Both are great; it depends on your feet. Try both on at a store.', 'brooks', 'hoka'), 'tie');
+});

@@ -1,6 +1,6 @@
 // One brand's report card.
 const ORDER = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
-import { el, engineName, showEdition, plainAnswer, defined, installTips, DEFINITIONS, money } from './2026-11-21-common.js';
+import { el, engineName, showEdition, plainAnswer, defined, installTips, DEFINITIONS, money, overallStatus } from './2026-11-21-common.js';
 const TREATMENT = { full: 'core brand', eligible: 'watched brand', scan: 'scan' };
 
 const SOURCING_TAG = { not_provided: true, no_search: true };
@@ -63,6 +63,7 @@ async function main() {
   document.getElementById('name').textContent = d.brand.name;
   document.getElementById('sub').textContent = [d.brand.category === 'shoes' ? 'Running shoes' : d.brand.category, TREATMENT[d.brand.treatment] || d.brand.treatment].join(' · ');
   showEdition();
+  const ov = await overallStatus();
   const grid = el('div', { class: 'subjects' });
   // Sourced held back for too few answers that name a source: there is no score row, so the counts come from the API.
   const src = d.sourcing || {};
@@ -75,7 +76,7 @@ async function main() {
       continue;
     }
     if (!v) continue;
-    grid.append(el('div', { class: 'subject' }, defined('div', s, { class: 'label' }), el('div', { class: 'big' }, v.score == null ? '—' : String(Math.round(v.score))),
+    grid.append(el('div', { class: 'subject' }, defined('div', s, s === 'overall' ? { class: 'label', text: ov.label } : { class: 'label' }), el('div', { class: 'big' }, v.score == null ? '—' : String(Math.round(v.score))),
       el('div', { class: 'pills' }, v.margin != null ? defined('span', 'margin', { class: 'pill', text: `±${Math.round(v.margin)}` }) : '', defined('span', 'n', { class: 'pill grey', text: `n ${v.n}` }), ...(s === 'sourced' ? sourcedPills(v.detail) : []), v.detail?.checked_round ? defined('span', 'checked', { class: 'pill grey', text: `checked ${v.detail.checked_round}` }) : '')));
   }
   card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));

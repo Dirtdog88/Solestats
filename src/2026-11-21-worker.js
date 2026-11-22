@@ -1,4 +1,5 @@
-import { MIN_SOURCED_ANSWERS } from './2026-11-21-score.js';
+import { MIN_SOURCED_ANSWERS, WEIGHTS } from './2026-11-21-score.js';
+const OVERALL_ORDER = Object.keys(WEIGHTS);
 import { brandCounts } from './2026-11-22-races.js';
 // SoleStats Worker: a public, read-only JSON API over D1 plus CSV downloads; everything else is a static file.
 // Nothing here writes: data is loaded with the scripts (wrangler d1 execute). No sign-in, no cookies.
@@ -43,7 +44,12 @@ async function api(url, env) {
       SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited,
       SUM(CASE WHEN searches > 0 AND NOT (citations_json IS NOT NULL AND citations_json != '[]') THEN 1 ELSE 0 END) AS not_provided
       FROM runs WHERE round_id = ? AND status = 'ok' GROUP BY engine, model ORDER BY engine, model`).bind(round).all()).results;
-    return json({ round, started_at: row?.started_at || null, finished_at: row?.finished_at || null, repeats: row?.repeats || null, engines, pending: pending.filter(p => !engines.some(e => e.engine === p)) });
+    // Which subjects Overall covers this edition (Accurate and Shoppable arrive with the quarterly checks): from the
+    // weights stored with the overall scores, so the site can label Overall provisional without hand edits.
+    const ov = await env.DB.prepare(`SELECT detail_json FROM scores WHERE round_id = ? AND subject = 'overall'`).bind(round).all().catch(() => ({ results: [] }));
+    const covered = [...new Set(ov.results.flatMap(r => Object.keys(safeJson(r.detail_json)?.weights || {})))];
+    const overall = { subjects: OVERALL_ORDER.filter(s => covered.includes(s)), all: OVERALL_ORDER, provisional: OVERALL_ORDER.some(s => !covered.includes(s)) };
+    return json({ round, started_at: row?.started_at || null, finished_at: row?.finished_at || null, repeats: row?.repeats || null, engines, pending: pending.filter(p => !engines.some(e => e.engine === p)), overall });
   }
   if (parts[1] === 'rounds') return json({ rounds: (await env.DB.prepare('SELECT id, started_at, finished_at, engines, repeats FROM rounds ORDER BY id DESC').all()).results });
   if (parts[1] === 'brands' && !parts[2]) {

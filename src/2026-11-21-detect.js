@@ -93,19 +93,28 @@ export function markTopPick(answer, mentions, matchers) {
 
 /** Head-to-head: which of the two named brands the answer recommends. Returns a slug, 'tie' or 'unclear'. */
 export function pickWinner(answer, a, b, matchers) {
-  const text = answer.toLowerCase();
+  // Markdown off first: "I'd pick **Brooks**" must read as "I'd pick Brooks" (2026-11-22: 57% of head-to-head answers
+  // were "unclear", mostly because bold names and "I'd buy the..." went unmatched).
+  const plainText = String(answer || '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_`#>]+/g, '');
+  const text = plainText.toLowerCase();
   const byName = s => matchers.find(m => m.slug === s);
   // Count distinct places the brand is named (aliases can overlap, so count positions, not pattern hits).
-  const count = s => { const m = byName(s); if (!m) return 0; const at = new Set(); for (const re of m.patterns) { re.lastIndex = 0; let h; while ((h = re.exec(answer))) at.add(h.index); } return at.size; };
-  // Strong signals first: an explicit verdict sentence naming one brand.
-  const verdict = /(?:i(?:'d| would) (?:go with|pick|choose|recommend)|my (?:pick|recommendation)(?: would be| is)|the (?:better|safer|best) (?:choice|bet|pick)(?: is| would be)|winner:?|go with)\s+(?:the\s+)?([a-z][a-z .'-]{1,20})/g;
-  let m;
+  const count = s => { const m = byName(s); if (!m) return 0; const at = new Set(); for (const re of m.patterns) { re.lastIndex = 0; let h; while ((h = re.exec(plainText))) at.add(h.index); } return at.size; };
+  // Does a short phrase (lowercase, right after a verdict) start with this brand's name?
   const names = { [a]: byName(a), [b]: byName(b) };
+  const leads = (s, phrase) => {
+    const mm = names[s];
+    if (!mm) return false;
+    if (s === 'on') return /^on(?:\b(?![-\s](?:a|the|your|my|its)\b)|\s+cloud|\s+running)/.test(phrase);
+    return mm.patterns.some(re => new RegExp('^(?:' + re.source + ')', 'i').test(phrase));
+  };
+  // Strong signals first: an explicit verdict naming one brand of the pair; the first one wins (later "...instead if"
+  // lines are the conditional alternative).
+  const verdict = /(?:i(?:'d|’d| would) (?:go with|pick|choose|recommend|buy|get|start with|lean(?: toward| towards)?|take)|my (?:pick|recommendation|vote|choice)(?: would be| is| goes to)?:?|for most (?:people|runners|daily runners)[^.]{0,40}?(?:go with|pick|choose|get|buy)|the (?:better|safer|best) (?:choice|bet|pick|default)(?: for most (?:people|runners))?(?: is| would be)|winner:?)\s+(?:the\s+|an?\s+)?([a-z][a-z .'’-]{1,24})/g;
+  let m;
   while ((m = verdict.exec(text))) {
-    for (const s of [a, b]) {
-      const mm = names[s];
-      if (mm && mm.patterns.some(re => { re.lastIndex = 0; return new RegExp(re.source, re.flags.replace('g', '')).test(m[1]); })) return s;
-    }
+    const hits = [a, b].filter(s => leads(s, m[1].trim()));
+    if (hits.length === 1) return hits[0];
   }
   if (/\b(?:it depends|both are|either (?:is|would)|can't go wrong with either|tie)\b/.test(text)) return 'tie';
   const ca = count(a), cb = count(b);

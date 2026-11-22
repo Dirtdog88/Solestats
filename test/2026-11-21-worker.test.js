@@ -67,6 +67,17 @@ test('GET /api/edition lists the engines in the round and the pending ones from 
 });
 
 
+test('GET /api/edition says which subjects Overall covers, and that it is provisional until all five are scored', async () => {
+  const scores = [{ subject: 'overall', detail_json: '{"weights":{"recommended":35,"sourced":10,"routing":10}}' }, { subject: 'overall', detail_json: '{"weights":{"recommended":35,"routing":10,"accurate":25}}' }];
+  const e = { ...env, DB: fakeDb({ rounds: [{ id: '2026-11' }], runs: [], scores }) };
+  const body = await (await worker.fetch(new Request('https://solestats.com/api/edition'), e)).json();
+  assert.deepEqual(body.overall.subjects, ['recommended', 'accurate', 'sourced', 'routing']);
+  assert.equal(body.overall.provisional, true);
+  const all = [{ subject: 'overall', detail_json: '{"weights":{"recommended":35,"accurate":25,"shoppable":20,"sourced":10,"routing":10}}' }];
+  const full = await (await worker.fetch(new Request('https://solestats.com/api/edition'), { ...env, DB: fakeDb({ rounds: [{ id: '2026-11' }], runs: [], scores: all }) })).json();
+  assert.equal(full.overall.provisional, false);
+});
+
 test('GET /api/share-of-voice joins share of voice, the previous round and dollar-scaled revenue', async () => {
   const scores = [{ brand_slug: 'hoka', score: 13.2, margin: 0.4, n: 534, detail_json: '{"top_pick_share":8.5,"answer_share":58,"by_engine":{"openai":12}}' }];
   const e = { ...env, DB: fakeDb({ rounds: [{ id: '2026-12' }], brands: [{ slug: 'hoka', name: 'Hoka', treatment: 'full' }, { slug: 'zzz', name: 'Nobody' }], scores,

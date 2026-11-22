@@ -56,3 +56,12 @@ test('brand slugs are unique and, with the scan categories parked, every brand i
   for (const b of brands) assert.equal(b.category, 'shoes', b.slug);
   assert.equal(brands.length, 18);
 });
+
+test('every shoe prompt has one of the 11 need groups; other prompts have none', () => {
+  const GROUPS = ['starting-out', 'budget', 'cushion', 'stability', 'fit', 'racing', 'trail', 'drop', 'conditions', 'people', 'brand'];
+  for (const p of prompts) {
+    if (p.set === 'shoe') assert.ok(GROUPS.includes(p.group), `${p.id}: ${p.group}`);
+    else assert.equal(p.group || '', '', p.id);
+  }
+  assert.equal(new Set(prompts.filter(p => p.set === 'shoe').map(p => p.group)).size, 11);
+});

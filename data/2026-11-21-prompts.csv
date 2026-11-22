@@ -1,139 +1,139 @@
-id,set,category,text,tags,pulse,pair_a,pair_b
-S001,shoe,shoes,What running shoes should I buy as a complete beginner?,beginner;daily,1,,
-S002,shoe,shoes,I'm starting Couch to 5K next month. What shoes do I need?,beginner,0,,
-S003,shoe,shoes,Best running shoes for someone who runs about 10 miles a week?,daily,0,,
-S004,shoe,shoes,I just want a comfortable everyday running shoe. What do you recommend?,daily,0,,
-S005,shoe,shoes,What's the best all-around running shoe right now?,daily,1,,
-S006,shoe,shoes,Which running shoes are actually worth the money?,daily,0,,
-S007,shoe,shoes,Recommend a running shoe that will last a long time.,daily;durable,0,,
-S008,shoe,shoes,What running shoes do most people end up buying?,daily,0,,
-S009,shoe,shoes,I run three times a week on pavement. Which shoes should I get?,daily;road,0,,
-S010,shoe,shoes,What running shoe should I buy if I can only own one pair?,daily,1,,
-S011,shoe,shoes,Good running shoes under $100?,budget,1,,
-S012,shoe,shoes,Best cheap running shoes that are still good?,budget,0,,
-S013,shoe,shoes,Best running shoes under $130?,budget,0,,
-S014,shoe,shoes,"Is it worth spending more than $160 on running shoes? If so, on what?",daily;premium,0,,
-S015,shoe,shoes,Which of last year's running shoes can I still get on sale that are great?,budget,0,,
-S016,shoe,shoes,What are the most cushioned running shoes?,max-cushion,1,,
-S017,shoe,shoes,Softest running shoes for easy days?,max-cushion;recovery,0,,
-S018,shoe,shoes,Best running shoes for bad knees?,max-cushion,0,,
-S019,shoe,shoes,"Best running shoes for a heavier runner, around 220 pounds?",heavy-runner;max-cushion,1,,
-S020,shoe,shoes,Best shoes for recovery runs?,recovery,0,,
-S021,shoe,shoes,Running shoes that feel like walking on clouds?,max-cushion,0,,
-S022,shoe,shoes,Best running shoes for long runs over 15 miles?,long-run,1,,
-S023,shoe,shoes,Shoes for someone whose feet get sore after running?,max-cushion,0,,
-S024,shoe,shoes,Best running shoes for overpronation?,stability,1,,
-S025,shoe,shoes,Best stability running shoes?,stability,0,,
-S026,shoe,shoes,Best running shoes for flat feet?,stability,1,,
-S027,shoe,shoes,Best running shoes for high arches?,neutral;cushion,0,,
-S028,shoe,shoes,Best running shoes for plantar fasciitis?,plantar,1,,
-S029,shoe,shoes,Best running shoes for shin splints?,cushion,0,,
-S030,shoe,shoes,What running shoes help with IT band pain?,stability;cushion,0,,
-S031,shoe,shoes,Best running shoes for Achilles tendonitis?,high-drop,0,,
-S032,shoe,shoes,Running shoes for knee pain?,cushion,0,,
-S033,shoe,shoes,Best running shoes for bunions?,wide,0,,
-S034,shoe,shoes,What shoes help with runner's knee?,cushion;stability,0,,
-S035,shoe,shoes,Which running shoes do podiatrists recommend?,stability,0,,
-S036,shoe,shoes,Best running shoes for wide feet?,wide,1,,
-S037,shoe,shoes,Which running shoes come in 2E and 4E widths?,wide,0,,
-S038,shoe,shoes,Best running shoes for narrow feet?,narrow,0,,
-S039,shoe,shoes,Best running shoes with a wide toe box?,wide-toebox,1,,
-S040,shoe,shoes,Best running shoes for women with narrow heels?,women,0,,
-S041,shoe,shoes,"Running shoes for big feet, size 14 and up?",large-sizes,0,,
-S042,shoe,shoes,Which running shoe brands run small?,fit,0,,
-S043,shoe,shoes,"Best running shoes for flat, wide feet?",wide;stability,0,,
-S044,shoe,shoes,Best carbon plate racing shoes?,racing,1,,
-S045,shoe,shoes,Best marathon racing shoes?,racing,1,,
-S046,shoe,shoes,Best shoe for running a sub-20 5K?,racing;5k,0,,
-S047,shoe,shoes,Best half marathon shoe?,racing,1,,
-S048,shoe,shoes,"Best super shoe for a slower marathoner, around 4:30?",racing,0,,
-S049,shoe,shoes,Best shoe for tempo runs?,tempo,0,,
-S050,shoe,shoes,Best shoes for speed workouts and intervals?,tempo,0,,
-S051,shoe,shoes,Best lightweight running shoes?,light,1,,
-S052,shoe,shoes,Cheapest carbon plate shoe that's worth buying?,racing;budget,0,,
-S053,shoe,shoes,Best shoe for a first marathon?,long-run;daily,1,,
-S054,shoe,shoes,"Do I need a super shoe for a 10K, and which one?",racing,0,,
-S055,shoe,shoes,Best fast trainer without a carbon plate?,tempo,0,,
-S056,shoe,shoes,Best trail running shoes?,trail,1,,
-S057,shoe,shoes,Best trail running shoes for beginners?,trail,0,,
-S058,shoe,shoes,Best trail shoes for mud?,trail-lug,0,,
-S059,shoe,shoes,"Best trail shoes for rocky, technical terrain?",trail-technical,1,,
-S060,shoe,shoes,Best waterproof trail running shoes?,trail-waterproof,0,,
-S061,shoe,shoes,Best trail shoes for ultramarathons?,ultra,1,,
-S062,shoe,shoes,Best cushioned trail shoes for a 50-miler?,ultra;max-cushion,0,,
-S063,shoe,shoes,Best door-to-trail running shoes?,hybrid,1,,
-S064,shoe,shoes,Best trail shoes with a wide toe box?,trail;wide-toebox,0,,
-S065,shoe,shoes,"Best trail running shoes for the Pacific Northwest, wet with lots of roots?",trail,0,,
-S066,shoe,shoes,Trail running shoes I can hike in too?,trail;hybrid,0,,
-S067,shoe,shoes,Grippiest trail shoes for wet rock?,trail-technical,0,,
-S068,shoe,shoes,Best trail shoes for a 50K?,ultra,0,,
-S069,shoe,shoes,Best lightweight trail racing shoes?,trail-racing,0,,
-S070,shoe,shoes,Best trail running shoes for wide feet?,trail;wide,0,,
-S071,shoe,shoes,Best zero drop running shoes?,zero-drop,1,,
-S072,shoe,shoes,Best low drop running shoes for midfoot strikers?,low-drop,0,,
-S073,shoe,shoes,Best minimalist running shoes?,minimal,0,,
-S074,shoe,shoes,Best shoes for transitioning to a lower drop?,low-drop,0,,
-S075,shoe,shoes,Best higher drop running shoes for heel strikers?,high-drop,0,,
-S076,shoe,shoes,Best running shoes for forefoot strikers?,low-drop,0,,
-S077,shoe,shoes,Best running shoes for the treadmill?,treadmill,1,,
-S078,shoe,shoes,Best winter running shoes?,winter,1,,
-S079,shoe,shoes,Best waterproof road running shoes for rainy weather?,road-waterproof,0,,
-S080,shoe,shoes,Best running shoes for hot weather?,breathable,0,,
-S081,shoe,shoes,Best running shoes for concrete?,cushion,0,,
-S082,shoe,shoes,Best shoes for running on gravel paths?,hybrid,0,,
-S083,shoe,shoes,Best shoes for track workouts?,tempo;track,0,,
-S084,shoe,shoes,Best shoes for run-walk intervals?,beginner;cushion,0,,
-S085,shoe,shoes,Best running shoes for women?,women,1,,
-S086,shoe,shoes,Best running shoes for men over 50?,cushion,1,,
-S087,shoe,shoes,Best running shoes for a kid starting cross country?,kids,0,,
-S088,shoe,shoes,Best running shoes for a runner over 60?,cushion;stability,0,,
-S089,shoe,shoes,Best running shoes during pregnancy?,stability,0,,
-S090,shoe,shoes,Best shoes for both walking and running?,walking,0,,
-S091,shoe,shoes,Best running shoes for a nurse who also runs?,cushion,0,,
-S092,shoe,shoes,Best running shoes for coming back from a stress fracture?,cushion,0,,
-S093,shoe,shoes,Best running shoes for triathletes?,racing;quick-lace,0,,
-S094,shoe,shoes,Best running shoes for high school track?,kids;racing,0,,
-S095,shoe,shoes,Which running shoe brand is best?,daily,1,,
-S096,shoe,shoes,Which running shoe brand is best for durability?,durable,0,,
-S097,shoe,shoes,Which running brand has the best shoes for wide feet?,wide,0,,
-S098,shoe,shoes,Which brands make the best stability shoes?,stability,0,,
-S099,shoe,shoes,What's the best running shoe of 2026?,daily,1,,
-S100,shoe,shoes,What running shoes do elite marathoners wear?,racing,0,,
-S101,shoe,shoes,Which running shoe brand has the best trail shoes?,trail,0,,
-S102,shoe,shoes,Best running shoes for someone who hates how most running shoes look?,lifestyle,0,,
-H001,h2h,shoes,"Brooks or Hoka: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Hoka
-H002,h2h,shoes,"Brooks or On: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,On
-H003,h2h,shoes,"Brooks or Saucony: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Saucony
-H004,h2h,shoes,"Brooks or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Asics
-H005,h2h,shoes,"Brooks or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Nike
-H006,h2h,shoes,"Brooks or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,adidas
-H007,h2h,shoes,"Brooks or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,New Balance
-H008,h2h,shoes,"Hoka or On: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,On
-H009,h2h,shoes,"Hoka or Saucony: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,Saucony
-H010,h2h,shoes,"Hoka or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,Asics
-H011,h2h,shoes,"Hoka or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,Nike
-H012,h2h,shoes,"Hoka or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,adidas
-H013,h2h,shoes,"Hoka or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,New Balance
-H014,h2h,shoes,"On or Saucony: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,Saucony
-H015,h2h,shoes,"On or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,Asics
-H016,h2h,shoes,"On or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,Nike
-H017,h2h,shoes,"On or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,adidas
-H018,h2h,shoes,"On or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,New Balance
-H019,h2h,shoes,"Saucony or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,Asics
-H020,h2h,shoes,"Saucony or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,Nike
-H021,h2h,shoes,"Saucony or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,adidas
-H022,h2h,shoes,"Saucony or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,New Balance
-H023,h2h,shoes,"Asics or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Asics,Nike
-H024,h2h,shoes,"Asics or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Asics,adidas
-H025,h2h,shoes,"Asics or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Asics,New Balance
-H026,h2h,shoes,"Nike or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Nike,adidas
-H027,h2h,shoes,"Nike or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Nike,New Balance
-H028,h2h,shoes,"adidas or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,adidas,New Balance
-R001,retailer,retail,Where should I buy running shoes online?,routing,1,,
-R002,retailer,retail,What's the best place to buy running shoes?,routing,0,,
-R003,retailer,retail,Is it better to buy running shoes at a running store or online?,routing,1,,
-R004,retailer,retail,Where can I get running shoes cheapest?,routing,0,,
-R005,retailer,retail,Where can I buy last season's running shoes on sale?,routing,0,,
-R006,retailer,retail,Which stores have the best return policy for running shoes?,routing,0,,
-R007,retailer,retail,Where can I try on running shoes near Seattle?,routing,0,,
-R008,retailer,retail,Where do serious runners buy their gear?,routing,0,,
+id,set,category,group,text,tags,pulse,pair_a,pair_b
+S001,shoe,shoes,starting-out,What running shoes should I buy as a complete beginner?,beginner;daily,1,,
+S002,shoe,shoes,starting-out,I'm starting Couch to 5K next month. What shoes do I need?,beginner,0,,
+S003,shoe,shoes,starting-out,Best running shoes for someone who runs about 10 miles a week?,daily,0,,
+S004,shoe,shoes,starting-out,I just want a comfortable everyday running shoe. What do you recommend?,daily,0,,
+S005,shoe,shoes,starting-out,What's the best all-around running shoe right now?,daily,1,,
+S006,shoe,shoes,starting-out,Which running shoes are actually worth the money?,daily,0,,
+S007,shoe,shoes,starting-out,Recommend a running shoe that will last a long time.,daily;durable,0,,
+S008,shoe,shoes,starting-out,What running shoes do most people end up buying?,daily,0,,
+S009,shoe,shoes,starting-out,I run three times a week on pavement. Which shoes should I get?,daily;road,0,,
+S010,shoe,shoes,starting-out,What running shoe should I buy if I can only own one pair?,daily,1,,
+S011,shoe,shoes,budget,Good running shoes under $100?,budget,1,,
+S012,shoe,shoes,budget,Best cheap running shoes that are still good?,budget,0,,
+S013,shoe,shoes,budget,Best running shoes under $130?,budget,0,,
+S014,shoe,shoes,budget,"Is it worth spending more than $160 on running shoes? If so, on what?",daily;premium,0,,
+S015,shoe,shoes,budget,Which of last year's running shoes can I still get on sale that are great?,budget,0,,
+S016,shoe,shoes,cushion,What are the most cushioned running shoes?,max-cushion,1,,
+S017,shoe,shoes,cushion,Softest running shoes for easy days?,max-cushion;recovery,0,,
+S018,shoe,shoes,cushion,Best running shoes for bad knees?,max-cushion,0,,
+S019,shoe,shoes,cushion,"Best running shoes for a heavier runner, around 220 pounds?",heavy-runner;max-cushion,1,,
+S020,shoe,shoes,cushion,Best shoes for recovery runs?,recovery,0,,
+S021,shoe,shoes,cushion,Running shoes that feel like walking on clouds?,max-cushion,0,,
+S022,shoe,shoes,cushion,Best running shoes for long runs over 15 miles?,long-run,1,,
+S023,shoe,shoes,cushion,Shoes for someone whose feet get sore after running?,max-cushion,0,,
+S024,shoe,shoes,stability,Best running shoes for overpronation?,stability,1,,
+S025,shoe,shoes,stability,Best stability running shoes?,stability,0,,
+S026,shoe,shoes,stability,Best running shoes for flat feet?,stability,1,,
+S027,shoe,shoes,stability,Best running shoes for high arches?,neutral;cushion,0,,
+S028,shoe,shoes,stability,Best running shoes for plantar fasciitis?,plantar,1,,
+S029,shoe,shoes,stability,Best running shoes for shin splints?,cushion,0,,
+S030,shoe,shoes,stability,What running shoes help with IT band pain?,stability;cushion,0,,
+S031,shoe,shoes,stability,Best running shoes for Achilles tendonitis?,high-drop,0,,
+S032,shoe,shoes,stability,Running shoes for knee pain?,cushion,0,,
+S033,shoe,shoes,stability,Best running shoes for bunions?,wide,0,,
+S034,shoe,shoes,stability,What shoes help with runner's knee?,cushion;stability,0,,
+S035,shoe,shoes,stability,Which running shoes do podiatrists recommend?,stability,0,,
+S036,shoe,shoes,fit,Best running shoes for wide feet?,wide,1,,
+S037,shoe,shoes,fit,Which running shoes come in 2E and 4E widths?,wide,0,,
+S038,shoe,shoes,fit,Best running shoes for narrow feet?,narrow,0,,
+S039,shoe,shoes,fit,Best running shoes with a wide toe box?,wide-toebox,1,,
+S040,shoe,shoes,fit,Best running shoes for women with narrow heels?,women,0,,
+S041,shoe,shoes,fit,"Running shoes for big feet, size 14 and up?",large-sizes,0,,
+S042,shoe,shoes,fit,Which running shoe brands run small?,fit,0,,
+S043,shoe,shoes,fit,"Best running shoes for flat, wide feet?",wide;stability,0,,
+S044,shoe,shoes,racing,Best carbon plate racing shoes?,racing,1,,
+S045,shoe,shoes,racing,Best marathon racing shoes?,racing,1,,
+S046,shoe,shoes,racing,Best shoe for running a sub-20 5K?,racing;5k,0,,
+S047,shoe,shoes,racing,Best half marathon shoe?,racing,1,,
+S048,shoe,shoes,racing,"Best super shoe for a slower marathoner, around 4:30?",racing,0,,
+S049,shoe,shoes,racing,Best shoe for tempo runs?,tempo,0,,
+S050,shoe,shoes,racing,Best shoes for speed workouts and intervals?,tempo,0,,
+S051,shoe,shoes,racing,Best lightweight running shoes?,light,1,,
+S052,shoe,shoes,racing,Cheapest carbon plate shoe that's worth buying?,racing;budget,0,,
+S053,shoe,shoes,racing,Best shoe for a first marathon?,long-run;daily,1,,
+S054,shoe,shoes,racing,"Do I need a super shoe for a 10K, and which one?",racing,0,,
+S055,shoe,shoes,racing,Best fast trainer without a carbon plate?,tempo,0,,
+S056,shoe,shoes,trail,Best trail running shoes?,trail,1,,
+S057,shoe,shoes,trail,Best trail running shoes for beginners?,trail,0,,
+S058,shoe,shoes,trail,Best trail shoes for mud?,trail-lug,0,,
+S059,shoe,shoes,trail,"Best trail shoes for rocky, technical terrain?",trail-technical,1,,
+S060,shoe,shoes,trail,Best waterproof trail running shoes?,trail-waterproof,0,,
+S061,shoe,shoes,trail,Best trail shoes for ultramarathons?,ultra,1,,
+S062,shoe,shoes,trail,Best cushioned trail shoes for a 50-miler?,ultra;max-cushion,0,,
+S063,shoe,shoes,trail,Best door-to-trail running shoes?,hybrid,1,,
+S064,shoe,shoes,trail,Best trail shoes with a wide toe box?,trail;wide-toebox,0,,
+S065,shoe,shoes,trail,"Best trail running shoes for the Pacific Northwest, wet with lots of roots?",trail,0,,
+S066,shoe,shoes,trail,Trail running shoes I can hike in too?,trail;hybrid,0,,
+S067,shoe,shoes,trail,Grippiest trail shoes for wet rock?,trail-technical,0,,
+S068,shoe,shoes,trail,Best trail shoes for a 50K?,ultra,0,,
+S069,shoe,shoes,trail,Best lightweight trail racing shoes?,trail-racing,0,,
+S070,shoe,shoes,trail,Best trail running shoes for wide feet?,trail;wide,0,,
+S071,shoe,shoes,drop,Best zero drop running shoes?,zero-drop,1,,
+S072,shoe,shoes,drop,Best low drop running shoes for midfoot strikers?,low-drop,0,,
+S073,shoe,shoes,drop,Best minimalist running shoes?,minimal,0,,
+S074,shoe,shoes,drop,Best shoes for transitioning to a lower drop?,low-drop,0,,
+S075,shoe,shoes,drop,Best higher drop running shoes for heel strikers?,high-drop,0,,
+S076,shoe,shoes,drop,Best running shoes for forefoot strikers?,low-drop,0,,
+S077,shoe,shoes,conditions,Best running shoes for the treadmill?,treadmill,1,,
+S078,shoe,shoes,conditions,Best winter running shoes?,winter,1,,
+S079,shoe,shoes,conditions,Best waterproof road running shoes for rainy weather?,road-waterproof,0,,
+S080,shoe,shoes,conditions,Best running shoes for hot weather?,breathable,0,,
+S081,shoe,shoes,conditions,Best running shoes for concrete?,cushion,0,,
+S082,shoe,shoes,conditions,Best shoes for running on gravel paths?,hybrid,0,,
+S083,shoe,shoes,conditions,Best shoes for track workouts?,tempo;track,0,,
+S084,shoe,shoes,conditions,Best shoes for run-walk intervals?,beginner;cushion,0,,
+S085,shoe,shoes,people,Best running shoes for women?,women,1,,
+S086,shoe,shoes,people,Best running shoes for men over 50?,cushion,1,,
+S087,shoe,shoes,people,Best running shoes for a kid starting cross country?,kids,0,,
+S088,shoe,shoes,people,Best running shoes for a runner over 60?,cushion;stability,0,,
+S089,shoe,shoes,people,Best running shoes during pregnancy?,stability,0,,
+S090,shoe,shoes,people,Best shoes for both walking and running?,walking,0,,
+S091,shoe,shoes,people,Best running shoes for a nurse who also runs?,cushion,0,,
+S092,shoe,shoes,people,Best running shoes for coming back from a stress fracture?,cushion,0,,
+S093,shoe,shoes,people,Best running shoes for triathletes?,racing;quick-lace,0,,
+S094,shoe,shoes,people,Best running shoes for high school track?,kids;racing,0,,
+S095,shoe,shoes,brand,Which running shoe brand is best?,daily,1,,
+S096,shoe,shoes,brand,Which running shoe brand is best for durability?,durable,0,,
+S097,shoe,shoes,brand,Which running brand has the best shoes for wide feet?,wide,0,,
+S098,shoe,shoes,brand,Which brands make the best stability shoes?,stability,0,,
+S099,shoe,shoes,brand,What's the best running shoe of 2026?,daily,1,,
+S100,shoe,shoes,brand,What running shoes do elite marathoners wear?,racing,0,,
+S101,shoe,shoes,brand,Which running shoe brand has the best trail shoes?,trail,0,,
+S102,shoe,shoes,brand,Best running shoes for someone who hates how most running shoes look?,lifestyle,0,,
+H001,h2h,shoes,,"Brooks or Hoka: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Hoka
+H002,h2h,shoes,,"Brooks or On: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,On
+H003,h2h,shoes,,"Brooks or Saucony: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Saucony
+H004,h2h,shoes,,"Brooks or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Asics
+H005,h2h,shoes,,"Brooks or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,Nike
+H006,h2h,shoes,,"Brooks or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,adidas
+H007,h2h,shoes,,"Brooks or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Brooks,New Balance
+H008,h2h,shoes,,"Hoka or On: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,On
+H009,h2h,shoes,,"Hoka or Saucony: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,Saucony
+H010,h2h,shoes,,"Hoka or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,Asics
+H011,h2h,shoes,,"Hoka or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,Nike
+H012,h2h,shoes,,"Hoka or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,adidas
+H013,h2h,shoes,,"Hoka or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Hoka,New Balance
+H014,h2h,shoes,,"On or Saucony: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,Saucony
+H015,h2h,shoes,,"On or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,Asics
+H016,h2h,shoes,,"On or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,Nike
+H017,h2h,shoes,,"On or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,adidas
+H018,h2h,shoes,,"On or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,On,New Balance
+H019,h2h,shoes,,"Saucony or Asics: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,Asics
+H020,h2h,shoes,,"Saucony or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,Nike
+H021,h2h,shoes,,"Saucony or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,adidas
+H022,h2h,shoes,,"Saucony or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Saucony,New Balance
+H023,h2h,shoes,,"Asics or Nike: which should I buy for a daily running shoe, and why?",daily;h2h,0,Asics,Nike
+H024,h2h,shoes,,"Asics or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Asics,adidas
+H025,h2h,shoes,,"Asics or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Asics,New Balance
+H026,h2h,shoes,,"Nike or adidas: which should I buy for a daily running shoe, and why?",daily;h2h,0,Nike,adidas
+H027,h2h,shoes,,"Nike or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,Nike,New Balance
+H028,h2h,shoes,,"adidas or New Balance: which should I buy for a daily running shoe, and why?",daily;h2h,0,adidas,New Balance
+R001,retailer,retail,,Where should I buy running shoes online?,routing,1,,
+R002,retailer,retail,,What's the best place to buy running shoes?,routing,0,,
+R003,retailer,retail,,Is it better to buy running shoes at a running store or online?,routing,1,,
+R004,retailer,retail,,Where can I get running shoes cheapest?,routing,0,,
+R005,retailer,retail,,Where can I buy last season's running shoes on sale?,routing,0,,
+R006,retailer,retail,,Which stores have the best return policy for running shoes?,routing,0,,
+R007,retailer,retail,,Where can I try on running shoes near Seattle?,routing,0,,
+R008,retailer,retail,,Where do serious runners buy their gear?,routing,0,,
