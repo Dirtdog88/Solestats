@@ -1,10 +1,17 @@
-# Cloudflare Worker config for SoleStats (solestats.com). Free plan: Worker + D1 + static assets.
+# Cloudflare Worker config for SoleStats (solestats.net). Free plan: Worker + D1 + static assets.
 # The Worker is called solestats2 in Cloudflare (the dashboard would not take "solestats" when the repo was connected
-# on 2026-11-21); the name is internal, the public address is solestats.com.
+# on 2026-11-21); the name is internal, the public address is solestats.net (Alex, 2026-11-22: registered at
+# Cloudflare; solestats.com lapses at Wix).
 name = "solestats2"
 main = "src/2026-11-21-worker.js"
 compatibility_date = "2026-09-01"
 workers_dev = true
+# The public address, attached as Custom Domains on deploy (Cloudflare makes the DNS records and certificates).
+# www answers too and the Worker sends it on to the bare domain.
+routes = [
+  { pattern = "solestats.net", custom_domain = true },
+  { pattern = "www.solestats.net", custom_domain = true },
+]
 
 [assets]
 directory = "./public"
@@ -24,7 +31,7 @@ migrations_dir = "migrations"
 enabled = true
 
 [vars]
-PUBLIC_URL = "https://solestats.com"
+PUBLIC_URL = "https://solestats.net"
 # Shown on every page until the publishing gate is cleared; set to "" to take the banner down.
 PREVIEW_NOTICE = "Preview · round 1 in progress · not published"
 # Engines shown as "pending" on the site until their runs are in the current edition; set to "" when none are.

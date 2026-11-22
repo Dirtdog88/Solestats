@@ -23,13 +23,14 @@ One-time steps, in order. Everything is on Cloudflare's free plan plus pay-as-yo
 8. **Deploy.** The Worker is connected to this GitHub repo in the Cloudflare dashboard (Workers & Pages, Create, Import a
    repository, Dirtdog88/solestats; no build command, deploy command `npx wrangler deploy`), so every push to main
    deploys. `npm run deploy` does the same from a PC. `wrangler deploy` does not work from a cloud session (the
-   static-asset upload is refused with 401). The workers.dev address works at once; add `solestats.com` as a custom
-   domain in the Worker's settings once the domain is at Cloudflare (step 10).
+   static-asset upload is refused with 401). The workers.dev address works at once; the public address comes from the
+   `routes` in `wrangler.toml` (step 10).
 9. **A round.** `npm run run -- --round 2026-12` (hours, resumable), then `import`, `score`, `export`, then load
    `data/rounds/2026-12/import.sql` and `scores.sql` with `wrangler d1 execute --file`.
    An engine can join a round later: run it alone with `--engines gemini` into the same round id, then import, score
    and load again (every statement is INSERT OR REPLACE). Until then list it in `PENDING_ENGINES` in `wrangler.toml`
    so the site marks it pending; clear the entry and redeploy when it is in.
-10. **Domain.** Transfer solestats.com from Wix to Cloudflare Registrar before 2026-12-21 (unlock, transfer code,
-   approve the email). DNS then lives with the other Dirtdog sites.
+10. **Domain.** solestats.net, registered at Cloudflare Registrar on 2026-11-22 (solestats.com was left to lapse at
+   Wix). The `routes` in `wrangler.toml` attach solestats.net and www.solestats.net to the Worker as Custom Domains on
+   deploy; Cloudflare makes the DNS records and certificates. The Worker redirects www to the bare domain.
 11. **Publish.** Only after the gate: set `PREVIEW_NOTICE = ""` in `wrangler.toml`, deploy, send brands their numbers.

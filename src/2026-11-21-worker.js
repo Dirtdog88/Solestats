@@ -15,6 +15,8 @@ const HEADERS = {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // www.solestats.net goes on to the bare domain, keeping the path and query.
+    if (url.hostname.startsWith('www.')) { url.hostname = url.hostname.slice(4); return Response.redirect(url.toString(), 301); }
     if (request.method !== 'GET' && request.method !== 'HEAD') return json({ error: 'read only' }, 405);
     let res;
     try {

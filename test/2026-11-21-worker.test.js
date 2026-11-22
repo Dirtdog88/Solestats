@@ -93,3 +93,9 @@ test('GET /api/share-of-voice joins share of voice, the previous round and dolla
   assert.equal(h.revenue.usd, 2587000000);
   assert.equal(h.sov_change, 13.2 - 13.2);          // the fake returns the same rows for the previous round
 });
+
+test('www sends visitors on to the bare domain, keeping the path and query', async () => {
+  const res = await worker.fetch(new Request('https://www.solestats.net/brand.html?b=hoka'), env);
+  assert.equal(res.status, 301);
+  assert.equal(res.headers.get('location'), 'https://solestats.net/brand.html?b=hoka');
+});

@@ -4,7 +4,7 @@
 sales for running shoe brands, and which retailers AI sends people to. Open method, open data, a new edition each
 round. Round 1 is being collected. (Six more categories of running gear are parked in `data/later/` for a later round.)
 
-- Live: https://solestats.com (not published yet; a preview banner shows until the first edition)
+- Live: https://solestats.net (not published yet; a preview banner shows until the first edition)
 - Plan and decisions: the DogHaus project "SoleStats: AI Running Index" (private)
 - Setup: `2026-11-21-setup-guide.md`
 
