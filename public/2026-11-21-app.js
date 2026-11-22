@@ -33,12 +33,13 @@ function brandTable(brands, subjects, overallLabel = 'AI score') {
 function retailTable(data) {
   if (!data.rows.length) return el('p', { class: 'empty' }, 'No data yet.');
   const answers = Object.fromEntries(data.answers.map(a => [a.category, a.n]));
-  const cats = [...new Set(data.rows.map(r => r.category))];
-  const retailers = [...new Set(data.rows.map(r => r.retailer_slug))];
+  // Only the where-to-buy questions (Alex, 2026-11-22): answers to the shoe questions rarely name a store.
+  const cats = ['retail'];
+  const retailers = [...new Set(data.rows.filter(r => r.category === 'retail').map(r => r.retailer_slug))];
   const names = Object.fromEntries(data.rows.map(r => [r.retailer_slug, r.name]));
   const lookup = Object.fromEntries(data.rows.map(r => [r.category + '|' + r.retailer_slug, r.n]));
-  const head = el('tr', {}, defined('th', 'place'), ...cats.map(c => el('th', {}, CATS[c] || c)));
-  const rows = retailers.map(slug => el('tr', {}, el('td', {}, names[slug]), ...cats.map(c => {
+  const head = el('tr', {}, defined('th', 'place'), el('th', {}, 'Share of answers'));
+  const rows = retailers.map(slug => el('tr', {}, el('td', { class: 'wrap' }, names[slug]), ...cats.map(c => {
     const n = lookup[c + '|' + slug] || 0; const d = answers[c] || 0;
     if (!d) return el('td', { class: 'num' }, '—');
     const pct = Math.round(100 * n / d);

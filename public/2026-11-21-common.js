@@ -51,7 +51,7 @@ export const DEFINITIONS = {
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],
-  place: ['Place to buy', "Share of answers in the column's category that point the shopper to this place."],
+  place: ['Place to buy', "Share of answers to the where-to-buy questions (\"Where should I buy running shoes?\") that point the shopper to this place."],
   edition: ['Edition', 'The engines, model ids and repeats behind every number on the page. A pending engine joins the same edition when its answers are in.'],
   engine: ['Engine', 'Answers from this engine in the edition: how many ran a web search, named their sources, searched without naming any, or answered without searching.'],
   preview: ['Preview', 'Numbers on a preview come from a partial or sample round and are not findings.'],
