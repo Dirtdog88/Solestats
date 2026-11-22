@@ -1,4 +1,5 @@
 import { MIN_SOURCED_ANSWERS } from './2026-11-21-score.js';
+import { brandCounts } from './2026-11-22-races.js';
 // SoleStats Worker: a public, read-only JSON API over D1 plus CSV downloads; everything else is a static file.
 // Nothing here writes: data is loaded with the scripts (wrangler d1 execute). No sign-in, no cookies.
 
@@ -57,7 +58,7 @@ async function api(url, env) {
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
-    const [scores, fixes, context, examples, sourcing, financials] = await Promise.all([
+    const [scores, fixes, context, examples, sourcing, financials, races] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
       env.DB.prepare('SELECT subject, rank, text FROM fixes WHERE round_id = ? AND brand_slug = ? ORDER BY subject, rank').bind(round, slug).all(),
       env.DB.prepare('SELECT metric, value, source FROM context_metrics WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
@@ -67,11 +68,13 @@ async function api(url, env) {
       env.DB.prepare(`SELECT CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing, COUNT(DISTINCT r.id) AS n FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? AND r.status = 'ok' GROUP BY sourcing`).bind(round, slug).all(),
       // Publicly reported revenue (context, never scored): newest fiscal year first. Fails soft until migration 0003 is applied.
       env.DB.prepare('SELECT fiscal_year, period_end, level, measure, owner, ticker, value, unit, currency, prior_value, yoy_pct, source_type, source_url, published_on, notes FROM financials WHERE brand_slug = ? ORDER BY period_end DESC, level').bind(slug).all().catch(() => ({ results: [] })),
+      // Top-10 finishes at the majors in this brand's shoes (context, never scored). Fails soft until migration 0005.
+      env.DB.prepare('SELECT race, year, date, gender, place, athlete, country, time, model, basis, shoe_source_url FROM race_results WHERE brand_slug = ? ORDER BY date DESC, place').bind(slug).all().catch(() => ({ results: [] })),
     ]);
     return json({
       round, brand,
       scores: Object.fromEntries(scores.results.map(s => [s.subject, { score: s.score, margin: s.margin, n: s.n, detail: safeJson(s.detail_json) }])),
-      fixes: fixes.results, context: context.results, examples: examples.results, financials: financials.results,
+      fixes: fixes.results, context: context.results, examples: examples.results, financials: financials.results, races: races.results,
       sourcing: { ...Object.fromEntries(sourcing.results.map(x => [x.sourcing, x.n])), min: MIN_SOURCED_ANSWERS },
     });
   }
@@ -99,6 +102,7 @@ async function download(url, env) {
     'citations.csv': 'SELECT c.run_id, r.prompt_id, r.engine, c.url, c.domain, c.kind, c.source, c.brand_slug, c.retailer_slug FROM citations c JOIN runs r ON r.id = c.run_id WHERE r.round_id = ? ORDER BY c.run_id',
     'prompts.csv': 'SELECT id, set_name, category, text, tags, pulse, pair_a, pair_b FROM prompts WHERE ? IS NOT NULL ORDER BY id',
     // Not tied to a round: the latest reported figures, the same in every round's download.
+    'race-results.csv': 'SELECT race, year, date, gender, place, athlete, country, time, results_url, brand, brand_slug, model, basis, shoe_source_url, shoe_quote, shoe_checked_on, notes, checked_on FROM race_results WHERE ? IS NOT NULL ORDER BY date, gender, place',
     'financials.csv': 'SELECT brand_slug, owner, ticker, fiscal_year, period_end, level, measure, value, unit, currency, prior_value, yoy_pct, source_type, source_url, published_on, quote, notes, checked_on FROM financials WHERE ? IS NOT NULL ORDER BY brand_slug, period_end DESC',
   }[file];
   if (!round || !q) return json({ error: 'not found' }, 404);
@@ -114,13 +118,15 @@ async function shareOfVoiceView(env, round) {
   if (!round) return { round: null, previous_round: null, brands: [] };
   const soft = p => p.then(r => r.results).catch(() => []);
   const prev = await env.DB.prepare(`SELECT id FROM rounds WHERE started_at < (SELECT started_at FROM rounds WHERE id = ?) AND id IN (SELECT round_id FROM scores WHERE subject = 'share_of_voice') ORDER BY started_at DESC LIMIT 1`).bind(round).first().catch(() => null);
-  const [brands, sov, sovPrev, fin, fx] = await Promise.all([
+  const [brands, sov, sovPrev, fin, fx, races] = await Promise.all([
     soft(env.DB.prepare('SELECT slug, name, treatment FROM brands ORDER BY name').all()),
     soft(env.DB.prepare(`SELECT brand_slug, score, margin, n, detail_json FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(round).all()),
     prev ? soft(env.DB.prepare(`SELECT brand_slug, score FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(prev.id).all()) : [],
     soft(env.DB.prepare('SELECT brand_slug, fiscal_year, period_end, level, measure, owner, value, unit, currency, yoy_pct, source_type, source_url FROM financials').all()),
     soft(env.DB.prepare('SELECT currency, year, usd_per_unit FROM fx_rates').all()),
+    soft(env.DB.prepare('SELECT race, year, gender, place, brand, brand_slug, basis FROM race_results').all()),
   ]);
+  const rc = brandCounts(races);
   const rate = (cur, periodEnd) => {
     const rows = fx.filter(r => r.currency === cur).sort((a, b) => b.year.localeCompare(a.year));
     const y = String(periodEnd || '').slice(0, 4);
@@ -140,11 +146,12 @@ async function shareOfVoiceView(env, round) {
       const amount = r.value != null ? r.value * (r.unit === 'billions' ? 1e9 : 1e6) : null;
       revenue = { measure: r.measure, level: r.level, owner: r.owner, fiscal_year: r.fiscal_year, period_end: r.period_end, value: r.value, unit: r.unit, currency: r.currency, yoy_pct: r.yoy_pct, source_type: r.source_type, source_url: r.source_url, usd: amount != null && fxr != null ? Math.round(amount * fxr) : null };
     }
-    if (!s && !revenue) continue;
-    out.push({ slug: b.slug, name: b.name, sov: s ? s.score : null, sov_margin: s ? s.margin : null, mentions: s ? s.n : 0, top_pick_share: d.top_pick_share ?? null, answer_share: d.answer_share ?? null, by_engine: d.by_engine || {}, sov_previous: p ? p.score : null, sov_change: s && p ? Math.round((s.score - p.score) * 10) / 10 : null, revenue });
+    const rb = rc.brands.find(x => x.slug === b.slug);
+    if (!s && !revenue && !rb) continue;
+    out.push({ top10: rb ? rb.top10 : 0, podiums: rb ? rb.podiums : 0, wins: rb ? rb.wins : 0, top10_share: rc.known ? (rb ? rb.top10_share : 0) : null, slug: b.slug, name: b.name, sov: s ? s.score : null, sov_margin: s ? s.margin : null, mentions: s ? s.n : 0, top_pick_share: d.top_pick_share ?? null, answer_share: d.answer_share ?? null, by_engine: d.by_engine || {}, sov_previous: p ? p.score : null, sov_change: s && p ? Math.round((s.score - p.score) * 10) / 10 : null, revenue });
   }
   out.sort((a, b) => (b.sov ?? -1) - (a.sov ?? -1));
-  return { round, previous_round: prev ? prev.id : null, brands: out };
+  return { round, previous_round: prev ? prev.id : null, brands: out, races: { places: rc.places, known: rc.known, races: rc.races, other_brands: rc.brands.filter(x => !x.slug) } };
 }
 
 async function latestRound(env) {

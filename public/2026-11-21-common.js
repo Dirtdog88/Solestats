@@ -32,6 +32,8 @@ export const DEFINITIONS = {
   answer_share: ['In answers', 'Share of answers to the shoe questions that name the brand at all.'],
   sov_change: ['Share-of-voice change', 'Change in share of voice since the previous edition, in percentage points.'],
   revenue_scale: ['Reported revenue', "The narrowest revenue figure the brand or its owner reports for its latest fiscal year, converted to US dollars at the Federal Reserve's yearly average rate only to put brands on one scale. Filled dots are the brand or its running business; rings are wider figures (all footwear, a segment or the whole company) and overstate the running business. Running-shoe market share is not published, so this stands in for it."],
+  top10_share: ['Top-10 share', "Of the top-10 places at the World Marathon Majors and the World Championships marathon since 2025, men's and women's races, the share whose shoe brand is confirmed and is this brand. Race-day shoes where a source reports them, otherwise the athlete's sponsor."],
+  podiums: ['Podiums', 'Top-3 places at those races in this brand, with wins in brackets.'],
   routing: ['Sale goes home', "Share of the places to buy, in answers that name the brand, that are the brand's own site or a run specialty store."],
   margin: ['±', 'How much the score moved between repeats of the same prompts. Gaps under about five points are noise.'],
   n: ['n', 'How many answers, sources or routes the score is built from.'],

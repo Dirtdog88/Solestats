@@ -79,7 +79,7 @@ async function main() {
   document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS));
   document.getElementById('retail-table').replaceChildren(retailTable(await api('/api/retailers').catch(() => ({ rows: [], answers: [] }))));
   const dl = document.getElementById('downloads');
-  if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores']) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));
+  if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', 'financials', 'race-results']) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));
   else dl.append(el('li', { class: 'muted' }, 'None yet.'));
   document.getElementById('lookup').addEventListener('submit', e => {
     e.preventDefault();

@@ -17,7 +17,7 @@ const pts = v => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)} pts`;
 
 /** A scatter chart: x and y scales, gridlines, axis labels, a dot per point with a larger hit target, a direct name
  *  label where it fits, and a readout line that hover, focus or tap fills. */
-function scatter(host, readout, points, { x, y, xTicks, yTicks, xFmt, yFmt, xLabel, yLabel, zeroX = false, zeroY = false, describe }) {
+function scatter(host, readout, points, { x, y, xTicks, yTicks, xFmt, yFmt, xLabel, yLabel, zeroX = false, zeroY = false, diagonal = false, describe }) {
   const W = Math.max(320, Math.min(host.clientWidth || 640, 900)), H = Math.round(Math.min(460, Math.max(300, W * 0.62)));
   const m = { l: 46, r: 14, t: 12, b: 46 };
   const sx = v => m.l + (x.log ? (Math.log10(v) - Math.log10(x.min)) / (Math.log10(x.max) - Math.log10(x.min)) : (v - x.min) / (x.max - x.min)) * (W - m.l - m.r);
@@ -27,6 +27,7 @@ function scatter(host, readout, points, { x, y, xTicks, yTicks, xFmt, yFmt, xLab
   xTicks.forEach((t, i) => svg.append(s('line', { x1: sx(t), x2: sx(t), y1: m.t, y2: H - m.b, class: 'grid' }), s('text', { x: sx(t), y: H - m.b + 18, 'text-anchor': i === xTicks.length - 1 ? 'end' : i === 0 && x.log ? 'start' : 'middle', class: 'tick' }, xFmt(t))));
   if (zeroX) svg.append(s('line', { x1: sx(0), x2: sx(0), y1: m.t, y2: H - m.b, class: 'zero' }));
   if (zeroY) svg.append(s('line', { x1: m.l, x2: W - m.r, y1: sy(0), y2: sy(0), class: 'zero' }));
+  if (diagonal) { const top = Math.min(x.max, y.max); svg.append(s('line', { x1: sx(0), y1: sy(0), x2: sx(top), y2: sy(top), class: 'zero diag' }), s('text', { x: sx(top) - 4, y: sy(top) + 14, 'text-anchor': 'end', class: 'tick' }, 'equal shares')); }
   svg.append(s('text', { x: (m.l + W - m.r) / 2, y: H - 8, 'text-anchor': 'middle', class: 'axis-label' }, xLabel));
   svg.append(s('text', { x: 12, y: (m.t + H - m.b) / 2, 'text-anchor': 'middle', transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})`, class: 'axis-label' }, yLabel));
   // Labels: right of the dot, else left, else above, else below; skipped when none fits (the readout and table carry it).
@@ -93,10 +94,27 @@ async function main() {
     document.getElementById('chart-growth').replaceChildren(el('p', { class: 'empty' }, `Share-of-voice change needs two editions. It appears with the next one; this is edition ${d.round || 'one'}.`));
   }
 
+  // Chart 3: AI share of voice against share of top-10 finishes at the majors.
+  const rc = d.races || { known: 0 };
+  document.getElementById('h-races').replaceChildren(defined('span', 'sov', { text: 'Share of voice' }), ' against ', defined('span', 'top10_share', { text: 'share of top-10 finishes' }));
+  const p3 = brands.filter(b => b.sov != null && b.top10_share != null).map(b => ({ label: b.name, x: b.top10_share, y: b.sov, weight: b.sov + b.top10_share, filled: true, b }));
+  if (rc.known && p3.length) {
+    const top = niceMax(Math.max(...p3.map(p => Math.max(p.x, p.y))) * 1.1, 5);
+    const ticks = Array.from({ length: top / 5 + 1 }, (_, i) => i * 5);
+    scatter(document.getElementById('chart-races'), document.getElementById('readout-races'), p3, {
+      x: { min: 0, max: top }, y: { min: 0, max: top }, xTicks: ticks, yTicks: ticks, xFmt: v => `${v}%`, yFmt: v => `${v}%`, diagonal: true,
+      xLabel: 'Share of top-10 finishes at the majors since 2025', yLabel: 'Share of voice',
+      describe: p => `${p.b.name}: share of voice ${p.b.sov.toFixed(1)}%; ${p.b.top10} of ${rc.known} top-10 places (${p.b.top10_share.toFixed(1)}%), ${p.b.podiums} podiums, ${p.b.wins} wins.`,
+    });
+    document.getElementById('races-note').textContent = `${rc.races} races, ${rc.places} top-10 places; shoe brand confirmed for ${rc.known}. Above the line, AI mentions the brand more than elite results would suggest; below it, less.`;
+  } else document.getElementById('chart-races').replaceChildren(el('p', { class: 'empty' }, 'Race results are being collected.'));
+  if (rc.other_brands && rc.other_brands.length) document.getElementById('other-brands').textContent = `Other brands in the top 10 at the majors: ${rc.other_brands.map(o => `${o.name} ${o.top10}${o.podiums ? ` (${o.podiums} podiums)` : ''}`).join(', ')}.`;
+
   // Table.
   const engines = [...new Set(brands.flatMap(b => Object.keys(b.by_engine || {})))].sort();
   // Share of voice, its change and revenue first (the comparison asked for); the detail after.
   const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', 'sov', { class: 'num', text: 'Share of voice' }), defined('th', 'sov_change', { class: 'num', text: 'Change' }), defined('th', 'revenue', { class: 'num', text: 'Revenue growth' }), defined('th', 'revenue_scale', { class: 'num', text: 'Revenue' }),
+    defined('th', 'top10_share', { class: 'num', text: 'Top-10 share' }), defined('th', 'podiums', { class: 'num', text: 'Podiums' }),
     defined('th', 'top_pick_share', { class: 'num', text: 'Top picks' }), defined('th', 'answer_share', { class: 'num', text: 'In answers' }), ...engines.map(e => el('th', { class: 'num' }, engineName(e))));
   const f1 = v => v == null ? '—' : `${v.toFixed(1)}%`;
   const rows = brands.filter(b => b.sov != null).map((b, i) => el('tr', {},
@@ -105,6 +123,7 @@ async function main() {
     el('td', { class: 'num' }, b.sov_change == null ? '—' : pts(b.sov_change)),
     el('td', { class: 'num' }, b.revenue && b.revenue.yoy_pct != null ? pct1(b.revenue.yoy_pct) : '—'),
     el('td', { class: 'num' }, b.revenue && b.revenue.usd ? `${usd(b.revenue.usd)} · ${LEVEL_WORD[b.revenue.level] || b.revenue.level}` : '—'),
+    el('td', { class: 'num' }, f1(b.top10_share)), el('td', { class: 'num' }, b.top10_share == null ? '—' : `${b.podiums}${b.wins ? ` (${b.wins})` : ''}`),
     el('td', { class: 'num' }, f1(b.top_pick_share)), el('td', { class: 'num' }, f1(b.answer_share)),
     ...engines.map(e => el('td', { class: 'num' }, f1(b.by_engine[e])))));
   document.getElementById('sov-table').replaceChildren(el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows)));

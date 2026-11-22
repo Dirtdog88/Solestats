@@ -113,3 +113,6 @@ main.prose p, main.prose li { line-height: 1.55; }
 .small { font-size: 13px; }
 .empty { color: var(--muted); padding: 28px 0; text-align: center; }
 td .pm { font-weight: 400; opacity: .75; font-size: 13px; }
+.scatter .diag { stroke-dasharray: 4 4; }
+.races { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; font-size: 14px; }
+.races .muted a, .races a.muted { color: var(--muted); }

@@ -36,6 +36,21 @@ function revenueCard(rows) {
   return el('section', { class: 'card' }, defined('h3', 'revenue'), el('ul', { class: 'revenue' }, ...items));
 }
 
+// Top-10 finishes at the World Marathon Majors and the World Championships marathon in this brand's shoes.
+function racesCard(rows) {
+  if (!rows.length) return null;
+  const podiums = rows.filter(r => r.place <= 3).length, wins = rows.filter(r => r.place === 1).length;
+  const ord = n => n + (['th', 'st', 'nd', 'rd'][(n % 100 - 20) % 10] || ['th', 'st', 'nd', 'rd'][n % 100] || 'th');
+  return el('section', { class: 'card' }, defined('h3', 'top10_share', { text: 'Top 10 at the majors' }),
+    el('div', { class: 'subjects' },
+      el('div', { class: 'subject' }, el('div', { class: 'label' }, 'Top-10 places'), el('div', { class: 'big' }, String(rows.length))),
+      el('div', { class: 'subject' }, defined('div', 'podiums', { class: 'label', text: 'Podiums' }), el('div', { class: 'big' }, String(podiums)), el('div', { class: 'muted' }, `${wins} ${wins === 1 ? 'win' : 'wins'}`))),
+    el('ul', { class: 'races' }, ...rows.map(r => el('li', {},
+      el('strong', {}, `${ord(r.place)}`), ` ${r.athlete} (${r.country}), ${r.race} ${r.year}, ${r.gender}, ${r.time}`,
+      el('span', { class: 'muted' }, ` · ${r.model ? r.model + ', ' : ''}${r.basis === 'worn' ? 'race-day shoe' : 'sponsor'} `),
+      /^https:\/\//.test(r.shoe_source_url || '') ? el('a', { href: r.shoe_source_url, rel: 'noopener noreferrer', class: 'muted' }, 'source') : ''))));
+}
+
 async function main() {
   installTips();
   const slug = new URLSearchParams(location.search).get('b');
@@ -66,6 +81,8 @@ async function main() {
   card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));
   const rev = revenueCard(d.financials || []);
   if (rev) card.append(rev);
+  const rc = racesCard(d.races || []);
+  if (rc) card.append(rc);
   if (d.fixes.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'Top fixes'), el('ol', {}, ...d.fixes.map(f => el('li', {}, el('strong', {}, (DEFINITIONS[f.subject] || [f.subject])[0] + ': '), f.text)))));
   if (d.examples && d.examples.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'What AI said'), ...d.examples.map(x => el('div', { class: 'example' }, el('div', { class: 'q' }, `${engineName(x.engine)}: ${x.prompt_text}`, SOURCING_TAG[x.sourcing] ? ' ' : '', SOURCING_TAG[x.sourcing] ? defined('span', x.sourcing, { class: 'pill grey' }) : ''), el('div', { class: 'a' }, plainAnswer(x.answer))))));
   if (d.context.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'Context'), el('ul', {}, ...d.context.map(c => el('li', {}, `${c.metric}: ${c.value}`, c.source ? el('span', { class: 'muted' }, ` (${c.source})`) : '')))));
