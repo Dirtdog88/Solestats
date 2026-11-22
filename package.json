@@ -2,7 +2,7 @@
   "name": "solestats",
   "version": "0.1.0",
   "private": true,
-  "description": "SoleStats: what AI tells runners to buy. A public index of how AI shopping assistants recommend, describe and route sales for running brands. Cloudflare Worker + D1, no build step.",
+  "description": "SoleStats: the running shoe AI index. A public index of how AI shopping assistants recommend, describe and route sales for running brands. Cloudflare Worker + D1, no build step.",
   "type": "module",
   "engines": {
     "node": ">=22.5"

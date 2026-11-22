@@ -3,7 +3,8 @@
 Public index of what AI shopping assistants tell runners to buy, scoped to running shoes for now (2026-11-21;
 six more gear categories are parked in `data/later/`, read by nothing). Alex's personal project (personal time,
 keys and billing; nothing from Weleda repos). On screen and in the domain: **SoleStats**, tagline
-"What AI tells runners to buy". Decisions and history live in the DogHaus project "SoleStats: AI Running Index";
+"The running shoe AI index" (Alex, 2026-11-22; was "What AI tells runners to buy"), public address solestats.net.
+Decisions and history live in the DogHaus project "SoleStats: AI Running Index";
 update that project, not a notes file here, when a decision changes.
 
 ## Stack
