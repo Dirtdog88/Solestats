@@ -69,3 +69,11 @@ table.heatmap td.heat { border-radius:0; }
 :root { --accent:#0b5d3b; --accent-ink:#0b5d3b; --on-accent:#fff; --fill:#0b5d3b; --bar:#0b5d3b;
   --h0:#f2f4f2; --h1:#d7eadf; --h2:#a7cfb7; --h3:#62a07e; --h3-ink:#0a0a0a; --h4:#1d6b45; --h5:#0a3a24;
   --d0:#c4501c; --d0-ink:#fff; --d1:#f3c6ad; --d3:#a7cfb7; --d4:#0b5d3b; }
+
+/* The brand table in plain words (Alex, 2026-11-22): a line saying what the AI score is, bars on a full-length pale
+   track, "/100" beside each score, words instead of a dash where there is no score. */
+.table-note { font-size:15px; line-height:1.45; color:#3a3a3a; margin:-2px 0 14px; max-width:620px; }
+.bar .track { background:#eef0ee; height:8px; }
+.bar .fill { height:8px; }
+.bar .val .of { font-weight:400; color:#9a9a9a; font-size:12px; margin-left:2px; }
+td .score.none { font-size:13px; color:#8a8a8a; font-weight:500; }

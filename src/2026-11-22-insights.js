@@ -287,7 +287,7 @@ export function editionSummary({ engines = [], brands = [], engineViews = {}, so
   const bySov = brands.filter(b => b.sov != null).sort((a, b) => b.sov - a.sov);
   if (byOverall.length && bySov.length) {
     const [o1, o2] = byOverall, [s1] = bySov;
-    const ov = `the highest${byOverall[0].overall_provisional ? ' provisional' : ''} Overall (${Math.round(o1.overall)}${o2 ? o1.overall - o2.overall < NOISE ? `, level with ${o2.name} at ${Math.round(o2.overall)}` : `, ${Math.round(o1.overall - o2.overall)} points above ${o2.name}` : ''})`;
+    const ov = `the highest AI score (${Math.round(o1.overall)} of 100${o2 ? o1.overall - o2.overall < NOISE ? `, level with ${o2.name} at ${Math.round(o2.overall)}` : `, ${Math.round(o1.overall - o2.overall)} points above ${o2.name}` : ''})`;
     const lead = `Across ${answers.toLocaleString('en-US')} answers from ${listOf(engines.map(e => ENGINE_LABEL[e.engine] || e.engine))}, `;
     out.push(o1.slug === s1.slug ? `${lead}${o1.name} has ${ov} and the largest share of voice (${fmt(s1.sov)}% of brand mentions).`
       : `${lead}${o1.name} has ${ov}, and ${s1.name} the largest share of voice (${fmt(s1.sov)}% of brand mentions).`);

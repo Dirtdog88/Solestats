@@ -52,13 +52,13 @@ async function main() {
   document.getElementById('h2h-legend').replaceChildren(legend());
   const ns = [...new Set(v.data.pairs.map(p => p.n))];
   const engines = [...new Set(v.data.pairs.flatMap(p => Object.keys(p.by_engine || {})))];
-  document.getElementById('h2h-n').textContent = `${v.data.pairs.length} pairs, ${ns.length === 1 ? ns[0] : ns.join(' to ')} answers each (${engines.length} engines × repeats). With so few answers per pair, a difference of one or two answers is noise: read the grid for clear leans, not small gaps. Brands are in Overall order.`;
+  document.getElementById('h2h-n').textContent = `${v.data.pairs.length} pairs, ${ns.length === 1 ? ns[0] : ns.join(' to ')} answers each (${engines.length} engines × repeats). With so few answers per pair, a difference of one or two answers is noise: read the grid for clear leans, not small gaps. Brands are in AI score order.`;
   document.getElementById('h2h-table').replaceChildren(pairTable(v.data.pairs, names, (mv.data && mv.data.h2h) || {}));
 }
 // The brand page imports the helpers below; only the head-to-head page has the grid.
 if (document.getElementById('h2h-grid')) main();
 
-/** The brand page's card: this brand against each of the other core brands, Overall order, with a link to the grid. */
+/** The brand page's card: this brand against each of the other core brands, AI score order, with a link to the grid. */
 export function h2hCard(h2h, name, names, overall) {
   if (!h2h || !h2h.sides || !h2h.sides.length) return null;
   const sides = [...h2h.sides].sort((a, b) => (overall[b.opponent] ?? -1) - (overall[a.opponent] ?? -1));

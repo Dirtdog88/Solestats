@@ -13,20 +13,20 @@ function scoreCell(s, extraClass = '') {
 // A horizontal bar sized through the CSSOM (the CSP allows no style attributes).
 function fill(pct) { const f = el('div', { class: 'fill' }); f.style.width = `${Math.max(3, Math.min(100, pct))}%`; return el('div', { class: 'track' }, f); }
 
-// The first subject (Overall) as a horizontal bar with the number beside it, like a split.
+// The first subject (the AI score) as a bar on a full-length track, out of 100.
 function barCell(s) {
-  if (!s || s.score == null) return el('td', { class: 'barcell' }, el('span', { class: 'score none' }, '—'));
+  if (!s || s.score == null) return el('td', { class: 'barcell' }, defined('span', 'too_few_score', { class: 'score none' }));
   const v = Math.round(s.score);
-  return el('td', { class: 'barcell' }, el('div', { class: 'bar' }, fill(v), el('span', { class: 'val' }, String(v)), s.margin != null ? el('span', { class: 'margin' }, `±${Math.round(s.margin)}`) : ''));
+  return el('td', { class: 'barcell' }, el('div', { class: 'bar' }, fill(v), el('span', { class: 'val' }, String(v), el('span', { class: 'of' }, '/100')), s.margin != null ? el('span', { class: 'margin' }, `±${Math.round(s.margin)}`) : ''));
 }
 
-function brandTable(brands, subjects, overallLabel = 'Overall') {
+function brandTable(brands, subjects, overallLabel = 'AI score') {
   if (!brands.length) return el('p', { class: 'empty' }, 'No scores yet.');
   const [first, ...rest] = subjects;
   const head = el('tr', {}, el('th', {}, 'Brand'), defined('th', first, first === 'overall' ? { text: overallLabel } : {}), ...rest.map(s => defined('th', s, { class: 'num sec' })));
   const sorted = [...brands].sort((a, b) => (b.scores[subjects[0]]?.score ?? -1) - (a.scores[subjects[0]]?.score ?? -1) || a.name.localeCompare(b.name));
-  // Lane numbers: the rank by the first subject, only for brands that have it.
-  const rows = sorted.map((b, i) => el('tr', {}, el('td', {}, b.scores[first]?.score != null ? el('span', { class: 'lane' }, String(i + 1)) : '', el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)), barCell(b.scores[first]), ...rest.map(s => scoreCell(b.scores[s], 'sec'))));
+  // No rank numbers: the order shows it, and SoleStats is not a league table.
+  const rows = sorted.map(b => el('tr', {}, el('td', {}, el('a', { href: `/brand.html?b=${encodeURIComponent(b.slug)}` }, b.name)), barCell(b.scores[first]), ...rest.map(s => scoreCell(b.scores[s], 'sec'))));
   return el('table', {}, el('thead', {}, head), el('tbody', {}, ...rows));
 }
 
@@ -82,7 +82,9 @@ async function main() {
   document.getElementById('engines').replaceChildren(...engineStrip(await api('/api/edition').catch(() => ({ engines: [], pending: [] }))));
   const list = document.getElementById('brand-list');
   for (const b of brands) list.append(el('option', { value: b.name }));
-  document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS, (await overallStatus()).label));
+  const ai = await overallStatus();
+  document.getElementById('brands-note').textContent = ai.note;
+  document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS, ai.label));
   const byOverall = brands.filter(b => b.category === 'shoes').sort((a, b) => (b.scores.overall?.score ?? -1) - (a.scores.overall?.score ?? -1) || a.name.localeCompare(b.name));
   const needs = await api('/api/views/needs').catch(() => ({}));
   document.getElementById('need-table').replaceChildren(needTable(needs.data, byOverall));

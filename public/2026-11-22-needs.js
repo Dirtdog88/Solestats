@@ -20,7 +20,7 @@ export function heatLegend() {
   return el('div', { class: 'heat-legend', 'aria-hidden': 'true' }, ...edges.map((lo, i) => el('span', { class: 'key' }, el('span', { class: `swatch heat h${i}` }), i < HEAT_STEPS.length ? `${lo}–${HEAT_STEPS[i]}` : `${lo}+`)), el('span', { class: 'muted' }, '% of answers'));
 }
 
-/** The front-page heat map: rows are brands in the order given (by Overall), columns the need groups. */
+/** The front-page heat map: rows are brands in the order given (by AI score), columns the need groups. */
 export function needTable(view, brands) {
   if (!view || !view.groups || !view.groups.length) return el('p', { class: 'empty' }, 'No need groups in this edition yet.');
   const head = el('tr', {}, el('th', { class: 'stick' }, 'Brand'), ...view.groups.map(g => el('th', { class: 'heat-h' }, g.label)));

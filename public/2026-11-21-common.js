@@ -16,14 +16,15 @@ export const engineName = e => ENGINE_NAMES[e] || e;
 /** Every metric's definition, in one place: the hover/tap tips on the data pages and the Definitions list on the
  *  method page both read it. Keep each to one or two sentences. */
 export const DEFINITIONS = {
-  overall: ['Overall', 'Weighted mean of the scored subjects, 0 to 100, no curve. Weights: Recommended 35, Accurate 25, Shoppable 20, Sourced 10, Sale goes home 10. Needs at least three subjects.'],
+  overall: ['AI score', "One number out of 100 for how AI assistants treat the brand: how often they recommend it, what they cite about it, whether they get its product facts right, how easy its site is for them to shop, and where they send shoppers to buy. Weights: Recommended 35, Accurate 25, Shoppable 20, Sourced 10, Sale goes home 10; no curve. Needs at least three of the five."],
   recommended: ['Recommended', 'How often the brand is named on prompts where it has a credible shoe, combined with its head-to-head record, how often it is the first pick, and how consistent that is across repeats.'],
   accurate: ['Accurate', 'Share of product facts AI got right against the hand-verified spec sheet (version, price, weight, drop, stack, widths, category). "Not sure" counts as wrong.'],
   shoppable: ['Shoppable', "Share of a manual checklist the brand's site passes: can an assistant find widths, stock, returns and a path to cart."],
   sourced: ['Sourced', "Share of the sources named in answers about the brand that are the brand's own site or an established review site. Only sources the answer names count."],
   not_provided: ['Source not provided', 'The engine ran a web search but named none of its sources in the answer. Counted beside Sourced, not scored.'],
   no_search: ['No search', 'The engine answered from what it already knew, without a web search. These answers still count for Recommended and Sale goes home; beside Sourced they are counted, not scored.'],
-  too_few: ['Too few', 'Fewer than 5 answers about the brand named a source, so Sourced is not scored and Overall is weighted over the other subjects.'],
+  too_few_score: ['Not enough data yet', 'Too few answers about the brand named a source this edition, so it has fewer than the three scored parts an AI score needs. Its other numbers are on its page.'],
+  too_few: ['Too few', 'Fewer than 5 answers about the brand named a source, so Sourced is not scored and the AI score is weighted over the other subjects.'],
   intl: ['Non-US site', "Sources on the brand's own sites outside the US, such as au.hoka.com or adidas.co.uk. They count as the brand's own site."],
   checked: ['Checked', 'Accurate and Shoppable come from checks run once a quarter; this is the round they were last checked in.'],
   revenue: ['Revenue', "Year-over-year change in what the brand, or the company that owns it, reported for its latest fiscal year, in the currency it reports in, with the amount below. Context only: not scored, and no link to the AI scores is claimed."],
@@ -35,7 +36,7 @@ export const DEFINITIONS = {
   revenue_scale: ['Reported revenue', "The narrowest revenue figure the brand or its owner reports for its latest fiscal year, converted to US dollars at the Federal Reserve's yearly average rate only to put brands on one scale. Filled dots are the brand or its running business; rings are wider figures (all footwear, a segment or the whole company) and overstate the running business. Running-shoe market share is not published, so this stands in for it."],
   top10_share: ['Top-10 share', "Of the top-10 places at the World Marathon Majors and the World Championships marathon since 2025, men's and women's races, the share whose shoe brand is confirmed and is this brand. Race-day shoes where a source reports them, otherwise the athlete's sponsor."],
   podiums: ['Podiums', 'Top-3 places at those races in this brand, with wins in brackets.'],
-  need: ['By runner need', "Share of answers in each group of shoe questions (starting out, stability, trail and so on) that name the brand, once per answer. The tip adds how often it was the top pick. Not part of Overall; every brand is counted on every group, whether or not it makes a shoe for that need."],
+  need: ['By runner need', "Share of answers in each group of shoe questions (starting out, stability, trail and so on) that name the brand, once per answer. The tip adds how often it was the top pick. Not part of the AI score; every brand is counted on every group, whether or not it makes a shoe for that need."],
   h2h: ['Head to head', "Share of answers to \"Brand A or Brand B: which should I buy?\" that favour this brand, ties counted as half and answers that pick neither left out. Nine answers per pair (three engines, three repeats), so small gaps are noise. Part of Recommended."],
   places: ['Where the sale goes', "Of the places to buy named in answers that mention the brand, the share that are its own site, run specialty stores and their online shops, Amazon, big box stores, or anywhere else. A place counts once per answer; another brand's site is not a place to buy this brand. Own site plus run specialty is the Sale goes home score."],
   sources_top: ['Named most', "The sites AI names as its sources most often in answers that mention the brand, counted once per answer. Only sources an answer names count, so this comes from the engines that name them."],
@@ -98,24 +99,29 @@ export function plainAnswer(text) {
 }
 
 /** Fills the #edition element: "Edition 2026-11: ChatGPT (gpt-6.2-astra) and Claude (claude-opus-5-5), 3 repeats each. Gemini: pending." */
-/** The edition (engines, models, which subjects Overall covers), fetched once per page. */
+/** The edition (engines, models, which subjects the AI score covers), fetched once per page. */
 let editionPromise = null;
 export const edition = () => (editionPromise ||= api('/api/edition').catch(() => null));
 
 const SUBJECT_NAME = { recommended: 'Recommended', accurate: 'Accurate', shoppable: 'Shoppable', sourced: 'Sourced', routing: 'Sale goes home' };
+// The plain words for each subject, for the line that says what the AI score covers.
+const PHRASE = { recommended: 'how often AI recommends the brand', sourced: 'the sources it cites', routing: 'where it sends shoppers to buy', accurate: 'whether it gets product facts right', shoppable: "how easy the brand's site is for AI to shop" };
 const list = xs => xs.length <= 1 ? xs.join('') : xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
 
-/** Overall is provisional while some subjects are unscored (Accurate and Shoppable until the quarterly checks). Rewrites
- *  the Overall definition to say which subjects it covers this edition, and returns { provisional, label }. */
+/** The AI score (subject "overall") is provisional while some subjects are unscored (Accurate and Shoppable until the
+ *  quarterly checks). Rewrites its definition to say which subjects it covers this edition, and returns { provisional,
+ *  label, note }: note is the plain line under the Brands heading. */
 export async function overallStatus() {
   const d = await edition();
   const o = d && d.overall;
-  if (!o || !o.subjects || !o.subjects.length) return { provisional: false, label: 'Overall' };
+  if (!o || !o.subjects || !o.subjects.length) return { provisional: false, label: 'AI score', note: '' };
   if (o.provisional) {
     const missing = o.all.filter(s => !o.subjects.includes(s)).map(s => SUBJECT_NAME[s] || s);
-    DEFINITIONS.overall = ['Overall (provisional)', `Weighted mean of the scored subjects, 0 to 100, no curve. Provisional: this edition it covers ${list(o.subjects.map(s => SUBJECT_NAME[s] || s))} only; ${list(missing)} ${missing.length === 1 ? 'is' : 'are'} not scored yet. Full weights: Recommended 35, Accurate 25, Shoppable 20, Sourced 10, Sale goes home 10.`];
+    DEFINITIONS.overall = ['AI score', `One number out of 100 for how AI assistants treat the brand. This edition it covers ${list(o.subjects.map(s => SUBJECT_NAME[s] || s))} only; ${list(missing)} ${missing.length === 1 ? 'is' : 'are'} not scored yet. Full weights: Recommended 35, Accurate 25, Shoppable 20, Sourced 10, Sale goes home 10.`];
   }
-  return { provisional: Boolean(o.provisional), label: o.provisional ? 'Overall · provisional' : 'Overall' };
+  const have = o.subjects.map(s => PHRASE[s] || s), miss = o.all.filter(s => !o.subjects.includes(s)).map(s => PHRASE[s] || s);
+  const note = `Out of 100. Combines ${list(have)}.${miss.length ? ` Still to come: ${list(miss)}.` : ''}`;
+  return { provisional: Boolean(o.provisional), label: 'AI score', note };
 }
 
 export async function showEdition() {
