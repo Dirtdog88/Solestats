@@ -4,7 +4,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { DatabaseSync } from 'node:sqlite';
 import { parseCsv } from '../src/2026-11-21-csv.js';
-import { brandSlugFor, brandCounts } from '../src/2026-11-22-races.js';
+import { brandSlugFor, brandCounts, claimFound } from '../src/2026-11-22-races.js';
 
 const brands = parseCsv(readFileSync(new URL('../data/2026-11-21-brands.csv', import.meta.url), 'utf8'));
 const file = new URL('../data/2026-11-22-race-results.csv', import.meta.url);
@@ -50,4 +50,14 @@ test('the races loader replaces the table and counts only checked shoes', () => 
   db.exec(sql); db.exec(sql);
   assert.equal(db.prepare('SELECT COUNT(*) AS n FROM race_results').get().n, rows.filter(r => r.checked_on).length);
   assert.equal(db.prepare('SELECT COUNT(*) AS n FROM race_results WHERE brand IS NOT NULL').get().n, rows.filter(r => r.checked_on && r.shoe_checked_on && r.brand).length);
+});
+
+test('claimFound needs both the surname and the brand in the page text, not in scripts', () => {
+  const page = '<html><script>var x = "Kipruto Nike";</script><p>Amos Kipruto won in the adidas Adizero Adios Pro Evo 3.</p></html>';
+  assert.ok(claimFound(page, 'Amos Kipruto', 'adidas'));
+  assert.ok(!claimFound(page, 'Amos Kipruto', 'Nike'));          // only inside a script
+  assert.ok(!claimFound(page, 'Sabastian Sawe', 'adidas'));
+  assert.ok(claimFound('<p>Fabienne Königstein (Puma)</p>', 'Fabienne Königstein', 'Puma'));
+  assert.ok(claimFound('<p>Lokedi, Under Armour Velociti</p>', 'Sharon Lokedi', 'Under Armour'));
+  assert.ok(!claimFound('<p>Onward, Kipruto</p>', 'Kipruto', 'On'));  // brand as a whole word only
 });

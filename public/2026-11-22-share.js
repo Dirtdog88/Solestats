@@ -107,7 +107,7 @@ async function main() {
       describe: p => `${p.b.name}: share of voice ${p.b.sov.toFixed(1)}%; ${p.b.top10} of ${rc.known} top-10 places (${p.b.top10_share.toFixed(1)}%), ${p.b.podiums} podiums, ${p.b.wins} wins.`,
     });
     document.getElementById('races-note').textContent = `${rc.races} races, ${rc.places} top-10 places; shoe brand confirmed for ${rc.known}. Above the line, AI mentions the brand more than elite results would suggest; below it, less.`;
-  } else document.getElementById('chart-races').replaceChildren(el('p', { class: 'empty' }, 'Race results are being collected.'));
+  } else document.getElementById('chart-races').replaceChildren(el('p', { class: 'empty' }, rc.places ? `Results for ${rc.places} top-10 places in ${rc.races} races are in; the shoe brands are being checked against their sources.` : 'Race results are being collected.'));
   if (rc.other_brands && rc.other_brands.length) document.getElementById('other-brands').textContent = `Other brands in the top 10 at the majors: ${rc.other_brands.map(o => `${o.name} ${o.top10}${o.podiums ? ` (${o.podiums} podiums)` : ''}`).join(', ')}.`;
 
   // Table.

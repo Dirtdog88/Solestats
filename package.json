@@ -17,7 +17,8 @@
     "import": "node scripts/2026-11-21-import.js",
     "score": "node scripts/2026-11-21-score.js",
     "export": "node scripts/2026-11-21-export.js",
-    "site-checks": "node scripts/2026-11-21-site-checks.js"
+    "site-checks": "node scripts/2026-11-21-site-checks.js",
+    "check-shoe-sources": "node scripts/2026-11-22-check-shoe-sources.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.12.0"
