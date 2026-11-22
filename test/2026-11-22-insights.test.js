@@ -199,3 +199,15 @@ test('segments carry a shoe title to the bullets under it; steeringView and vers
   assert.deepEqual(versionCurrency(slice, [{ id: 'brooks/ghost', version: '17', verified_on: '' }]), { pending: true });
   assert.deepEqual(versionCurrency(slice, [{ id: 'brooks/ghost', version: '17', verified_on: '2026-12-01' }]), { pending: false, named: 8, current_share: 75, models: [{ id: 'brooks/ghost', name: 'Ghost', current: 17, named: 8, current_share: 75 }] });
 });
+
+test('substitutionView: who got the first pick where the brand had a credible shoe and was not named', async () => {
+  const { substitutionView } = await import('../src/2026-11-22-extract.js');
+  const { eligible } = await import('../src/2026-11-21-score.js');
+  const prompts = [{ id: 'S1', set: 'shoe', category: 'shoes', tags: 'stability', group: 'stability' }, { id: 'S2', set: 'shoe', category: 'shoes', tags: 'trail', group: 'trail' }];
+  const spec = [{ brand_slug: 'brooks', needs: 'stability', verified_on: '' }];
+  const r = (prompt_id, ms) => ({ status: 'ok', prompt_id, mentions: ms.map(([s, t]) => ({ brand_slug: s, top_pick: t })) });
+  const runs = [r('S1', [['hoka', 1], ['asics', 0]]), r('S1', [['hoka', 1]]), r('S1', [['brooks', 1]]), r('S1', []), r('S2', [['salomon', 1]])];
+  const v = substitutionView(runs, prompts, [{ slug: 'brooks', name: 'Brooks', category: 'shoes' }], spec, eligible, { stability: 'Stability' });
+  assert.deepEqual(v.brooks, { basis: 'draft', eligible: 4, missed: 3, substitutes: [{ slug: 'hoka', answers: 2, share: 66.7 }], no_pick: 1,
+    groups: [{ id: 'stability', label: 'Stability', missed: 3, top: { slug: 'hoka', share: 66.7 } }] });   // trail is not credible for Brooks's draft rows
+});

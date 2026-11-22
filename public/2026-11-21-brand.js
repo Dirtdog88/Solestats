@@ -48,6 +48,24 @@ function versionCard(v, s, name) {
   return el('section', { class: 'card' }, el('h3', {}, 'Version and price'), el('div', { class: 'subjects' }, ...tiles));
 }
 
+/** When not you, who: the first pick in answers that skipped this brand where it had a credible shoe. */
+async function substitutionCard(s, name) {
+  if (!s || !s.missed) return null;
+  const { brands } = await api('/api/brands').catch(() => ({ brands: [] }));
+  const nm = Object.fromEntries(brands.map(b => [b.slug, b.name]));
+  const rows = s.substitutes.map(x => {
+    const f = el('div', { class: 'fill' }); f.style.width = `${Math.max(2, Math.min(100, x.share))}%`;
+    const text = `First pick in ${x.answers} of the ${s.missed} answers that left ${name} out.`;
+    return el('li', { 'data-tip': text, 'data-tip-title': nm[x.slug] || x.slug, title: text, tabindex: '0' }, el('span', { class: 'plabel' }, nm[x.slug] || x.slug), el('span', { class: 'ptrack' }, f), el('span', { class: 'pval' }, `${Math.round(x.share)}%`));
+  });
+  const groups = s.groups.filter(g => g.top).slice(0, 5);
+  const table = groups.length ? el('table', { class: 'mini' }, el('thead', {}, el('tr', {}, el('th', {}, 'Need'), el('th', { class: 'num' }, 'Left out'), el('th', {}, 'First pick instead'))),
+    el('tbody', {}, ...groups.map(g => el('tr', {}, el('td', {}, g.label), el('td', { class: 'num' }, String(g.missed)), el('td', {}, `${nm[g.top.slug] || g.top.slug} ${Math.round(g.top.share)}%`))))) : '';
+  return el('section', { class: 'card' }, el('h3', {}, defined('span', 'substitution', { text: `When not ${name}, who` })),
+    el('p', { class: 'muted small' }, `${name} was left out of ${s.missed} of the ${s.eligible} answers to questions where it has a credible shoe${s.basis === 'draft' ? ' (from the draft spec sheet, not yet checked by hand)' : ''}. The first pick in those answers:`),
+    el('ul', { class: 'places' }, ...rows), table);
+}
+
 const KIND = { review: 'review site', forum: 'forum', news: 'news', retailer: 'retailer', brand: 'brand site', other: 'other' };
 
 /** Sources to earn: the sites AI names most for this brand, and the ones it names for competitors but never for it. */
@@ -174,6 +192,8 @@ async function main() {
   if (mc) card.append(mc);
   const vc = versionCard(d.versions, d.steering, d.brand.name);
   if (vc) card.append(vc);
+  const subc = await substitutionCard(d.substitution, d.brand.name);
+  if (subc) card.append(subc);
   const pc = placesCard(d.places);
   if (pc) card.append(pc);
   const sc = sourcesCard(d.sources, d.brand.name);

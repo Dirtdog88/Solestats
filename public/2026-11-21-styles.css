@@ -189,3 +189,7 @@ h4 { font-size: 14px; margin: 16px 0 6px; font-weight: 800; }
 .summary p { margin: 8px 0; line-height: 1.5; }
 .places.models .plabel { display: flex; flex-direction: column; line-height: 1.2; }
 .places .sub { font-size: 12px; color: var(--muted); }
+table.mini { margin-top: 14px; font-size: 14px; }
+table.mini th, table.mini td { color: var(--ink); background: transparent; border-bottom: 1px solid var(--line); padding: 7px 6px; white-space: normal; }
+table.mini th { color: var(--muted); font-size: 11px; position: static; }
+table.mini tbody tr:nth-child(even) td { background: transparent; }

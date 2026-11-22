@@ -171,3 +171,35 @@ export function versionCurrency(modelSlice, specRows) {
   });
   return { pending: false, named, current_share: named ? round1(pct(cur, named)) : null, models: per };
 }
+
+/**
+ * Substitution, "when not you, who": on shoe prompts where the brand has a credible shoe but the answer does not name
+ * it, which brand the answer picked first. Credible follows the rubric's eligible(); for a brand with no verified
+ * spec-sheet rows yet, its draft rows stand in (Alex, 2026-11-22), and basis says which. Returns { slug: { basis,
+ * eligible, missed, substitutes: [{ slug, answers, share }], no_pick, groups: [{ id, label, missed, top: { slug, share } }] } }.
+ */
+export function substitutionView(runs, prompts, brands, specRows, eligible, groupLabel = {}) {
+  const shoe = prompts.filter(p => (p.set_name || p.set) === 'shoe').map(p => ({ ...p, set_name: 'shoe' }));
+  const byId = Object.fromEntries(shoe.map(p => [p.id, p]));
+  const ok = runs.filter(r => r.status === 'ok' && byId[r.prompt_id]);
+  const out = {};
+  for (const b of brands) {
+    const verified = specRows.filter(m => m.brand_slug === b.slug && m.verified_on);
+    const basis = verified.length ? 'verified' : 'draft';
+    const rows = verified.length ? verified : specRows.filter(m => m.brand_slug === b.slug);
+    const el = ok.filter(r => eligible(b, byId[r.prompt_id], rows));
+    const missed = el.filter(r => !(r.mentions || []).some(m => m.brand_slug === b.slug));
+    const first = r => ((r.mentions || []).find(m => m.top_pick) || {}).brand_slug || null;
+    const tally = list => { const t = {}; for (const r of list) { const f = first(r); if (f) t[f] = (t[f] || 0) + 1; } return Object.entries(t).sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0])); };
+    const subs = tally(missed);
+    const gs = [...new Set(missed.map(r => byId[r.prompt_id].group || byId[r.prompt_id].prompt_group).filter(Boolean))];
+    out[b.slug] = {
+      basis, eligible: el.length, missed: missed.length,
+      substitutes: subs.slice(0, 5).map(([slug, n]) => ({ slug, answers: n, share: round1(pct(n, missed.length)) })),
+      no_pick: missed.filter(r => !first(r)).length,
+      groups: gs.map(g => { const xs = missed.filter(r => (byId[r.prompt_id].group || byId[r.prompt_id].prompt_group) === g); const [top] = tally(xs); return { id: g, label: groupLabel[g] || g, missed: xs.length, top: top ? { slug: top[0], share: round1(pct(top[1], xs.length)) } : null }; })
+        .sort((x, y) => y.missed - x.missed),
+    };
+  }
+  return out;
+}

@@ -3,10 +3,10 @@
 //   node scripts/2026-11-21-score.js --round 2026-12
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
-import { modelMatchers, modelView, steeringView, versionCurrency } from '../src/2026-11-22-extract.js';
+import { modelMatchers, modelView, steeringView, versionCurrency, substitutionView } from '../src/2026-11-22-extract.js';
 import { brandMatchers, findMentions } from '../src/2026-11-21-detect.js';
-import { needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
-import { MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
+import { GROUP_LABEL, needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
+import { eligible, MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
 if (!round || round.startsWith('--')) { console.error('usage: --round <id>'); process.exit(1); }
@@ -58,6 +58,7 @@ const bm = brandMatchers(brands.filter(b => b.category === 'shoes'));
 const findBrands = t => findMentions(t, bm).map(m => m.brand_slug);
 views.steering = steeringView(runs, prompts, findBrands, matchers, shoeBrands);
 // Version currency needs the current version from verified spec-sheet rows; until then each brand is pending.
+views.substitution = substitutionView(runs, prompts, brands.filter(b => b.category === 'shoes'), read('2026-11-21-spec-sheet.csv'), eligible, GROUP_LABEL);
 views.versions = Object.fromEntries(shoeBrands.map(s => [s, versionCurrency(views.models[s], read('2026-11-21-spec-sheet.csv'))]));
 views.places = placesView(runs, brands.filter(b => b.category === 'shoes'), retailers, placesFor);
 // Each brand's side of its head-to-head pairs, for the /h2h grid rows and the brand page.
