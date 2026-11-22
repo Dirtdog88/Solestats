@@ -12640,7 +12640,7 @@
      },
      {
       "domain": "contentful-assets.strava.com",
-      "kind": "forum",
+      "kind": "other",
       "group": "starting-out",
       "label": "Starting out",
       "competitors": 4,
@@ -12726,7 +12726,7 @@
      },
      {
       "domain": "contentful-assets.strava.com",
-      "kind": "forum",
+      "kind": "other",
       "group": "starting-out",
       "label": "Starting out",
       "competitors": 4,
@@ -13112,7 +13112,7 @@
      },
      {
       "domain": "contentful-assets.strava.com",
-      "kind": "forum",
+      "kind": "other",
       "group": "starting-out",
       "label": "Starting out",
       "competitors": 4,
@@ -13246,7 +13246,7 @@
      },
      {
       "domain": "contentful-assets.strava.com",
-      "kind": "forum",
+      "kind": "other",
       "group": "starting-out",
       "label": "Starting out",
       "competitors": 4,
@@ -14063,7 +14063,7 @@
      },
      {
       "domain": "contentful-assets.strava.com",
-      "kind": "forum",
+      "kind": "other",
       "group": "starting-out",
       "label": "Starting out",
       "competitors": 4,
@@ -15085,11 +15085,6 @@
    "text": "Earn a mention on runningshoesguru.com: cited in 4 starting out answers naming 8 competitors, never in one naming you."
   },
   {
-   "brand": "saucony",
-   "subject": "sourced",
-   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
-  },
-  {
    "brand": "asics",
    "subject": "sourced",
    "text": "Earn a mention on solereview.com: cited in 2 trail answers naming 6 competitors, never in one naming you."
@@ -15097,17 +15092,7 @@
   {
    "brand": "adidas",
    "subject": "sourced",
-   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
-  },
-  {
-   "brand": "adidas",
-   "subject": "sourced",
    "text": "Earn a mention on solereview.com: cited in 2 trail answers naming 6 competitors, never in one naming you."
-  },
-  {
-   "brand": "new-balance",
-   "subject": "sourced",
-   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
   },
   {
    "brand": "altra",
@@ -15153,11 +15138,6 @@
    "brand": "puma",
    "subject": "sourced",
    "text": "Earn a mention on believeintherun.com: cited in 3 trail answers naming 4 competitors, never in one naming you."
-  },
-  {
-   "brand": "puma",
-   "subject": "sourced",
-   "text": "Earn a mention on contentful-assets.strava.com: cited in 3 starting out answers naming 4 competitors, never in one naming you."
   },
   {
    "brand": "inov8",

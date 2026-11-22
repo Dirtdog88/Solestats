@@ -123,6 +123,9 @@ export function placesView(runs, brands, retailers, placesFor) {
  * should not outrank a site the engines keep coming back to). With fewer than minSourced answers naming a source, no gaps are listed (too little to go on).
  * Returns { slug: { sourced_answers, by_engine, top: [{ domain, kind, answers }], gaps: [{ domain, kind, group, label, competitors, answers }] } }.
  */
+/** Hosts that serve files rather than pages people read (contentful-assets.strava.com, a CDN): never a source to earn. */
+export const isFileHost = domain => /^(?:(?:[\w]+-)*assets?(?:-[\w]+)*|cdn\d*|static\d*|images?|img|media|files?|uploads?|downloads?)\./i.test(domain) || /(?:^|\.)(?:cloudfront\.net|amazonaws\.com|googleusercontent\.com|ctfassets\.net|akamaized\.net|fastly\.net)$/i.test(domain);
+
 export function sourcesView(runs, prompts, brands, minSourced) {
   const gOf = groupOf(prompts);
   const named = r => (r.citations || []).filter(c => c.source !== 'searched' && c.domain);
@@ -133,7 +136,7 @@ export function sourcesView(runs, prompts, brands, minSourced) {
   for (const r of ok) {
     const g = gOf[r.prompt_id];
     for (const c of named(r)) {
-      kindOf[c.domain] ||= c.kind;
+      kindOf[c.domain] ||= isFileHost(c.domain) ? 'other' : c.kind;
     }
     if (!g) continue;
     for (const d of new Set(named(r).filter(c => c.kind !== 'brand').map(c => c.domain))) {

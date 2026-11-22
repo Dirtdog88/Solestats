@@ -230,3 +230,13 @@ test('attributeView: attribute words in the pieces about each brand, cautions no
   assert.deepEqual(v.hoka.attributes.map(a => [a.attribute, a.share]), [['cushioning', 0], ['caution_ride', 100], ['price', 0]]);
   assert.deepEqual(v[''], { cushioning: 33.3, caution_ride: 33.3, price: 0 });
 });
+
+test('isFileHost: asset and CDN hosts are never a source to earn; ordinary sites are', async () => {
+  const { isFileHost, sourcesView } = await import('../src/2026-11-22-insights.js');
+  for (const d of ['contentful-assets.strava.com', 'cdn.shopify.com', 'images.ctfassets.net', 'd1.cloudfront.net', 'static1.squarespace.com']) assert.equal(isFileHost(d), true, d);
+  for (const d of ['runrepeat.com', 'reddit.com', 'www.strava.com', 'assetmanagement.com']) assert.equal(isFileHost(d), false, d);
+  const ps = [{ id: 'S1', set: 'shoe', group: 'trail' }];
+  const r = (brands, domain, kind) => ({ status: 'ok', prompt_id: 'S1', engine: 'openai', mentions: brands.map(b => ({ brand_slug: b })), citations: [{ domain, kind, source: 'cited' }] });
+  const v = sourcesView([r(['on'], 'x.com', 'review'), r(['hoka', 'brooks'], 'contentful-assets.strava.com', 'forum'), r(['hoka', 'altra'], 'contentful-assets.strava.com', 'forum')], ps, [{ slug: 'on' }], 1);
+  assert.equal(v.on.gaps[0].kind, 'other');
+});

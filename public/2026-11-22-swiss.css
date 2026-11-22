@@ -79,3 +79,27 @@ table.heatmap td.heat { border-radius:0; }
 td .score.none { font-size:13px; color:#8a8a8a; font-weight:500; }
 /* The header's rule already sits above the first section; no second rule there. */
 main > section:first-child > h2:first-child { border-top:0; padding-top:0; margin-top:26px; }
+
+/* The brand page (Alex, 2026-11-22): the CMO view on top (AI score and subjects, what to fix, when not you, who,
+   sources to earn), every other view folded into tap-to-open rows (details/summary, no script). */
+.score-top { display:grid; grid-template-columns: minmax(120px, 34%) 1fr; gap:18px; align-items:start; }
+.score-top .ai .label { font-size:13px; color:var(--muted); font-weight:600; }
+.score-top .ai .big { font-size:64px; font-weight:700; letter-spacing:-.05em; line-height:1; margin-top:6px; }
+.score-top .ai .big .of { font-size:16px; color:#9a9a9a; font-weight:400; letter-spacing:0; margin-left:3px; }
+.score-top .ai .big.none { font-size:18px; color:var(--muted); letter-spacing:0; }
+.subj-list { list-style:none; margin:0; padding:0; }
+.subj-list li { display:grid; grid-template-columns: 1fr auto; column-gap:10px; padding:7px 0; border-bottom:1px solid var(--line); }
+.subj-list .sl { font-size:14px; font-weight:600; }
+.subj-list .sv { font-size:18px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums; }
+.subj-list .sv.none { font-size:12px; font-weight:500; color:#9a9a9a; align-self:center; }
+.subj-list .by-engine { grid-column:1 / -1; margin:4px 0 0; }
+.fixes { margin:0; padding-left:1.4em; display:grid; gap:10px; font-size:15px; line-height:1.4; }
+.fixes .fx-subj { display:block; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); font-weight:700; }
+.detail-h { margin-top:40px; }
+details.fold { border-bottom:1px solid var(--line); }
+details.fold > summary { list-style:none; cursor:pointer; padding:14px 0; font-weight:700; font-size:17px; display:flex; justify-content:space-between; align-items:center; }
+details.fold > summary::-webkit-details-marker { display:none; }
+details.fold > summary::after { content:"+"; font-weight:400; font-size:22px; color:var(--accent); }
+details.fold[open] > summary::after { content:"−"; }
+details.fold > section { padding:0 0 18px; margin:0; border:0; }
+@media (max-width: 480px) { .score-top { grid-template-columns:1fr; gap:6px; } }

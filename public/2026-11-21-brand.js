@@ -180,48 +180,64 @@ async function main() {
   document.getElementById('sub').textContent = [d.brand.category === 'shoes' ? 'Running shoes' : d.brand.category, TREATMENT[d.brand.treatment] || d.brand.treatment].join(' · ');
   showEdition();
   const ov = await overallStatus();
-  const grid = el('div', { class: 'subjects' });
-  // Sourced held back for too few answers that name a source: there is no score row, so the counts come from the API.
+  // ---- 1. The score: the AI score big, then one line per subject with its engine split.
   const src = d.sourcing || {};
-  const heldSourced = !d.scores.sourced && (src.sourced || 0) < src.min ? { sourced: src.sourced || 0, not_provided: src.not_provided || 0, no_search: src.no_search || 0, min: src.min } : null;
-  for (const s of ORDER) {
+  const heldSourced = !d.scores.sourced && (src.sourced || 0) < src.min;
+  const ai = d.scores.overall;
+  const rowFor = s => {
     const v = d.scores[s];
-    if (!v && s === 'sourced' && heldSourced) {
-      grid.append(el('div', { class: 'subject' }, defined('div', s, { class: 'label' }), el('div', { class: 'big' }, '—'),
-        el('div', { class: 'pills' }, defined('span', 'too_few', { class: 'pill grey', text: `too few: ${heldSourced.sourced} of ${heldSourced.min}` }), ...sourcedPills({ ...heldSourced, intl_own_site: 0 }))));
-      continue;
-    }
-    if (!v) continue;
-    grid.append(el('div', { class: 'subject' }, defined('div', s, s === 'overall' ? { class: 'label', text: ov.label } : { class: 'label' }), el('div', { class: 'big' }, v.score == null ? '—' : String(Math.round(v.score))), byEngine(d.engines && d.engines[s]),
-      el('div', { class: 'pills' }, v.margin != null ? defined('span', 'margin', { class: 'pill', text: `±${Math.round(v.margin)}` }) : '', defined('span', 'n', { class: 'pill grey', text: `n ${v.n}` }), ...(s === 'sourced' ? sourcedPills(v.detail) : []), v.detail?.checked_round ? defined('span', 'checked', { class: 'pill grey', text: `checked ${v.detail.checked_round}` }) : '')));
-  }
-  card.append(el('section', { class: 'card' }, el('h3', {}, 'Scores'), Object.keys(d.scores).length ? grid : el('p', { class: 'muted' }, 'Not scored yet.')));
-  const nr = needRow(d.needs, d.brand.name);
-  if (nr) card.append(nr);
+    const val = v && v.score != null ? el('span', { class: 'sv' }, String(Math.round(v.score))) : el('span', { class: 'sv none' }, s === 'sourced' && heldSourced ? 'too few sources' : 'to come');
+    return el('li', {}, defined('span', s, { class: 'sl' }), val, byEngine(d.engines && d.engines[s]));
+  };
+  const scoreBlock = el('section', { class: 'card top score-top' },
+    el('div', { class: 'ai' }, defined('div', 'overall', { class: 'label', text: 'AI score' }), ai && ai.score != null ? el('div', { class: 'big' }, String(Math.round(ai.score)), el('span', { class: 'of' }, '/100')) : el('div', { class: 'big none' }, 'Not enough data yet')),
+    el('ul', { class: 'subj-list' }, ...['recommended', 'sourced', 'routing', 'accurate', 'shoppable'].map(rowFor)));
+  card.append(scoreBlock);
+  // ---- 2. What to fix.
+  card.append(el('section', { class: 'card top' }, el('h3', {}, 'What to fix'), d.fixes.length
+    ? el('ol', { class: 'fixes' }, ...d.fixes.map(f => el('li', {}, el('span', { class: 'fx-subj' }, (DEFINITIONS[f.subject] || [f.subject])[0]), f.text)))
+    : el('p', { class: 'muted' }, 'Nothing flagged this edition: no engine far behind the others, and no review site, forum, news site or retailer cited for competitors but never for this brand.')));
+  // ---- 3. When not you, who.
+  const subc = await substitutionCard(d.substitution, d.brand.name);
+  if (subc) card.append(subc), subc.classList.add('top');
+  // ---- 4. Sources to earn: sites a brand can work with (the same rule as the fixes), leaving out those a fix already
+  // names; the full lists are under Sources below.
+  const inFixes = d.fixes.map(f => f.text).join(' ');
+  const earnable = (d.sources && d.sources.gaps || []).filter(g => ['review', 'forum', 'news', 'retailer'].includes(g.kind));
+  const gaps = earnable.filter(g => !inFixes.includes(`on ${g.domain}:`)).slice(0, 5);
+  if (gaps.length) card.append(el('section', { class: 'card top' }, el('h3', {}, defined('span', 'sources_gap', { text: gaps.length < earnable.length ? 'More sources to earn' : 'Sources to earn' })),
+    el('ol', { class: 'sources' }, ...gaps.map(g => el('li', {}, el('span', { class: 'dom' }, g.domain), el('span', { class: 'muted' }, ` ${KIND[g.kind] || g.kind}`), el('span', { class: 'cnt' }, `${g.answers} ${g.label.toLowerCase()} answers, ${g.competitors} competitors`))))));
+  // ---- Detail: every other view, folded.
+  const fold = sec => {
+    if (!sec) return null;
+    const h = sec.querySelector('h3');
+    const det = el('details', { class: 'fold' }, el('summary', {}, h ? h.textContent : ''));
+    if (h) h.remove();
+    sec.classList.remove('card');
+    det.append(sec);
+    return det;
+  };
+  const detail = [];
+  detail.push(fold(needRow(d.needs, d.brand.name)));
   if (d.h2h) {
     const { brands } = await api('/api/brands').catch(() => ({ brands: [] }));
-    const hc = h2hCard(d.h2h, d.brand.name, Object.fromEntries(brands.map(b => [b.slug, b.name])), Object.fromEntries(brands.map(b => [b.slug, b.scores.overall?.score ?? -1])));
-    if (hc) card.append(hc);
+    detail.push(fold(h2hCard(d.h2h, d.brand.name, Object.fromEntries(brands.map(b => [b.slug, b.name])), Object.fromEntries(brands.map(b => [b.slug, b.scores.overall?.score ?? -1])))));
   }
-  const mc = modelsCard(d.models, d.brand.name);
-  if (mc) card.append(mc);
-  const ac = attributesCard(d.attributes, d.brand.name);
-  if (ac) card.append(ac);
-  const vc = versionCard(d.versions, d.steering, d.brand.name);
-  if (vc) card.append(vc);
-  const subc = await substitutionCard(d.substitution, d.brand.name);
-  if (subc) card.append(subc);
-  const pc = placesCard(d.places);
-  if (pc) card.append(pc);
-  const sc = sourcesCard(d.sources, d.brand.name);
-  if (sc) card.append(sc);
+  detail.push(fold(modelsCard(d.models, d.brand.name)));
+  detail.push(fold(attributesCard(d.attributes, d.brand.name)));
+  detail.push(fold(versionCard(d.versions, d.steering, d.brand.name)));
+  detail.push(fold(placesCard(d.places)));
+  detail.push(fold(sourcesCard(d.sources, d.brand.name)));
   const sovView = await api('/api/share-of-voice').catch(() => ({ brands: [] }));
-  const rev = revenueCard(d.financials || [], { ...(sovView.brands || []).find(b => b.slug === d.brand.slug), brands_with_both: sovView.voice_vs_size?.brands_with_both });
-  if (rev) card.append(rev);
-  const rc = racesCard(d.races || []);
-  if (rc) card.append(rc);
-  if (d.fixes.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'Top fixes'), el('ol', {}, ...d.fixes.map(f => el('li', {}, el('strong', {}, (DEFINITIONS[f.subject] || [f.subject])[0] + ': '), f.text)))));
-  if (d.examples && d.examples.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'What AI said'), ...d.examples.map(x => el('div', { class: 'example' }, el('div', { class: 'q' }, `${engineName(x.engine)}: ${x.prompt_text}`, SOURCING_TAG[x.sourcing] ? ' ' : '', SOURCING_TAG[x.sourcing] ? defined('span', x.sourcing, { class: 'pill grey' }) : ''), el('div', { class: 'a' }, plainAnswer(x.answer))))));
-  if (d.context.length) card.append(el('section', { class: 'card' }, el('h3', {}, 'Context'), el('ul', {}, ...d.context.map(c => el('li', {}, `${c.metric}: ${c.value}`, c.source ? el('span', { class: 'muted' }, ` (${c.source})`) : '')))));
+  detail.push(fold(revenueCard(d.financials || [], { ...(sovView.brands || []).find(b => b.slug === d.brand.slug), brands_with_both: sovView.voice_vs_size?.brands_with_both })));
+  detail.push(fold(racesCard(d.races || [])));
+  if (d.examples && d.examples.length) detail.push(fold(el('section', { class: 'card' }, el('h3', {}, 'What AI said'), ...d.examples.map(x => el('div', { class: 'example' }, el('div', { class: 'q' }, `${engineName(x.engine)}: ${x.prompt_text}`, SOURCING_TAG[x.sourcing] ? ' ' : '', SOURCING_TAG[x.sourcing] ? defined('span', x.sourcing, { class: 'pill grey' }) : ''), el('div', { class: 'a' }, plainAnswer(x.answer)))))));
+  // The old score tiles (±, n, source counts) as the last fold.
+  const grid = el('div', { class: 'subjects' });
+  for (const s of ORDER) { const v = d.scores[s]; if (!v) continue;
+    grid.append(el('div', { class: 'subject' }, defined('div', s, s === 'overall' ? { class: 'label', text: 'AI score' } : { class: 'label' }), el('div', { class: 'big' }, String(Math.round(v.score))),
+      el('div', { class: 'pills' }, v.margin != null ? defined('span', 'margin', { class: 'pill', text: `±${Math.round(v.margin)}` }) : '', defined('span', 'n', { class: 'pill grey', text: `n ${v.n}` }), ...(s === 'sourced' ? sourcedPills(v.detail) : [])))); }
+  detail.push(fold(el('section', { class: 'card' }, el('h3', {}, 'How the scores are built'), grid)));
+  card.append(el('h2', { class: 'detail-h' }, 'Detail'), ...detail.filter(Boolean));
 }
 main();
