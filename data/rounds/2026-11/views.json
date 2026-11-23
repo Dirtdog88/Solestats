@@ -11460,30 +11460,30 @@
   },
   "places": {
    "brooks": {
-    "n": 596,
+    "n": 599,
     "buckets": {
      "own": {
-      "share": 33.6,
+      "share": 33.4,
       "n": 200,
       "margin": 1.1
      },
      "specialty": {
-      "share": 40.8,
-      "n": 243,
-      "margin": 3.6
+      "share": 40.9,
+      "n": 245,
+      "margin": 3.4
      },
      "amazon": {
-      "share": 4.9,
+      "share": 4.8,
       "n": 29,
-      "margin": 0.6
+      "margin": 0.5
      },
      "big_box": {
-      "share": 3,
-      "n": 18,
+      "share": 3.2,
+      "n": 19,
       "margin": 0.4
      },
      "other": {
-      "share": 17.8,
+      "share": 17.7,
       "n": 106,
       "margin": 3.2
      }
@@ -11512,30 +11512,30 @@
     ]
    },
    "hoka": {
-    "n": 416,
+    "n": 420,
     "buckets": {
      "own": {
-      "share": 15.6,
+      "share": 15.5,
       "n": 65,
       "margin": 1.6
      },
      "specialty": {
-      "share": 51.7,
-      "n": 215,
-      "margin": 2.8
+      "share": 51.9,
+      "n": 218,
+      "margin": 2.6
      },
      "amazon": {
-      "share": 7.2,
+      "share": 7.1,
       "n": 30,
-      "margin": 0.4
-     },
-     "big_box": {
-      "share": 5.3,
-      "n": 22,
       "margin": 0.5
      },
+     "big_box": {
+      "share": 5.5,
+      "n": 23,
+      "margin": 0.6
+     },
      "other": {
-      "share": 20.2,
+      "share": 20,
       "n": 84,
       "margin": 3.8
      }
@@ -11611,32 +11611,32 @@
     ]
    },
    "saucony": {
-    "n": 388,
+    "n": 392,
     "buckets": {
      "own": {
-      "share": 15.7,
+      "share": 15.6,
       "n": 61,
-      "margin": 0.8
+      "margin": 0.9
      },
      "specialty": {
-      "share": 52.1,
-      "n": 202,
-      "margin": 3.5
+      "share": 52.3,
+      "n": 205,
+      "margin": 3.3
      },
      "amazon": {
       "share": 7.7,
       "n": 30,
-      "margin": 0.4
+      "margin": 0.3
      },
      "big_box": {
-      "share": 5.9,
-      "n": 23,
-      "margin": 1.1
+      "share": 6.1,
+      "n": 24,
+      "margin": 0.8
      },
      "other": {
-      "share": 18.6,
+      "share": 18.4,
       "n": 72,
-      "margin": 1.5
+      "margin": 1.6
      }
     },
     "other_places": [
@@ -11663,30 +11663,30 @@
     ]
    },
    "asics": {
-    "n": 464,
+    "n": 468,
     "buckets": {
      "own": {
-      "share": 27.8,
+      "share": 27.6,
       "n": 129,
       "margin": 1.9
      },
      "specialty": {
-      "share": 44.6,
-      "n": 207,
-      "margin": 4.5
+      "share": 44.9,
+      "n": 210,
+      "margin": 4.3
      },
      "amazon": {
-      "share": 6.5,
+      "share": 6.4,
       "n": 30,
-      "margin": 0.2
+      "margin": 0.3
      },
      "big_box": {
-      "share": 5.4,
-      "n": 25,
-      "margin": 0.9
+      "share": 5.6,
+      "n": 26,
+      "margin": 0.6
      },
      "other": {
-      "share": 15.7,
+      "share": 15.6,
       "n": 73,
       "margin": 1.9
      }
@@ -11715,30 +11715,30 @@
     ]
    },
    "nike": {
-    "n": 422,
+    "n": 426,
     "buckets": {
      "own": {
-      "share": 22,
+      "share": 21.8,
       "n": 93,
       "margin": 1.5
      },
      "specialty": {
-      "share": 47.4,
-      "n": 200,
-      "margin": 4.2
+      "share": 47.7,
+      "n": 203,
+      "margin": 4.1
      },
      "amazon": {
-      "share": 6.4,
+      "share": 6.3,
       "n": 27,
       "margin": 1
      },
      "big_box": {
-      "share": 5.7,
-      "n": 24,
-      "margin": 1.3
+      "share": 5.9,
+      "n": 25,
+      "margin": 0.9
      },
      "other": {
-      "share": 18.5,
+      "share": 18.3,
       "n": 78,
       "margin": 2.4
      }
@@ -11767,32 +11767,32 @@
     ]
    },
    "adidas": {
-    "n": 174,
+    "n": 176,
     "buckets": {
      "own": {
-      "share": 36.8,
+      "share": 36.4,
       "n": 64,
-      "margin": 6
+      "margin": 5.5
      },
      "specialty": {
-      "share": 33.9,
-      "n": 59,
-      "margin": 2.5
+      "share": 34.7,
+      "n": 61,
+      "margin": 3
      },
      "amazon": {
-      "share": 6.9,
+      "share": 6.8,
       "n": 12,
       "margin": 2.3
      },
      "big_box": {
-      "share": 7.5,
+      "share": 7.4,
       "n": 13,
       "margin": 3
      },
      "other": {
-      "share": 14.9,
+      "share": 14.8,
       "n": 26,
-      "margin": 2.6
+      "margin": 2.7
      }
     },
     "other_places": [
@@ -11814,17 +11814,17 @@
     ]
    },
    "new-balance": {
-    "n": 321,
+    "n": 323,
     "buckets": {
      "own": {
-      "share": 21.8,
+      "share": 21.7,
       "n": 70,
-      "margin": 1
+      "margin": 0.9
      },
      "specialty": {
       "share": 49.5,
-      "n": 159,
-      "margin": 2.5
+      "n": 160,
+      "margin": 2.2
      },
      "amazon": {
       "share": 6.2,
@@ -11832,12 +11832,12 @@
       "margin": 0.9
      },
      "big_box": {
-      "share": 3.7,
-      "n": 12,
-      "margin": 0.9
+      "share": 4,
+      "n": 13,
+      "margin": 0.4
      },
      "other": {
-      "share": 18.7,
+      "share": 18.6,
       "n": 60,
       "margin": 1.8
      }
@@ -11866,20 +11866,20 @@
     ]
    },
    "altra": {
-    "n": 144,
+    "n": 147,
     "buckets": {
      "own": {
-      "share": 23.6,
+      "share": 23.1,
       "n": 34,
       "margin": 1.9
      },
      "specialty": {
-      "share": 45.8,
-      "n": 66,
-      "margin": 7
+      "share": 46.9,
+      "n": 69,
+      "margin": 6.8
      },
      "amazon": {
-      "share": 6.3,
+      "share": 6.1,
       "n": 9,
       "margin": 0.8
      },
@@ -11889,9 +11889,9 @@
       "margin": 2.7
      },
      "other": {
-      "share": 22.9,
+      "share": 22.4,
       "n": 33,
-      "margin": 6
+      "margin": 5.9
      }
     },
     "other_places": [
@@ -11913,20 +11913,20 @@
     ]
    },
    "topo": {
-    "n": 93,
+    "n": 95,
     "buckets": {
      "own": {
-      "share": 47.3,
+      "share": 46.3,
       "n": 44,
-      "margin": 11.2
+      "margin": 11.9
      },
      "specialty": {
-      "share": 33.3,
-      "n": 31,
-      "margin": 16.3
+      "share": 34.7,
+      "n": 33,
+      "margin": 17.2
      },
      "amazon": {
-      "share": 4.3,
+      "share": 4.2,
       "n": 4,
       "margin": 1
      },
@@ -11936,7 +11936,7 @@
       "margin": 2.7
      },
      "other": {
-      "share": 14,
+      "share": 13.7,
       "n": 13,
       "margin": 4.1
      }
@@ -11960,32 +11960,32 @@
     ]
    },
    "salomon": {
-    "n": 91,
+    "n": 94,
     "buckets": {
      "own": {
-      "share": 27.5,
+      "share": 26.6,
       "n": 25,
-      "margin": 11.8
+      "margin": 11.5
      },
      "specialty": {
-      "share": 40.7,
-      "n": 37,
-      "margin": 4.5
+      "share": 42.6,
+      "n": 40,
+      "margin": 4.6
      },
      "amazon": {
-      "share": 3.3,
+      "share": 3.2,
       "n": 3,
-      "margin": 3
+      "margin": 2.9
      },
      "big_box": {
-      "share": 2.2,
+      "share": 2.1,
       "n": 2,
       "margin": 2
      },
      "other": {
-      "share": 26.4,
+      "share": 25.5,
       "n": 24,
-      "margin": 7.3
+      "margin": 7.1
      }
     },
     "other_places": [
@@ -14276,12 +14276,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 63.1,
-       "n": 217
+       "score": 62.8,
+       "n": 218
       },
       "gemini": {
-       "score": 69.8,
-       "n": 169
+       "score": 70.2,
+       "n": 171
       },
       "openai": {
        "score": 89.5,
@@ -14325,12 +14325,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 61.8,
-       "n": 207
+       "score": 61.5,
+       "n": 208
       },
       "gemini": {
-       "score": 67.5,
-       "n": 154
+       "score": 68.2,
+       "n": 157
       },
       "openai": {
        "score": 87.3,
@@ -14416,12 +14416,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 64.2,
-       "n": 187
+       "score": 63.8,
+       "n": 188
       },
       "gemini": {
-       "score": 65.5,
-       "n": 148
+       "score": 66.2,
+       "n": 151
       },
       "openai": {
        "score": 86.8,
@@ -14465,12 +14465,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 63.7,
-       "n": 182
+       "score": 63.4,
+       "n": 183
       },
       "gemini": {
-       "score": 67.5,
-       "n": 151
+       "score": 68.2,
+       "n": 154
       },
       "openai": {
        "score": 90.1,
@@ -14514,12 +14514,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 60.6,
-       "n": 175
+       "score": 60.2,
+       "n": 176
       },
       "gemini": {
-       "score": 66.5,
-       "n": 164
+       "score": 67.1,
+       "n": 167
       },
       "openai": {
        "score": 94,
@@ -14566,8 +14566,8 @@
        "n": 43
       },
       "gemini": {
-       "score": 54.8,
-       "n": 73
+       "score": 56,
+       "n": 75
       },
       "openai": {
        "score": 96.6,
@@ -14610,12 +14610,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 66.7,
-       "n": 165
+       "score": 66.3,
+       "n": 166
       },
       "gemini": {
-       "score": 66.7,
-       "n": 96
+       "score": 67,
+       "n": 97
       },
       "openai": {
        "score": 91.7,
@@ -14663,8 +14663,8 @@
        "n": 13
       },
       "gemini": {
-       "score": 65.4,
-       "n": 104
+       "score": 66.4,
+       "n": 107
       },
       "openai": {
        "score": 92.6,
@@ -14706,8 +14706,8 @@
        "n": 15
       },
       "gemini": {
-       "score": 69.7,
-       "n": 33
+       "score": 71.4,
+       "n": 35
       },
       "openai": {
        "score": 91.1,
@@ -14755,8 +14755,8 @@
        "n": 7
       },
       "gemini": {
-       "score": 67.7,
-       "n": 62
+       "score": 69.2,
+       "n": 65
       },
       "openai": {
        "score": 77.3,
@@ -15062,12 +15062,12 @@
   {
    "brand": "altra",
    "subject": "routing",
-   "text": "Close the gap on Gemini: Sale goes home there is 65, against 93 on ChatGPT. How: Gemini sends Altra shoppers to REI and Zappos for 27% of the places it names, against 13% on the others. Its answers about Altra name its own site and run specialty stores less often, so make sure Gemini can find Altra's own product pages and its specialty stockists."
+   "text": "Close the gap on Gemini: Sale goes home there is 66, against 93 on ChatGPT. How: Gemini sends Altra shoppers to REI and Zappos for 26% of the places it names, against 13% on the others. Its answers about Altra name its own site and run specialty stores less often, so make sure Gemini can find Altra's own product pages and its specialty stockists."
   },
   {
    "brand": "topo",
    "subject": "routing",
-   "text": "Close the gap on Gemini: Sale goes home there is 70, against 91 on ChatGPT. How: Gemini sends Topo shoppers to REI and Zappos for 24% of the places it names, against 8% on the others. Its answers about Topo name its own site and run specialty stores less often, so make sure Gemini can find Topo's own product pages and its specialty stockists."
+   "text": "Close the gap on Gemini: Sale goes home there is 71, against 91 on ChatGPT. How: Gemini sends Topo shoppers to REI and Zappos for 23% of the places it names, against 8% on the others. Its answers about Topo name its own site and run specialty stores less often, so make sure Gemini can find Topo's own product pages and its specialty stockists."
   },
   {
    "brand": "on",

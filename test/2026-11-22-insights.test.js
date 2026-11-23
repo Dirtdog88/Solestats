@@ -132,7 +132,7 @@ test('editionSummary builds every sentence from the data: leaders, voice vs size
   const engineViews = { b: { recommended: { by_engine: { anthropic: { score: 69, n: 300 }, openai: { score: 27, n: 300 } } } }, a: { routing: { by_engine: { openai: { score: 90, n: 5 }, anthropic: { score: 10, n: 5 } } } } };
   const s = editionSummary({ engines, brands, engineViews, sources: { top: [{ domain: 'runrepeat.com', answers: 40 }] } });
   assert.equal(s.length, 4);
-  assert.equal(s[0], 'Across 200 answers from Claude and ChatGPT, Alpha has the highest AI score (64 of 100, level with Beta at 61), and Beta the largest share of voice (15.7% of brand mentions).');
+  assert.equal(s[0], 'Across 200 answers from Claude and ChatGPT, Alpha has the highest AI score (64 of 100, with Beta close behind at 61), and Beta the largest share of voice (15.7% of brand mentions).');
   assert.equal(s[1], 'Among the 2 brands with a brand or running-level revenue figure, Alpha gets the most share of voice for its size (3.3×) and Beta the least (0.40×); context, not cause.');
   assert.match(editionSummary({ brands: [{ name: 'A', voice_ratio: 4 }, { name: 'B', voice_ratio: 2 }] })[0], /B the least \(2\.0×\); all of them get more voice than their size alone would suggest; context, not cause\.$/);
   assert.equal(s[2], "The engines disagree most on Beta's Recommended score: 69 on Claude's answers against 27 on ChatGPT's.");  // Alpha's routing gap has too few observations

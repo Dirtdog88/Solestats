@@ -19708,6 +19708,7 @@ INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('202
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R004/anthropic/1','zappos',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R004/anthropic/1','dicks',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R004/anthropic/1','holabird',NULL,NULL);
+INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R004/anthropic/1','costco',NULL,NULL);
 INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at,winner) VALUES ('2026-11/R004/anthropic/3','2026-11','R004','anthropic','claude-opus-5-5',3,'Where can I get running shoes cheapest?','ok','There''s no single cheapest store. The best prices usually come from a few kinds of places, plus buying the right model at the right time:
 
 **Best places to look (US)**
@@ -50593,6 +50594,7 @@ INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('202
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/1','fleet-feet',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/1','rei',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/1','road-runner-sports',NULL,NULL);
+INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/1','the-feed',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/1','local',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/1','brand-site',NULL,NULL);
 INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at,winner) VALUES ('2026-11/R008/gemini/2','2026-11','R008','gemini','gemini-3.8-flash',2,'Where do serious runners buy their gear?','ok','Serious runners—from marathoners chasing Boston qualifiers to high-mileage trail and ultra runners—rarely rely on general sporting goods chains (like Dick’s Sporting Goods or basic department stores). Instead, they source their gear from a mix of specialized retailers, niche direct-to-consumer brands, and brand-direct drops:
@@ -50652,6 +50654,7 @@ INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('202
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/2','rei',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/2','road-runner-sports',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/2','backcountry',NULL,NULL);
+INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/2','the-feed',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/2','local',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/2','brand-site',NULL,NULL);
 INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at,winner) VALUES ('2026-11/R008/gemini/3','2026-11','R008','gemini','gemini-3.8-flash',3,'Where do serious runners buy their gear?','ok','Serious runners generally avoid generic big-box department stores and instead spread their purchases across a few trusted channels depending on what they are buying (racing shoes, daily trainers, nutrition, or apparel). 
@@ -50707,6 +50710,7 @@ INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('202
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/3','fleet-feet',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/3','rei',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/3','road-runner-sports',NULL,NULL);
+INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/3','the-feed',NULL,NULL);
 INSERT OR REPLACE INTO routes (run_id,retailer_slug,brand_slug,url) VALUES ('2026-11/R008/gemini/3','local',NULL,NULL);
 INSERT OR REPLACE INTO runs (id,round_id,prompt_id,engine,model,repeat_no,prompt_text,status,answer,citations_json,searched_json,searches,input_tokens,output_tokens,cost_usd,latency_ms,error,created_at,winner) VALUES ('2026-11/S032/openai/2','2026-11','S032','openai','gpt-6.2-astra',2,'Running shoes for knee pain?','ok','For everyday road running, **I’d try the Brooks Ghost 18 first**. It’s a cushioned, neutral shoe (about **$150**). If you’ve liked shoes with more support in the past, try the **Brooks Adrenaline GTS 25** alongside it; some U.S. stores list it around **$110**. I’d choose whichever feels more comfortable, not whichever promises more support. Knee pain alone isn’t a reason to buy a stability shoe: evidence is unclear that stability shoes prevent more running injuries than neutral shoes. ([stores.brooksrunning.com](https://stores.brooksrunning.com/search/walking-shoes/running-shoes?c=187&store=22426&utm_source=openai))
 

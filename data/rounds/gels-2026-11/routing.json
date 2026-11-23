@@ -1,0 +1,44 @@
+{
+  "gels": {
+    "answers": 1032,
+    "with_route": 505,
+    "by_retailer": {
+      "target": 230,
+      "brand-site": 244,
+      "local": 35,
+      "fleet-feet": 6,
+      "running-warehouse": 9,
+      "rei": 12,
+      "the-feed": 34,
+      "amazon": 13,
+      "whole-foods": 25,
+      "local-bike": 9,
+      "costco": 2,
+      "walmart": 1
+    }
+  },
+  "retail": {
+    "answers": 72,
+    "with_route": 71,
+    "by_retailer": {
+      "amazon": 36,
+      "running-warehouse": 37,
+      "fleet-feet": 35,
+      "rei": 51,
+      "road-runner-sports": 10,
+      "walmart": 26,
+      "target": 19,
+      "the-feed": 34,
+      "costco": 4,
+      "local-bike": 13,
+      "local": 28,
+      "brand-site": 27,
+      "dicks": 7,
+      "holabird": 3,
+      "zappos": 1,
+      "whole-foods": 14,
+      "gnc": 1,
+      "backcountry": 1
+    }
+  }
+}
