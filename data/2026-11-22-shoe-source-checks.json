@@ -1,0 +1,1597 @@
+{
+ "checked_at": "2026-11-23T04:35:38.202Z",
+ "report": [
+  {
+   "race": "Tokyo Marathon 2025 men 1",
+   "athlete": "Tadese Takele",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2025 men 2",
+   "athlete": "Deresa Geleta",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2025 men 3",
+   "athlete": "Vincent Kipkemoi Ngetich",
+   "brand": "ASICS",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2025 women 1",
+   "athlete": "Sutume Asefa Kebede",
+   "brand": "On",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2025 women 2",
+   "athlete": "Winfridah Moraa Moseti",
+   "brand": "ASICS",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Tokyo Marathon 2025 women 3",
+   "athlete": "Hawi Feysa",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 1",
+   "athlete": "John Korir",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 2",
+   "athlete": "Alphonce Felix Simbu",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 3",
+   "athlete": "Cybrian Kotut",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 4",
+   "athlete": "Conner Mantz",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 5",
+   "athlete": "Muktar Edris",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 6",
+   "athlete": "Rory Linkletter",
+   "brand": "Puma",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 7",
+   "athlete": "Clayton Young",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 8",
+   "athlete": "Tebello Ramakongoana",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 9",
+   "athlete": "Daniel Mateiko",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 men 10",
+   "athlete": "Ryan Ford",
+   "brand": "Puma",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 women 1",
+   "athlete": "Sharon Lokedi",
+   "brand": "Under Armour",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 women 2",
+   "athlete": "Hellen Obiri",
+   "brand": "On",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 women 3",
+   "athlete": "Yalemzerf Yehualaw",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 women 4",
+   "athlete": "Irine Chepet Cheptai",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 women 5",
+   "athlete": "Amane Beriso Shankule",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2025 women 6",
+   "athlete": "Calli Hauger-Thackery",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2025 women 7",
+   "athlete": "Jessica McClain",
+   "brand": "Brooks",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 women 8",
+   "athlete": "Annie Frisbie",
+   "brand": "Puma",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2025 women 9",
+   "athlete": "Stacey Chepkemboi Ndiwa",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2025 women 10",
+   "athlete": "Tsige Haileslase",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-boston-marathon-shoes-of-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2025 men 1",
+   "athlete": "Sabastian Kimaru Sawe",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2025 men 2",
+   "athlete": "Jacob Kiplimo",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2025 men 3",
+   "athlete": "Alexander Munyao",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2025 men 4",
+   "athlete": "Abdi Nageeye",
+   "brand": "Nike",
+   "url": "https://therunningchannel.com/london-marathon-2025-things-you-missed/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2025 men 6",
+   "athlete": "Eliud Kipchoge",
+   "brand": "Nike",
+   "url": "https://therunningchannel.com/london-marathon-2025-things-you-missed/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2025 men 8",
+   "athlete": "Amanal Petros",
+   "brand": "Puma",
+   "url": "https://athleticsweekly.com/news/interviews/amanal-petros-targets-german-marathon-record-in-london-1040001308/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2025 women 1",
+   "athlete": "Tigst Assefa",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2025-london-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2025 women 2",
+   "athlete": "Joyciline Jepkosgei",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2025-london-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2025 women 3",
+   "athlete": "Sifan Hassan",
+   "brand": "Nike",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2025-london-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2025 women 8",
+   "athlete": "Eilish McColgan",
+   "brand": "ASICS",
+   "url": "https://eilishmccolgan.co.uk/my-gear/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2025 women 9",
+   "athlete": "Rose Harvey",
+   "brand": "Puma",
+   "url": "https://athleticsweekly.com/news/interviews/rose-harvey-on-the-art-of-marathon-running-1040009111/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2025 women 10",
+   "athlete": "Susanna Sullivan",
+   "brand": "Brooks",
+   "url": "https://brooksrunning.com/en_us/athletes-sponsored-by-brooks-running/susanna-sullivan",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2025 men 1",
+   "athlete": "Hailemaryam Kiros",
+   "brand": "ASICS",
+   "url": "https://manofmany.com/style/sneakers/asics-sydney-marathon-winning-running-shoes",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2025 men 2",
+   "athlete": "Addisu Gobena",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2025 men 3",
+   "athlete": "Tebello Ramakongoana",
+   "brand": "Xtep",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2025 men 9",
+   "athlete": "Eliud Kipchoge",
+   "brand": "Nike",
+   "url": "https://manofmany.com/style/sneakers/asics-sydney-marathon-winning-running-shoes",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2025 women 1",
+   "athlete": "Sifan Hassan",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/news/sydney-marathon-sifan-hassan-hailemaryam-kiros-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2025 women 2",
+   "athlete": "Brigid Kosgei",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2025 women 3",
+   "athlete": "Workenesh Edesa",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 1",
+   "athlete": "Peres Jepchirchir",
+   "brand": "adidas",
+   "url": "https://therunningchannel.com/successful-supershoes-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 2",
+   "athlete": "Tigst Assefa",
+   "brand": "adidas",
+   "url": "https://therunningchannel.com/successful-supershoes-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 3",
+   "athlete": "Julia Paternain",
+   "brand": "Saucony",
+   "url": "https://runnersworldonline.com.au/fastest-shoes-at-the-2025-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 4",
+   "athlete": "Susanna Sullivan",
+   "brand": "Brooks",
+   "url": "https://runnersworldonline.com.au/fastest-shoes-at-the-2025-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 5",
+   "athlete": "Alisa Vainio",
+   "brand": "ASICS",
+   "url": "https://www.runnersworld.co.za/news/the-fastest-shoes-at-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 7",
+   "athlete": "Kana Kobayashi",
+   "brand": "ASICS",
+   "url": "https://allabout.co.jp/gm/gc/513794/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 8",
+   "athlete": "Jessica McClain",
+   "brand": "Brooks",
+   "url": "https://www.brooksrunning.com/en_us/athletes-sponsored-by-brooks-running/jess-mcclain/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 women 9",
+   "athlete": "Fionnuala McCormack",
+   "brand": "ASICS",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "World Championships Marathon 2025 men 1",
+   "athlete": "Alphonce Felix Simbu",
+   "brand": "adidas",
+   "url": "https://www.runnersworld.co.za/news/the-fastest-shoes-at-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 men 2",
+   "athlete": "Amanal Petros",
+   "brand": "Puma",
+   "url": "https://www.runnersworld.co.za/news/the-fastest-shoes-at-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 men 3",
+   "athlete": "Iliass Aouani",
+   "brand": "ASICS",
+   "url": "https://www.runnersworld.co.za/news/the-fastest-shoes-at-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 men 4",
+   "athlete": "Haimro Alame",
+   "brand": "ASICS",
+   "url": "https://www.runnersworld.co.za/news/the-fastest-shoes-at-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 men 5",
+   "athlete": "Abel Chelangat",
+   "brand": "adidas",
+   "url": "https://www.runnersworld.co.za/news/the-fastest-shoes-at-world-championship-marathons/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "World Championships Marathon 2025 men 9",
+   "athlete": "Clayton Young",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/clayton-young-and-asics-part-ways-after-seven-years/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Berlin Marathon 2025 men 1",
+   "athlete": "Sabastian Kimaru Sawe",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2025 men 2",
+   "athlete": "Akira Akasaki",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2025 men 3",
+   "athlete": "Chimdessa Debele",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2025 men 8",
+   "athlete": "Hendrik Pfeiffer",
+   "brand": "Puma",
+   "url": "https://www.puma-catchup.com/sports/nitro-helps-puma-athletes-set-new-personal-bests-at-berlin-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2025 women 1",
+   "athlete": "Rosemary Wanjiru",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2025 women 2",
+   "athlete": "Dera Dida",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2025 women 3",
+   "athlete": "Azmera Gebru",
+   "brand": "ASICS",
+   "url": "https://www.sneakerfreaker.com/performance/features/marathon-winning-running-shoes-2025",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2025 women 8",
+   "athlete": "Domenika Mayer",
+   "brand": "Puma",
+   "url": "https://www.puma-catchup.com/sports/nitro-helps-puma-athletes-set-new-personal-bests-at-berlin-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 1",
+   "athlete": "Jacob Kiplimo",
+   "brand": "Nike",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 2",
+   "athlete": "Amos Kipruto",
+   "brand": "adidas",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 3",
+   "athlete": "Alex Chesiro Masai",
+   "brand": "HOKA",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 4",
+   "athlete": "Conner Mantz",
+   "brand": "Nike",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 5",
+   "athlete": "Mohamed Esa",
+   "brand": "Nike",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 6",
+   "athlete": "Seifu Tura",
+   "brand": "Nike",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 7",
+   "athlete": "Geoffrey Kamworor",
+   "brand": "Nike",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 8",
+   "athlete": "Philemon Kiplimo",
+   "brand": "adidas",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 9",
+   "athlete": "Rory Linkletter",
+   "brand": "Puma",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 men 10",
+   "athlete": "Bashir Abdi",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2025-chicago-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 1",
+   "athlete": "Hawi Feysa",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2025-chicago-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 2",
+   "athlete": "Megertu Alemu",
+   "brand": "Nike",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2025-chicago-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 3",
+   "athlete": "Magdalena Shauri",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2025-chicago-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 4",
+   "athlete": "Loice Chemnung",
+   "brand": "ASICS",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 5",
+   "athlete": "Mary Ngugi-Cooper",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2025-chicago-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 6",
+   "athlete": "Natosha Rogers",
+   "brand": "Puma",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 7",
+   "athlete": "Dakotah Popehn",
+   "brand": "Puma",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 8",
+   "athlete": "Florencia Borelli",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2025-chicago-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 9",
+   "athlete": "Gabriella Rooker",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2025-chicago-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2025 women 10",
+   "athlete": "Mélody Julien",
+   "brand": "Puma",
+   "url": "https://x.com/RunBlogRun/status/2005126503890043286",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 1",
+   "athlete": "Benson Kipruto",
+   "brand": "adidas",
+   "url": "https://wwd.com/footwear-news/sneaker-news/nyc-marathon-2025-winners-shoes-1238333185/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 2",
+   "athlete": "Alexander Mutiso Munyao",
+   "brand": "adidas",
+   "url": "https://therunningchannel.com/new-york-city-marathon-2025/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 men 3",
+   "athlete": "Patrick Dever",
+   "brand": "Puma",
+   "url": "https://blog.therunningcollective.fr/marathon-de-new-york-2025-les-chaussures-des-vainqueurs-et-du-top-10/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 4",
+   "athlete": "Matthias Kyburz",
+   "brand": "Salomon",
+   "url": "https://blog.therunningcollective.fr/marathon-de-new-york-2025-les-chaussures-des-vainqueurs-et-du-top-10/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 5",
+   "athlete": "Joel Reichow",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-running-shoes-at-the-2025-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 6",
+   "athlete": "Charles Hicks",
+   "brand": "Nike",
+   "url": "https://blog.therunningcollective.fr/marathon-de-new-york-2025-les-chaussures-des-vainqueurs-et-du-top-10/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 7",
+   "athlete": "Sondre Nordstad Moen",
+   "brand": "Puma",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-running-shoes-at-the-2025-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 8",
+   "athlete": "Tuemay Weldlibanos Tsegay",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-running-shoes-at-the-2025-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 men 9",
+   "athlete": "Joe Klecker",
+   "brand": "On",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 men 10",
+   "athlete": "Daniele Meucci",
+   "brand": "ASICS",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 women 1",
+   "athlete": "Hellen Obiri",
+   "brand": "On",
+   "url": "https://wwd.com/footwear-news/sneaker-news/nyc-marathon-2025-winners-shoes-1238333185/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 women 2",
+   "athlete": "Sharon Lokedi",
+   "brand": "Under Armour",
+   "url": "https://therunningchannel.com/new-york-city-marathon-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 women 3",
+   "athlete": "Sheila Chepkirui",
+   "brand": "adidas",
+   "url": "https://therunningchannel.com/new-york-city-marathon-2025/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 women 4",
+   "athlete": "Fiona O'Keeffe",
+   "brand": "Puma",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-running-shoes-at-the-2025-new-york-city-marathon/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 women 5",
+   "athlete": "Annie Frisbie",
+   "brand": "Puma",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 women 6",
+   "athlete": "Sifan Hassan",
+   "brand": "Nike",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 women 7",
+   "athlete": "Jessica Warner-Judd",
+   "brand": "HOKA",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 women 8",
+   "athlete": "Emily Sisson",
+   "brand": "New Balance",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-running-shoes-at-the-2025-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2025 women 9",
+   "athlete": "Amanda Vestri",
+   "brand": "Brooks",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2025 women 10",
+   "athlete": "Fionnuala McCormack",
+   "brand": "ASICS",
+   "url": "https://www.letsrun.com/news/2025/11/2025-new-york-city-marathon-tracking-and-results/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Tokyo Marathon 2026 men 1",
+   "athlete": "Tadese Takele",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2026 men 2",
+   "athlete": "Geofry Toroitich Kipchumba",
+   "brand": "ASICS",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Tokyo Marathon 2026 men 3",
+   "athlete": "Alexander Munyao",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2026 men 7",
+   "athlete": "Selemon Barega",
+   "brand": "Li-Ning",
+   "url": "https://marathonhandbook.com/selemon-barega-leaves-nike-joins-li-ning-sportswear-days-before-marathon-debut/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Tokyo Marathon 2026 women 1",
+   "athlete": "Brigid Kosgei",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2026 women 2",
+   "athlete": "Bertukan Welde",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2026 women 3",
+   "athlete": "Hawi Feysa",
+   "brand": "adidas",
+   "url": "https://wwd.com/footwear-news/sneaker-news/2026-major-marathon-winner-shoes-adidas-dominance-1239399973/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2026 women 4",
+   "athlete": "Sutume Asefa Kebede",
+   "brand": "On",
+   "url": "https://www.on.com/en-dk/explore/athletes/sutume-asefa-kebede",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2026 women 6",
+   "athlete": "Violah Cheptoo",
+   "brand": "adidas",
+   "url": "https://believeintherun.com/viola-chaptoo-2023-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Tokyo Marathon 2026 women 10",
+   "athlete": "Ai Hosoda",
+   "brand": "Nike",
+   "url": "https://www.funrun.website/?p=4518",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 men 1",
+   "athlete": "John Korir",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 men 2",
+   "athlete": "Alphonce Felix Simbu",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 men 3",
+   "athlete": "Benson Kipruto",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 men 4",
+   "athlete": "Hailemaryam Kiros",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2026-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 men 5",
+   "athlete": "Zouhair Talbi",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2026-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 men 6",
+   "athlete": "Tebello Ramakongoana",
+   "brand": "Xtep",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2026-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 men 7",
+   "athlete": "Charles Hicks",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2026-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 men 8",
+   "athlete": "Richard Ringer",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 men 9",
+   "athlete": "Alex Chesiro Masai",
+   "brand": "HOKA",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 men 10",
+   "athlete": "Milkesa Mengesha",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2026-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 women 1",
+   "athlete": "Sharon Lokedi",
+   "brand": "Under Armour",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 women 2",
+   "athlete": "Loice Chemnung",
+   "brand": "ASICS",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 women 3",
+   "athlete": "Mary Ngugi-Cooper",
+   "brand": "Nike",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 women 4",
+   "athlete": "Mercy Chelangat",
+   "brand": "HOKA",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2026-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 women 5",
+   "athlete": "Jessica McClain",
+   "brand": "Brooks",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 women 6",
+   "athlete": "Irine Chepet Cheptai",
+   "brand": "Nike",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 women 7",
+   "athlete": "Workenesh Edesa",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 women 8",
+   "athlete": "Annie Frisbie",
+   "brand": "Puma",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Boston Marathon 2026 women 9",
+   "athlete": "Emily Sisson",
+   "brand": "New Balance",
+   "url": "https://run.outsideonline.com/gear/road-shoes/fastest-shoes-2026-boston-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Boston Marathon 2026 women 10",
+   "athlete": "Carrie Ellwood",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-boston-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 men 1",
+   "athlete": "Sabastian Sawe",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-london-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 men 2",
+   "athlete": "Yomif Kejelcha",
+   "brand": "adidas",
+   "url": "https://www.fastcompany.com/91532842/adidas-shoe-sneaker-london-marathon-world-record-breaking-runners-adizero-adios-pro-evo-3-sabastian-sawe-yomif-kejelcha-tigist-assefa",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 men 3",
+   "athlete": "Jacob Kiplimo",
+   "brand": "Nike",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-london-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 men 4",
+   "athlete": "Amos Kipruto",
+   "brand": "adidas",
+   "url": "https://karolinaattri.substack.com/p/top-10-fastest-shoes-at-the-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 men 5",
+   "athlete": "Tamirat Tola",
+   "brand": "adidas",
+   "url": "https://karolinaattri.substack.com/p/top-10-fastest-shoes-at-the-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 men 6",
+   "athlete": "Deresa Geleta",
+   "brand": "Nike",
+   "url": "https://karolinaattri.substack.com/p/top-10-fastest-shoes-at-the-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 men 7",
+   "athlete": "Addisu Gobena",
+   "brand": "Nike",
+   "url": "https://karolinaattri.substack.com/p/top-10-fastest-shoes-at-the-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 men 9",
+   "athlete": "Peter Lynch",
+   "brand": "Puma",
+   "url": "https://athleticsweekly.com/performance/how-they-train-peter-lynch-1040011568/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 women 1",
+   "athlete": "Tigst Assefa",
+   "brand": "adidas",
+   "url": "https://sports.yahoo.com/articles/london-marathon-2026-running-shoes-131537333.html",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 women 2",
+   "athlete": "Hellen Obiri",
+   "brand": "On",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-london-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 women 3",
+   "athlete": "Joyciline Jepkosgei",
+   "brand": "ASICS",
+   "url": "https://sports.yahoo.com/articles/london-marathon-2026-running-shoes-131537333.html",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 women 4",
+   "athlete": "Degitu Azimeraw",
+   "brand": "Nike",
+   "url": "https://karolinaattri.substack.com/p/top-10-fastest-shoes-at-the-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 women 5",
+   "athlete": "Catherine Reline Amanang'ole",
+   "brand": "Nike",
+   "url": "https://karolinaattri.substack.com/p/top-10-fastest-shoes-at-the-2026",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 women 7",
+   "athlete": "Eilish McColgan",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/mccolgan-leads-british-women-home-in-london-after-her-foot-exploded/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 women 8",
+   "athlete": "Julia Paternain",
+   "brand": "Saucony",
+   "url": "https://footwearmagazine.com/saucony-julia-paternain-partnership-renewal-world-athletics-bronze/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "London Marathon 2026 women 9",
+   "athlete": "Rose Harvey",
+   "brand": "Puma",
+   "url": "https://athleticsweekly.com/news/interviews/rose-harvey-on-the-art-of-marathon-running-1040009111/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "London Marathon 2026 women 10",
+   "athlete": "Marta Galimany",
+   "brand": "adidas",
+   "url": "https://karolinaattri.substack.com/p/top-10-fastest-shoes-at-the-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2026 men 1",
+   "athlete": "Addisu Gobena",
+   "brand": "Nike",
+   "url": "https://therunningchannel.com/marathon-majors-results-2026/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2026 men 2",
+   "athlete": "Chimdessa Debele",
+   "brand": "adidas",
+   "url": "https://therunningchannel.com/marathon-majors-results-2026/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Sydney Marathon 2026 men 3",
+   "athlete": "Tebello Ramakongoana",
+   "brand": "Xtep",
+   "url": "https://therunningchannel.com/marathon-majors-results-2026/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2026 men 6",
+   "athlete": "Hailemaryam Kiros",
+   "brand": "ASICS",
+   "url": "https://manofmany.com/style/sneakers/asics-sydney-marathon-winning-running-shoes",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2026 women 1",
+   "athlete": "Peres Jepchirchir",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2026 women 2",
+   "athlete": "Irine Chepet Cheptai",
+   "brand": "Nike",
+   "url": "https://wwd.com/footwear-news/sneaker-news/2026-major-marathon-winner-shoes-adidas-dominance-1239399973/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2026 women 3",
+   "athlete": "Shure Demise",
+   "brand": "adidas",
+   "url": "https://www.sneakerfreaker.com/performance/features/major-marathon-winning-running-shoes-of-2026",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Sydney Marathon 2026 women 9",
+   "athlete": "Ellie Pashley",
+   "brand": "New Balance",
+   "url": "https://tempojournal.com/article/ellie-pashley-run-your-way",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Berlin Marathon 2026 men 1",
+   "athlete": "Guye Idemo Adola",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/berlin-marathon-podium-adidas-adios-pro-evo-3/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Berlin Marathon 2026 men 2",
+   "athlete": "Gemechu Dida",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/berlin-marathon-podium-adidas-adios-pro-evo-3/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Berlin Marathon 2026 men 3",
+   "athlete": "Gabriel Gerald Geay",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/berlin-marathon-podium-adidas-adios-pro-evo-3/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Berlin Marathon 2026 women 1",
+   "athlete": "Tigst Assefa",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/berlin-marathon-podium-adidas-adios-pro-evo-3/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Berlin Marathon 2026 women 2",
+   "athlete": "Bedatu Hirpa",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/berlin-marathon-podium-adidas-adios-pro-evo-3/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Berlin Marathon 2026 women 3",
+   "athlete": "Dera Dida",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/berlin-marathon-podium-adidas-adios-pro-evo-3/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 1",
+   "athlete": "Amos Kipruto",
+   "brand": "adidas",
+   "url": "https://www.letsrun.com/external-links/what-were-the-fastest-shoes-at-the-chicago-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 2",
+   "athlete": "Tadese Takele",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 3",
+   "athlete": "Milkesa Mengesha",
+   "brand": "Nike",
+   "url": "https://runningmagazine.ca/the-scene/the-adidas-adizero-adios-pro-evo-3-and-nike-alphafly-4-just-dropped-neither-immediately-sells-out/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 4",
+   "athlete": "Jacob Kiplimo",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 5",
+   "athlete": "Boki Diriba",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 7",
+   "athlete": "Clayton Young",
+   "brand": "Brooks",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 8",
+   "athlete": "Charles Hicks",
+   "brand": "Nike",
+   "url": "https://citiusmag.com/podcast/citius-mag-podcast-Charles-Hicks",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 men 10",
+   "athlete": "Vincent Mauri",
+   "brand": "ASICS",
+   "url": "https://marathonhandbook.com/vinny-mauri-signs-asics/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Chicago Marathon 2026 women 1",
+   "athlete": "Hawi Feysa",
+   "brand": "adidas",
+   "url": "https://www.letsrun.com/external-links/what-were-the-fastest-shoes-at-the-chicago-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Chicago Marathon 2026 women 2",
+   "athlete": "Sharon Lokedi",
+   "brand": "Under Armour",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-chicago-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "Chicago Marathon 2026 women 3",
+   "athlete": "Brigid Kosgei",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 women 4",
+   "athlete": "Mary Ngugi-Cooper",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 women 5",
+   "athlete": "Joan Kilimo",
+   "brand": "Nike",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "Chicago Marathon 2026 women 7",
+   "athlete": "Emma Grace Hurley",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/the-fastest-shoes-at-the-chicago-marathon-confirmed-adidass-2026-dominance/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 men 1",
+   "athlete": "Andreas Almgren",
+   "brand": "Nike",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-new-york-city-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2026 men 2",
+   "athlete": "Yemaneberhan Crippa",
+   "brand": "On",
+   "url": "https://www.thesportsexaminer.com/athletics-nike-and-adidas-shoes-on-the-new-york-city-marathon-winners-adidas-takes-nine-world-marathon-majors-wins-in-2026/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 men 3",
+   "athlete": "Kamohelo Mofolo",
+   "brand": "Xtep",
+   "url": "https://www.thesportsexaminer.com/athletics-nike-and-adidas-shoes-on-the-new-york-city-marathon-winners-adidas-takes-nine-world-marathon-majors-wins-in-2026/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 men 4",
+   "athlete": "Benson Kipruto",
+   "brand": "adidas",
+   "url": "https://run.outsideonline.com/gear/road-shoes/what-the-fastest-runners-wore-at-the-2026-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 men 5",
+   "athlete": "Haftu Strintzos",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/what-the-fastest-runners-wore-at-the-2026-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 men 6",
+   "athlete": "Zouhair Talbi",
+   "brand": "ASICS",
+   "url": "https://run.outsideonline.com/gear/road-shoes/what-the-fastest-runners-wore-at-the-2026-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 men 8",
+   "athlete": "Ahmed Muhumed",
+   "brand": "HOKA",
+   "url": "https://nazelite.com/athletes/ahmed-muhumed",
+   "status": 404,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2026 women 1",
+   "athlete": "Sheila Chepkirui",
+   "brand": "adidas",
+   "url": "https://marathonhandbook.com/the-shoes-that-won-the-2026-new-york-city-marathon/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2026 women 2",
+   "athlete": "Jessica McClain",
+   "brand": "Brooks",
+   "url": "https://run.outsideonline.com/gear/road-shoes/what-the-fastest-runners-wore-at-the-2026-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 women 3",
+   "athlete": "Hellen Obiri",
+   "brand": "On",
+   "url": "https://www.thesportsexaminer.com/athletics-nike-and-adidas-shoes-on-the-new-york-city-marathon-winners-adidas-takes-nine-world-marathon-majors-wins-in-2026/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 women 4",
+   "athlete": "Edna Kiplagat",
+   "brand": "Puma",
+   "url": "https://run.outsideonline.com/gear/road-shoes/what-the-fastest-runners-wore-at-the-2026-new-york-city-marathon/",
+   "status": 200,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2026 women 5",
+   "athlete": "Mercy Chelangat",
+   "brand": "HOKA",
+   "url": "https://run.outsideonline.com/gear/road-shoes/what-the-fastest-runners-wore-at-the-2026-new-york-city-marathon/",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 women 6",
+   "athlete": "Carrie Ellwood",
+   "brand": "ASICS",
+   "url": "https://www.letsrun.com/news/2026/11/new-york-city-marathon-womens-results-chepkirui-wins-mcclain-of-usa-2nd/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2026 women 7",
+   "athlete": "Weini Kelati Frezghi",
+   "brand": "Nike",
+   "url": "https://www.letsrun.com/news/2026/02/american-half-marathon-record-holder-weini-kelati-leaves-under-armour-for-nike/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2026 women 8",
+   "athlete": "Paige Wood",
+   "brand": "HOKA",
+   "url": "https://www.letsrun.com/news/2026/11/new-york-city-marathon-womens-results-chepkirui-wins-mcclain-of-usa-2nd/",
+   "status": 403,
+   "result": "needs a look"
+  },
+  {
+   "race": "New York City Marathon 2026 women 9",
+   "athlete": "Violah Cheptoo",
+   "brand": "adidas",
+   "url": "https://believeintherun.com/articles/viola-chaptoo-2023-boston-marathon",
+   "status": 200,
+   "result": "checked"
+  },
+  {
+   "race": "New York City Marathon 2026 women 10",
+   "athlete": "Fabienne Königstein",
+   "brand": "Puma",
+   "url": "https://www.letsrun.com/news/2026/11/new-york-city-marathon-womens-results-chepkirui-wins-mcclain-of-usa-2nd/",
+   "status": 403,
+   "result": "needs a look"
+  }
+ ]
+}
