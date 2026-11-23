@@ -76,6 +76,8 @@ async function checkBrand(b) {
   for (const m of products.filter(p => p.brand_slug === b.slug)) {
     const cands = gelProductUrlsFor(m, b.name, urls, 2);
     const rec = { id: m.id, name: m.name, candidates: cands };
+    // Nothing matched: keep the URLs that look like gels, so the product list's names can be fixed.
+    if (!cands.length) rec.gel_urls = [...new Set(urls.filter(u => /gel|shot|fuel|energy/i.test(u) && !/blog|news|article/i.test(u)))].slice(0, 40);
     if (cands.length) {
       const r = await get(cands[0], budget); log('product ' + m.id, r);
       rec.url = r.url; rec.status = r.status;
@@ -142,7 +144,7 @@ function draftSpecSheet(results) {
   const cols = Object.keys(rows[0] || { id: 1 });
   let filled = 0;
   for (const row of rows) {
-    if (row.verified_on) continue;
+    if (row.verified_on || /^skip/i.test(row.notes || '')) continue; // confirmed, or left out on purpose
     const rec = results[row.brand_slug]?.models?.find(m => m.id === row.id);
     if (!rec || !rec.facts) continue;
     for (const k of ['carbs_g', 'caffeine_mg', 'sodium_mg', 'price_usd', 'vegan']) if ((row[k] === '' || row[k] == null) && rec.facts[k] != null) { row[k] = String(rec.facts[k]); filled++; }

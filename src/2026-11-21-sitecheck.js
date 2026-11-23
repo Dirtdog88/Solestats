@@ -183,7 +183,7 @@ export function productEvidence(page) {
 
 /** Links on a page that may lead to a topic: returns, shipping, a store locator, or a need page. */
 export const TOPIC = {
-  returns: { link: /return|exchange/i, page: t => /return/i.test(t) && /\b\d{2,3}[- ]day|\b\d{2,3} days\b/i.test(t) },
+  returns: { link: /return|exchange|refund/i, page: t => /return/i.test(t) && /\b\d{2,3}[- ]day|\b\d{2,3} days\b/i.test(t) },
   shipping: { link: /shipping|delivery/i, page: t => /shipping/i.test(t) && /(free|\$\s?\d)/i.test(t) && /(business days|\d+\s?[-–]\s?\d+ days|\bdays\b)/i.test(t) },
   store_locator: { link: /store[- ]?(locator|finder)|find a (store|retailer|dealer)|store-locator|storelocator|dealer[- ]?locator|where to buy|stores?$/i, page: (t, html) => /(zip|postal|postcode|city or|location)/i.test(t + ' ' + html.slice(0, 200000)) },
 };
@@ -236,7 +236,8 @@ export function gelProductUrlsFor(model, brandName, urls, n = 2) {
     try { path = new URL(u).pathname.toLowerCase(); } catch { continue; }
     if (NOT_PRODUCT.test(path) || NOT_ADULT_ROAD.test(path)) continue;
     const p = '-' + slug(path) + '-';
-    const hit = wants.find(w => p.includes('-' + w + '-'));
+    // Each word may be plural in the URL ("ultra-energy-gels").
+    const hit = wants.find(w => new RegExp('-' + w.split('-').map(x => x.replace(/s$/, '') + 's?').join('-') + '-').test(p));
     if (!hit) continue;
     let s = hit.length / 10; // a longer, more specific match first
     const segs = path.split('/').filter(Boolean);

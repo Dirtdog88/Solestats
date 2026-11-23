@@ -57,6 +57,7 @@ test('gel product URLs and need pages', () => {
   const urls = ['https://www.guenergy.com/blogs/news/roctane-story', 'https://www.guenergy.com/collections/roctane', 'https://www.guenergy.com/products/roctane-energy-gel', 'https://www.maurten.com/products/gel-100-box-us'];
   assert.equal(gelProductUrlsFor({ name: 'Roctane', aliases: 'GU Roctane' }, 'GU', urls)[0], 'https://www.guenergy.com/products/roctane-energy-gel');
   assert.equal(gelProductUrlsFor({ name: 'Gel 100', aliases: 'Maurten Gel 100' }, 'Maurten', urls)[0], 'https://www.maurten.com/products/gel-100-box-us');
+  assert.equal(gelProductUrlsFor({ name: 'Ultra Energy Gel', aliases: '' }, 'Näak', ['https://www.naak.com/products/ultra-energy-gels-salted-caramel'])[0], 'https://www.naak.com/products/ultra-energy-gels-salted-caramel', 'plural words in the URL');
   const needs = gelNeedPages(['https://x.com/collections/caffeinated', 'https://x.com/collections/vegan-gels', 'https://x.com/pages/marathon-fueling', 'https://x.com/products/sensitive-stomach-gel'], []);
   assert.deepEqual(Object.keys(needs).sort(), ['caffeine', 'marathon', 'vegan'], 'a product page does not count as a need page');
 });
