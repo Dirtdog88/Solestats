@@ -153,7 +153,7 @@ async function collectCorpus() {
   const kept = []; // the chats that were counted, saved so the sorting can be checked by hand
   for (const ds of DATASETS) {
     const seen = new Set(), counts = {};
-    let shoe = 0;
+    let shoe = 0, pages = 0;
     for (const q of QUERIES) {
       for (let offset = 0; offset < 1000; offset += 100) {
         const url = `https://datasets-server.huggingface.co/search?dataset=${encodeURIComponent(ds.id)}&config=${ds.config}&split=${ds.split}&query=${encodeURIComponent(q)}&offset=${offset}&length=100`;
@@ -161,6 +161,7 @@ async function collectCorpus() {
         if (res.status === 429) { console.log('  Hugging Face 429: waiting 30s'); await sleep(30000); offset -= 100; continue; }
         if (!res.ok) { console.log(`  ${ds.id}: ${res.status} (gated, or no search index); skipped`); offset = 1e9; break; }
         const j = await res.json();
+        pages++;
         const rows = j.rows || [];
         for (const { row } of rows) {
           const conv = row.conversation || [];
@@ -179,6 +180,8 @@ async function collectCorpus() {
       }
     }
     const sorted = Object.values(counts).reduce((a, b) => a + b, 0);
+    // Nothing came back (a Hugging Face error): keep what an earlier run collected.
+    if (!pages) { console.log(`${ds.id}: no pages came back; earlier rows kept. Try again later.`); continue; }
     // A rerun replaces this dataset's earlier corpus rows instead of sitting beside them.
     const others = parseCsv(readFileSync(signalsFile, 'utf8')).filter(r => !(r.signal === 'corpus' && r.source === ds.id));
     writeFileSync(signalsFile, toCsv(others, COLS));
