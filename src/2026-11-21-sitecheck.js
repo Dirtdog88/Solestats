@@ -219,3 +219,103 @@ export function majority(pages, pick) {
   const yes = read.filter(p => pick(p.evidence)).length;
   return { result: yes * 2 >= read.length ? 1 : 0, note: `${yes} of ${read.length} product pages` };
 }
+
+// ---- Energy gels (2026-11-23) ------------------------------------------------------------------------------------
+// The gel checklist (data/2026-11-23-gel-shoppable-checklist.csv) swaps shoe widths, specs and versions for nutrition,
+// ingredients, flavours and fueling guidance. The same page reader feeds it.
+
+/** Product URLs for a gel among a site's URLs: the path holds the product's name, an alias, or the name without the
+ *  brand, as a run of words. Product pages rank above collections; editorial pages are left out. */
+export function gelProductUrlsFor(model, brandName, urls, n = 2) {
+  const names = [model.name, ...(model.aliases ? model.aliases.split(';') : [])].map(s => s.trim()).filter(Boolean);
+  const bare = slug(model.name).replace(new RegExp('^' + slug(brandName) + '-'), '');
+  const wants = [...new Set([...names.map(slug), bare].filter(w => w && w.length >= 2))];
+  const scored = [];
+  for (const u of urls) {
+    let path;
+    try { path = new URL(u).pathname.toLowerCase(); } catch { continue; }
+    if (NOT_PRODUCT.test(path) || NOT_ADULT_ROAD.test(path)) continue;
+    const p = '-' + slug(path) + '-';
+    const hit = wants.find(w => p.includes('-' + w + '-'));
+    if (!hit) continue;
+    let s = hit.length / 10; // a longer, more specific match first
+    const segs = path.split('/').filter(Boolean);
+    if (segs.some(x => OTHER_LOCALE.test(x))) s -= 6;
+    if (/\/products?\/|\/p\/|\.html?$/.test(path)) s += 2;
+    if (/\/(collections?|category|categories|shop)\/?[^/]*\/?$/.test(path) && !/\/products?\//.test(path)) s -= 2;
+    if (/(sample|trial|bundle|variety|mixed|starter|kit)/.test(p)) s -= 1;
+    s -= path.length / 1000;
+    scored.push({ url: u, score: s });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  const seen = new Set(), out = [];
+  for (const x of scored) { const k = x.url.replace(/[?#].*$/, ''); if (!seen.has(k)) { seen.add(k); out.push(x.url); } if (out.length >= n) break; }
+  return out;
+}
+
+const GEL_RE = {
+  carbs: /\b(?:total\s+)?carb(?:ohydrate)?s?\b[^.\d]{0,25}?(\d+(?:\.\d+)?)\s?g\b|(\d+(?:\.\d+)?)\s?g(?:rams?)?\s+(?:of\s+)?carb/i,
+  sodium: /\bsodium\b[^.\d]{0,25}?(\d+(?:\.\d+)?)\s?mg\b|(\d+(?:\.\d+)?)\s?mg\s+(?:of\s+)?sodium/i,
+  caffeine: /\bcaffeine\b[^.\d]{0,25}?(\d+(?:\.\d+)?)\s?mg\b|(\d+(?:\.\d+)?)\s?mg\s+(?:of\s+)?caffeine/i,
+  calories: /\b(\d{2,3})\s?(?:k?cal|calories)\b|\bcalories\b[^.\d]{0,15}?(\d{2,3})\b/i,
+  noCaffeine: /\b(caffeine[- ]free|no caffeine|non[- ]caffeinated|0\s?mg\s+caffeine)\b/i,
+  ingredients: /\bingredients?\b\s*:?\s*[^.]{0,200}?\b(maltodextrin|fructose|glucose|dextrose|sugar|syrup|honey|water|chia|rice|cane|sodium citrate|maple)\b/i,
+  diet: /\b(vegan|gluten[- ]free|plant[- ]based|dairy[- ]free|non[- ]gmo)\b/i,
+  flavours: /\bflavou?rs?\b/i,
+  price: /\$\s?\d{1,3}(?:\.\d{2})?/,
+  stock: /\b(in stock|out of stock|sold out|low stock|only \d+ left|currently unavailable|back in stock|notify me)\b/i,
+};
+const num = m => (m ? Number(m[1] ?? m[2]) : null);
+
+/** What one gel product page shows without scripts, for the checklist. */
+export function gelEvidence(page) {
+  const t = page.text;
+  const nutrition = { carbs: GEL_RE.carbs.test(t), sodium: GEL_RE.sodium.test(t), caffeine: GEL_RE.caffeine.test(t) || GEL_RE.noCaffeine.test(t), calories: GEL_RE.calories.test(t) };
+  return {
+    title: page.title.slice(0, 120), h1: page.h1.slice(0, 120), ld: page.ld,
+    structured: page.ld.products > 0 && page.ld.offers > 0,
+    price: page.ld.prices.length > 0 || GEL_RE.price.test(t),
+    stock: page.ld.availability.length > 0 || GEL_RE.stock.test(t),
+    nutrition,
+    nutrition_in_text: nutrition.carbs && (nutrition.sodium || nutrition.calories),
+    ingredients_in_text: GEL_RE.ingredients.test(t) || (/\bingredients?\b/i.test(t) && GEL_RE.diet.test(t)),
+    flavours_listed: GEL_RE.flavours.test(t) || page.ld.names.length > 1,
+    snippets: { carbs: around(t, GEL_RE.carbs, 2, 60), sodium: around(t, GEL_RE.sodium, 2, 60), caffeine: around(t, GEL_RE.caffeine, 2, 60), ingredients: around(t, /\bingredients?\b/i, 1, 160), price: around(t, GEL_RE.price, 2, 40) },
+  };
+}
+
+/** Draft spec values from a gel page's text, for a person to confirm (the spec sheet only loads confirmed rows). */
+export function gelFacts(page) {
+  const t = page.text;
+  const usd = page.ld.currencies.includes('USD') || !page.ld.currencies.length;
+  const ldPrice = usd && page.ld.prices.length ? Number(page.ld.prices[0]) : null;
+  const caffeine = GEL_RE.noCaffeine.test(t) && !GEL_RE.caffeine.test(t) ? 0 : num(t.match(GEL_RE.caffeine));
+  return { carbs_g: num(t.match(GEL_RE.carbs)), sodium_mg: num(t.match(GEL_RE.sodium)), caffeine_mg: caffeine, calories: num(t.match(GEL_RE.calories)), price_usd: ldPrice ?? num(t.match(/\$\s?(\d{1,3}(?:\.\d{2})?)/)), vegan: /\bvegan\b/i.test(t) ? 'yes' : null };
+}
+
+/** Fueling guidance: a page that says how much to take, per hour or every so many minutes, with carbs. */
+export const GEL_TOPIC = {
+  fueling_guidance: { link: /fuel(?:l?ing)?[- ](?:guide|plan|strategy|calculator|planner)|how[- ]to[- ](?:use|fuel)|nutrition[- ](?:guide|plan)|carb(?:ohydrate)?[- ]calculator|race[- ]day|planner|learn|science|education|resources|guide/i, page: t => /carb/i.test(t) && /(per hour|an hour|\/\s?hr\b|\/\s?hour|every \d+\s?(?:-\s?\d+\s?)?min)/i.test(t) },
+};
+
+export const GEL_NEEDS = {
+  marathon: /marathon|endurance|race|running/i,
+  caffeine: /caffein|caf-?\d|\bcaf\b/i,
+  stomach: /stomach|gut|sensitive|digest/i,
+  vegan: /vegan|plant|natural|real-food|organic/i,
+};
+
+/** Need pages for gels: short, category-like paths that name the need. */
+export function gelNeedPages(urls, links) {
+  const found = {};
+  const cand = [...urls, ...links.map(l => l.href)];
+  for (const [need, re] of Object.entries(GEL_NEEDS)) {
+    const hit = cand.find(u => {
+      let p;
+      try { p = new URL(u).pathname.toLowerCase(); } catch { return false; }
+      return re.test(p) && p.split('/').filter(Boolean).length <= 4 && !/\/products?\/|\/p\/|\.html?$|\d{5,}/.test(p) && !NOT_PRODUCT.test(p);
+    });
+    if (hit) found[need] = hit;
+  }
+  return found;
+}

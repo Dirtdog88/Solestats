@@ -7,11 +7,13 @@ export const CATEGORIES = {
     label: 'Running shoes', headline: 'The running shoe AI index', page: '/',
     prompts: '2026-11-21-prompts.csv', brands: '2026-11-21-brands.csv',
     models: '2026-11-21-spec-sheet.csv', aliases: '2026-11-22-model-aliases.csv', attributes: '2026-11-22-attributes.csv',
+    specs: null, checklist: '2026-11-21-shoppable-checklist.csv', // shoe fact questions come after gels (Alex, 2026-11-23)
   },
   gels: {
     label: 'Energy gels', headline: 'The energy gel AI index', page: '/fuel.html',
     prompts: '2026-11-23-gel-prompts.csv', brands: '2026-11-23-gel-brands.csv',
     models: '2026-11-23-gel-products.csv', aliases: '2026-11-23-gel-products.csv', attributes: '2026-11-23-gel-attributes.csv',
+    specs: '2026-11-23-gel-spec-sheet.csv', checklist: '2026-11-23-gel-shoppable-checklist.csv',
   },
 };
 

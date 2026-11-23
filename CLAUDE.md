@@ -32,6 +32,8 @@ Add nothing else without a strong reason.
 | `scripts/2026-11-22-demand-signals.js`, `scripts/2026-11-22-demand.js` | the collectors (Trends, Reddit, the conversation corpora; run on a PC) and the builder that writes `data/2026-11-22-demand.csv`; the score script reads that file when it exists |
 | `src/2026-11-23-categories.js` | categories (energy gels joined 2026-11-23): each one's data files; a round's category is in its id (`gels-2026-12`; plain month ids are shoes) |
 | `data/2026-11-23-gel-brands.csv`, `data/2026-11-23-gel-products.csv`, `data/2026-11-23-gel-seeds.csv` | the gel brands, products (for model mentions) and the seeds for the search-query collector (`scripts/2026-11-23-gel-queries.js`, run on a PC) |
+| `data/2026-11-23-gel-shoppable-checklist.csv`, `data/2026-11-23-gel-spec-sheet.csv` | the gel Shoppable checklist (12 items) and the gel facts for Accurate (only rows with `verified_on` are asked) |
+| `scripts/2026-11-23-gel-site-checks.js`, `scripts/2026-11-23-facts.js`, `src/2026-11-23-facts.js` | the gel site checks (PC) that also draft the spec values; the Accurate questions and their grader (setup guide step 14) |
 | `public/fuel.html` | the energy gel index: the front page with `data-cat="gels"`, noindex and unlinked until Alex announces it; gel brand pages and briefs send `X-Robots-Tag: noindex` |
 | `public/` | the site: index, brand page, method page, styles, scripts (built with `textContent`) |
 | `migrations/NNNN_name.sql` | D1 schema, `IF NOT EXISTS`, never edit an applied one |

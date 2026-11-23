@@ -124,8 +124,9 @@ console.log(`${rows.length} scores for ${new Set(rows.map(r => r.brand)).size} b
 
 /** The given checks file from this round, else from the latest earlier monthly round (YYYY-MM) that has one. */
 function latestChecks(name) {
-  if (!SHOES) return { rows: [], round: null }; // the hand checks are shoe checks
-  const rounds = readdirSync(new URL('../data/rounds/', import.meta.url)).filter(r => /^\d{4}-\d{2}$/.test(r) && r <= round).sort().reverse();
+  // Each category reads its own rounds: plain months for shoes, gels-YYYY-MM for gels (2026-11-23).
+  const same = SHOES ? /^\d{4}-\d{2}$/ : new RegExp(`^${CATKEY}-\\d{4}-\\d{2}$`);
+  const rounds = readdirSync(new URL('../data/rounds/', import.meta.url)).filter(r => same.test(r) && r <= round).sort().reverse();
   if (!rounds.includes(round)) rounds.unshift(round);
   for (const r of rounds) {
     const url = new URL(`../data/rounds/${r}/${name}`, import.meta.url);

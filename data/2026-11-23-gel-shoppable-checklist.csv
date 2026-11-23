@@ -1,0 +1,13 @@
+item,question,how_to_check
+crawlers_allowed,"Does the site's robots.txt let the major AI crawlers (GPTBot, ClaudeBot, Google-Extended, PerplexityBot) read product pages?","Open /robots.txt on the brand's US site; pass if product paths are not disallowed for those agents."
+product_structured_data,"Do product pages carry schema.org Product data with offers (name, price, availability) that a crawler can read without running scripts?","Fetch a product page without JavaScript and look for a JSON-LD Product block with offers."
+price_readable,"Is the US price present in the page's static HTML or structured data, not only drawn by script?","Same fetch; look for the price in text or in the offers block."
+nutrition_in_text,"Are carbs and sodium or calories written as text on the product page, not only shown as an image of the label?","Search the fetched page for the carbohydrate grams and sodium or calories; a picture of the nutrition panel does not count."
+ingredients_in_text,"Are the ingredients, or diet claims such as vegan or gluten-free, readable as text on the product page?","Search the fetched page for the ingredient list or the diet claims."
+flavours_listed,"Are the flavours and the caffeinated versions listed on the product page?","Look for flavour names or a flavour selector in text or structured data."
+stock_exposed,"Is availability (in stock or out of stock, per flavour or pack) exposed in structured data or static HTML?","Look for availability in the offers block or a stock message in the page text."
+fueling_guidance,"Does the site say how to use the gels: how many and when, or carbs per hour?","From a product page or the home page, follow at most two links to a fueling guide or calculator; pass if it gives an amount per hour or a timing."
+returns_findable,"Can an assistant find the returns policy (window, condition, cost) within two links of a product page?","Ask an assistant with browsing to find it, or follow the footer links; pass within two links."
+shipping_findable,"Can an assistant find shipping cost and delivery time within two links of a product page?","Same as above for shipping."
+need_pages,"Does the site have crawlable pages for the needs runners ask about (marathon or endurance, caffeine, sensitive stomach, vegan or natural)?","Look for distinct URLs (collections, category or guide pages) for each need; pass if all four exist."
+path_to_cart,"Can an assistant with browsing pick a flavour and pack and reach the cart and the start of checkout without a login wall, a bot block or a subscription-only offer?","In a browser, from a product page: choose a flavour and pack, add to cart, open checkout; pass if no login, block or forced subscription stops it."

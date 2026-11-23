@@ -21,6 +21,8 @@
     "check-shoe-sources": "node scripts/2026-11-22-check-shoe-sources.js",
     "demand-signals": "node scripts/2026-11-22-demand-signals.js",
     "demand": "node scripts/2026-11-22-demand.js",
+    "gel-site-checks": "node scripts/2026-11-23-gel-site-checks.js",
+    "facts": "node --use-env-proxy --disable-warning=UNDICI-EHPA scripts/2026-11-23-facts.js",
     "gel-queries": "node scripts/2026-11-23-gel-queries.js"
   },
   "dependencies": {

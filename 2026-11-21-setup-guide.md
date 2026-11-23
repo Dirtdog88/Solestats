@@ -48,3 +48,14 @@ One-time steps, in order. Everything is on Cloudflare's free plan plus pay-as-yo
    (on Windows PowerShell: `$env:HF_TOKEN="hf_..."` before the command). A 429 just means wait and run that part again,
    for example `npm run gel-queries -- --trends`. Then commit and push `data/2026-11-23-gel-queries.csv`,
    `data/2026-11-23-gel-reddit.csv` and, if made, `data/2026-11-23-gel-ai-prompts.csv`.
+14. **Gel Accurate and Shoppable (PC + cloud; added 2026-11-23).** Gel brand sites refuse cloud visitors, so on a PC:
+    `git pull`, then `npm run gel-site-checks -- --round gels-2026-11` (about 10 minutes). It writes the checklist
+    evidence to `data/rounds/gels-2026-11/site-checks.auto.json` and drafts carbs, caffeine, sodium, price and vegan into
+    empty cells of `data/2026-11-23-gel-spec-sheet.csv` from each product page. Commit and push both. Then Claude checks
+    each drafted value against the page text the script saved, a person confirms the rows (fills `verified_on`;
+    caffeine stays blank where it differs by flavour, so it is not asked), the items the script could not read
+    (path to cart, blocked sites) are checked in a browser from `data/2026-11-23-gel-shoppable-checklist.csv`, and the
+    verdicts go into `data/rounds/gels-2026-11/site-checks.jsonl`. Accurate runs from the cloud:
+    `npm run facts -- --round gels-2026-11 --repeats 2 --cap-usd 35` asks one question per confirmed fact on each engine
+    and grades it (`src/2026-11-23-facts.js`: carbs within 1 g, caffeine exact, sodium and price within 10%, vegan
+    exact) into `fact-checks.jsonl`; then re-score the round and load it.
