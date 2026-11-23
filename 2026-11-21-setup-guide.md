@@ -41,3 +41,10 @@ One-time steps, in order. Everything is on Cloudflare's free plan plus pay-as-yo
    that signal is skipped. Then `npm run demand` writes `data/2026-11-22-demand.csv` (check the table it prints),
    `npm run score -- --round <current>` and load `scores.sql` as in step 9. Commit the signals, the Reddit titles and the
    weights CSV: they are part of the open data.
+13. **Gel searches (PC, once; added 2026-11-23).** The energy-gel prompt set is built from real searches. On a PC:
+   `git pull`, then `npm run gel-queries -- --all` (about 25 minutes: Google and Amazon autocomplete for the seeds in
+   `data/2026-11-23-gel-seeds.csv`, then Google Trends for the 80 most common phrases, then a year of gel posts from four
+   running subreddits). Optional: the gel questions people typed into AI chatbots, which needs `HF_TOKEN` as in step 12
+   (on Windows PowerShell: `$env:HF_TOKEN="hf_..."` before the command). A 429 just means wait and run that part again,
+   for example `npm run gel-queries -- --trends`. Then commit and push `data/2026-11-23-gel-queries.csv`,
+   `data/2026-11-23-gel-reddit.csv` and, if made, `data/2026-11-23-gel-ai-prompts.csv`.
