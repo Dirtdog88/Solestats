@@ -10,7 +10,7 @@ async function main() {
   setCategory(d.brand.category); // the names and the edition come from the brand's own category
   const [all, ed] = await Promise.all([api('/api/brands'), api('/api/edition')]);
   const item = d.brand.category === 'shoes' ? 'shoe' : 'product';
-  if (item !== 'shoe') { document.getElementById('eyebrow').textContent = 'SOLESTATS · THE ENERGY GEL AI INDEX'; document.getElementById('needs-h').textContent = 'By need'; }
+  if (item !== 'shoe') { document.getElementById('eyebrow').textContent = 'SOLESTATS · THE ENERGY GEL AI INDEX'; document.getElementById('needs-h').textContent = 'By need'; document.getElementById('home').textContent = 'solestats.net/fuel'; }
   const names = Object.fromEntries(all.brands.map(b => [b.slug, b.name]));
   const name = d.brand.name;
   document.title = `SoleStats · ${name} brief`;

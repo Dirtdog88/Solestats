@@ -72,3 +72,23 @@ test('the gel prompts: need questions name no brand, pairs name two gel brands, 
     if (p.set === 'need') assert.ok(groups.has(p.group), `${p.id}: ${p.group}`);
   }
 });
+
+test('need-gap fixes: groups 30+ points behind the leader, largest first, at most three, with who AI picks instead', async () => {
+  const { needGapFixes } = await import('../src/2026-11-22-insights.js');
+  const needs = { groups: [{ id: 'natural', label: 'Natural and vegan', answers: 60 }, { id: 'stomach', label: 'Stomach', answers: 60 }, { id: 'taste', label: 'Taste', answers: 36 }, { id: 'tiny', label: 'Tiny', answers: 10 }],
+    brands: { gu: { natural: { share: 23 }, stomach: { share: 45 }, taste: { share: 78 }, tiny: { share: 0 } }, huma: { natural: { share: 90 }, stomach: { share: 67 }, taste: { share: 40 }, tiny: { share: 90 } }, sis: { natural: { share: 10 }, stomach: { share: 97 }, taste: { share: 58 }, tiny: { share: 0 } } } };
+  const sub = { groups: [{ id: 'natural', top: { slug: 'untapped', share: 41.3 } }] };
+  const f = needGapFixes('gu', needs, sub, { gu: 'GU', huma: 'Huma', sis: 'SiS', untapped: 'UnTapped' });
+  assert.equal(f.length, 2, 'taste is ahead, tiny has too few answers');
+  assert.match(f[0].text, /^Close the gap on natural and vegan questions: GU is named in 23% .* against 90% for Huma\. How: .* UnTapped first \(41% of them\)\.$/);
+  assert.match(f[1].text, /stomach questions: GU is named in 45% .* against 97% for SiS\.$/);
+  assert.ok(f.every(x => x.subject === 'recommended'));
+});
+
+test('each category can carry its own preview line', async () => {
+  const worker = (await import('../src/2026-11-21-worker.js')).default;
+  const env = { PREVIEW_NOTICE: 'Shoe preview', PREVIEW_NOTICE_GELS: 'Gel preview', DB: { prepare: () => ({ bind() { return this; }, first: async () => null, all: async () => ({ results: [] }) }) } };
+  const notice = async q => (await (await worker.fetch(new Request('https://solestats.net/api/health' + q), env)).json()).notice;
+  assert.equal(await notice(''), 'Shoe preview');
+  assert.equal(await notice('?cat=gels'), 'Gel preview');
+});

@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv, sql } from '../src/2026-11-21-csv.js';
 import { modelsIn, modelMatchers, modelView, steeringView, versionCurrency, substitutionView, attributeMatchers, attributeView } from '../src/2026-11-22-extract.js';
 import { brandMatchers, findMentions } from '../src/2026-11-21-detect.js';
-import { GROUP_LABEL, needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, engineHow, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
+import { GROUP_LABEL, needGrid, needGapFixes, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, engineHow, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
 import { eligible, MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 import { weightsFromRows, demandView } from '../src/2026-11-22-demand.js';
 import { CATEGORIES, categoryOfRound } from '../src/2026-11-23-categories.js';
@@ -94,6 +94,8 @@ fixes.push(...ep.fixes.map(({ engine, ...f }) => {
   return how ? { ...f, text: `${f.text} How: ${how}` } : f;
 }));
 for (const [slug, v] of Object.entries(views.sources)) fixes.push(...sourceFixes(slug, v));
+// Need-group gaps (gels, 2026-11-23): shoes get theirs from Where the demand is (Fix these first) instead.
+if (!SHOES) for (const b of catBrands) fixes.push(...needGapFixes(b.slug, views.needs[''], views.substitution?.[b.slug], brandNames));
 // Where the demand is (src/2026-11-22-demand.js): only once data/2026-11-22-demand.csv exists (npm run demand-signals on a
 // PC, then npm run demand). Credible groups per brand come from the spec sheet as in When not you, who: verified rows,
 // else the draft rows, else every group.

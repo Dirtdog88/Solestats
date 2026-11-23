@@ -50,7 +50,8 @@ async function api(url, env) {
   // Each category has its own rounds (src/2026-11-23-categories.js): ?cat=gels reads the gel rounds; shoes by default.
   const cat = CATEGORIES[url.searchParams.get('cat')] ? url.searchParams.get('cat') : 'shoes';
   let round = url.searchParams.get('round') || await latestRound(env, cat);
-  if (parts[1] === 'health') return json({ ok: true, round, notice: env.PREVIEW_NOTICE || '' });
+  // Each category may carry its own preview line (PREVIEW_NOTICE_GELS); shoes use PREVIEW_NOTICE.
+  if (parts[1] === 'health') return json({ ok: true, round, notice: (cat !== 'shoes' && env[`PREVIEW_NOTICE_${cat.toUpperCase()}`] != null ? env[`PREVIEW_NOTICE_${cat.toUpperCase()}`] : env.PREVIEW_NOTICE) || '' });
   if (parts[1] === 'edition') {
     // Which engines (and model ids) are in this edition, and which are still pending (PENDING_ENGINES in wrangler.toml).
     const pending = (env.PENDING_ENGINES || '').split(/[;,]/).map(s => s.trim()).filter(Boolean);

@@ -25,8 +25,19 @@ export function withCategory(p) {
   return p + (p.includes('?') ? '&' : '?') + 'cat=' + cat;
 }
 
-/** Links already on the page (header, footer) follow the category. */
-function relink() { for (const a of document.querySelectorAll('a[href^="/"]')) a.setAttribute('href', withCategory(a.getAttribute('href'))); }
+/** Links already on the page (header, footer) follow the category. The method page describes shoes only, so other
+ *  categories leave its link out (with the separator before it) until it has a section for them (2026-11-23). */
+function relink() {
+  for (const a of document.querySelectorAll('a[href^="/"]')) {
+    if (cat !== 'shoes' && a.getAttribute('href').startsWith('/method')) {
+      const prev = a.previousSibling;
+      if (prev && prev.nodeType === 3 && prev.textContent.trim() === '·') prev.remove();
+      a.remove();
+      continue;
+    }
+    a.setAttribute('href', withCategory(a.getAttribute('href')));
+  }
+}
 
 /** Brand pages switch to the brand's category once it is known, before any other API call. */
 export function setCategory(c) {

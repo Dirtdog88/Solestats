@@ -49,7 +49,7 @@ const ASSETS = {
     return new Response(readFileSync(file), { headers: { 'content-type': TYPES[extname(file)] || 'application/octet-stream' } });
   },
 };
-const env = { DB, ASSETS, PREVIEW_NOTICE: process.env.PREVIEW_NOTICE ?? 'Preview · sample data · not published' };
+const env = { DB, ASSETS, PREVIEW_NOTICE: process.env.PREVIEW_NOTICE ?? 'Preview · sample data · not published', PREVIEW_NOTICE_GELS: process.env.PREVIEW_NOTICE_GELS ?? 'Unlisted preview · first energy gel edition, November 2026' };
 
 const port = Number(process.env.PORT || 8788);
 createServer(async (req, res) => {

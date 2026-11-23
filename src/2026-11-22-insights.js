@@ -365,7 +365,8 @@ export function engineHow(fix, ctx) {
     const avg = e => { const xs = shoe.filter(r => r.engine === e); return xs.length ? xs.reduce((a, r) => a + (r.mentions || []).length, 0) / xs.length : 0; };
     const mine = avg(fix.engine), theirs = others.map(avg);
     const parts = [];
-    if (theirs.every(t => t >= mine * 1.5)) parts.push(`${E} names about ${Math.round(mine)} brand${Math.round(mine) === 1 ? '' : 's'} per answer (${others.map((e, i) => `${ENGINE_LABEL[e] || e} ${Math.round(theirs[i])}`).join(', ')}), so ${mine < 3 ? 'only a first pick counts' : 'a brand has to make a short list'}.`);
+    const per = x => x < 3 ? String(Math.round(x * 10) / 10) : String(Math.round(x)); // 1.5, not 2 (2026-11-23)
+    if (theirs.every(t => t >= mine * 1.5)) parts.push(`${E} names about ${per(mine)} brand${per(mine) === '1' ? '' : 's'} per answer (${others.map((e, i) => `${ENGINE_LABEL[e] || e} ${per(theirs[i])}`).join(', ')}), so ${mine < 3 ? 'only a first pick counts' : 'a brand has to make a short list'}.`);
     let best = null;
     for (const g of new Set(Object.values(gOf))) {
       const low = shoe.filter(r => r.engine === fix.engine && gOf[r.prompt_id] === g);
@@ -424,4 +425,27 @@ export function engineHow(fix, ctx) {
     return `${E} sends ${brand.name} shoppers to ${where} for ${pc(low.b[best.k] || 0, low.n)}% of the places it names, against ${pc(rest.b[best.k] || 0, rest.n)}% on the others. Its answers about ${brand.name} name its own site and run specialty stores less often, so make sure ${E} can find ${brand.name}'s own product pages and its specialty stockists.`;
   }
   return null;
+}
+
+/**
+ * Need-group gaps as fixes (Alex, 2026-11-23; categories without demand weights, gels first): groups of at least
+ * NEED_MIN_ANSWERS answers where the brand is named at least NEED_GAP points less often than the group's leader, the
+ * largest first, at most NEED_MAX. The "How" says who AI picks first when the brand is left out of that group.
+ * needs = the needs view's whole-round row; substitution = this brand's substitution view.
+ */
+export const NEED_GAP = 30, NEED_MIN_ANSWERS = 30, NEED_MAX = 3;
+export function needGapFixes(slug, needs, substitution, names) {
+  if (!needs || !needs.brands || !needs.brands[slug]) return [];
+  const name = names[slug] || slug;
+  const out = [];
+  for (const g of needs.groups) {
+    if ((g.answers || 0) < NEED_MIN_ANSWERS) continue;
+    const mine = needs.brands[slug][g.id]?.share ?? 0;
+    const [leader, best] = Object.entries(needs.brands).filter(([s]) => s !== slug).map(([s, c]) => [s, c[g.id]?.share ?? 0]).sort((a, b) => b[1] - a[1])[0] || [];
+    if (!leader || best - mine < NEED_GAP) continue;
+    const sub = (substitution?.groups || []).find(x => x.id === g.id);
+    const how = sub && sub.top && sub.top.slug ? ` How: When ${name} is left out of these answers, AI picks ${names[sub.top.slug] || sub.top.slug} first (${Math.round(sub.top.share)}% of them).` : '';
+    out.push({ gap: best - mine, fix: { brand: slug, subject: 'recommended', text: `Close the gap on ${g.label.toLowerCase()} questions: ${name} is named in ${Math.round(mine)}% of the answers there, against ${Math.round(best)}% for ${names[leader] || leader}.${how}` } });
+  }
+  return out.sort((a, b) => b.gap - a.gap).slice(0, NEED_MAX).map(x => x.fix);
 }

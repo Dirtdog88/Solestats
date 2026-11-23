@@ -34,5 +34,7 @@ enabled = true
 PUBLIC_URL = "https://solestats.net"
 # Shown on every page until the publishing gate is cleared; set to "" to take the banner down.
 PREVIEW_NOTICE = "Preview · round 1 in progress · not published"
+# The energy gel pages (unlisted until Alex announces them) carry their own line (2026-11-23).
+PREVIEW_NOTICE_GELS = "Unlisted preview · first energy gel edition, November 2026"
 # Engines shown as "pending" on the site until their runs are in the current edition; set to "" when none are.
 PENDING_ENGINES = ""
