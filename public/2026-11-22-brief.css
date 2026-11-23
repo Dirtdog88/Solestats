@@ -28,7 +28,8 @@ section { margin-top:16px; }
 .bars .t { height:8px; background:#eef0ee; } .bars .f { height:100%; background:var(--g); }
 .bars .n { text-align:right; font-weight:700; }
 .note { color:var(--muted); font-size:10px; margin:6px 0 0; }
-.needs { display:grid; grid-template-columns: repeat(11, 1fr); gap:2px; }
+/* One row however many need groups the category has (11 for shoes, 12 for gels). */
+.needs { display:grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap:2px; }
 .needs div { text-align:center; } .needs .l { font-size:8.5px; color:var(--muted); line-height:1.15; height:2.4em; display:flex; align-items:flex-end; justify-content:center; }
 .needs .c { font-weight:700; padding:6px 0; margin-top:3px; }
 .h0{background:#f2f4f2;color:#9a9a9a}.h1{background:#d7eadf}.h2{background:#a7cfb7}.h3{background:#62a07e}.h4{background:#1d6b45;color:#fff}.h5{background:#0a3a24;color:#fff}
@@ -45,7 +46,7 @@ footer { margin-top:18px; border-top:1px solid var(--ink); padding-top:6px; disp
 /* On a phone (screen only; printing keeps the one-page layout): one column, the need strip in rows of four. */
 @media screen and (max-width: 700px) {
   .row.top, .row.two { grid-template-columns: 1fr; gap: 16px; }
-  .needs { grid-template-columns: repeat(4, 1fr); gap: 8px 4px; }
+  .needs { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); gap: 8px 4px; }
   .needs .l { height: auto; min-height: 2.4em; font-size: 10px; }
   .bars li { grid-template-columns: 42% 1fr 3.2em; }
   footer { flex-direction: column; }

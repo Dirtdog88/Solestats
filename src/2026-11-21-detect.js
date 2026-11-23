@@ -30,7 +30,7 @@ export function canonicalUrl(url) {
 
 // Brands whose name is an ordinary English word need a word boundary and the right case.
 // Gel brands (2026-11-23): GU, SiS, UCAN and UnTapped are short or ordinary words too.
-const CASE_SENSITIVE = new Set(['on', 'sole-fitness', 'naked', 'polar', 'spring-energy', 'gu', 'sis', 'ucan', 'untapped']);
+const CASE_SENSITIVE = new Set(['on', 'sole-fitness', 'naked', 'polar', 'spring-energy', 'gu', 'sis', 'ucan', 'untapped', 'precision']);
 
 /** Build matchers once per brand list. aliases is "; separated" in the CSV. */
 export function brandMatchers(brands) {
@@ -42,7 +42,8 @@ export function brandMatchers(brands) {
       ? [/\bOn Running\b/g, /\bOn Cloud\w*/g, /\bOn's\b/g, /\bOn \(the brand\)/g, /\bCloud(?:monster|surfer|runner|eclipse|ultra|boom|swift|stratus|flow|go|vista)\w*/g,
          // "On" bare in a list of brands ("Hoka, Brooks, On, Altra", "(Hoka, On)") or "On (Cloud line)"; capital O only.
          /(?<=(?:[,(]\s?|\b(?:and|or)\s))On(?=\s?[,)]|\s(?:and|or)\s[A-Z]|\.?$|\s*\n)/gm, /\bOn(?=\s\(Cloud)/g]
-      : names.map(n => new RegExp('\\b' + escapeRe(n) + '\\b', flags));
+      // Letter-aware edges instead of \\b, so names ending in an accented letter (Hümä) still match.
+      : names.map(n => new RegExp('(?<![\\p{L}\\p{N}_])' + escapeRe(n) + '(?![\\p{L}\\p{N}_])', flags + 'u'));
     return { slug: b.slug, category: b.category, patterns };
   });
 }
