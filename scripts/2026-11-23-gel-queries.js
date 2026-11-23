@@ -14,6 +14,7 @@
 // prompt set from them for Alex to approve.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { parseCsv, toCsv } from '../src/2026-11-21-csv.js';
+import { isAdviceQuestion } from '../src/2026-11-22-demand.js';
 
 const args = new Set(process.argv.slice(2));
 const want = k => args.has('--all') || args.has(k);
@@ -166,6 +167,7 @@ async function collectReddit() {
 // ---- Real AI conversations (Hugging Face datasets server) --------------------------------------------------------
 const DATASETS = [{ id: 'allenai/WildChat-1M', config: 'default', split: 'train' }, { id: 'lmsys/lmsys-chat-1m', config: 'default', split: 'train' }];
 const CQ = ['energy gel', 'energy gels', 'running gel', 'marathon fuel', 'marathon fueling', 'carbs per hour', 'maurten', 'gu gel'];
+const GEL_TALK = /\b(energy|running|race|marathon|endurance|sports?|carb(ohydrate)?|caffeine|caffeinated) gels?\b|\bmaurten\b|\bgu (gel|energy|roctane)|\broctane\b|carbs? (per|an|every) hour|\bfuel(l)?ing (for|during|in) (a |the |my )?(run|marathon|race|half|ultra)/i;
 async function collectCorpus() {
   const token = process.env.HF_TOKEN;
   if (!token) { console.log('Corpus skipped: no HF_TOKEN (see the setup guide for the free token).'); return; }
@@ -184,7 +186,8 @@ async function collectCorpus() {
         for (const { row } of rows) {
           const first = ((row.conversation || []).find(m => m.role === 'user') || {}).content || '';
           const key = first.slice(0, 200);
-          if (seen.has(key) || !/\bgels?\b|fuel|carb/i.test(first) || !/\brun|marathon|race|ultra|cycl|ride\b/i.test(first)) continue;
+          // Sports gels only (not nail, lab or hair gel), and only questions, not jobs handed to the AI.
+          if (seen.has(key) || !GEL_TALK.test(first) || /electrophoresis|agarose|\bnails?\b|polish|\bpens?\b|\bink\b|hair|ultrasound|\bdna\b|\bpcr\b|aloe|silica/i.test(first) || !isAdviceQuestion(first)) continue;
           seen.add(key);
           out.push({ dataset: ds.id, search: q, prompt: first.replace(/\s+/g, ' ').slice(0, 400) });
         }

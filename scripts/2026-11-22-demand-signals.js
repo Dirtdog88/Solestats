@@ -14,7 +14,7 @@
 // Then: npm run demand (the weights), npm run score -- --round <id>, load scores.sql.
 import { readFileSync, writeFileSync, existsSync, appendFileSync } from 'node:fs';
 import { parseCsv, toCsv } from '../src/2026-11-21-csv.js';
-import { termMatchers, classify, isShoePost } from '../src/2026-11-22-demand.js';
+import { termMatchers, classify, isShoePost, isAdviceQuestion } from '../src/2026-11-22-demand.js';
 
 const args = new Set(process.argv.slice(2));
 const want = k => args.has('--all') || args.has(k);
@@ -150,6 +150,7 @@ const QUERIES = ['running shoes', 'running shoe', 'trail running shoes', 'marath
 async function collectCorpus() {
   const token = process.env.HF_TOKEN;
   if (!token) { console.log('Corpus skipped: set HF_TOKEN (a free Hugging Face account that has accepted the WildChat-1M and LMSYS-Chat-1M terms, then a read token).'); return; }
+  const kept = []; // the chats that were counted, saved so the sorting can be checked by hand
   for (const ds of DATASETS) {
     const seen = new Set(), counts = {};
     let shoe = 0;
@@ -167,20 +168,26 @@ async function collectCorpus() {
           const id = row.conversation_hash || row.conversation_id || first.slice(0, 200);
           if (seen.has(id)) continue;
           seen.add(id);
-          if (!isShoePost(first) || !/\brun/i.test(first)) continue;
+          if (!isShoePost(first) || !/\brun/i.test(first) || !isAdviceQuestion(first)) continue;
           shoe++;
           const g = classify(first, matchers);
           if (g) counts[g] = (counts[g] || 0) + 1;
+          kept.push({ dataset: ds.id, group: g || '', prompt: first.replace(/\s+/g, ' ').slice(0, 400) });
         }
         if (rows.length < 100 || offset + 100 >= (j.num_rows_total || 0)) break;
         await sleep(1000);
       }
     }
     const sorted = Object.values(counts).reduce((a, b) => a + b, 0);
+    // A rerun replaces this dataset's earlier corpus rows instead of sitting beside them.
+    const others = parseCsv(readFileSync(signalsFile, 'utf8')).filter(r => !(r.signal === 'corpus' && r.source === ds.id));
+    writeFileSync(signalsFile, toCsv(others, COLS));
+    if (!shoe) { console.log(`${ds.id}: no running-shoe questions kept.`); continue; }
     addRows(Object.entries(counts).map(([group, n]) => ({ signal: 'corpus', source: ds.id, key: group, value: n, window: 'whole dataset', collected_on: today, note: `${sorted} of ${shoe} running-shoe prompts sorted` })));
     console.log(`${ds.id}: ${shoe} running-shoe prompts, ${sorted} sorted into a group.`);
   }
-  console.log('Corpus done.');
+  writeFileSync(dataUrl('2026-11-22-ai-chat-prompts.csv'), toCsv(kept, ['dataset', 'group', 'prompt']));
+  console.log('Corpus done. The chats that were counted are in data/2026-11-22-ai-chat-prompts.csv.');
 }
 
 try {

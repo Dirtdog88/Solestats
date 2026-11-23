@@ -57,6 +57,22 @@ export const SHOE_WORDS = /(?<![\w-])(shoes?|trainers?|sneakers?|kicks|ghost|gly
 export const isShoePost = text => SHOE_WORDS.test(String(text || ''));
 
 /**
+ * A chat opening that is someone asking for advice, not a job handed to the AI (2026-11-23: WildChat is full of pasted
+ * product-title lists, listings and copy to write, lab reports and stories that happen to say "running" or "gel").
+ * Kept: short-ish questions or requests for a recommendation. Dropped: numbered product lists, writing and rewriting
+ * jobs, and anything longer than a pasted paragraph.
+ */
+const WRITING_JOB = /\b(write|rewrite|re-write|paraphrase|generate|compose|draft|translate|summari[sz]e|proofread|product (title|description|listing)s?|listing|seo|keywords?|meta description|slogan|tagline|caption|hashtags?|ad copy|copywriting|article|blog|essay|story|poem|script|lyrics|midjourney|prompt generator|bullet points?|table of contents)\b/i;
+export function isAdviceQuestion(text) {
+  const t = String(text || '').trim();
+  if (!t || t.length > 600) return false;
+  if (/^\s*1[.)]\s/.test(t) && /\s2[.)]\s/.test(t)) return false; // a pasted numbered list of products
+  if (/\b\d+\s?(pcs|pc|pairs?|packs?)\b/i.test(t) && !/\?/.test(t)) return false; // a pasted product title
+  if (WRITING_JOB.test(t)) return false;
+  return true;
+}
+
+/**
  * Weights per need group from the signal rows (data/2026-11-22-demand-signals.csv: { signal, source, key, value }).
  * trends: value is the 12-month average interest of the search term `key` (one per shoe prompt, keywords: [{ prompt_id,
  *   group, keyword }]) on one common scale; a group's demand is the sum over its distinct terms (a term used in two

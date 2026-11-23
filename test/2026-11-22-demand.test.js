@@ -116,3 +116,14 @@ test('the builder script turns a signals file into the weights CSV', () => {
   const trail = w.groups.find(g => g.id === 'trail');
   assert.deepEqual([trail.weight, trail.low, trail.high], [85, 70, 100]);
 });
+
+test('AI-chat signal: only advice questions count, not jobs handed to the AI (2026-11-23)', async () => {
+  const { isAdviceQuestion } = await import('../src/2026-11-22-demand.js');
+  assert.ok(isAdviceQuestion('What running shoes should I get for my first marathon?'));
+  assert.ok(isAdviceQuestion("I'm a woman over 50 with flat feet. Which running shoes do you recommend?"));
+  assert.ok(!isAdviceQuestion("1. Women's Breathable Running Shoes Lightweight Mesh 2. Men's Trail Sneakers Non Slip"), 'pasted product list');
+  assert.ok(!isAdviceQuestion("Women's Running Shoes 2 Pairs Lightweight Mesh Sneakers"), 'pasted product title');
+  assert.ok(!isAdviceQuestion('Write an Amazon product description for these running shoes for women.'), 'writing job');
+  assert.ok(!isAdviceQuestion('Generate 10 SEO keywords for running shoes'), 'writing job');
+  assert.ok(!isAdviceQuestion('x'.repeat(700) + ' running shoes?'), 'pasted document');
+});
