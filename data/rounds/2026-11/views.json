@@ -11460,32 +11460,32 @@
   },
   "places": {
    "brooks": {
-    "n": 599,
+    "n": 595,
     "buckets": {
      "own": {
-      "share": 33.4,
+      "share": 33.6,
       "n": 200,
-      "margin": 1.1
+      "margin": 1
      },
      "specialty": {
-      "share": 40.9,
+      "share": 41.2,
       "n": 245,
       "margin": 3.4
      },
      "amazon": {
-      "share": 4.8,
+      "share": 4.9,
       "n": 29,
-      "margin": 0.5
+      "margin": 0.6
      },
      "big_box": {
-      "share": 3.2,
-      "n": 19,
-      "margin": 0.4
+      "share": 2.7,
+      "n": 16,
+      "margin": 0.2
      },
      "other": {
-      "share": 17.7,
-      "n": 106,
-      "margin": 3.2
+      "share": 17.6,
+      "n": 105,
+      "margin": 3
      }
     },
     "other_places": [
@@ -11507,37 +11507,37 @@
      {
       "slug": "backcountry",
       "name": "Backcountry",
-      "n": 3
+      "n": 2
      }
     ]
    },
    "hoka": {
-    "n": 420,
+    "n": 413,
     "buckets": {
      "own": {
-      "share": 15.5,
+      "share": 15.7,
       "n": 65,
-      "margin": 1.6
+      "margin": 1.7
      },
      "specialty": {
-      "share": 51.9,
+      "share": 52.8,
       "n": 218,
-      "margin": 2.6
+      "margin": 2.7
      },
      "amazon": {
-      "share": 7.1,
+      "share": 7.3,
       "n": 30,
       "margin": 0.5
      },
      "big_box": {
-      "share": 5.5,
-      "n": 23,
-      "margin": 0.6
+      "share": 4.1,
+      "n": 17,
+      "margin": 0.8
      },
      "other": {
-      "share": 20,
-      "n": 84,
-      "margin": 3.8
+      "share": 20.1,
+      "n": 83,
+      "margin": 3.5
      }
     },
     "other_places": [
@@ -11559,37 +11559,37 @@
      {
       "slug": "backcountry",
       "name": "Backcountry",
-      "n": 3
+      "n": 2
      }
     ]
    },
    "on": {
-    "n": 105,
+    "n": 104,
     "buckets": {
      "own": {
-      "share": 26.7,
+      "share": 26.9,
       "n": 28,
-      "margin": 8.8
+      "margin": 8.6
      },
      "specialty": {
-      "share": 45.7,
+      "share": 46.2,
       "n": 48,
-      "margin": 6.4
+      "margin": 7
      },
      "amazon": {
-      "share": 5.7,
+      "share": 5.8,
       "n": 6,
-      "margin": 1.8
+      "margin": 1.9
      },
      "big_box": {
-      "share": 2.9,
-      "n": 3,
-      "margin": 1
+      "share": 1.9,
+      "n": 2,
+      "margin": 2.1
      },
      "other": {
-      "share": 19,
+      "share": 19.2,
       "n": 20,
-      "margin": 1.8
+      "margin": 2
      }
     },
     "other_places": [
@@ -11611,32 +11611,32 @@
     ]
    },
    "saucony": {
-    "n": 392,
+    "n": 382,
     "buckets": {
      "own": {
-      "share": 15.6,
+      "share": 16,
       "n": 61,
-      "margin": 0.9
+      "margin": 1.1
      },
      "specialty": {
-      "share": 52.3,
+      "share": 53.7,
       "n": 205,
-      "margin": 3.3
+      "margin": 2.7
      },
      "amazon": {
-      "share": 7.7,
+      "share": 7.9,
       "n": 30,
-      "margin": 0.3
+      "margin": 0.4
      },
      "big_box": {
-      "share": 6.1,
-      "n": 24,
+      "share": 3.9,
+      "n": 15,
       "margin": 0.8
      },
      "other": {
-      "share": 18.4,
-      "n": 72,
-      "margin": 1.6
+      "share": 18.6,
+      "n": 71,
+      "margin": 1.5
      }
     },
     "other_places": [
@@ -11651,44 +11651,44 @@
       "n": 25
      },
      {
-      "slug": "backcountry",
-      "name": "Backcountry",
-      "n": 3
-     },
-     {
       "slug": "best-buy",
       "name": "Best Buy",
+      "n": 2
+     },
+     {
+      "slug": "backcountry",
+      "name": "Backcountry",
       "n": 2
      }
     ]
    },
    "asics": {
-    "n": 468,
+    "n": 458,
     "buckets": {
      "own": {
-      "share": 27.6,
+      "share": 28.2,
       "n": 129,
       "margin": 1.9
      },
      "specialty": {
-      "share": 44.9,
+      "share": 45.9,
       "n": 210,
-      "margin": 4.3
+      "margin": 4.4
      },
      "amazon": {
-      "share": 6.4,
+      "share": 6.6,
       "n": 30,
       "margin": 0.3
      },
      "big_box": {
-      "share": 5.6,
-      "n": 26,
-      "margin": 0.6
+      "share": 3.5,
+      "n": 16,
+      "margin": 0.5
      },
      "other": {
-      "share": 15.6,
+      "share": 15.9,
       "n": 73,
-      "margin": 1.9
+      "margin": 2
      }
     },
     "other_places": [
@@ -11715,31 +11715,31 @@
     ]
    },
    "nike": {
-    "n": 426,
+    "n": 416,
     "buckets": {
      "own": {
-      "share": 21.8,
+      "share": 22.4,
       "n": 93,
       "margin": 1.5
      },
      "specialty": {
-      "share": 47.7,
+      "share": 48.8,
       "n": 203,
-      "margin": 4.1
+      "margin": 3.9
      },
      "amazon": {
-      "share": 6.3,
+      "share": 6.5,
       "n": 27,
       "margin": 1
      },
      "big_box": {
-      "share": 5.9,
-      "n": 25,
-      "margin": 0.9
+      "share": 3.8,
+      "n": 16,
+      "margin": 0.7
      },
      "other": {
-      "share": 18.3,
-      "n": 78,
+      "share": 18.5,
+      "n": 77,
       "margin": 2.4
      }
     },
@@ -11762,37 +11762,37 @@
      {
       "slug": "backcountry",
       "name": "Backcountry",
-      "n": 3
+      "n": 2
      }
     ]
    },
    "adidas": {
-    "n": 176,
+    "n": 170,
     "buckets": {
      "own": {
-      "share": 36.4,
+      "share": 37.6,
       "n": 64,
-      "margin": 5.5
+      "margin": 5.2
      },
      "specialty": {
-      "share": 34.7,
+      "share": 35.9,
       "n": 61,
       "margin": 3
      },
      "amazon": {
-      "share": 6.8,
+      "share": 7.1,
       "n": 12,
-      "margin": 2.3
+      "margin": 2.5
      },
      "big_box": {
-      "share": 7.4,
-      "n": 13,
-      "margin": 3
+      "share": 4.1,
+      "n": 7,
+      "margin": 2
      },
      "other": {
-      "share": 14.8,
+      "share": 15.3,
       "n": 26,
-      "margin": 2.7
+      "margin": 2.9
      }
     },
     "other_places": [
@@ -11814,30 +11814,30 @@
     ]
    },
    "new-balance": {
-    "n": 323,
+    "n": 319,
     "buckets": {
      "own": {
-      "share": 21.7,
+      "share": 21.9,
       "n": 70,
-      "margin": 0.9
+      "margin": 1.1
      },
      "specialty": {
-      "share": 49.5,
+      "share": 50.2,
       "n": 160,
-      "margin": 2.2
+      "margin": 2.4
      },
      "amazon": {
-      "share": 6.2,
+      "share": 6.3,
       "n": 20,
       "margin": 0.9
      },
      "big_box": {
-      "share": 4,
-      "n": 13,
-      "margin": 0.4
+      "share": 2.8,
+      "n": 9,
+      "margin": 1.2
      },
      "other": {
-      "share": 18.6,
+      "share": 18.8,
       "n": 60,
       "margin": 1.8
      }
@@ -11866,32 +11866,32 @@
     ]
    },
    "altra": {
-    "n": 147,
+    "n": 145,
     "buckets": {
      "own": {
-      "share": 23.1,
+      "share": 23.4,
       "n": 34,
-      "margin": 1.9
+      "margin": 1.3
      },
      "specialty": {
-      "share": 46.9,
+      "share": 47.6,
       "n": 69,
-      "margin": 6.8
+      "margin": 5.8
      },
      "amazon": {
-      "share": 6.1,
+      "share": 6.2,
       "n": 9,
-      "margin": 0.8
+      "margin": 0.9
      },
      "big_box": {
-      "share": 1.4,
-      "n": 2,
-      "margin": 2.7
+      "share": 0.7,
+      "n": 1,
+      "margin": 1.4
      },
      "other": {
-      "share": 22.4,
-      "n": 33,
-      "margin": 5.9
+      "share": 22.1,
+      "n": 32,
+      "margin": 5.4
      }
     },
     "other_places": [
@@ -11908,35 +11908,35 @@
      {
       "slug": "backcountry",
       "name": "Backcountry",
-      "n": 2
+      "n": 1
      }
     ]
    },
    "topo": {
-    "n": 95,
+    "n": 94,
     "buckets": {
      "own": {
-      "share": 46.3,
+      "share": 46.8,
       "n": 44,
-      "margin": 11.9
+      "margin": 13.7
      },
      "specialty": {
-      "share": 34.7,
+      "share": 35.1,
       "n": 33,
-      "margin": 17.2
+      "margin": 16.8
      },
      "amazon": {
-      "share": 4.2,
+      "share": 4.3,
       "n": 4,
-      "margin": 1
+      "margin": 1.1
      },
      "big_box": {
-      "share": 1.1,
-      "n": 1,
-      "margin": 2.7
+      "share": 0,
+      "n": 0,
+      "margin": 0
      },
      "other": {
-      "share": 13.7,
+      "share": 13.8,
       "n": 13,
       "margin": 4.1
      }
@@ -11960,32 +11960,32 @@
     ]
    },
    "salomon": {
-    "n": 94,
+    "n": 92,
     "buckets": {
      "own": {
-      "share": 26.6,
+      "share": 27.2,
       "n": 25,
-      "margin": 11.5
+      "margin": 11.1
      },
      "specialty": {
-      "share": 42.6,
+      "share": 43.5,
       "n": 40,
-      "margin": 4.6
+      "margin": 5.5
      },
      "amazon": {
-      "share": 3.2,
+      "share": 3.3,
       "n": 3,
-      "margin": 2.9
+      "margin": 3
      },
      "big_box": {
-      "share": 2.1,
-      "n": 2,
-      "margin": 2
+      "share": 1.1,
+      "n": 1,
+      "margin": 1.7
      },
      "other": {
-      "share": 25.5,
-      "n": 24,
-      "margin": 7.1
+      "share": 25,
+      "n": 23,
+      "margin": 6.3
      }
     },
     "other_places": [
@@ -11995,14 +11995,14 @@
       "n": 20
      },
      {
-      "slug": "backcountry",
-      "name": "Backcountry",
-      "n": 2
-     },
-     {
       "slug": "zappos",
       "name": "Zappos",
       "n": 2
+     },
+     {
+      "slug": "backcountry",
+      "name": "Backcountry",
+      "n": 1
      }
     ]
    },
@@ -12038,17 +12038,17 @@
     "other_places": []
    },
    "la-sportiva": {
-    "n": 17,
+    "n": 16,
     "buckets": {
      "own": {
-      "share": 17.6,
+      "share": 18.8,
       "n": 3,
-      "margin": 11
+      "margin": 10.4
      },
      "specialty": {
-      "share": 35.3,
+      "share": 37.5,
       "n": 6,
-      "margin": 26
+      "margin": 27
      },
      "amazon": {
       "share": 0,
@@ -12056,14 +12056,14 @@
       "margin": 0
      },
      "big_box": {
-      "share": 5.9,
-      "n": 1,
-      "margin": 7.2
+      "share": 0,
+      "n": 0,
+      "margin": 0
      },
      "other": {
-      "share": 41.2,
+      "share": 43.8,
       "n": 7,
-      "margin": 18.2
+      "margin": 17.2
      }
     },
     "other_places": [
@@ -12122,32 +12122,32 @@
     ]
    },
    "puma": {
-    "n": 56,
+    "n": 55,
     "buckets": {
      "own": {
-      "share": 5.4,
+      "share": 5.5,
       "n": 3,
-      "margin": 3.6
+      "margin": 3.5
      },
      "specialty": {
-      "share": 48.2,
+      "share": 49.1,
       "n": 27,
-      "margin": 19.8
+      "margin": 19.7
      },
      "amazon": {
-      "share": 16.1,
+      "share": 16.4,
       "n": 9,
-      "margin": 6.6
+      "margin": 6.8
      },
      "big_box": {
-      "share": 5.4,
-      "n": 3,
-      "margin": 5.2
+      "share": 3.6,
+      "n": 2,
+      "margin": 3.6
      },
      "other": {
-      "share": 25,
+      "share": 25.5,
       "n": 14,
-      "margin": 12.5
+      "margin": 12.4
      }
     },
     "other_places": [
@@ -12248,12 +12248,12 @@
     ]
    },
    "inov8": {
-    "n": 6,
+    "n": 5,
     "buckets": {
      "own": {
-      "share": 83.3,
+      "share": 100,
       "n": 5,
-      "margin": 19.2
+      "margin": 0
      },
      "specialty": {
       "share": 0,
@@ -12271,18 +12271,12 @@
       "margin": 0
      },
      "other": {
-      "share": 16.7,
-      "n": 1,
-      "margin": 19.2
+      "share": 0,
+      "n": 0,
+      "margin": 0
      }
     },
-    "other_places": [
-     {
-      "slug": "backcountry",
-      "name": "Backcountry",
-      "n": 1
-     }
-    ]
+    "other_places": []
    }
   },
   "sources": {
@@ -14276,12 +14270,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 62.8,
-       "n": 218
+       "score": 63.1,
+       "n": 217
       },
       "gemini": {
-       "score": 70.2,
-       "n": 171
+       "score": 71.4,
+       "n": 168
       },
       "openai": {
        "score": 89.5,
@@ -14325,16 +14319,16 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 61.5,
-       "n": 208
+       "score": 62.1,
+       "n": 206
       },
       "gemini": {
-       "score": 68.2,
-       "n": 157
+       "score": 69.9,
+       "n": 153
       },
       "openai": {
-       "score": 87.3,
-       "n": 55
+       "score": 88.9,
+       "n": 54
       }
      }
     }
@@ -14367,8 +14361,8 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 70.4,
-       "n": 27
+       "score": 73.1,
+       "n": 26
       },
       "gemini": {
        "score": 64.4,
@@ -14416,16 +14410,16 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 63.8,
-       "n": 188
+       "score": 64.5,
+       "n": 186
       },
       "gemini": {
-       "score": 66.2,
-       "n": 151
+       "score": 69.4,
+       "n": 144
       },
       "openai": {
-       "score": 86.8,
-       "n": 53
+       "score": 88.5,
+       "n": 52
       }
      }
     }
@@ -14465,16 +14459,16 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 63.4,
-       "n": 183
+       "score": 63.7,
+       "n": 182
       },
       "gemini": {
-       "score": 68.2,
-       "n": 154
+       "score": 70.9,
+       "n": 148
       },
       "openai": {
-       "score": 90.1,
-       "n": 131
+       "score": 92.2,
+       "n": 128
       }
      }
     }
@@ -14514,16 +14508,16 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 60.2,
-       "n": 176
+       "score": 60.6,
+       "n": 175
       },
       "gemini": {
-       "score": 67.1,
-       "n": 167
+       "score": 70,
+       "n": 160
       },
       "openai": {
-       "score": 94,
-       "n": 83
+       "score": 96.3,
+       "n": 81
       }
      }
     }
@@ -14562,12 +14556,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 62.8,
-       "n": 43
+       "score": 64.3,
+       "n": 42
       },
       "gemini": {
-       "score": 56,
-       "n": 75
+       "score": 60,
+       "n": 70
       },
       "openai": {
        "score": 96.6,
@@ -14610,12 +14604,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 66.3,
-       "n": 166
+       "score": 66.7,
+       "n": 165
       },
       "gemini": {
-       "score": 67,
-       "n": 97
+       "score": 69.1,
+       "n": 94
       },
       "openai": {
        "score": 91.7,
@@ -14659,12 +14653,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 53.8,
-       "n": 13
+       "score": 58.3,
+       "n": 12
       },
       "gemini": {
-       "score": 66.4,
-       "n": 107
+       "score": 67,
+       "n": 106
       },
       "openai": {
        "score": 92.6,
@@ -14702,8 +14696,8 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 73.3,
-       "n": 15
+       "score": 78.6,
+       "n": 14
       },
       "gemini": {
        "score": 71.4,
@@ -14751,12 +14745,12 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 42.9,
-       "n": 7
+       "score": 50,
+       "n": 6
       },
       "gemini": {
-       "score": 69.2,
-       "n": 65
+       "score": 70.3,
+       "n": 64
       },
       "openai": {
        "score": 77.3,
@@ -14827,7 +14821,7 @@
      "by_engine": {
       "anthropic": {
        "score": 0,
-       "n": 4
+       "n": 3
       },
       "gemini": {
        "score": 66.7,
@@ -14905,8 +14899,8 @@
     "routing": {
      "by_engine": {
       "anthropic": {
-       "score": 47.4,
-       "n": 19
+       "score": 50,
+       "n": 18
       },
       "gemini": {
        "score": 54.5,
@@ -15008,10 +15002,6 @@
     },
     "routing": {
      "by_engine": {
-      "gemini": {
-       "score": 0,
-       "n": 1
-      },
       "openai": {
        "score": 100,
        "n": 5
@@ -15062,7 +15052,7 @@
   {
    "brand": "altra",
    "subject": "routing",
-   "text": "Close the gap on Gemini: Sale goes home there is 66, against 93 on ChatGPT. How: Gemini sends Altra shoppers to REI and Zappos for 26% of the places it names, against 13% on the others. Its answers about Altra name its own site and run specialty stores less often, so make sure Gemini can find Altra's own product pages and its specialty stockists."
+   "text": "Close the gap on Gemini: Sale goes home there is 67, against 93 on ChatGPT. How: Gemini sends Altra shoppers to REI and Zappos for 25% of the places it names, against 13% on the others. Its answers about Altra name its own site and run specialty stores less often, so make sure Gemini can find Altra's own product pages and its specialty stockists."
   },
   {
    "brand": "topo",

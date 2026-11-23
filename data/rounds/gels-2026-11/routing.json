@@ -1,15 +1,15 @@
 {
   "gels": {
     "answers": 1032,
-    "with_route": 505,
+    "with_route": 378,
     "by_retailer": {
-      "target": 230,
       "brand-site": 244,
       "local": 35,
       "fleet-feet": 6,
       "running-warehouse": 9,
       "rei": 12,
       "the-feed": 34,
+      "target": 42,
       "amazon": 13,
       "whole-foods": 25,
       "local-bike": 9,
@@ -27,7 +27,7 @@
       "rei": 51,
       "road-runner-sports": 10,
       "walmart": 26,
-      "target": 19,
+      "target": 18,
       "the-feed": 34,
       "costco": 4,
       "local-bike": 13,

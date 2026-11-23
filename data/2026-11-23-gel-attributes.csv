@@ -1,0 +1,7 @@
+attribute,kind,label,phrases,notes
+classic,trait,Classic or go-to,classic;staple;go-to;default;tried-and-true;tried and true;well-known;well known;most popular;widely used;industry standard,"the familiar choice"
+value,trait,Good value,cheap*;affordab*;inexpensive;budget;low-cost;low cost;good value;value for;less expensive;lower price;bargain,"price said as an advantage"
+available,trait,Easy to find,widely available;everywhere;easy to find;easy to get;aid station*;on course;on the course;stocked,"reach: stores and race courses"
+science,trait,Science and elite athletes,hydrogel;sports science;scientific*;science-backed;backed by science;study;studies;research*;elite;pros;professional*;world record*;Kipchoge,"the performance story"
+high_carb,trait,High carb,high-carb;high carb;more carbs;most carbs;40g;40 g;45g;45 g;50g;50 g,"carbs per gel above the usual 20 to 25 g (per-hour amounts such as 60 g are left out: they are fueling advice)"
+gentle,trait,Gentle on the stomach,easy on the stomach;easy on your stomach;gentle;stomach-friendly;well tolerated;easier to digest;easiest to digest,

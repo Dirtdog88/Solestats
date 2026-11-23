@@ -187,12 +187,14 @@ export function classifyCitation(url, brands, retailers, title = '') {
  *  attributed. Pages a search merely returned are not routes. A brand-site route from a citation carries the brand
  *  whose site it is (brand_slug); one found only in the prose ("the brand's own website") carries none and stands
  *  for every brand the answer names. */
+const CASE_SENSITIVE_STORES = new Set(['target', 'backcountry', 'the-feed']);
 export function findRoutes(answer, citations, brands, retailers) {
   const routes = new Map();
   const put = (slug, url, brandSlug = null) => { const key = slug + '|' + (brandSlug || ''); if (!routes.has(key)) routes.set(key, { retailer_slug: slug, brand_slug: brandSlug, url: url || null }); };
   for (const r of retailers) {
     if (r.slug === 'local' || r.slug === 'local-bike' || r.slug === 'brand-site') continue;
-    const re = new RegExp('\\b' + escapeRe(r.name.replace(/'s Sporting Goods$/, "'s")) + '\\b', 'i');
+    // Store names that are also ordinary words count only as written for the store (2026-11-23: "an hourly target" is not Target).
+    const re = new RegExp('\\b' + escapeRe(r.name.replace(/'s Sporting Goods$/, "'s")) + '\\b', CASE_SENSITIVE_STORES.has(r.slug) ? '' : 'i');
     if (re.test(answer)) put(r.slug);
   }
   if (/\b(local|specialty|independent|your nearest|brick[- ]and[- ]mortar) (running|run) (store|shop|retailer)\b/i.test(answer) || /\brun(?:ning)? specialty\b/i.test(answer)) put('local');

@@ -11,7 +11,7 @@ export const CATEGORIES = {
   gels: {
     label: 'Energy gels', headline: 'The energy gel AI index', page: '/fuel.html',
     prompts: '2026-11-23-gel-prompts.csv', brands: '2026-11-23-gel-brands.csv',
-    models: '2026-11-23-gel-products.csv', aliases: '2026-11-23-gel-products.csv', attributes: null,
+    models: '2026-11-23-gel-products.csv', aliases: '2026-11-23-gel-products.csv', attributes: '2026-11-23-gel-attributes.csv',
   },
 };
 
