@@ -1,7 +1,7 @@
 // Brand by need (2026-11-22): the share of answers in each runner-need group that name a brand, as a heat map on the
 // front page and one row on each brand page. One hue, light to dark, in six fixed steps so rounds compare; the number
 // is always printed, and the top-pick share is in the cell's tip (hover, focus or tap).
-import { el, defined } from './2026-11-21-common.js';
+import { el, defined, category } from './2026-11-21-common.js';
 
 export const HEAT_STEPS = [5, 15, 30, 50, 70]; // step edges in percent: 0-5, 5-15, 15-30, 30-50, 50-70, 70+
 export const heatStep = v => HEAT_STEPS.filter(x => v >= x).length;
@@ -43,7 +43,7 @@ export function needTable(view, brands, weights = null) {
 /** The brand page's row: one labelled tile per need group. */
 export function needRow(needs, name) {
   if (!needs || !needs.groups) return null;
-  return el('section', { class: 'card' }, el('h3', {}, defined('span', 'need', { text: 'By runner need' })),
+  return el('section', { class: 'card' }, el('h3', {}, defined('span', 'need', { text: category() === 'shoes' ? 'By runner need' : 'By need' })),
     el('div', { class: 'need-row' }, ...needs.groups.map(g => el('div', { class: 'need-tile' }, el('div', { class: 'label' }, g.label), cell('div', name, g, needs.cells[g.id] || { share: 0, top_share: 0, margin: null }, { class: 'big' })))),
     heatLegend());
 }

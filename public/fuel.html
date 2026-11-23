@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Energy gels (2026-11-23): unlisted but reachable until Alex announces it; nothing links here. -->
+<meta name="robots" content="noindex">
+<title>SoleStats · The energy gel AI index</title>
+<meta name="description" content="A public index of how AI shopping assistants recommend, describe and route sales for energy gel brands. Open method, open data, monthly.">
+<!-- Link previews (2026-11-22). Brand pages: the Worker fills in the brand's name and AI score (brandMeta). -->
+<meta property="og:site_name" content="SoleStats">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SoleStats · The energy gel AI index">
+<meta property="og:description" content="A public index of how AI shopping assistants recommend, describe and route sales for energy gel brands. Open method, open data, monthly.">
+<meta property="og:url" content="https://solestats.net/fuel.html">
+<meta property="og:image" content="https://solestats.net/2026-11-22-share-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/2026-11-22-icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/2026-11-21-styles.css">
+<link rel="stylesheet" href="/2026-11-22-swiss.css">
+</head>
+<body data-cat="gels">
+<header class="hero">
+  <p class="brand">SoleStats</p>
+  <h1>The energy gel AI index</h1>
+</header>
+
+<main>
+  <section id="shoes">
+    <h2>Brands</h2>
+    <div id="shoe-table" class="table-wrap"></div>
+  </section>
+
+  <section id="needs">
+    <h2 data-def="need" tabindex="0">Brands by need</h2>
+    <p id="need-note" class="muted small">Share of answers in each group of questions that name the brand. Sorted by AI score. Tap a cell for how often it was the top pick.</p>
+    <div id="need-legend"></div>
+    <div id="need-table" class="heat-wrap"></div>
+  </section>
+
+  <section id="retailers">
+    <h2>Where the sale goes</h2>
+    <div id="retail-table" class="table-wrap"></div>
+  </section>
+
+  <section id="data">
+    <h2>Downloads</h2>
+    <ul id="downloads" class="downloads"></ul>
+  </section>
+
+  <section id="summary" class="summary" hidden>
+    <h2>This edition</h2>
+    <div id="summary-text"></div>
+  </section>
+
+  <section id="engines-section">
+    <h2>Engines</h2>
+    <p id="edition" class="edition muted"></p>
+    <p id="notice" class="notice" hidden></p>
+    <ul id="engines" class="engine-list"></ul>
+  </section>
+</main>
+
+<footer><p><a href="/h2h.html">Head to head</a> · <a href="/share.html">Share of voice</a> · <a href="/method.html">Method and definitions</a></p></footer>
+<div id="tip" class="tip" role="status" hidden></div>
+<script src="/2026-11-21-app.js" type="module"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 const SUBJECTS = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
 const CATS = { shoes: 'Shoes', retail: 'Where to buy' };
 // Column definitions live in DEFINITIONS (common.js); headers show them on hover and tap.
-import { el, api, showEdition, engineName, defined, installTips, overallStatus } from './2026-11-21-common.js';
+import { el, api, showEdition, engineName, defined, installTips, overallStatus, category } from './2026-11-21-common.js';
 import { needTable, heatLegend } from './2026-11-22-needs.js';
 
 function scoreCell(s, extraClass = '') {
@@ -82,8 +82,8 @@ async function main() {
   const { brands, round } = await api('/api/brands').catch(() => ({ brands: [], round: null }));
   document.getElementById('engines').replaceChildren(...engineStrip(await api('/api/edition').catch(() => ({ engines: [], pending: [] }))));
   const ai = await overallStatus();
-  document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === 'shoes' && Object.keys(b.scores).length), SUBJECTS, ai.label));
-  const byOverall = brands.filter(b => b.category === 'shoes').sort((a, b) => (b.scores.overall?.score ?? -1) - (a.scores.overall?.score ?? -1) || a.name.localeCompare(b.name));
+  document.getElementById('shoe-table').replaceChildren(brandTable(brands.filter(b => b.category === category() && Object.keys(b.scores).length), SUBJECTS, ai.label));
+  const byOverall = brands.filter(b => b.category === category()).sort((a, b) => (b.scores.overall?.score ?? -1) - (a.scores.overall?.score ?? -1) || a.name.localeCompare(b.name));
   const [needs, demand] = await Promise.all([api('/api/views/needs').catch(() => ({})), api('/api/views/demand').catch(() => ({}))]);
   const weights = demand.data && demand.data.weights ? demand.data.weights : null;
   document.getElementById('need-table').replaceChildren(needTable(needs.data, byOverall, weights));
@@ -91,7 +91,7 @@ async function main() {
   if (weights) document.getElementById('need-note').replaceChildren('Share of answers in each group of questions that name the brand. Sorted by AI score; columns from the most asked group to the least, with each group\'s ', defined('span', 'demand', { text: 'share of the asking' }), ' under its name. Tap a cell for how often it was the top pick.');
   document.getElementById('retail-table').replaceChildren(retailTable(await api('/api/retailers').catch(() => ({ rows: [], answers: [] }))));
   const dl = document.getElementById('downloads');
-  if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', 'financials', 'race-results', ...(weights ? ['demand'] : [])]) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));
+  if (round) for (const f of ['prompts', 'answers', 'citations', 'mentions', 'routes', 'scores', ...(category() === 'shoes' ? ['financials', 'race-results'] : []), ...(weights ? ['demand'] : [])]) dl.append(el('li', {}, el('a', { href: `/download/${round}/${f}.csv` }, `${f}.csv`)));
   else dl.append(el('li', { class: 'muted' }, 'None yet.'));
 }
 main();

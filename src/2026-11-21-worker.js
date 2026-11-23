@@ -1,4 +1,5 @@
 import { MIN_SOURCED_ANSWERS, WEIGHTS } from './2026-11-21-score.js';
+import { CATEGORIES, categoryOfRound, ROUND_CATEGORY_SQL } from './2026-11-23-categories.js';
 const OVERALL_ORDER = Object.keys(WEIGHTS);
 import { brandCounts } from './2026-11-22-races.js';
 import { voiceVsSize, editionSummary } from './2026-11-22-insights.js';
@@ -28,6 +29,11 @@ export default {
         // score into the page's title and preview tags. Any failure leaves the page as it is.
         const slug = url.searchParams.get('b');
         if (slug && (url.pathname === '/brand' || url.pathname === '/brand.html') && res.status === 200) res = await withBrandMeta(res, slug, env).catch(() => res);
+        // A brief for a brand in an unannounced category stays out of search, like its brand page.
+        if (slug && (url.pathname === '/brief' || url.pathname === '/brief.html') && res.status === 200) {
+          const b = await env.DB.prepare('SELECT category FROM brands WHERE slug = ?').bind(slug).first().catch(() => null);
+          if (b && b.category !== 'shoes') { res = new Response(res.body, res); res.headers.set('x-robots-tag', 'noindex'); }
+        }
       }
     } catch (e) {
       console.error(e);
@@ -41,7 +47,9 @@ export default {
 
 async function api(url, env) {
   const parts = url.pathname.split('/').filter(Boolean); // ['api', ...]
-  const round = url.searchParams.get('round') || await latestRound(env);
+  // Each category has its own rounds (src/2026-11-23-categories.js): ?cat=gels reads the gel rounds; shoes by default.
+  const cat = CATEGORIES[url.searchParams.get('cat')] ? url.searchParams.get('cat') : 'shoes';
+  let round = url.searchParams.get('round') || await latestRound(env, cat);
   if (parts[1] === 'health') return json({ ok: true, round, notice: env.PREVIEW_NOTICE || '' });
   if (parts[1] === 'edition') {
     // Which engines (and model ids) are in this edition, and which are still pending (PENDING_ENGINES in wrangler.toml).
@@ -72,6 +80,8 @@ async function api(url, env) {
     const slug = decodeURIComponent(parts[2]);
     const brand = await env.DB.prepare('SELECT slug, name, category, treatment, domain FROM brands WHERE slug = ?').bind(slug).first();
     if (!brand) return json({ error: 'no such brand' }, 404);
+    // A brand page reads its own category's latest round.
+    if (!url.searchParams.get('round') && CATEGORIES[brand.category] && brand.category !== cat) round = await latestRound(env, brand.category);
     if (!round) return json({ round: null, brand, scores: {}, fixes: [], context: [] });
     const [scores, fixes, context, examples, sourcing, financials, races, needs, h2h, places, sources, engineViews, modelViews, steering, versions, substitution, attributes, demand] = await Promise.all([
       env.DB.prepare('SELECT subject, score, margin, n, detail_json FROM scores WHERE round_id = ? AND brand_slug = ?').bind(round, slug).all(),
@@ -80,7 +90,7 @@ async function api(url, env) {
       // Evidence for a visitor: two answers per engine that named the brand, from the shoe questions (head-to-head
       // questions name the brand themselves), top picks first, then first repeat, by prompt. Not "newest first": the
       // engines ran at different times, so that showed only the last engine to finish.
-      env.DB.prepare(`SELECT id, engine, model, prompt_text, answer, position, top_pick, sourcing FROM (SELECT r.id, r.engine, r.model, r.prompt_text, r.answer, m.position, m.top_pick, CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing, ROW_NUMBER() OVER (PARTITION BY r.engine ORDER BY m.top_pick DESC, r.repeat_no, r.prompt_id) AS rn FROM mentions m JOIN runs r ON r.id = m.run_id JOIN prompts p ON p.id = r.prompt_id WHERE r.round_id = ? AND m.brand_slug = ? AND r.status = 'ok' AND p.set_name = 'shoe') WHERE rn <= 2 ORDER BY rn, engine`).bind(round, slug).all(),
+      env.DB.prepare(`SELECT id, engine, model, prompt_text, answer, position, top_pick, sourcing FROM (SELECT r.id, r.engine, r.model, r.prompt_text, r.answer, m.position, m.top_pick, CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing, ROW_NUMBER() OVER (PARTITION BY r.engine ORDER BY m.top_pick DESC, r.repeat_no, r.prompt_id) AS rn FROM mentions m JOIN runs r ON r.id = m.run_id JOIN prompts p ON p.id = r.prompt_id WHERE r.round_id = ? AND m.brand_slug = ? AND r.status = 'ok' AND p.set_name IN ('shoe', 'need')) WHERE rn <= 2 ORDER BY rn, engine`).bind(round, slug).all(),
       // How the answers naming the brand stand on sources, so the page can explain a Sourced held back for too few.
       env.DB.prepare(`SELECT CASE WHEN r.citations_json IS NOT NULL AND r.citations_json != '[]' THEN 'sourced' WHEN r.searches > 0 THEN 'not_provided' ELSE 'no_search' END AS sourcing, COUNT(DISTINCT r.id) AS n FROM mentions m JOIN runs r ON r.id = m.run_id WHERE r.round_id = ? AND m.brand_slug = ? AND r.status = 'ok' GROUP BY sourcing`).bind(round, slug).all(),
       // Publicly reported revenue (context, never scored): newest fiscal year first. Fails soft until migration 0003 is applied.
@@ -126,7 +136,7 @@ async function api(url, env) {
     if (!round) return json({ round: null, sentences: [] });
     const [engines, scores, sov, engineViews, sourcing, patterns] = await Promise.all([
       env.DB.prepare(`SELECT engine, COUNT(*) AS runs, SUM(CASE WHEN citations_json IS NOT NULL AND citations_json != '[]' THEN 1 ELSE 0 END) AS cited FROM runs WHERE round_id = ? AND status = 'ok' GROUP BY engine ORDER BY engine`).bind(round).all(),
-      env.DB.prepare(`SELECT s.brand_slug, s.score, s.detail_json FROM scores s JOIN brands b ON b.slug = s.brand_slug WHERE s.round_id = ? AND s.subject = 'overall' AND b.category = 'shoes'`).bind(round).all(),
+      env.DB.prepare(`SELECT s.brand_slug, s.score, s.detail_json FROM scores s JOIN brands b ON b.slug = s.brand_slug WHERE s.round_id = ? AND s.subject = 'overall' AND b.category = ?`).bind(round, categoryOfRound(round)).all(),
       shareOfVoiceView(env, round),
       readViews(env, round, 'engines'),
       readViews(env, round, 'sourcing'),
@@ -194,9 +204,9 @@ const LEVELS = ['brand', 'category', 'footwear', 'segment', 'company'];
 async function shareOfVoiceView(env, round) {
   if (!round) return { round: null, previous_round: null, brands: [] };
   const soft = p => p.then(r => r.results).catch(() => []);
-  const prev = await env.DB.prepare(`SELECT id FROM rounds WHERE started_at < (SELECT started_at FROM rounds WHERE id = ?) AND id IN (SELECT round_id FROM scores WHERE subject = 'share_of_voice') ORDER BY started_at DESC LIMIT 1`).bind(round).first().catch(() => null);
+  const prev = await env.DB.prepare(`SELECT id FROM rounds WHERE ${ROUND_CAT} = '${categoryOfRound(round)}' AND started_at < (SELECT started_at FROM rounds WHERE id = ?) AND id IN (SELECT round_id FROM scores WHERE subject = 'share_of_voice') ORDER BY started_at DESC LIMIT 1`).bind(round).first().catch(() => null);
   const [brands, sov, sovPrev, fin, fx, races, demand] = await Promise.all([
-    soft(env.DB.prepare('SELECT slug, name, treatment FROM brands ORDER BY name').all()),
+    soft(env.DB.prepare('SELECT slug, name, treatment FROM brands WHERE category = ? ORDER BY name').bind(categoryOfRound(round)).all()),
     soft(env.DB.prepare(`SELECT brand_slug, score, margin, n, detail_json FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(round).all()),
     prev ? soft(env.DB.prepare(`SELECT brand_slug, score FROM scores WHERE round_id = ? AND subject = 'share_of_voice'`).bind(prev.id).all()) : [],
     soft(env.DB.prepare('SELECT brand_slug, fiscal_year, period_end, level, measure, owner, value, unit, currency, yoy_pct, source_type, source_url FROM financials').all()),
@@ -251,18 +261,21 @@ export function brandMeta(html, { slug, name, score }) {
 }
 
 async function withBrandMeta(res, slug, env) {
-  const brand = await env.DB.prepare('SELECT slug, name FROM brands WHERE slug = ?').bind(slug).first();
+  const brand = await env.DB.prepare('SELECT slug, name, category FROM brands WHERE slug = ?').bind(slug).first();
   if (!brand) return res;
-  const round = await latestRound(env);
+  const round = await latestRound(env, CATEGORIES[brand.category] ? brand.category : 'shoes');
   const s = round ? await env.DB.prepare(`SELECT score FROM scores WHERE round_id = ? AND brand_slug = ? AND subject = 'overall'`).bind(round, slug).first() : null;
   const html = brandMeta(await res.text(), { slug: brand.slug, name: brand.name, score: s ? s.score : null });
   const headers = new Headers(res.headers);
   headers.delete('content-length');
+  // Categories other than shoes stay unlisted until Alex announces them (energy gels, 2026-11-23).
+  if (brand.category !== 'shoes') headers.set('x-robots-tag', 'noindex');
   return new Response(html, { status: res.status, headers });
 }
 
-async function latestRound(env) {
-  const r = await env.DB.prepare('SELECT id FROM rounds ORDER BY started_at DESC, id DESC LIMIT 1').first();
+const ROUND_CAT = ROUND_CATEGORY_SQL;
+async function latestRound(env, cat = 'shoes') {
+  const r = await env.DB.prepare(`SELECT id FROM rounds WHERE ${ROUND_CAT} = ? ORDER BY started_at DESC, id DESC LIMIT 1`).bind(cat).first();
   return r ? r.id : null;
 }
 

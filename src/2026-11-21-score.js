@@ -1,3 +1,4 @@
+import { isNeed } from './2026-11-23-categories.js';
 // Scoring rules (pure). Every subject is 0-100, no curve. Inputs are plain arrays so the tests and the scripts
 // can feed them from JSONL or from D1. Rubric: the DogHaus task "Write the rubric" and the method page.
 
@@ -16,9 +17,9 @@ const round1 = x => x == null ? null : Math.round(x * 10) / 10;
 export function eligible(brand, prompt, models) {
   if (prompt.set_name === 'retailer') return false;
   if (brand.category !== prompt.category) return false;
-  if (brand.category !== 'shoes') return true;
   const tags = new Set((prompt.tags || '').split(';').filter(Boolean));
-  if (tags.has('h2h')) return prompt.pair_a === brand.name || prompt.pair_b === brand.name;
+  if (tags.has('h2h') || (prompt.set_name || prompt.set) === 'h2h') return prompt.pair_a === brand.name || prompt.pair_b === brand.name;
+  if (brand.category !== 'shoes') return true;
   const own = models.filter(m => m.brand_slug === brand.slug);
   // No verified models yet for this brand: every shoe prompt counts, and scoreRecommended says so in its detail.
   if (!own.length) return true;
@@ -134,7 +135,7 @@ export function placesFor(brand, run) {
  * share by engine, and a margin from the spread across repeats, like every other number.
  */
 export function shareOfVoice(runs, prompts) {
-  const shoe = new Set(prompts.filter(p => (p.set_name || p.set) === 'shoe').map(p => p.id));
+  const shoe = new Set(prompts.filter(isNeed).map(p => p.id)); // the need questions ("shoe" for shoes, "need" for gels)
   const rel = runs.filter(r => r.status === 'ok' && shoe.has(r.prompt_id));
   const tally = (list) => {
     const m = {}, t = {};
@@ -181,7 +182,7 @@ export function scoreRouting(brand, runs, retailers) {
   const kindOf = slug => slug === 'brand-site' ? 'brand' : (retailers.find(x => x.slug === slug) || {}).kind || 'other';
   const tally = {};
   for (const p of places) tally[p] = (tally[p] || 0) + 1;
-  const good = places.filter(p => ['brand', 'run-specialty', 'run-specialty-online'].includes(kindOf(p))).length;
+  const good = places.filter(p => ['brand', 'run-specialty', 'run-specialty-online', 'endurance-specialty-online', 'bike-specialty', 'bike-specialty-online'].includes(kindOf(p))).length;
   return { score: round1(pct(good, places.length)), margin: null, n: places.length, detail: { by_retailer: tally } };
 }
 

@@ -62,7 +62,7 @@ export function modelsIn(answer, matchers) {
  */
 export function modelView(runs, prompts, matchers, brandSlugs) {
   const sets = Object.fromEntries(prompts.map(p => [p.id, p.set_name || p.set]));
-  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'h2h'].includes(sets[r.prompt_id])).map(r => ({ r, models: modelsIn(r.answer, matchers) }));
+  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'need', 'h2h'].includes(sets[r.prompt_id])).map(r => ({ r, models: modelsIn(r.answer, matchers) }));
   const out = {};
   for (const slug of brandSlugs) {
     const mine = rel.filter(x => (x.r.mentions || []).some(m => m.brand_slug === slug));
@@ -132,7 +132,7 @@ export const STEERING = {
  */
 export function steeringView(runs, prompts, findBrands, matchers, brandSlugs) {
   const sets = Object.fromEntries(prompts.map(p => [p.id, p.set_name || p.set]));
-  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'h2h'].includes(sets[r.prompt_id]));
+  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'need', 'h2h'].includes(sets[r.prompt_id]));
   const hits = rel.map(r => {
     const segs = segments(r.answer, findBrands, matchers);
     const by = {};
@@ -179,13 +179,15 @@ export function versionCurrency(modelSlice, specRows) {
  * eligible, missed, substitutes: [{ slug, answers, share }], no_pick, groups: [{ id, label, missed, top: { slug, share } }] } }.
  */
 export function substitutionView(runs, prompts, brands, specRows, eligible, groupLabel = {}) {
-  const shoe = prompts.filter(p => (p.set_name || p.set) === 'shoe').map(p => ({ ...p, set_name: 'shoe' }));
+  // Need questions (set "shoe" for shoes, "need" for later categories); eligible() reads them as shoe-style prompts.
+  const shoe = prompts.filter(p => ['shoe', 'need'].includes(p.set_name || p.set)).map(p => ({ ...p, set_name: 'shoe' }));
   const byId = Object.fromEntries(shoe.map(p => [p.id, p]));
   const ok = runs.filter(r => r.status === 'ok' && byId[r.prompt_id]);
   const out = {};
   for (const b of brands) {
     const verified = specRows.filter(m => m.brand_slug === b.slug && m.verified_on);
-    const basis = verified.length ? 'verified' : 'draft';
+    // Categories without a spec sheet (gels) count every need question: eligible() says so too.
+    const basis = b.category && b.category !== 'shoes' ? 'all' : verified.length ? 'verified' : 'draft';
     const rows = verified.length ? verified : specRows.filter(m => m.brand_slug === b.slug);
     const el = ok.filter(r => eligible(b, byId[r.prompt_id], rows));
     const missed = el.filter(r => !(r.mentions || []).some(m => m.brand_slug === b.slug));
@@ -239,7 +241,7 @@ export function usesAttribute(a, text) {
  */
 export function attributeView(runs, prompts, findBrands, matchers, attrs, brandSlugs) {
   const sets = Object.fromEntries(prompts.map(p => [p.id, p.set_name || p.set]));
-  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'h2h'].includes(sets[r.prompt_id]));
+  const rel = runs.filter(r => r.status === 'ok' && ['shoe', 'need', 'h2h'].includes(sets[r.prompt_id]));
   const hits = rel.map(r => {
     const by = {};
     for (const s of segments(r.answer, findBrands, matchers)) for (const a of attrs) if (usesAttribute(a, s.text)) for (const b of s.brands) ((by[b] ||= new Set()).add(a.attribute));

@@ -8,6 +8,7 @@
 // Set spend caps at each provider too.
 
 import { readFileSync, existsSync, mkdirSync, appendFileSync } from 'node:fs';
+import { CATEGORIES, categoryOfRound } from '../src/2026-11-23-categories.js';
 import { parseCsv } from '../src/2026-11-21-csv.js';
 import { ENGINES, estimateCost } from './2026-11-21-engines.js';
 
@@ -21,7 +22,8 @@ const capUsd = Number(args['cap-usd'] || 150);
 const concurrency = Number(args.concurrency || 3);
 for (const e of engines) if (!ENGINES[e]) { console.error(`unknown engine ${e}; known: ${Object.keys(ENGINES).join(', ')}`); process.exit(1); }
 
-const prompts = parseCsv(readFileSync(new URL('../data/2026-11-21-prompts.csv', import.meta.url), 'utf8'))
+// Each category has its own prompts (src/2026-11-23-categories.js); the round id says which ("gels-2026-12").
+const prompts = parseCsv(readFileSync(new URL(`../data/${CATEGORIES[categoryOfRound(round)].prompts}`, import.meta.url), 'utf8'))
   .filter(p => !sets.length || sets.includes(p.set) || (sets.includes('pulse') && p.pulse === '1'))
   .filter(p => !ids.length || ids.includes(p.id))
   .slice(0, args.limit ? Number(args.limit) : undefined);

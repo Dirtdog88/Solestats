@@ -9,7 +9,33 @@ export const el = (tag, attrs = {}, ...kids) => {
   return n;
 };
 
-export const api = p => fetch(p).then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)));
+// The page's category (2026-11-23): running shoes, or energy gels on /fuel.html. From the body's data-cat, then ?cat=, then
+// (brand pages) the brand's own category through setCategory. Shoes need no parameter, so every shoe URL is unchanged.
+export const CATEGORY_LABEL = { shoes: 'Running shoes', gels: 'Energy gels' };
+const CATEGORY_HOME = { shoes: '/', gels: '/fuel.html' };
+let cat = (document.body && document.body.dataset.cat) || new URLSearchParams(location.search).get('cat') || 'shoes';
+if (!CATEGORY_LABEL[cat]) cat = 'shoes';
+export const category = () => cat;
+
+/** A site path with the page's category on it (API calls and links to the other pages); shoes and brand links as they are. */
+export function withCategory(p) {
+  if (cat === 'shoes' || !p.startsWith('/') || /[?&](cat|round)=/.test(p) || /^\/(brand|brief)\.html/.test(p) || p.startsWith('/download/')) return p;
+  if (p === '/') return CATEGORY_HOME[cat];
+  if (!p.startsWith('/api/') && !/^\/(h2h|share)\.html/.test(p)) return p;
+  return p + (p.includes('?') ? '&' : '?') + 'cat=' + cat;
+}
+
+/** Links already on the page (header, footer) follow the category. */
+function relink() { for (const a of document.querySelectorAll('a[href^="/"]')) a.setAttribute('href', withCategory(a.getAttribute('href'))); }
+
+/** Brand pages switch to the brand's category once it is known, before any other API call. */
+export function setCategory(c) {
+  if (!CATEGORY_LABEL[c] || c === cat) return;
+  cat = c; editionPromise = null; relink();
+}
+relink();
+
+export const api = p => fetch(withCategory(p)).then(r => r.ok ? r.json() : Promise.reject(new Error(r.status)));
 
 export const engineName = e => ENGINE_NAMES[e] || e;
 

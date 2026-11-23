@@ -30,6 +30,9 @@ Add nothing else without a strong reason.
 | `src/2026-11-22-demand.js` | pure: "Where the demand is" (2026-11-22): the phrase classifier, the weights from the signals, the per-brand view (weighted share of voice, fix first) |
 | `data/2026-11-22-demand-keywords.csv`, `data/2026-11-22-demand-terms.csv` | the search term behind each shoe prompt (Google Trends), and the phrase lists that sort posts and prompts into need groups |
 | `scripts/2026-11-22-demand-signals.js`, `scripts/2026-11-22-demand.js` | the collectors (Trends, Reddit, the conversation corpora; run on a PC) and the builder that writes `data/2026-11-22-demand.csv`; the score script reads that file when it exists |
+| `src/2026-11-23-categories.js` | categories (energy gels joined 2026-11-23): each one's data files; a round's category is in its id (`gels-2026-12`; plain month ids are shoes) |
+| `data/2026-11-23-gel-brands.csv`, `data/2026-11-23-gel-products.csv`, `data/2026-11-23-gel-seeds.csv` | the gel brands, products (for model mentions) and the seeds for the search-query collector (`scripts/2026-11-23-gel-queries.js`, run on a PC) |
+| `public/fuel.html` | the energy gel index: the front page with `data-cat="gels"`, noindex and unlinked until Alex announces it; gel brand pages and briefs send `X-Robots-Tag: noindex` |
 | `public/` | the site: index, brand page, method page, styles, scripts (built with `textContent`) |
 | `migrations/NNNN_name.sql` | D1 schema, `IF NOT EXISTS`, never edit an applied one |
 

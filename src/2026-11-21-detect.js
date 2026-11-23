@@ -29,7 +29,8 @@ export function canonicalUrl(url) {
 }
 
 // Brands whose name is an ordinary English word need a word boundary and the right case.
-const CASE_SENSITIVE = new Set(['on', 'sole-fitness', 'naked', 'polar', 'spring-energy']);
+// Gel brands (2026-11-23): GU, SiS, UCAN and UnTapped are short or ordinary words too.
+const CASE_SENSITIVE = new Set(['on', 'sole-fitness', 'naked', 'polar', 'spring-energy', 'gu', 'sis', 'ucan', 'untapped']);
 
 /** Build matchers once per brand list. aliases is "; separated" in the CSV. */
 export function brandMatchers(brands) {
@@ -189,11 +190,12 @@ export function findRoutes(answer, citations, brands, retailers) {
   const routes = new Map();
   const put = (slug, url, brandSlug = null) => { const key = slug + '|' + (brandSlug || ''); if (!routes.has(key)) routes.set(key, { retailer_slug: slug, brand_slug: brandSlug, url: url || null }); };
   for (const r of retailers) {
-    if (r.slug === 'local' || r.slug === 'brand-site') continue;
+    if (r.slug === 'local' || r.slug === 'local-bike' || r.slug === 'brand-site') continue;
     const re = new RegExp('\\b' + escapeRe(r.name.replace(/'s Sporting Goods$/, "'s")) + '\\b', 'i');
     if (re.test(answer)) put(r.slug);
   }
   if (/\b(local|specialty|independent|your nearest|brick[- ]and[- ]mortar) (running|run) (store|shop|retailer)\b/i.test(answer) || /\brun(?:ning)? specialty\b/i.test(answer)) put('local');
+  if (/\b(local|independent|your nearest) (bike|cycling) (store|shop)\b|\bbike shops?\b/i.test(answer)) put('local-bike'); // gels (2026-11-23)
   if (/\b(brand'?s? (?:own )?(?:web)?site|direct from (?:the brand|[A-Z][a-z]+)|\.com directly|manufacturer'?s site)\b/i.test(answer)) put('brand-site');
   for (const c of citations || []) {
     const k = classifyCitation(c.url, brands, retailers, c.title);

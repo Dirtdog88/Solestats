@@ -1,9 +1,11 @@
 // One brand's report card.
 const ORDER = ['overall', 'recommended', 'accurate', 'shoppable', 'sourced', 'routing'];
-import { el, engineName, showEdition, plainAnswer, defined, installTips, api, DEFINITIONS, money, overallStatus, fixBody } from './2026-11-21-common.js';
+import { el, engineName, showEdition, plainAnswer, defined, installTips, api, DEFINITIONS, money, overallStatus, fixBody, setCategory, CATEGORY_LABEL, category } from './2026-11-21-common.js';
 import { needRow } from './2026-11-22-needs.js';
 
 const PLACE_LABEL = { own: "Brand's own site", specialty: 'Run specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
+// Gels sell through run stores, endurance shops online (The Feed) and bike shops alike.
+const itemWord = () => category() === 'shoes' ? 'shoe' : 'product';
 
 /** A subject's score on each engine's answers alone, under the combined score; an engine more than 10 points below
  *  the others (a Top fix) is marked. */
@@ -77,7 +79,7 @@ async function substitutionCard(s, name) {
   const table = groups.length ? el('table', { class: 'mini' }, el('thead', {}, el('tr', {}, el('th', {}, 'Need'), el('th', { class: 'num' }, 'Left out'), el('th', {}, 'First pick instead'))),
     el('tbody', {}, ...groups.map(g => el('tr', {}, el('td', {}, g.label), el('td', { class: 'num' }, String(g.missed)), el('td', {}, `${nm[g.top.slug] || g.top.slug} ${Math.round(g.top.share)}%`))))) : '';
   return el('section', { class: 'card' }, el('h3', {}, defined('span', 'substitution', { text: `When not ${name}, who` })),
-    el('p', { class: 'muted small' }, `${name} was left out of ${s.missed} of the ${s.eligible} answers to questions where it has a credible shoe${s.basis === 'draft' ? ' (from the draft spec sheet, not yet checked by hand)' : ''}. The first pick in those answers:`),
+    el('p', { class: 'muted small' }, `${name} was left out of ${s.missed} of the ${s.eligible} answers to ${s.basis === 'all' ? 'the need questions' : `questions where it has a credible ${itemWord()}`}${s.basis === 'draft' ? ' (from the draft spec sheet, not yet checked by hand)' : ''}. The first pick in those answers:`),
     el('ul', { class: 'places' }, ...rows), table);
 }
 
@@ -202,10 +204,12 @@ async function main() {
   const r = await fetch(`/api/brands/${encodeURIComponent(slug)}`);
   if (!r.ok) { card.append(el('p', { class: 'empty' }, 'No such brand in the index.')); return; }
   const d = await r.json();
+  setCategory(d.brand.category); // the calls below read the brand's own category
+  if (d.brand.category !== 'shoes') PLACE_LABEL.specialty = 'Specialty (run, bike, endurance)';
   const allBrands = api('/api/brands').catch(() => ({ brands: [] })); // names for the cards below
   document.title = `SoleStats · ${d.brand.name}`;
   document.getElementById('name').textContent = d.brand.name;
-  document.getElementById('sub').textContent = [d.brand.category === 'shoes' ? 'Running shoes' : d.brand.category, TREATMENT[d.brand.treatment] || d.brand.treatment].join(' · ');
+  document.getElementById('sub').textContent = [CATEGORY_LABEL[d.brand.category] || d.brand.category, TREATMENT[d.brand.treatment] || d.brand.treatment].join(' · ');
   showEdition();
   const ov = await overallStatus();
   // ---- 1. The score: the AI score big, then one line per subject with its engine split.

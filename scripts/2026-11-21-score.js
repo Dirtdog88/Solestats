@@ -8,12 +8,15 @@ import { brandMatchers, findMentions } from '../src/2026-11-21-detect.js';
 import { GROUP_LABEL, needGrid, h2hGrid, sideOf, placesView, sourcesView, sourceFixes, engineSplit, engineFixes, engineHow, enginePatterns, topSourceDomains } from '../src/2026-11-22-insights.js';
 import { eligible, MIN_SOURCED_ANSWERS, placesFor, shareOfVoice, scoreRecommended, scoreSourced, scoreRouting, scoreAccurate, scoreShoppable, overall, routingTable } from '../src/2026-11-21-score.js';
 import { weightsFromRows, demandView } from '../src/2026-11-22-demand.js';
+import { CATEGORIES, categoryOfRound } from '../src/2026-11-23-categories.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
 if (!round || round.startsWith('--')) { console.error('usage: --round <id>'); process.exit(1); }
 const read = name => { try { return parseCsv(readFileSync(new URL(`../data/${name}`, import.meta.url), 'utf8')); } catch { return []; } };
-const brands = read('2026-11-21-brands.csv'), retailers = read('2026-11-21-retailers.csv'), models = read('2026-11-21-spec-sheet.csv').filter(m => m.verified_on);
-const prompts = read('2026-11-21-prompts.csv').map(p => ({ ...p, set_name: p.set }));
+// The round's category (its id: "gels-2026-12") picks its brands, prompts and product lists; retailers are shared.
+const CATKEY = categoryOfRound(round), CAT = CATEGORIES[CATKEY], SHOES = CATKEY === 'shoes';
+const brands = read(CAT.brands), retailers = read('2026-11-21-retailers.csv'), models = read(CAT.models).filter(m => m.verified_on);
+const prompts = read(CAT.prompts).map(p => ({ ...p, set_name: p.set }));
 const dir = new URL(`../data/rounds/${round}/`, import.meta.url);
 const runs = readFileSync(new URL('runs.scored.jsonl', dir), 'utf8').split('\n').filter(Boolean).map(l => JSON.parse(l));
 // The hand checks run once a quarter while rounds run monthly (Alex, 2026-11-21): a round without its own checks uses
@@ -49,30 +52,32 @@ for (const b of brands) {
   sqls.push(`INSERT OR REPLACE INTO scores (round_id,brand_slug,subject,score,margin,n,detail_json) VALUES (${[round, b.slug, 'share_of_voice', s.score, s.margin, s.n, JSON.stringify(s.detail)].map(sql).join(',')});`);
 }
 // Views for brand teams (src/2026-11-22-insights.js): one row per view and key, replaced whole each time.
-const shoeBrands = brands.filter(b => b.category === 'shoes').map(b => b.slug);
-const views = { needs: { '': needGrid(runs, prompts, shoeBrands) }, h2h: { '': h2hGrid(runs, prompts, brands.filter(b => b.category === 'shoes')) } };
+const catBrands = brands.filter(b => b.category === CATKEY);
+const shoeBrands = catBrands.map(b => b.slug); // this category's brands (the name is from when there were only shoes)
+const views = { needs: { '': needGrid(runs, prompts, shoeBrands) }, h2h: { '': h2hGrid(runs, prompts, catBrands) } };
 views.sourcing = { '': topSourceDomains(runs) };
 // Tier 2 extraction: models named, from every spec-sheet row (names need no verification; facts do).
-const matchers = modelMatchers(read('2026-11-21-spec-sheet.csv'), read('2026-11-22-model-aliases.csv'), brands);
+const matchers = modelMatchers(read(CAT.models), read(CAT.aliases), brands);
 views.models = modelView(runs, prompts, matchers, shoeBrands);
-const bm = brandMatchers(brands.filter(b => b.category === 'shoes'));
+const bm = brandMatchers(catBrands);
 const findBrands = t => findMentions(t, bm).map(m => m.brand_slug);
-views.attributes = attributeView(runs, prompts, findBrands, matchers, attributeMatchers(read('2026-11-22-attributes.csv')), shoeBrands);
+// The attribute phrase list is written for shoes; other categories get theirs later.
+if (CAT.attributes) views.attributes = attributeView(runs, prompts, findBrands, matchers, attributeMatchers(read(CAT.attributes)), shoeBrands);
 views.steering = steeringView(runs, prompts, findBrands, matchers, shoeBrands);
 // Version currency needs the current version from verified spec-sheet rows; until then each brand is pending.
-views.substitution = substitutionView(runs, prompts, brands.filter(b => b.category === 'shoes'), read('2026-11-21-spec-sheet.csv'), eligible, GROUP_LABEL);
-views.versions = Object.fromEntries(shoeBrands.map(s => [s, versionCurrency(views.models[s], read('2026-11-21-spec-sheet.csv'))]));
-views.places = placesView(runs, brands.filter(b => b.category === 'shoes'), retailers, placesFor);
+views.substitution = substitutionView(runs, prompts, catBrands, read(CAT.models), eligible, GROUP_LABEL);
+if (SHOES) views.versions = Object.fromEntries(shoeBrands.map(s => [s, versionCurrency(views.models[s], read(CAT.models))]));
+views.places = placesView(runs, catBrands, retailers, placesFor);
 // Each brand's side of its head-to-head pairs, for the /h2h grid rows and the brand page.
 for (const slug of views.h2h[''].brands) views.h2h[slug] = { sides: views.h2h[''].pairs.filter(p => p.a === slug || p.b === slug).map(p => sideOf(p, slug)) };
-views.sources = sourcesView(runs, prompts, brands.filter(b => b.category === 'shoes'), MIN_SOURCED_ANSWERS);
+views.sources = sourcesView(runs, prompts, catBrands, MIN_SOURCED_ANSWERS);
 const fixes = []; // [{ brand, subject, text }] in order of importance per brand
 // Engine split: Recommended, Sourced and Sale goes home on each engine's answers alone (Accurate and Shoppable come
 // from the hand checks, not the answers). An engine more than 10 points below the others is a fix.
 const SUBJECT_LABEL = { recommended: 'Recommended', sourced: 'Sourced', routing: 'Sale goes home' };
 views.engines = {};
 const engineFixList = [];
-for (const b of brands.filter(x => x.category === 'shoes')) {
+for (const b of catBrands) {
   views.engines[b.slug] = engineSplit(runs, { recommended: rs => scoreRecommended(b, prompts, rs, models), sourced: rs => scoreSourced(b, rs), routing: rs => scoreRouting(b, rs, retailers) });
   const ef = engineFixes(b.slug, views.engines[b.slug], s => SUBJECT_LABEL[s] || s);
   for (const f of ef) views.engines[b.slug][f.subject].low = f.engine; // the brand page marks it
@@ -92,12 +97,12 @@ for (const [slug, v] of Object.entries(views.sources)) fixes.push(...sourceFixes
 // Where the demand is (src/2026-11-22-demand.js): only once data/2026-11-22-demand.csv exists (npm run demand-signals on a
 // PC, then npm run demand). Credible groups per brand come from the spec sheet as in When not you, who: verified rows,
 // else the draft rows, else every group.
-const demandRows = read('2026-11-22-demand.csv');
+const demandRows = SHOES ? read('2026-11-22-demand.csv') : []; // demand weights are for shoes so far
 const weights = demandRows.length ? weightsFromRows(demandRows) : null;
 if (weights) {
   const specAll = read('2026-11-21-spec-sheet.csv');
   const eligibleGroups = {};
-  for (const b of brands.filter(x => x.category === 'shoes')) {
+  for (const b of catBrands) {
     const verified = specAll.filter(m => m.brand_slug === b.slug && m.verified_on);
     const rowsFor = verified.length ? verified : specAll.filter(m => m.brand_slug === b.slug);
     eligibleGroups[b.slug] = new Set(prompts.filter(p => p.set_name === 'shoe' && eligible(b, p, rowsFor)).map(p => p.group));
@@ -117,6 +122,7 @@ console.log(`${rows.length} scores for ${new Set(rows.map(r => r.brand)).size} b
 
 /** The given checks file from this round, else from the latest earlier monthly round (YYYY-MM) that has one. */
 function latestChecks(name) {
+  if (!SHOES) return { rows: [], round: null }; // the hand checks are shoe checks
   const rounds = readdirSync(new URL('../data/rounds/', import.meta.url)).filter(r => /^\d{4}-\d{2}$/.test(r) && r <= round).sort().reverse();
   if (!rounds.includes(round)) rounds.unshift(round);
   for (const r of rounds) {

@@ -2,13 +2,16 @@
 // citations, routes) plus an enriched runs.scored.jsonl the scorer uses.
 //   node scripts/2026-11-21-import.js --round 2026-12 > data/rounds/2026-12/import.sql
 import { readFileSync, writeFileSync } from 'node:fs';
+import { CATEGORIES, categoryOfRound } from '../src/2026-11-23-categories.js';
 import { parseCsv, sql } from '../src/2026-11-21-csv.js';
 import { brandMatchers, findMentions, markTopPick, pickWinner, classifyCitation, findRoutes, stripLinks, canonicalUrl } from '../src/2026-11-21-detect.js';
 
 const round = (process.argv.indexOf('--round') > -1 && process.argv[process.argv.indexOf('--round') + 1]) || null;
 if (!round) { console.error('usage: --round <id>'); process.exit(1); }
 const read = name => parseCsv(readFileSync(new URL(`../data/${name}`, import.meta.url), 'utf8'));
-const brands = read('2026-11-21-brands.csv'), retailers = read('2026-11-21-retailers.csv'), prompts = read('2026-11-21-prompts.csv');
+// The round's category picks its brands and prompts (src/2026-11-23-categories.js); retailers are shared.
+const CAT = CATEGORIES[categoryOfRound(round)];
+const brands = read(CAT.brands), retailers = read('2026-11-21-retailers.csv'), prompts = read(CAT.prompts);
 const byPrompt = Object.fromEntries(prompts.map(p => [p.id, p]));
 const matchers = brandMatchers(brands);
 const dir = new URL(`../data/rounds/${round}/`, import.meta.url);

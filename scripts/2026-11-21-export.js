@@ -2,6 +2,7 @@
 // citations, mentions, routes, scores). Raw API responses stay out (they are large and unreviewed).
 //   node scripts/2026-11-21-export.js --round 2026-12
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
+import { CATEGORIES, categoryOfRound } from '../src/2026-11-23-categories.js';
 import { toCsv } from '../src/2026-11-21-csv.js';
 
 const round = process.argv[process.argv.indexOf('--round') + 1];
@@ -14,6 +15,6 @@ writeFileSync(new URL('answers.csv', out), toCsv(runs.map(r => ({ run_id: r.id, 
 writeFileSync(new URL('mentions.csv', out), toCsv(runs.flatMap(r => (r.mentions || []).map(m => ({ run_id: r.id, prompt_id: r.prompt_id, engine: r.engine, repeat: r.repeat_no, brand: m.brand_slug, position: m.position, top_pick: m.top_pick }))), ['run_id', 'prompt_id', 'engine', 'repeat', 'brand', 'position', 'top_pick']));
 writeFileSync(new URL('routes.csv', out), toCsv(runs.flatMap(r => (r.routes || []).map(x => ({ run_id: r.id, prompt_id: r.prompt_id, engine: r.engine, repeat: r.repeat_no, retailer: x.retailer_slug, brand: x.brand_slug || '', url: x.url || '' }))), ['run_id', 'prompt_id', 'engine', 'repeat', 'retailer', 'brand', 'url']));
 for (const f of ['scores.csv']) { try { copyFileSync(new URL(f, dir), new URL(f, out)); } catch { /* not scored yet */ } }
-copyFileSync(new URL('../data/2026-11-21-prompts.csv', import.meta.url), new URL('prompts.csv', out));
+copyFileSync(new URL(`../data/${CATEGORIES[categoryOfRound(round)].prompts}`, import.meta.url), new URL('prompts.csv', out));
 copyFileSync(new URL('../data/2026-11-21-shoppable-checklist.csv', import.meta.url), new URL('shoppable-checklist.csv', out));
 console.log(`exported to public/data/${round}/`);

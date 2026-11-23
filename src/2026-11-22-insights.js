@@ -3,18 +3,28 @@
 // here hard-codes a round: every number comes from the runs passed in. The scoring rubric itself stays in
 // src/2026-11-21-score.js.
 
+import { isNeed } from './2026-11-23-categories.js';
+
 /** The runner-need groups of the shoe prompts, in the order the site shows them (the group column of prompts.csv). */
 export const GROUPS = [
   ['starting-out', 'Starting out'], ['budget', 'Budget'], ['cushion', 'Cushion'], ['stability', 'Stability'],
   ['fit', 'Fit and width'], ['racing', 'Racing'], ['trail', 'Trail'], ['drop', 'Drop and minimal'],
   ['conditions', 'Weather and surface'], ['people', 'Specific demographic'], ['brand', 'Which brand'],
 ];
-export const GROUP_LABEL = Object.fromEntries(GROUPS);
+/** Energy gels' need groups (2026-11-23; provisional, settled when the prompts are built from the search data). */
+export const GEL_GROUPS = [
+  ['marathon', 'Marathon'], ['half', 'Half marathon'], ['ultra', 'Ultra and long runs'], ['stomach', 'Stomach'],
+  ['caffeine', 'Caffeine'], ['high-carb', 'High carb'], ['natural', 'Natural and vegan'], ['taste', 'Taste and texture'],
+  ['how-to', 'How many and when'], ['budget', 'Budget'], ['brand', 'Which brand'],
+];
+// Every group of every category, for labels and the order the heat map shows them in.
+const ALL_GROUPS = [...GROUPS, ...GEL_GROUPS.filter(([id]) => !GROUPS.some(([g]) => g === id))];
+export const GROUP_LABEL = Object.fromEntries(ALL_GROUPS);
 
 const round1 = x => Math.round(x * 10) / 10;
 const pct = (a, b) => (b ? (100 * a) / b : 0);
 const sd = xs => { if (xs.length < 2) return 0; const m = xs.reduce((a, b) => a + b, 0) / xs.length; return Math.sqrt(xs.reduce((a, b) => a + (b - m) ** 2, 0) / (xs.length - 1)); };
-const groupOf = prompts => Object.fromEntries(prompts.filter(p => (p.set_name || p.set) === 'shoe' && (p.group || p.prompt_group)).map(p => [p.id, p.group || p.prompt_group]));
+const groupOf = prompts => Object.fromEntries(prompts.filter(p => isNeed(p) && (p.group || p.prompt_group)).map(p => [p.id, p.group || p.prompt_group]));
 
 /**
  * Brand by need: for each need group, the share of answers in that group that name each brand (once per answer),
@@ -25,7 +35,7 @@ export function needGrid(runs, prompts, brandSlugs) {
   const gOf = groupOf(prompts);
   const rel = runs.filter(r => r.status === 'ok' && gOf[r.prompt_id]);
   const repeats = [...new Set(rel.map(r => r.repeat_no))].sort();
-  const groups = GROUPS.filter(([id]) => rel.some(r => gOf[r.prompt_id] === id)).map(([id, label]) => ({ id, label, answers: rel.filter(r => gOf[r.prompt_id] === id).length }));
+  const groups = ALL_GROUPS.filter(([id]) => rel.some(r => gOf[r.prompt_id] === id)).map(([id, label]) => ({ id, label, answers: rel.filter(r => gOf[r.prompt_id] === id).length }));
   const brands = {};
   for (const slug of brandSlugs) {
     brands[slug] = {};
@@ -84,7 +94,7 @@ const bucketOf = (slug, retailers) => {
   if (slug === 'brand-site') return 'own';
   if (slug === 'amazon') return 'amazon';
   const kind = (retailers.find(r => r.slug === slug) || {}).kind;
-  if (kind === 'run-specialty' || kind === 'run-specialty-online') return 'specialty';
+  if (['run-specialty', 'run-specialty-online', 'endurance-specialty-online', 'bike-specialty', 'bike-specialty-online'].includes(kind)) return 'specialty';
   if (kind === 'big-box') return 'big_box';
   return 'other';
 };

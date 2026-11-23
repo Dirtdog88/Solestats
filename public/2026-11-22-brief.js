@@ -1,12 +1,16 @@
 // The one-page brand brief (Alex, 2026-11-22): the brand page's CMO view on one printable page, from the same API, so it
 // updates itself every edition. Built with textContent like every other page.
-import { el, api, engineName, fixBody } from './2026-11-21-common.js';
+import { el, api, engineName, fixBody, setCategory } from './2026-11-21-common.js';
 const SUBJ = [['recommended', 'Recommended'], ['sourced', 'Sourced'], ['routing', 'Sale goes home'], ['accurate', 'Accurate'], ['shoppable', 'Shoppable']];
 const STEPS = [5, 15, 30, 50, 70];
 const bar = (label, pct, text) => { const f = el('div', { class: 'f' }); f.style.width = `${Math.max(1, Math.min(100, pct))}%`; return el('li', {}, el('span', {}, label), el('div', { class: 't' }, f), el('span', { class: 'n' }, text ?? `${Math.round(pct)}%`)); };
 async function main() {
   const slug = new URLSearchParams(location.search).get('b');
-  const [d, all, ed] = await Promise.all([api(`/api/brands/${encodeURIComponent(slug)}`), api('/api/brands'), api('/api/edition')]);
+  const d = await api(`/api/brands/${encodeURIComponent(slug)}`);
+  setCategory(d.brand.category); // the names and the edition come from the brand's own category
+  const [all, ed] = await Promise.all([api('/api/brands'), api('/api/edition')]);
+  const item = d.brand.category === 'shoes' ? 'shoe' : 'product';
+  if (item !== 'shoe') { document.getElementById('eyebrow').textContent = 'SOLESTATS · THE ENERGY GEL AI INDEX'; document.getElementById('needs-h').textContent = 'By need'; }
   const names = Object.fromEntries(all.brands.map(b => [b.slug, b.name]));
   const name = d.brand.name;
   document.title = `SoleStats · ${name} brief`;
@@ -21,9 +25,9 @@ async function main() {
   if (s && s.missed) {
     document.getElementById('sub-h').textContent = `When not ${name}, who`;
     document.getElementById('subs').replaceChildren(...s.substitutes.slice(0, 4).map(x => bar(names[x.slug] || x.slug, x.share)));
-    document.getElementById('sub-note').textContent = `First pick in the ${s.missed} of ${s.eligible} answers that left ${name} out where it has a credible shoe.`;
+    document.getElementById('sub-note').textContent = item === 'shoe' ? `First pick in the ${s.missed} of ${s.eligible} answers that left ${name} out where it has a credible shoe.` : `First pick in the ${s.missed} of ${s.eligible} answers to the need questions that left ${name} out.`;
   }
-  const P = { own: "Brand's own site", specialty: 'Run specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
+  const P = { own: "Brand's own site", specialty: item === 'shoe' ? 'Run specialty' : 'Specialty', amazon: 'Amazon', big_box: 'Big box', other: 'Other' };
   if (d.places) document.getElementById('places').replaceChildren(...Object.entries(P).map(([k, l]) => bar(l, d.places.buckets[k]?.share || 0)));
   if (d.needs) document.getElementById('needs').replaceChildren(...d.needs.groups.map(g => { const c = d.needs.cells[g.id] || { share: 0 }; return el('div', {}, el('div', { class: 'l' }, g.label), el('div', { class: `c h${STEPS.filter(x => c.share >= x).length}` }, String(Math.round(c.share)))); }));
   // Where the demand is: the groups to fix first, by demand weight times the gap to the leader (src/2026-11-22-demand.js).
