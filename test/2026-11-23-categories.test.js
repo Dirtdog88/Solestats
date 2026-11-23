@@ -57,3 +57,18 @@ test('the gel brand list is all in category gels, with unique slugs', () => {
   assert.equal(new Set(rows.map(r => r.slug)).size, rows.length);
   assert.ok(rows.some(r => r.slug === 'gu' && r.treatment === 'full'));
 });
+
+test('the gel prompts: need questions name no brand, pairs name two gel brands, every need group is known', async () => {
+  const { GEL_GROUPS } = await import('../src/2026-11-22-insights.js');
+  const prompts = parseCsv(readFileSync(new URL('../data/2026-11-23-gel-prompts.csv', import.meta.url), 'utf8'));
+  const brands = parseCsv(readFileSync(new URL('../data/2026-11-23-gel-brands.csv', import.meta.url), 'utf8'));
+  assert.equal(new Set(prompts.map(p => p.id)).size, prompts.length);
+  for (const p of prompts) assert.ok(['need', 'h2h', 'retailer'].includes(p.set) && /^\d$/.test(p.pulse), `${p.id}: columns shifted (an unquoted comma?)`);
+  const names = brands.flatMap(b => [b.name, ...(b.aliases ? b.aliases.split(';') : [])]).map(s => s.trim()).filter(s => s.length > 2);
+  const groups = new Set(GEL_GROUPS.map(([id]) => id));
+  for (const p of prompts) {
+    if (p.set === 'h2h') { assert.ok([p.pair_a, p.pair_b].every(n => brands.some(b => b.name === n)), p.id); continue; }
+    for (const n of names) assert.ok(!new RegExp('\\b' + n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i').test(p.text), `${p.id} names ${n}`);
+    if (p.set === 'need') assert.ok(groups.has(p.group), `${p.id}: ${p.group}`);
+  }
+});

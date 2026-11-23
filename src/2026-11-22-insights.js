@@ -11,11 +11,12 @@ export const GROUPS = [
   ['fit', 'Fit and width'], ['racing', 'Racing'], ['trail', 'Trail'], ['drop', 'Drop and minimal'],
   ['conditions', 'Weather and surface'], ['people', 'Specific demographic'], ['brand', 'Which brand'],
 ];
-/** Energy gels' need groups (2026-11-23; provisional, settled when the prompts are built from the search data). */
+/** Energy gels' need groups (2026-11-23), from the search data (data/2026-11-23-gel-queries.csv): the group column of
+ *  data/2026-11-23-gel-prompts.csv. */
 export const GEL_GROUPS = [
   ['marathon', 'Marathon'], ['half', 'Half marathon'], ['ultra', 'Ultra and long runs'], ['stomach', 'Stomach'],
   ['caffeine', 'Caffeine'], ['high-carb', 'High carb'], ['natural', 'Natural and vegan'], ['taste', 'Taste and texture'],
-  ['how-to', 'How many and when'], ['budget', 'Budget'], ['brand', 'Which brand'],
+  ['how-to', 'How many and when'], ['basics', 'Do I need them'], ['budget', 'Budget'], ['brand', 'Which brand'],
 ];
 // Every group of every category, for labels and the order the heat map shows them in.
 const ALL_GROUPS = [...GROUPS, ...GEL_GROUPS.filter(([id]) => !GROUPS.some(([g]) => g === id))];
