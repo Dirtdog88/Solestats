@@ -101,3 +101,14 @@ trends,google,best running shoes 2026,546.7,"US, 12 months",2026-11-23,anchor ru
 trends,google,what shoes do elite marathoners wear,0,"US, 12 months",2026-11-23,anchor running shoes for flat feet
 trends,google,best trail running shoe brands,0,"US, 12 months",2026-11-23,anchor running shoes for flat feet
 trends,google,stylish running shoes,38.5,"US, 12 months",2026-11-23,anchor running shoes for flat feet
+corpus,allenai/WildChat-1M,cushion,15,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,brand,5,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,racing,27,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,trail,5,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,fit,10,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,stability,2,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,people,81,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,conditions,21,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,drop,1,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,budget,4,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
+corpus,allenai/WildChat-1M,starting-out,1,whole dataset,2026-11-23,172 of 184 running-shoe prompts sorted
