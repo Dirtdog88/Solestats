@@ -147,7 +147,7 @@ function draftSpecSheet(results) {
   const cols = Object.keys(rows[0] || { id: 1 });
   let filled = 0;
   for (const row of rows) {
-    if (row.verified_on || /^skip/i.test(row.notes || '')) continue; // confirmed, or left out on purpose
+    if (row.verified_on || /^(skip|reviewed)/i.test(row.notes || '')) continue; // confirmed, reviewed, or left out on purpose
     const rec = results[row.brand_slug]?.models?.find(m => m.id === row.id);
     if (!rec || !rec.facts) continue;
     for (const k of ['carbs_g', 'caffeine_mg', 'sodium_mg', 'price_usd', 'vegan']) if ((row[k] === '' || row[k] == null) && rec.facts[k] != null) { row[k] = String(rec.facts[k]); filled++; }
