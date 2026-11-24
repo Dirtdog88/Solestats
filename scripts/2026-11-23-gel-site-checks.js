@@ -34,6 +34,8 @@ const HEADERS = { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) Ap
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 // Hosts where the brand's US shop is not www.<domain>.
 const HOST = { untapped: 'untapped.cc', ucan: 'ucan.co' };
+// Products whose page path does not carry their name (found in the second run's gel_urls, 2026-11-24).
+const SITE_PATH = { 'huma/chia': '/products/original-flavors', 'naak/ultra': '/products/boost-gel-30-neutral', 'untapped/maple': '/product/maple-untapped-energy-gel' };
 
 async function get(url, budget) {
   if (budget.left-- <= 0) return { url, status: 'skipped', body: '' };
@@ -74,7 +76,8 @@ async function checkBrand(b) {
   if (homePage) urls.push(...homePage.links.map(l => l.href).filter(h => { try { return new URL(h).hostname === new URL(home.url).hostname; } catch { return false; } }));
 
   for (const m of products.filter(p => p.brand_slug === b.slug)) {
-    const cands = gelProductUrlsFor(m, b.name, urls, 2);
+    const fixed = SITE_PATH[m.id] ? urls.filter(u => { try { return new URL(u).pathname.replace(/\/$/, '') === SITE_PATH[m.id]; } catch { return false; } }) : [];
+    const cands = fixed.length ? fixed.slice(0, 1) : gelProductUrlsFor(m, b.name, urls, 2);
     const rec = { id: m.id, name: m.name, candidates: cands };
     // Nothing matched: keep the URLs that look like gels, so the product list's names can be fixed.
     if (!cands.length) rec.gel_urls = [...new Set(urls.filter(u => /gel|shot|fuel|energy/i.test(u) && !/blog|news|article/i.test(u)))].slice(0, 40);
