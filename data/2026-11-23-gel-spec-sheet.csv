@@ -1,13 +1,13 @@
 id,brand_slug,name,carbs_g,caffeine_mg,sodium_mg,price_usd,vegan,verified_on,source_url,notes
-gu/energy-gel,gu,GU Energy Gel,22,,,2.00,yes,,https://guenergy.com/products/energy-gel,"page: 21-23 g carbs, 60-125 mg sodium and caffeine vary by flavour (not asked); $48 for 24 and $16 for 8"
-gu/roctane,gu,Roctane,20,,,3.00,yes,,https://guenergy.com/products/roctane-energy-gel,"page: 19-21 g carbs, 125-180 mg sodium and caffeine vary by flavour (not asked); $72 for 24"
-gu/liquid,gu,GU Liquid Energy,24,,75,2.50,yes,,https://guenergy.com/products/liquid-energy,page: caffeine in select flavours only (not asked); $30 for 12
+gu/energy-gel,gu,GU Energy Gel,22,20,125,2.00,yes,,https://guenergy.com/products/energy-gel,"page: 21-23 g carbs, 60-125 mg sodium and caffeine vary by flavour (not asked); $48 for 24 and $16 for 8"
+gu/roctane,gu,Roctane,20,70,180,3.00,yes,,https://guenergy.com/products/roctane-energy-gel,"page: 19-21 g carbs, 125-180 mg sodium and caffeine vary by flavour (not asked); $72 for 24"
+gu/liquid,gu,GU Liquid Energy,24,40,75,2.50,yes,,https://guenergy.com/products/liquid-energy,page: caffeine in select flavours only (not asked); $30 for 12
 maurten/gel-100,maurten,Gel 100,25,0,,3.75,,,https://www.maurten.com/products/gel-100-box,page: caffeine is only in the separate Gel 100 CAF 100; sodium and vegan not stated; $45 for 12
 maurten/gel-160,maurten,Gel 160,40,0,,4.58,,,https://www.maurten.com/products/gel-160-box,"page: 40 g per serving, no caffeine in Gel 160; sodium and vegan not stated; $55 for 12"
-sis/go-isotonic,sis,GO Isotonic,22,,,,,,https://www.scienceinsport.com/us/go-isotonic-energy-gels,page: 22 g carbs; pack size for $13.99 not shown; caffeine and sodium not stated
+sis/go-isotonic,sis,GO Isotonic,22,,,13.99,,,https://www.scienceinsport.com/us/go-isotonic-energy-gels,page: 22 g carbs; pack size for $13.99 not shown; caffeine and sodium not stated
 sis/beta-fuel,sis,Beta Fuel,,,,,,,,"skip: the script found the Beta Fuel range page, not the gel page; no facts confirmed"
-precision/pf30,precision,PF 30,30,,,3.12,yes,,https://www.precisionhydration.com/us/en/products/pf-30-gel/,"page: 30 g carbs, vegan; $12.49 for 4; caffeine only in the separate PF 30 Caffeine"
-precision/pf90,precision,PF 90,,,,6.66,yes,,https://www.precisionhydration.com/us/en/products/pf-90-gel/,"page: $19.99 for 3, vegan; the 90 g is in the name but not in the page text, so not asked"
+precision/pf30,precision,PF 30,30,100,,3.12,yes,,https://www.precisionhydration.com/us/en/products/pf-30-gel/,"page: 30 g carbs, vegan; $12.49 for 4; caffeine only in the separate PF 30 Caffeine"
+precision/pf90,precision,PF 90,,100,,6.66,yes,,https://www.precisionhydration.com/us/en/products/pf-90-gel/,"page: $19.99 for 3, vegan; the 90 g is in the name but not in the page text, so not asked"
 spring-energy/awesome-sauce,spring-energy,Awesome Sauce,,,,,,,,
 spring-energy/canaberry,spring-energy,Canaberry,,,,,,,,
 spring-energy/hill-aid,spring-energy,Hill Aid,,,,,,,,
@@ -15,9 +15,9 @@ honey-stinger/gel,honey-stinger,Honey Stinger Gel,24,,45,1.67,no,,https://honeys
 clif/shot,clif,Clif Shot,,,,,,,,
 huma/chia,huma,Huma Chia Energy Gel,,,,,,,,
 naak/ultra,naak,Ultra Energy Gel,,,,,,,,
-neversecond/c30,neversecond,C30,30,0,200,,yes,,https://never2.com/products/c30-ice-gel,"from the C30 Ice Gel page, which lists the C30 spec: 30 g carbs, 200 mg sodium, 0 mg caffeine, vegan"
+neversecond/c30,neversecond,C30,30,0,200,5,yes,,https://never2.com/products/c30-ice-gel,"from the C30 Ice Gel page, which lists the C30 spec: 30 g carbs, 200 mg sodium, 0 mg caffeine, vegan"
 neversecond/c90,neversecond,C90,,,,,,,,"skip: C90 is a drink mix, not a gel"
-ucan/edge,ucan,Edge,,0,,,,,https://ucan.co/products/edge-energy,"page: ""No sugar. No caffeine.""; carbs and pack size not in the page text"
-hammer/gel,hammer,Hammer Gel,22,,,1.60,yes,,https://hammernutrition.com/products/hammer-gel,page: 21-22 g carbs; sodium 25-30 mg and caffeine vary by flavour (not asked); single serving $1.60; vegan except Nocciola
-muir/gel,muir,Muir Energy Gel,,,,,,,,
+ucan/edge,ucan,Edge,,0,,37.95,,,https://ucan.co/products/edge-energy,"page: ""No sugar. No caffeine.""; carbs and pack size not in the page text"
+hammer/gel,hammer,Hammer Gel,22,50,25,1.60,yes,,https://hammernutrition.com/products/hammer-gel,page: 21-22 g carbs; sodium 25-30 mg and caffeine vary by flavour (not asked); single serving $1.60; vegan except Nocciola
+muir/gel,muir,Muir Energy Gel,,,,21,,,https://muirenergy.com/products/strawberry-energy-gel,
 untapped/maple,untapped,Maple Energy Gel,,,,,,,,
