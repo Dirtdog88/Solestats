@@ -1,6 +1,6 @@
 {
  "round": "gels-2026-11",
- "generated_at": "2026-11-24T04:16:14.942Z",
+ "generated_at": "2026-11-24T04:26:28.575Z",
  "brands": {
   "gu": {
    "brand": "gu",
@@ -1350,7 +1350,7 @@
   "huma": {
    "brand": "huma",
    "origin": "https://www.humagel.com",
-   "checked_at": "2026-11-24T04:15:09.083Z",
+   "checked_at": "2026-11-24T04:25:49.039Z",
    "requests": [
     {
      "what": "home",
@@ -1383,6 +1383,11 @@
      "status": 200
     },
     {
+     "what": "product huma/chia",
+     "url": "https://humagel.com/products/original-flavors",
+     "status": 200
+    },
+    {
      "what": "topic",
      "url": "https://humagel.com/pages/learn",
      "status": 200
@@ -1401,31 +1406,31 @@
    "items": {
     "crawlers_allowed": {
      "result": 1,
-     "note": "/products/: GPTBot allowed (*); ClaudeBot allowed (*); Google-Extended allowed (*); PerplexityBot allowed (*)"
+     "note": "/products/original-flavors: GPTBot allowed (*); ClaudeBot allowed (*); Google-Extended allowed (*); PerplexityBot allowed (*)"
     },
     "product_structured_data": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "price_readable": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "nutrition_in_text": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "ingredients_in_text": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "flavours_listed": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "stock_exposed": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "fueling_guidance": {
      "result": 1,
@@ -1455,41 +1460,69 @@
     {
      "id": "huma/chia",
      "name": "Huma Chia Energy Gel",
-     "candidates": [],
-     "gel_urls": [
-      "https://humagel.com/",
-      "https://humagel.com/products/huma-headband",
-      "https://humagel.com/products/variety-bundles",
-      "https://humagel.com/products/original-flavors",
-      "https://humagel.com/products/plus-flavors",
-      "https://humagel.com/products/hydration-low-calorie-drink-mix-packets",
-      "https://humagel.com/products/energy-gels-ultra",
-      "https://humagel.com/products/custom-bundle",
-      "https://humagel.com/agents.md",
-      "https://humagel.com/collections/varieties",
-      "https://humagel.com/collections/huma-xl",
-      "https://humagel.com/collections/huma-recovery",
-      "https://humagel.com/collections/huma-race-packages",
-      "https://humagel.com/collections/huma-products",
-      "https://humagel.com/collections/huma-swag",
-      "https://humagel.com/collections/homepage",
-      "https://humagel.com/pages/about",
-      "https://humagel.com/search",
-      "https://humagel.com/customer_authentication/redirect?locale=en&region_country=US",
-      "https://humagel.com/cart",
-      "https://humagel.com/pages/learn",
-      "https://humagel.com/pages/wholesale",
-      "https://humagel.com/pages/international",
-      "https://humagel.com/pages/race-event-inquiries",
-      "https://humagel.com/pages/press-kit",
-      "https://humagel.com/pages/faq",
-      "https://humagel.com/pages/returns",
-      "https://humagel.com/pages/contact",
-      "https://humagel.com/pages/accessibility-statement",
-      "https://humagel.com/policies/terms-of-service",
-      "https://humagel.com/policies/privacy-policy",
-      "https://humagel.com/pages/data-sharing-opt-out"
-     ]
+     "candidates": [
+      "https://humagel.com/products/original-flavors"
+     ],
+     "url": "https://humagel.com/products/original-flavors",
+     "status": 200,
+     "evidence": {
+      "title": "Energy Gels - Original &ndash; Huma Gel",
+      "h1": "Energy Gels - Original",
+      "ld": {
+       "products": 10,
+       "names": [
+        "Energy Gels - Original",
+        "Energy Gels - Original - Strawberries",
+        "Energy Gels - Original - Apples & Cinnamon"
+       ],
+       "prices": [
+        "2.5",
+        "2.50"
+       ],
+       "currencies": [
+        "USD"
+       ],
+       "availability": [
+        "InStock"
+       ],
+       "offers": 9
+      },
+      "structured": true,
+      "price": true,
+      "stock": true,
+      "nutrition": {
+       "carbs": true,
+       "sodium": false,
+       "caffeine": true,
+       "calories": true
+      },
+      "nutrition_in_text": true,
+      "ingredients_in_text": true,
+      "flavours_listed": true,
+      "snippets": {
+       "carbs": [
+        "an at pace. How many carbohydrates and calories per gel? 24–25g of carbohydrates and 100 calories per pouch. Which flavors contain "
+       ],
+       "sodium": [],
+       "caffeine": [],
+       "ingredients": [
+        "gy Gels - Original Increase quantity for Energy Gels - Original Add to cart Vegan Gluten Free Made in USA Description Hüma energy gels combine 100% all-natural ingredients and are made with real fruit, making Hüma the best-tasting energy gels on the market. Finally say goodbye to those upset tummy aches! THEY ACTUALLY TASTE GOOD!"
+       ],
+       "price": [
+        "Skip to content Free shipping on orders $60+ Try 3 gels free with your first order ",
+        "- Original Real food gels Regular price $2.50 Sale price $2.50 Regular price Unit pri"
+       ]
+      }
+     },
+     "facts": {
+      "carbs_g": 25,
+      "sodium_mg": null,
+      "caffeine_mg": 0,
+      "calories": 24,
+      "price_usd": 2.5,
+      "vegan": "yes"
+     },
+     "text": "Energy Gels - Original &ndash; Huma Gel Skip to content Free shipping on orders $60+ Try 3 gels free with your first order Shop Learn New to Fueling? Why Gels? Why Hüma? Explore Our Story Log in Cart 0 Shop Learn Learn New to Fueling? Why Gels? Why Hüma? Explore Explore Our Story Log in Facebook Instagram YouTube Home All Products Energy Gels - Original Skip to product information Open media 0 in modal Open media 1 in modal Open media 2 in modal Open media 3 in modal Open media 4 in modal Open media 5 in modal Open media 6 in modal Open media 7 in modal Open media 8 in modal Open media 9 in modal Open media 10 in modal Open media 11 in modal Open media 12 in modal Open media 13 in modal Open media 14 in modal Open media 15 in modal Open media 16 in modal Open media 17 in modal Open media 18 in modal Open media 19 in modal Open media 20 in modal Open media 21 in modal Open media 22 in modal Open media 23 in modal Open media 24 in modal Open media 25 in modal Open media 26 in modal Open media 27 in modal Open media 28 in modal Open media 29 in modal Open media 30 in modal Open media 31 in modal Open media 32 in modal Open media 33 in modal Open media 34 in modal Open media 35 in modal Open media 36 in modal Open media 37 in modal Open media 38 in modal Open media 39 in modal Energy Gels - Original Energy Gels - Original Real food gels Regular price $2.50 Sale price $2.50 Regular price Unit price / per Single Pouch: Strawberries Strawberries Apples & Cinnamon Blueberries Double-Shot Mocha Chocolate Lemonade Mangoes Raspberries Quantity Decrease quantity for Energy Gels - Original Increase quantity for Energy Gels - Original Add to cart Vegan Gluten Free Made in USA Description Hüma energy gels combine 100% all-natural ingredients and are made with real fruit, making Hüma the best-tasting energy gels on the market. Finally say goodbye to those upset tummy aches! THEY ACTUALLY TASTE GOOD! No, really. Each flavor must pass the ultimate test: do our nephews think it tastes good? (barfing sounds = fail) FEEL GOOD ABOUT YOUR INGREDIENTS Fruit Puree. Chia Seeds. Brown Rice Syrup. You don't need a PhD to pronounce the ingredients in Hüma Gel. KEEP YOUR STOMACH HAPPY Give your stomach something it can easily process and watch your stomach problems disappear. ACHIEVE YOUR BEST PERFORMANCE—NATURALLY! We started with the ancient fuel of the Tarahumara Indian tribe, history's premiere ultramarathoners, and combined it with advanced sports nutrition research to bring you Hüma Gel. Our gels use a 2:1 glucose to fructose ratio that maximizes carbohydrate uptake. Ingredients Strawberry Puree, Cane Sugar, Brown Rice Syrup, Water, Chia Seed Powder, Strawberry Concentrate, Sea Salt, Citric Acid Apple Puree (Water, Apple Puree Concentrate), Cane Sugar, Brown Rice Syrup, Chia Seed Powder, Sea Salt, Citric Acid, Cinnamon Blueberry Puree, Cane Sugar, Brown Rice Syrup, Water, Chia Seed Powder, Blueberry Concentrate, Sea Salt, Citric Acid Brown Rice Syrup, Cane Sugar, Brown Rice Syrup, Water, Cocoa Powder, Chia Seed Powder, Coffee Powder, Sea Salt, Natural Caffeine, Vanilla Extract Cane Sugar, Brown Rice Syrup, Lemon Juice, Water, Chia Seed Powder, Sea Salt, Natural Caffeine Mango Puree, Brown Rice Syrup, Cane Sugar, Chia Seed Powder, Sea Salt, Citric Acid Raspberry Puree, Cane Sugar, Brown Rice Syrup, Water, Chia Seed Powder, Sea Salt, Citric Acid, Raspberry Concentrate, Natural Caffeine How to Use 1 Packet 15 minutes prior to exercise. 1 Packet every 30-45 minutes during exercise. Always consume with water. what makes Hüma different Real food ingredients. Real benefits. 1 Tastes like food, not chemistry Real fruit, real flavors. 2 Easy on the stomach Real food digests cleanly — no maltodextrin osmolality spike. 3 Smooth, easy to swallow Soluble fiber from milled chia gives the gel a clean, smooth consistency. 4 Natural performance Real-food carbs in the 2:1 ratio your body uses best. Learn More What's in the pouch What’s actually in this gel. And why. Fruit purée All the flavor comes from real fruit. Strawberries, mangoes, blueberries — blended in, not \"flavored\" in. brown rice syrup The main source of glucose — a fast-acting carb. cane sugar Half glucose, half fructose. Two fast carbs at once. chia seeds (milled) Soluble fiber for a smooth gel consistency. sea salt Replaces the sodium you lose in sweat. Most gels aren't made this way hüma gel vs . the rest Typical Gel taste Tastes like something you want to eat Tastes like something you endure GI impact Easy on the stomach Common cause of mid-race GI distress consistency Smooth, easy-to-swallow consistency Thick or sticky carb source Real-food carbs, 2:1 ratio Maltodextrin and fructose syrup engineered to similar ratio Customer Reviews frequently asked questions When and how often should I take a gel? Take one 15 minutes before exercise, then one every 30–45 minutes during. Most athletes use 1–3 gels per hour depending on how hard and how long you're going. What does it taste and feel like? Closer to thin applesauce than syrup. Real fruit tastes like real fruit — it goes down clean at pace. How many carbohydrates and calories per gel? 24–25g of carbohydrates and 100 calories per pouch. Which flavors contain caffeine, and how much? Raspberry, Lemonade, and Chocolate each have 25mg. Doubleshot Mocha has 100mg. Strawberry, Apple Cinnamon, Blueberry, and Mango are caffeine-free. How does Hüma compare to other energy gels? The main difference is the source. Most gels rely on processed carbohydrates — maltodextrin, dextrose, fructose. Hüma uses real food: fruit purée, brown rice syrup, cane sugar, chia seeds, sea salt. Is Original vegan and gluten-free? Yes. Every Original flavor is vegan, gluten-free, dairy-free, and soy-free — no artificial flavors, sweeteners, or colors. Do I need to take it with water? We recommend it. Water helps with absorption and keeps you hydrated — but the gel works either way. Can I use these for activities other than endurance sports? We recommend it. Water helps with absorption and keeps you hydrated — but the gel works either way. company Wholesale International Distributors Race Partners Press Kit help FAQ Shipping/Returns Contact Blog Military Discount sign up to try 3 gels free with your first order Email You have already subscribed! Facebook Instagram YouTube &copy; 2026 Huma Gel Accessibility Statement Terms of Service Privacy Policy Data Sharing Opt-Out Your cart 0 You are eligible for free shipping. Spend $0.00 more to reach free shipping! Your cart is currently empty. Shop our products: All Products Order note Estimate Shipping Coupon Order note Order note Apply Estimate Shipping Country/region Province Postal/ZIP code Calculate Coupon Coupon Apply Estimated total $0.00 USD Taxes and shipping calculated at checkout View cart Check out Search Search Clear Choosing a selection results in a full page refresh. Opens in a new window."
     }
    ],
    "sitemap_urls": 16
@@ -1749,7 +1782,7 @@
   "naak": {
    "brand": "naak",
    "origin": "https://www.naak.com",
-   "checked_at": "2026-11-24T04:15:20.828Z",
+   "checked_at": "2026-11-24T04:25:49.040Z",
    "requests": [
     {
      "what": "home",
@@ -1802,6 +1835,11 @@
      "status": 200
     },
     {
+     "what": "product naak/ultra",
+     "url": "https://www.naak.com/products/boost-gel-30-neutral",
+     "status": 200
+    },
+    {
      "what": "topic",
      "url": "https://www.naak.com/collections/hydration-guide-1",
      "status": 200
@@ -1820,31 +1858,31 @@
    "items": {
     "crawlers_allowed": {
      "result": 1,
-     "note": "/products/: GPTBot allowed (*); ClaudeBot allowed (*); Google-Extended allowed (*); PerplexityBot allowed (*)"
+     "note": "/products/boost-gel-30-neutral: GPTBot allowed (*); ClaudeBot allowed (*); Google-Extended allowed (*); PerplexityBot allowed (*)"
     },
     "product_structured_data": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "price_readable": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "nutrition_in_text": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "ingredients_in_text": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "flavours_listed": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "stock_exposed": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "fueling_guidance": {
      "result": 1,
@@ -1876,49 +1914,73 @@
     {
      "id": "naak/ultra",
      "name": "Ultra Energy Gel",
-     "candidates": [],
-     "gel_urls": [
-      "https://www.naak.com/products/boost-gel-30-neutral",
-      "https://www.naak.com/products/boost-gel-30-peach-tea",
-      "https://www.naak.com/products/boost-gel-30-salted-lemon",
-      "https://www.naak.com/products/energy-bar-caffeine-free-pack-1",
-      "https://www.naak.com/products/boost-gels-30-sample-pack",
-      "https://www.naak.com/products/energy-waffle-salted-caramel-gl-1x10-waffle",
-      "https://www.naak.com/zh-hans/products/boost-gel-30-neutral",
-      "https://www.naak.com/zh-hans/products/boost-gel-30-peach-tea",
-      "https://www.naak.com/zh-hans/products/boost-gel-30-salted-lemon",
-      "https://www.naak.com/zh-hans/products/energy-bar-caffeine-free-pack-1",
-      "https://www.naak.com/zh-hans/products/boost-gels-30-sample-pack",
-      "https://www.naak.com/zh-hans/products/energy-waffle-salted-caramel-gl-1x10-waffle",
-      "https://www.naak.com/zh-hant/products/boost-gel-30-neutral",
-      "https://www.naak.com/zh-hant/products/boost-gel-30-peach-tea",
-      "https://www.naak.com/zh-hant/products/boost-gel-30-salted-lemon",
-      "https://www.naak.com/zh-hant/products/energy-bar-caffeine-free-pack-1",
-      "https://www.naak.com/zh-hant/products/boost-gels-30-sample-pack",
-      "https://www.naak.com/zh-hant/products/energy-waffle-salted-caramel-gl-1x10-waffle",
-      "https://www.naak.com/collections/ultra-energy",
-      "https://www.naak.com/collections/energy-waffles",
-      "https://www.naak.com/collections/energy",
-      "https://www.naak.com/collections/ultra-energy-purees",
-      "https://www.naak.com/collections/gels",
-      "https://www.naak.com/collections/boost-energy",
-      "https://www.naak.com/zh-hans/collections/ultra-energy",
-      "https://www.naak.com/zh-hans/collections/energy-waffles",
-      "https://www.naak.com/zh-hans/collections/energy",
-      "https://www.naak.com/zh-hans/collections/ultra-energy-purees",
-      "https://www.naak.com/zh-hans/collections/gels",
-      "https://www.naak.com/zh-hans/collections/boost-energy",
-      "https://www.naak.com/zh-hant/collections/ultra-energy",
-      "https://www.naak.com/zh-hant/collections/energy-waffles",
-      "https://www.naak.com/zh-hant/collections/energy",
-      "https://www.naak.com/zh-hant/collections/ultra-energy-purees",
-      "https://www.naak.com/zh-hant/collections/gels",
-      "https://www.naak.com/zh-hant/collections/boost-energy",
-      "https://www.naak.com/pages/ultra-energy-science",
-      "https://www.naak.com/collections/road-running/products/boost-gel-30-neutral",
-      "https://www.naak.com/collections/road-running/products/boost-gel-30-salted-lemon",
-      "https://www.naak.com/collections/road-running/products/boost-gel-30-peach-tea"
-     ]
+     "candidates": [
+      "https://www.naak.com/products/boost-gel-30-neutral"
+     ],
+     "url": "https://www.naak.com/products/boost-gel-30-neutral",
+     "status": 200,
+     "evidence": {
+      "title": "näak BOOST™ Energy Gel 30 ‧ Neutral\n &ndash; Näak NA",
+      "h1": "BOOST™ Gel 30 · Neutral",
+      "ld": {
+       "products": 1,
+       "names": [
+        "BOOST™ Gel 30 · Neutral"
+       ],
+       "prices": [
+        "4",
+        "48"
+       ],
+       "currencies": [
+        "USD"
+       ],
+       "availability": [
+        "InStock"
+       ],
+       "offers": 2
+      },
+      "structured": true,
+      "price": true,
+      "stock": true,
+      "nutrition": {
+       "carbs": true,
+       "sodium": true,
+       "caffeine": true,
+       "calories": false
+      },
+      "nutrition_in_text": true,
+      "ingredients_in_text": true,
+      "flavours_listed": true,
+      "snippets": {
+       "carbs": [
+        "ers Fast & steady energy, fight flavor fatigue All-natural, 30g carbs + sodium gel with neutral taste to avoid flavor fatigue an",
+        "our Flavor Match your taste to your needs Built on the same 60g carb + sodium base, each flavor delivers a unique functional ben"
+       ],
+       "sodium": [
+        "eetness and no added flavour to avoid flavour fatigue, with 125mg of sodium. Best for fight flavour fatigue Sodium Content Sweetness Ge",
+        " Key moments Sodium Content Sweetness Gel 30 · Salted Lemon 250mg sodium Twice the sodium of our neutral gel with a zesty lemon flav"
+       ],
+       "caffeine": [
+        "flavour fatigue Sodium Content Sweetness Gel 30 · Peach Tea 100MG Caffeine Natural peach tea flavour, ideal when you want to cut throu"
+       ],
+       "ingredients": [
+        " Näak NA { try { return new URL(location.href).searchParams.get('cartDrawer') === 'open' ? 'cart' : null; } catch (_) { return null; } })(), productInfoPanel: 'ingredients', megaMenuIds: ['shop', 'explore'], megaMenuTab: 'shop', isMegaMenuOpen(id) { return id ? this.openDrawer === id : this.megaMenuIds.includes(this.openDrawer); "
+       ],
+       "price": [
+        "nsity ∙ Natural carbohydrate-rich drink $48.00 Journal Hardrock 100: Legend, Resilienc",
+        " empty. Our best sellers Näak Gift Card $20.00 $20.00 Add Adding… Complete Mix ‧ Disco"
+       ]
+      }
+     },
+     "facts": {
+      "carbs_g": 30,
+      "sodium_mg": 125,
+      "caffeine_mg": 100,
+      "calories": null,
+      "price_usd": 4,
+      "vegan": "yes"
+     },
+     "text": "näak BOOST™ Energy Gel 30 ‧ Neutral &ndash; Näak NA { try { return new URL(location.href).searchParams.get('cartDrawer') === 'open' ? 'cart' : null; } catch (_) { return null; } })(), productInfoPanel: 'ingredients', megaMenuIds: ['shop', 'explore'], megaMenuTab: 'shop', isMegaMenuOpen(id) { return id ? this.openDrawer === id : this.megaMenuIds.includes(this.openDrawer); }, isCartOpen() { return this.openDrawer === 'cart'; }, isFacetsOpen() { return this.openDrawer === 'facets'; }, isSearchOpen() { return this.openDrawer === 'search'; }, isLocaleOpen() { return this.openDrawer === 'locale'; }, openMegaMenu(id) { this.megaMenuTab = id; this.openDrawer = id; }, toggleMegaMenu(id) { if (this.isMegaMenuOpen() && this.megaMenuTab === id) { this.closeDrawers(); } else { this.megaMenuTab = id; this.openDrawer = id; } }, openCart() { this.openDrawer = 'cart'; }, openLocale() { this.openDrawer = 'locale'; window.dispatchEvent(new CustomEvent('boilerplate:locale-drawer:open')); }, openFacets() { this.openDrawer = 'facets'; window.dispatchEvent(new CustomEvent('boilerplate:collection-facets:sync', { detail: { open: true } })); }, closeDrawers() { if (this.openDrawer === 'facets') { window.dispatchEvent(new CustomEvent('boilerplate:collection-facets:sync', { detail: { open: false } })); } if (this.openDrawer === 'search') { window.dispatchEvent(new CustomEvent('boilerplate:search-drawer:close')); } this.openDrawer = null; }, openProductDrawer(id, panel) { if (id === 'product-reviews') { this.productInfoPanel = 'reviews'; this.openDrawer = 'product-details'; window.dispatchEvent(new CustomEvent('boilerplate:product-drawer-reviews:open')); return; } if (id === 'product-info') { if (panel) this.productInfoPanel = panel; this.openDrawer = 'product-details'; if (panel === 'reviews') { window.dispatchEvent(new CustomEvent('boilerplate:product-drawer-reviews:open')); } return; } if (id === 'product-flavor') { window.dispatchEvent(new CustomEvent('boilerplate:product-flavor-drawer:open')); } if (panel) this.productInfoPanel = panel; this.openDrawer = id; if (panel === 'reviews') { window.dispatchEvent(new CustomEvent('boilerplate:product-drawer-reviews:open')); } }, openSearch() { this.openDrawer = 'search'; }, toggleSearch() { if (this.openDrawer === 'search') { this.closeDrawers(); } else { this.openSearch(); window.dispatchEvent(new CustomEvent('boilerplate:search-drawer:open')); } }, toggleCart() { if (this.openDrawer === 'cart') { this.closeDrawers(); } else { window.dispatchEvent(new CustomEvent('boilerplate:cart-drawer:open')); } } } \" @boilerplate:cart-drawer:open.window=\"openCart()\" @boilerplate:cart-drawer:close.window=\"closeDrawers()\" @boilerplate:locale-drawer:open.window=\"openDrawer = 'locale'\" @boilerplate:search-drawer:open.window=\"openSearch()\" @boilerplate:collection-facets:open.window=\"openFacets()\" @boilerplate:collection-facets:close.window=\"closeDrawers()\" class=\"relative min-h-lvh bg-white text-black template-product\" :class=\"openDrawer ? 'overflow-hidden' : ''\" > Skip to content New BOOST™ Drink Mix Flavour. Shop Now Which product is right for you? Take the quiz Find a store EN / $ scrollThreshold()\" @scroll.window.passive=\"scrolled = window.scrollY > scrollThreshold()\" :class=\"{ 'is-scrolled': scrolled }\" aria-label=\"Näak NA\" > Shop Explore UTMB® World Series Nutrition Calculator Search Account Shop Explore UTMB Partner Nutrition Gels Drink Mixes Purees Waffles Bars Recovery Mixes Packs ULTRA™ energy line BOOST™ energy line RECOVERY™ line HYDRATION™ line New Sales Gear & Accessories Calculate your nutrition plan The NÄAKLAB's nutrition guide näak x UTMB® World Series Science Our Story Athletes Sustainability Blog UTMB x Näak Frequently Asked Questions Login Find a store EN / $ Close Search Search 0 ? 'search-drawer__field--active' : ''\" > $el.focus(), 350)\" > Recommended for you ULTRA Drink Mix 60 · Neutral High intensity ∙ Natural carbohydrate-rich drink $48.00 Journal Hardrock 100: Legend, Resilience, and High-Altitude Peaks in Colorado Gatza Trail: 120g/h Carb Mastery Fueling Tips EcoTrail Paris: Victory in the City of Light Fueling Tips 90km du Mont-Blanc: A lesson in Heat Management and Adapting carb intake Fueling Tips Lavaredo Ultra Trail 50K: Chasing Joy and Victory in the Dolomites Fueling Tips Trail 100 Andorra by UTMB: Conquering Heat, Injury, and High-Altitude Self-Sufficiency Fueling Tips 0\" x-cloak style=\"display: none;\" > See all results Cart Your cart is empty. Our best sellers Näak Gift Card $20.00 $20.00 Add Adding… Complete Mix ‧ Discovery Pack $14.00 Add Adding… All our products See more A gift for you New Hydration Pack 2 sachets (Lemon - Peach Tea) Free $3.00 Add This product could not be added. Please try again. 48h Shipping 30-day Returns Secure payment Best seller 1 / 5 Best seller Home / BOOST™ Energy Line / Gel 30 · Neutral Gel Drink Mix BOOST™ Gel 30 · Neutral 4.7 / 23 athlete reviews / +3k orders Fast & steady energy, fight flavor fatigue All-natural, 30g carbs + sodium gel with neutral taste to avoid flavor fatigue and jelly texture that is easy to swallow at high intensity. The packaging you will receive may be different. Flavour Unflavored Which flavor to choose? Gel 30 · Neutral Gel 30 · Peach Tea Gel 30 · Salted Lemon Choose Your Flavor Match your taste to your needs Built on the same 60g carb + sodium base, each flavor delivers a unique functional benefit to optimize your performance. Gel 30 · Neutral Neutral Taste Low sweetness and no added flavour to avoid flavour fatigue, with 125mg of sodium. Best for fight flavour fatigue Sodium Content Sweetness Gel 30 · Peach Tea 100MG Caffeine Natural peach tea flavour, ideal when you want to cut through the sugar and need help to increase your focus. Best for Key moments Sodium Content Sweetness Gel 30 · Salted Lemon 250mg sodium Twice the sodium of our neutral gel with a zesty lemon flavour, perfect for hot days and heavy sweaters. Best for Heavy sweaters Sodium Content Sweetness Still hesitating? Calculate your nutrition needs → Continuer with Quantity Quantity x1 x12 x24 - + Add / $4.00 Adding… Added Notify me Shipped within 48h Ingredients and nutrition facts FAQ näak+ advantages Get your personalized nutrition plan Often purchased with Loading recommendations… No recommendations at the moment. Product Details reviews (23) Ingredients and nutrition facts FAQ Näak+ benefits 4.7 Overall rating from 23 athletes +3k orders (0) (0) (0) Load more reviews Composition Ingredients Ingredients : Sugars (Agave powder, dehydrated tapioca syrup, dextrose), Water, Sea salt, Agar agar, Potassium citrate, Citric acid, Potassium sorbate. Made in an Informed Sport certified facility. Nutrition facts Dietary info Vegan* Gluten Free* GMO Free* Eggs Free* Fish Free* Peanuts Free* Tree nuts Free* Soy Free* Milk Free* Celery Free* Mustard Free* Sesame Free* *but not independently certified as such Everything you need to know What is näak BOOST™ Gel 30? näak BOOST™ Gel 30 is an optimized carb energy gel designed to fuel endurance athletes. Each portion delivers 30g of carbohydrates to fuel moderate to high-intensity efforts without using artificial ingredients or heavy flavorings. What does näak BOOST™ Gel 30 Neutral taste like? It has a very mild, ultra-low sweetness and no added flavoring, making it very easy to swallow. It is specifically formulated to eliminate \"flavor fatigue\" and that sticky, sugary mouth feel that often causes runners to reject sweet gels and sports drinks late in a marathon or trail race. When should I use näak BOOST™ Gel 30? Use BOOST™ Gel 30 during any high-intensity training session, long run, or race where you need fast-acting and stable energy. Engineered for endurance, it is equally effective for runners, cyclists, and triathletes. Incorporating it into your training sessions also allows you to train your gut, ensuring your digestive system is fully adapted and race-day ready. What is the difference between näak BOOST™ Gel 30 Neutral and other sports gels? Unlike other sports gels, näak BOOST™ Neutral provides 30g of carbohydrate and is made with 100% natural ingredients that are inherently gentler on the gut. It has a neutral taste profile to deliver energy while avoiding flavor fatigue. Traditional gels, by contrast, often rely on lower carb doses packed with heavy artificial flavors, chemical additives, and high sweetness, which can quickly saturate your palate and cause nausea during long endurance efforts.. Is näak BOOST™ Gel 30 easy to digest? Yes. It is specifically formulated with 100% natural, clean ingredients that are gentle on the stomach under intense running conditions. This prevents the stomach bloating and severe GI distress common with lower-quality, highly-processed sugar gels. How do I use näak BOOST™ Gel 30 and how much do I need? Take 1 gel every 30min during your activity. For endurance efforts longer than 90 minutes, you should aim for 60 to 90 grams of carbohydrates per hour depending on your intensity and tolerance. To easily hit this target, you can mix and combine different products from the BOOST™ energy system to customize your hourly intake and meet your specific goals. What allergens does näak BOOST™ Gel 30 Neutral contain? näak BOOST™ Gel 30 Neutral is free from all major allergens. It is 100% plant-based, vegan, non-GMO, and naturally gluten-free. It uses only clean-label, natural ingredients to ensure it is completely safe and gentle for runners with food sensitivities or strict dietary preferences. Is näak BOOST™ Gel 30 Informed Sport certified? Yes. Every production batch of Näak BOOST™ gels is rigorously tested and certified by the Informed Sport program. This guarantees the mix is entirely free of over 250 WADA (World Anti-Doping Agency) prohibited substances, giving competitive, elite, and drug-tested athletes total peace of mind at the start line. What types of carbs are in näak BOOST™ Gel 30? The gel uses a precise combination of simple and complex carbohydrates, specifically utilizing a scientifically backed 2:1 glucose-to-fructose ratio. It delivers this optimal ratio by blending tapioca maltodextrin with agave syrup. This specific combination of ingredients ensures a rapid, immediate energy delivery to start, followed by a slow, controlled release of glucose to prevent sharp blood sugar spikes and subsequent energy crashes. Save 15% with a Näak subscription Enjoy your favourite products with subscriber-only benefits. / 15% off every recurring order / Modify, pause or cancel your subscription anytime / Early access to new products / Exclusive access to sales and limited offers / Partner perks with our partners / Invitations to exclusive events / Tips and recommendations from our ambassador athletes / Access to our nutrition calculator and sync with your sports watch All clear · Continue BOOST™ Gel 30 · Neutral Fuel your high-intensity efforts with this easy-to-swallow gel that delivers 30g of carbs and 125mg of sodium with a neutral taste to avoid flavour fatigue. Fast-absorbing energy and gut-friendly, with steady output. At UTMB® World Series aid stations Tested for banned substances 30 g Carbohydrates 125 mg Sodium 2:1 ratio Glucose:Fructose Full nutrition facts Sensory profile Taste Light Intense Sweetness Low High Saltiness Low High Acidity Low High Specifications Target Usage High-Intensity ‧ Racing ‧ Performance ‧ Endurance Target Activities Trail Running ‧ Road Running ‧ Cycling ‧ Triathlon Recommended Hourly Target 60-120g carbs / hour Carbohydrates Base 60G ‧ 2:1 ‧ Agave Syrup + Tapioca Maltodextrine Taste Property Neutral Flavor ‧ Low Sweetness ‧ Avoid Flavor Fatigue Additional information Gluten free · soy free · lactose free · vegan · nut free · non-GMO How to use Take 1 Gel every 30 minutes.* Customize your intake to meet your carb and caffeine needs. *Based on a minimal recommendation of 60g of carbohydrates per hour for high-intensity efforts and up to 400mg of caffein a day BOOST™ energy system, engineered for performance. All-natural ingredients Real-food energy, designed for a clean and efficient delivery. Optimized carb fuel system Simple and complex sources for steady, sustained energy. Purpose-driven flavours Each with their functional benefits Informed Sports certified for a total peace of mind. « BOOST™ gels are delicious, super easy to take, and give you that extra push to keep climbing. » Courtney Dauwalter 1st Hardrock 2026 · Trail / Ultra Frequently purchased together Loading recommended products… 2× less water, 2× less CO2. Syrup Agave syrup vs corn syrup*: 2× less water to produce 1kg of syrup *Agave powder comes from agave syrup and fructose is mostly made from corn syrup. Starch Tapioca starch* vs Corn starch: uses 2× less CO2 to produce the same amount of starch. *Dehydrated tapioca syrup is made from from starch. LEARN MORE FAQ · All you need to know Reviews (23) 4.7 Get your personalized nutrition plan Free delivery from 70$ Fast, tracked worldwide shipping. Natural & sustainable ingredients Selected for their effectiveness and low impact. Flexible subscription Change, pause or cancel anytime. JOIN THE NÄAK+ COMMUNITY Save 15% on every subscription order, unlock members-only benefits, access exclusive events, and more. I accept the Privacy Policy . SHOP ULTRA™ BOOST™ RECOVERY™ Packs Accessories No-waste deals HELP Frequently Asked Questions (FAQ) Track my order My account Contact us Services Find a store NÄAK+ membership program Become a distributor Become an ambassador Events request Careers NÄAK UTMB® World Series x näak Our Story Blog SHOP ULTRA™ BOOST™ RECOVERY™ Packs Accessories No-waste deals HELP Frequently Asked Questions (FAQ) Track my order My account Contact us Services Find a store NÄAK+ membership program Become a distributor Become an ambassador Events request Careers NÄAK UTMB® World Series x näak Our Story Blog Terms of service Privacy policy &copy; 2026 Näak NA by Tony. Find a store EN / $ Choose a region You are currently shopping from United States, and your order will be billed in USD ($). United States Search a country English Confirm choice"
     }
    ],
    "sitemap_urls": 415
@@ -2804,7 +2866,7 @@
   "untapped": {
    "brand": "untapped",
    "origin": "https://www.untapped.cc",
-   "checked_at": "2026-11-24T04:15:23.235Z",
+   "checked_at": "2026-11-24T04:25:49.040Z",
    "requests": [
     {
      "what": "home",
@@ -2857,6 +2919,11 @@
      "status": 200
     },
     {
+     "what": "product untapped/maple",
+     "url": "https://untapped.cc/product/maple-untapped-energy-gel/",
+     "status": 200
+    },
+    {
      "what": "topic",
      "url": "https://untapped.cc/learn/",
      "status": 200
@@ -2875,31 +2942,31 @@
    "items": {
     "crawlers_allowed": {
      "result": 1,
-     "note": "/products/: GPTBot allowed (*); ClaudeBot allowed (*); Google-Extended allowed (*); PerplexityBot allowed (*)"
+     "note": "/product/maple-untapped-energy-gel/: GPTBot allowed (*); ClaudeBot allowed (*); Google-Extended allowed (*); PerplexityBot allowed (*)"
     },
     "product_structured_data": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "price_readable": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "nutrition_in_text": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 0,
+     "note": "0 of 1 product pages"
     },
     "ingredients_in_text": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "flavours_listed": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 0,
+     "note": "0 of 1 product pages"
     },
     "stock_exposed": {
-     "result": null,
-     "note": "no product page could be read"
+     "result": 1,
+     "note": "1 of 1 product pages"
     },
     "fueling_guidance": {
      "result": 1,
@@ -2930,20 +2997,66 @@
     {
      "id": "untapped/maple",
      "name": "Maple Energy Gel",
-     "candidates": [],
-     "gel_urls": [
-      "https://untapped.cc/product/maple-untapped-energy-gel/",
-      "https://untapped.cc/product/salted-cocoa-untapped-energy-gel/",
-      "https://untapped.cc/product/salted-raspberry-untapped-energy-gel/",
-      "https://untapped.cc/product/coffee-untapped-energy-gel/",
-      "https://untapped.cc/product-category/untappeds-energy-gels/",
-      "https://untapped.cc/american-birkebeiner-fuel-guide/",
-      "https://untapped.cc/all-natural-ingredients-to-keep-you-fueled/",
-      "https://untapped.cc/untapped-fuels-runners/",
-      "https://untapped.cc/learn/how-to-fuel-with-untapped/",
-      "https://untapped.cc/untapped-and-run-vermont-fueling-for-success/",
-      "https://untapped.cc/marine-corps-marathon-race-day-fueling-guide/"
-     ]
+     "candidates": [
+      "https://untapped.cc/product/maple-untapped-energy-gel/"
+     ],
+     "url": "https://untapped.cc/product/maple-untapped-energy-gel/",
+     "status": 200,
+     "evidence": {
+      "title": "Maple UnTapped - UnTapped",
+      "h1": "Maple UnTapped",
+      "ld": {
+       "products": 1,
+       "names": [
+        "Maple UnTapped"
+       ],
+       "prices": [
+        "2.49"
+       ],
+       "currencies": [
+        "USD"
+       ],
+       "availability": [
+        "InStock"
+       ],
+       "offers": 1
+      },
+      "structured": true,
+      "price": true,
+      "stock": true,
+      "nutrition": {
+       "carbs": false,
+       "sodium": true,
+       "caffeine": false,
+       "calories": true
+      },
+      "nutrition_in_text": false,
+      "ingredients_in_text": true,
+      "flavours_listed": false,
+      "snippets": {
+       "carbs": [],
+       "sodium": [
+        " , Amount per serving: Calories 100 , Total Fat 0g (0% DV), Sodium 5mg (0% DV), Total Carb. 26g (9% DV), Total Sugars 25g (50% DV)"
+       ],
+       "caffeine": [],
+       "ingredients": [
+        "ition, naturally occurring. No more licking that chemical-laden, peanut butter like substance from the roof of your mouth. Low Glycemic Pure Maple Syrup Single Ingredient Additional information Weight 0.094 lbs Dimensions 6.5 &times; 1.25 &times; 0.25 in Highlighted Features Low Glycemic, Pure Maple Syrup, Single Ingredient Ingr"
+       ],
+       "price": [
+        "d - UnTapped Free Shipping on US Orders $75+ Skip to content Shop Shop All UnTapped",
+        " (4x20ct) Clear Maple UnTapped Quantity $ 2.49 &ndash; $ 44.95 Price range: $2.49 thro"
+       ]
+      }
+     },
+     "facts": {
+      "carbs_g": null,
+      "sodium_mg": 5,
+      "caffeine_mg": null,
+      "calories": 100,
+      "price_usd": 2.49,
+      "vegan": null
+     },
+     "text": "Maple UnTapped - UnTapped Free Shipping on US Orders $75+ Skip to content Shop Shop All UnTappeds – Energy Gels Recovery Drink Mix Waffles Mapleaid Hydration Pure Vermont Maple Syrup Sample & Variety Packs Gear & Accessories Gift Card Learn Overview The UnTapped Story How to Fuel with UnTapped Benefits of Maple Syrup as Athletic Nutrition Allergen Information Meet Our Athletes Blog Sponsorship FAQ The UnTapped Team Buy Locally Contact Us Wholesale Wholesale Wholesale Overview My account Start a New Order Marketing Assets Education Resources Header Utility Area Search Submit Search Home \\ All Products \\ UnTappeds – Energy Gels \\ Maple UnTapped Maple UnTapped SKU: MU Pure maple syrup. All natural energy. It’s ready to go wherever you go. Packet/Box Options Choose an option 1 Packet 5 Packets 10 Packets 20 Packets/1 Carton 20ct Carton 60 Packets/3 Cartons 80ct Case (4x20ct) Clear Maple UnTapped Quantity $ 2.49 &ndash; $ 44.95 Price range: $2.49 through $44.95 Add to cart Add to Wishlist Description Here it is. Pure maple syrup. All natural energy. It’s ready to go wherever you go. The perfect alternative to traditional, gooey, sticky, gels. Maple Syrup is water-soluble and has the macronutrients you are looking for in sports nutrition, naturally occurring. No more licking that chemical-laden, peanut butter like substance from the roof of your mouth. Low Glycemic Pure Maple Syrup Single Ingredient Additional information Weight 0.094 lbs Dimensions 6.5 &times; 1.25 &times; 0.25 in Highlighted Features Low Glycemic, Pure Maple Syrup, Single Ingredient Ingredients Organic Pure Vermont Maple Syrup Nutrition Facts Nutrition Facts Servings: 1 Serving Size: 1 Packet (38g) , Amount per serving: Calories 100 , Total Fat 0g (0% DV), Sodium 5mg (0% DV), Total Carb. 26g (9% DV), Total Sugars 25g (50% DV), Protein 0g ( 0% DV), Calcium 39mg (2% DV), Iron 0.2mg (1% DV), Potassium 82mg ( 2% DV), Thiamin (2% DV), Riboflavin (15% DV), Magnesium (2% DV), Zinc (6% DV), Manganese (35% DV) Reviews Write a Review 5.0 out of 5 Submit a Review Related Products Shop All Products Add to Wishlist Salted Cinnamon Spice UnTapped Bulk Bottle - 16 Servings $ 29.95 Add to Wishlist Coffee UnTapped Bulk Bottle - 16 Servings $ 29.95 Add to Wishlist Maple UnTapped Bulk Bottle - 16 Servings $ 29.95 Add to Wishlist Salted Citrus UnTapped $ 2.49 &ndash; $ 44.95 Price range: $2.49 through $44.95 Add to Wishlist Organic Pure Vermont Maple Syrup $ 13.95 &ndash; $ 34.95 Price range: $13.95 through $34.95 Facebook Instagram Twitter P.O. Box 2 Richmond, VT 05477 hello@untapped.cc Help & Info My Account Track an Order UnTapped Gift Card Shipping Information Returns and Refunds Contact Us Industry Purchase Application Quick Links Shop All Products Wholesale Athlete Stories The UnTapped Story Find an UnTapped Near You Athlete Sponsorships Affiliate Program 2025 Event Calendar Blog Join our list for news, sales, & promotions Accepted Payment Methods: Discover Mastercard Visa American Express Apple Pay Google Pay Facebook Instagram Twitter P.O. Box 2 Richmond, VT 05477 hello@untapped.cc &copy; 2022 UnTapped. Privacy Policy Web Accessibility Terms of Use Affiliate Program"
     }
    ],
    "sitemap_urls": 448
